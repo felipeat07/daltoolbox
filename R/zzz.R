@@ -1,9 +1,12 @@
 ## global reference to scipy (will be initialized in .onLoad)
 scipy <- NULL
 
+#'@import reticulate
 .onLoad <- function(libname, pkgname) {
   ## use superassignment to update global reference to scipy
 #  scipy <<- reticulate::import("scipy", delay_load = TRUE)
+  reticulate::source_python('./inst/python/ts_tlstm.py', envir=parent.frame())
+
 }
 
 
@@ -18,6 +21,7 @@ scipy <- NULL
 ## Depois disso é possível rodar o exemplo:
 # https://nbviewer.org/github/eogasawara/mydal/blob/main/examples_timeseries/ts_tlstm.ipynb
 
+#'@import reticulate
 #'@export
 load_python_file <- function() {
 #  path <- paste(system.file(package="dal"), "ts_tlstm.py", sep="/")
