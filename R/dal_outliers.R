@@ -15,7 +15,7 @@
 outliers <- function(alpha = 1.5) {
   obj <- dal_transform()
   obj$alpha <- alpha
-  class(obj) <- append("outliers", class(obj))
+  class(obj) <- append("outliers", class(obj))    
   return(obj)
 }
 
@@ -44,7 +44,7 @@ fit.outliers <- function(obj, data) {
       lq1 <- q[2] - obj$alpha*IQR
       hq3 <- q[4] + obj$alpha*IQR
     }
-  }
+  } 
   obj$lq1 <- lq1
   obj$hq3 <- hq3
   return(obj)
@@ -57,7 +57,7 @@ transform.outliers <- function(obj, data) {
   hq3 <- obj$hq3
   if (is.matrix(data) || is.data.frame(data)) {
     idx = rep(FALSE, nrow(data))
-    for (i in 1:ncol(data))
+    for (i in 1:ncol(data)) 
       if (!is.na(lq1[i]) && !is.na(hq3[i]))
         idx = idx | (!is.na(data[,i]) & (data[,i] < lq1[i] | data[,i] > hq3[i]))
   }

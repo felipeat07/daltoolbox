@@ -7,11 +7,10 @@ if (!exists("repos_name"))
   repos_name <<- getOption("repos")[1]
 
 setrepos <- function(repos=repos) {
-  repos_name <<- repos
+  repos_name <<- repos 
 }
 
-loadlibrary <- function(packagename)
-{
+loadlibrary <- function(packagename) {
   if (!require(packagename, character.only = TRUE))
   {
     install.packages(packagename, repos=repos_name, dep=TRUE, verbose = FALSE)
@@ -33,7 +32,7 @@ dal_transform <- function() {
   obj$log <- FALSE
   obj$debug <- FALSE
   obj$reproduce <- FALSE
-  attr(obj, "class") <- "dal_transform"
+  attr(obj, "class") <- "dal_transform"  
   return(obj)
 }
 
@@ -43,7 +42,7 @@ dal_transform <- function() {
 #'@details
 #'
 #'@param obj object: .
-#'@param ... optional arguments.
+#'@param ... optional arguments./ further arguments passed to or from other methods.
 #'@return
 #'@examples
 #'@export
@@ -62,7 +61,7 @@ fit.default <- function(obj) {
 #'@details
 #'
 #'@param obj object: .
-#'@param ... optional arguments.
+#'@param ... optional arguments./ further arguments passed to or from other methods.
 #'@return
 #'@examples
 #'@export
@@ -81,7 +80,7 @@ transform.default <- function(obj) {
 #'@details
 #'
 #'@param obj object: .
-#'@param ... optional arguments.
+#'@param ... optional arguments./ further arguments passed to or from other methods.
 #'@return
 #'@examples
 #'@export
@@ -118,7 +117,7 @@ optimize.default <- function(obj) {
 #'@details
 #'
 #'@param obj object: .
-#'@param ... optional arguments.
+#'@param ... optional arguments./ further arguments passed to or from other methods.
 #'@return
 #'@examples
 #'@export

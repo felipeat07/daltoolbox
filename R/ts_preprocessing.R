@@ -18,8 +18,13 @@
 ts_normalize <- function(remove_outliers = TRUE) {
   obj <- dal_transform()
   obj$remove_outliers <- remove_outliers
-  class(obj) <- append("ts_normalize", class(obj))
+  class(obj) <- append("ts_normalize", class(obj))    
   return(obj)
+}
+
+#'@export
+describe.ts_normalize <- function(obj) {
+  return("none")  
 }
 
 # ts_gminmax
@@ -33,7 +38,7 @@ ts_normalize <- function(remove_outliers = TRUE) {
 #'@export
 ts_gminmax <- function(remove_outliers = TRUE) {
   obj <- ts_normalize(remove_outliers)
-  class(obj) <- append("ts_gminmax", class(obj))
+  class(obj) <- append("ts_gminmax", class(obj))    
   return(obj)
 }
 
@@ -49,10 +54,10 @@ fit.ts_gminmax <- function(obj, data) {
     out <- fit(out, data)
     data <- transform(out, data)
   }
-
+  
   obj$gmin <- min(data)
   obj$gmax <- max(data)
-
+  
   return(obj)
 }
 
@@ -91,14 +96,16 @@ inverse_transform.ts_gminmax <- function(obj, data, x=NULL) {
 #'@export
 ts_diff <- function(remove_outliers = TRUE) {
   obj <- ts_normalize(remove_outliers)
-  class(obj) <- append("ts_diff", class(obj))
+  class(obj) <- append("ts_diff", class(obj))    
   return(obj)
 }
 
+#'@export
 describe.ts_diff <- function(obj) {
   return("diff")
 }
 
+#'@export
 fit.ts_diff <- function(obj, data) {
   data <- data[,2:ncol(data)]-data[,1:(ncol(data)-1)]
   obj <- fit.ts_gminmax(obj, data)
@@ -162,7 +169,7 @@ inverse_transform.ts_diff <- function(obj, data, x=NULL) {
 #'@export
 ts_swminmax <- function(remove_outliers = TRUE) {
   obj <- ts_normalize(remove_outliers)
-  class(obj) <- append("ts_swminmax", class(obj))
+  class(obj) <- append("ts_swminmax", class(obj))    
   return(obj)
 }
 
@@ -220,60 +227,52 @@ inverse_transform.ts_swminmax <- function(obj, data, x=NULL) {
 #'@description
 #'@details
 #'
-#'@param ema logical: .
 #'@param remove_outliers logical: if TRUE outliers will be removed.
+#'@param nw integer: .
 #'@return
 #'@examples
 #'@export
-ts_an <- function(ema = FALSE, remove_outliers = TRUE) {
+ts_an <- function(remove_outliers = TRUE, nw = 0) {
   obj <- ts_normalize(remove_outliers)
-  obj$ema <- ema
-  class(obj) <- append("ts_an", class(obj))
+  obj$an_mean <- mean
+  obj$nw <- nw
+  class(obj) <- append("ts_an", class(obj))    
   return(obj)
 }
 
-#'@title
-#'@description
-#'@details
-#'
-#'@param ema logical: .
-#'@param remove_outliers logical: if TRUE outliers will be removed.
-#'@param
-#'@return
-#'@examples
 #'@export
-ts_ane <- function(ema=TRUE, remove_outliers = TRUE) {
-  obj <- ts_normalize(remove_outliers)
-  obj$ema <- ema
-  class(obj) <- append("ts_an", class(obj))
-  return(obj)
-}
-
 describe.ts_an <- function(obj) {
-  if (obj$ema)
-    return("ane")
-  else
+  if (obj$nw == 0)
     return("an")
+  else
+    return(sprintf("an%d", obj$nw))
+}
+
+#'@export
+ma.ts_an <- function(obj, data, func) {
+  if (obj$nw != 0) {
+    cols <- ncol(data) - ((obj$nw-1):0)
+    data <- data[,cols]
+    
+  }
+  an <- apply(data, 1, func, na.rm=TRUE)
 }
 
 #'@export
 fit.ts_an <- function(obj, data) {
   input <- data[,1:(ncol(data)-1)]
-  if (obj$ema)
-    an <- apply(input, 1, exp_mean)
-  else
-    an <- apply(input, 1, mean)
+  an <- ma.ts_an(obj, input, obj$an_mean) 
   data <- data - an #
-
+  
   if (obj$remove_outliers) {
     out <- outliers()
     out <- fit(out, data)
     data <- transform(out, data)
   }
-
+  
   obj$gmin <- min(data)
   obj$gmax <- max(data)
-
+  
   return(obj)
 }
 
@@ -286,12 +285,9 @@ transform.ts_an <- function(obj, data, x=NULL) {
     return(x)
   }
   else {
-    if (obj$ema)
-      an <- apply(data, 1, exp_mean)
-    else
-      an <- apply(data, 1, mean)
+    an <- ma.ts_an(obj, data, obj$an_mean) 
     data <- data - an #
-    data <- (data - obj$gmin) / (obj$gmax-obj$gmin)
+    data <- (data - obj$gmin) / (obj$gmax-obj$gmin) 
     attr(data, "an") <- an
     return (data)
   }
@@ -317,17 +313,34 @@ inverse_transform.ts_an <- function(obj, data, x=NULL) {
 #'@description
 #'@details
 #'
-#'@param x
+#'@param remove_outliers
+#'@param nw
 #'@return
 #'@examples
 #'@export
-exp_mean <- function(x) {
-  n <- length(x)
-  y <- rep(0,n)
-  alfa <- 1 - 2.0 / (n + 1);
-  for (i in 0:(n-1)) {
-    y[n-i] <- alfa^i
+ts_ean <- function(remove_outliers = TRUE, nw = 0) {
+  emean <- function(data, na.rm = FALSE) {
+    n <- length(data)
+    
+    y <- rep(0, n)
+    alfa <- 1 - 2.0 / (n + 1);
+    for (i in 0:(n-1)) {
+      y[n-i] <- alfa^i
+    }
+    
+    m <- sum(y * data, na.rm = na.rm)/sum(y, na.rm = na.rm)
+    return(m)
   }
-  m <- sum(y * x)/sum(y)
-  return(m)
+  obj <- ts_an(remove_outliers, nw = nw)
+  obj$an_mean <- emean
+  class(obj) <- append("ts_ean", class(obj))    
+  return(obj)
+}
+
+#'@export
+describe.ts_ean <- function(obj) {
+  if (obj$nw == 0)
+    return("ean")
+  else
+    return(sprintf("ean%d", obj$nw))
 }

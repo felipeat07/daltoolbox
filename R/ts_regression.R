@@ -17,8 +17,8 @@ tsreg <- function() {
   obj$log <- TRUE
   obj$debug <- FALSE
   obj$reproduce <- TRUE
-
-  class(obj) <- append("tsreg", class(obj))
+  
+  class(obj) <- append("tsreg", class(obj))  
   return(obj)
 }
 
@@ -67,7 +67,7 @@ do_fit <- function(obj, x, y = NULL) {
 #'@details
 #'
 #'@param obj object: .
-#'@param
+#'@param x
 #'@return
 #'@examples
 #'@export
@@ -87,11 +87,11 @@ do_predict <- function(obj, x) {
 #'@export
 tsreg_sw <- function(preprocess=NA, input_size=NA) {
   obj <- tsreg()
-
+  
   obj$preprocess <- preprocess
   obj$input_size <- input_size
-
-  class(obj) <- append("tsreg_sw", class(obj))
+  
+  class(obj) <- append("tsreg_sw", class(obj))  
   return(obj)
 }
 
@@ -99,8 +99,8 @@ tsreg_sw <- function(preprocess=NA, input_size=NA) {
 #'@description
 #'@details
 #'
-#'@param
-#'@param
+#'@param data
+#'@param input_size
 #'@return
 #'@examples
 #'@export
@@ -111,20 +111,20 @@ ts_as_matrix <- function(data, input_size) {
 
 #'@export
 fit.tsreg_sw <- function(obj, x, y) {
-  obj <- start_log(obj)
+  obj <- start_log(obj)   
   if (obj$reproduce)
     set.seed(1)
-
+  
   obj$preprocess <- fit(obj$preprocess, x)
-
+  
   x <- transform(obj$preprocess, x)
-
+  
   y <- transform(obj$preprocess, x, y)
-
+  
   obj <- do_fit(obj, ts_as_matrix(x, obj$input_size), y)
-
+  
   if (obj$log)
-    obj <- register_log(obj)
+    obj <- register_log(obj)    
   return(obj)
 }
 
@@ -139,7 +139,7 @@ predict.tsreg_sw <- function(obj, x, steps_ahead=1) {
   }
   else {
     if (nrow(x) > 1)
-      stop("In steps ahead, x should have a single row")
+      stop("In steps ahead, x should have a single row")      
     prediction <- NULL
     cnames <- colnames(x)
     x <- x[1,]
@@ -162,7 +162,7 @@ predict.tsreg_sw <- function(obj, x, steps_ahead=1) {
 
 #'@export
 do_predict.tsreg_sw <- function(obj, x) {
-  prediction <- predict(obj$model, x)
+  prediction <- predict(obj$model, x)  
   return(prediction)
 }
 
@@ -170,7 +170,7 @@ do_predict.tsreg_sw <- function(obj, x) {
 
 #'@export
 MSE.tsreg <- function (actual, prediction) {
-  if (length(actual) != length(prediction))
+  if (length(actual) != length(prediction)) 
     stop("actual and prediction have different lengths")
   n <- length(actual)
   res <- mean((actual - prediction)^2)
@@ -179,10 +179,10 @@ MSE.tsreg <- function (actual, prediction) {
 
 #'@export
 sMAPE.tsreg <- function (actual, prediction) {
-  if (length(actual) != length(prediction))
+  if (length(actual) != length(prediction)) 
     stop("actual and prediction have different lengths")
   n <- length(actual)
-  res <- (1/n) * sum(abs(actual - prediction)/((abs(actual) +
+  res <- (1/n) * sum(abs(actual - prediction)/((abs(actual) + 
                                                   abs(prediction))/2))
   res
 }
@@ -190,13 +190,13 @@ sMAPE.tsreg <- function (actual, prediction) {
 #'@export
 evaluation.tsreg <- function(values, prediction) {
   obj <- list(values=values, prediction=prediction)
-
-  obj$smape <- sMAPE.tsreg(values, prediction)
-  obj$mse <- MSE.tsreg(values, prediction)
-
+  
+  obj$smape <- sMAPE.tsreg(values, prediction)  
+  obj$mse <- MSE.tsreg(values, prediction)  
+  
   obj$metrics <- data.frame(mse=obj$mse, smape=obj$smape)
-
-  attr(obj, "class") <- "evaluation.tsreg"
+  
+  attr(obj, "class") <- "evaluation.tsreg"  
   return(obj)
 }
 
@@ -211,11 +211,11 @@ plot.tsreg <- function(obj, y, yadj, ypre, main=NULL, xlabels=NULL) {
   ntrain <- length(yadj)
   smape_train <- sMAPE.tsreg(y[1:ntrain], yadj)*100
   smape_test <- sMAPE.tsreg(y[(ntrain+1):(ntrain+length(ypre))], ypre)*100
-  par(xpd=TRUE)
+  par(xpd=TRUE)      
   if(is.null(xlabels))
     xlabels <- 1:length(y)
   plot(xlabels, y, main = main, xlab = sprintf("time [smape train=%.2f%%], [smape test=%.2f%%]", smape_train, smape_test), ylab="value")
-  lines(xlabels[1:ntrain], yadj, col="blue")
-  lines(xlabels[ntrain:(ntrain+length(ypre))], c(yadj[length(yadj)],ypre), col="green")
-  par(xpd=FALSE)
+  lines(xlabels[1:ntrain], yadj, col="blue")  
+  lines(xlabels[ntrain:(ntrain+length(ypre))], c(yadj[length(yadj)],ypre), col="green")  
+  par(xpd=FALSE)      
 }

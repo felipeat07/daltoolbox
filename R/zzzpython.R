@@ -9,7 +9,6 @@ scipy <- NULL
 
 }
 
-
 ## Pacotes instalados no Python (instalação feita via prompt),até conseguir dar source no arquivo:
 # python3 -m pip install --upgrade pip setuptools wheel
 # apt install python3.10-venv
@@ -21,6 +20,12 @@ scipy <- NULL
 ## Depois disso é possível rodar o exemplo:
 # https://nbviewer.org/github/eogasawara/mydal/blob/main/examples_timeseries/ts_tlstm.ipynb
 
+#'@title
+#'@description
+#'@details
+#'
+#'@return
+#'@examples
 #'@import reticulate
 #'@export
 load_python_file <- function() {
@@ -31,6 +36,15 @@ load_python_file <- function() {
   reticulate::source_python('./inst/python/ts_tlstm.py', envir=parent.frame())
 }
 
+#'@title
+#'@description
+#'@details
+#'
+#'@param method
+#'@param conda
+#'@return
+#'@examples
+#'@import reticulate
 #'@export
 install_python_dependencies <- function(method = "auto", conda = "auto") {
   reticulate::py_install("torch", method = method, conda = conda)

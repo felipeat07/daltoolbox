@@ -6,9 +6,9 @@
 # depends ts_regression.R
 # depends ts_preprocessing.R
 
-# class ts_tlstm
+# class ts_tconv1d
 # loadlibrary("reticulate")
-# source_python('ts_tlstm.py')
+# source_python('ts_tconv1d.py')
 
 #'@title
 #'@description
@@ -20,47 +20,47 @@
 #'@return
 #'@examples
 #'@export
-ts_tlstm <- function(preprocess = NA, input_size = NA, epochs = 10000L) {
+ts_tconv1d <- function(preprocess = NA, input_size = NA, epochs = 10000L) {
   obj <- tsreg_sw(preprocess, input_size)
   obj$deep_debug <- FALSE
   obj$epochs <- epochs
-  class(obj) <- append("ts_tlstm", class(obj))    
+  class(obj) <- append("ts_tconv1d", class(obj))    
   return(obj)
 }
 
 #'@export
-describe.ts_tlstm <- function(obj) {
+describe.ts_tconv1d <- function(obj) {
   if (!is.na(obj$input_size))
-    return(sprintf("lstm(input_size=%d,epochs=%d)-%s", obj$input_size, obj$epochs, describe(obj$preprocess)))
+    return(sprintf("conv1d(input_size=%d,epochs=%d)-%s", obj$input_size, obj$epochs, describe(obj$preprocess)))
   else
-    return("lstm")
+    return("conv1d")
 }
 
 #'@export
-set_params.ts_tlstm <- function(obj, params) {
+set_params.ts_tconv1d <- function(obj, params) {
   if (!is.null(params$epochs))
     obj$epochs <- as.integer(params$epochs)
   return(obj)
 }
 
 #'@export
-do_fit.ts_tlstm <- function(obj, x, y) {
+do_fit.ts_tconv1d <- function(obj, x, y) {
   if (is.null(obj$model)) 
-    obj$model <- create_torch_lstm(obj$input_size, obj$input_size)
+    obj$model <- create_torch_conv1d()
   
   df_train <- as.data.frame(x)
   df_train$t0 <- as.vector(y)
   
-  obj$model <- train_torch_lstm(obj$model, df_train, obj$epochs, 0.001, obj$deep_debug, obj$reproduce)
+  obj$model <- train_torch_conv1d(obj$model, df_train, obj$epochs, obj$deep_debug, obj$reproduce)
   
   return(obj)
 }
 
 #'@export
-do_predict.ts_tlstm <- function(obj, x) {
+do_predict.ts_tconv1d <- function(obj, x) {
   X_values <- as.data.frame(x)
   X_values$t0 <- 0
-  prediction <- predict_torch_lstm(obj$model, X_values)
+  prediction <- predict_torch_conv1d(obj$model, X_values)
   prediction <- as.vector(prediction)
   return(prediction)
 }

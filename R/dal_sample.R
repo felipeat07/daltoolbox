@@ -13,7 +13,7 @@
 #'@export
 data_sample <- function() {
   obj <- dal_transform()
-  class(obj) <- append("data_sample", class(obj))
+  class(obj) <- append("data_sample", class(obj))    
   return(obj)
 }
 
