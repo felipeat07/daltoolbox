@@ -1,13 +1,15 @@
-## global reference to scipy (will be initialized in .onLoad)
-scipy <- NULL
-
-#'@import reticulate
-.onLoad <- function(libname, pkgname) {
-  ## use superassignment to update global reference to scipy
-#  scipy <<- reticulate::import("scipy", delay_load = TRUE)
-  reticulate::source_python('./inst/python/ts_tlstm.py', envir=parent.frame())
-
-}
+## Imports dos arquivos Python (os três tem os mesmos imports):
+# import torch
+# import torch.nn as nn
+# from torch.utils.data import Dataset, DataLoader
+# import pandas as pd
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import os
+# from torch.utils.data import TensorDataset
+# import torch.nn.functional as F
+# import sys
+# import random
 
 ## Pacotes instalados no Python (instalação feita via prompt),até conseguir dar source no arquivo:
 # python3 -m pip install --upgrade pip setuptools wheel
@@ -20,21 +22,31 @@ scipy <- NULL
 ## Depois disso é possível rodar o exemplo:
 # https://nbviewer.org/github/eogasawara/mydal/blob/main/examples_timeseries/ts_tlstm.ipynb
 
-#'@title
-#'@description
-#'@details
-#'
-#'@return
-#'@examples
+## Documentação sobre o uso do reticulate em pacotes R
+# https://rstudio.github.io/reticulate/articles/package.html
+
+## global reference to environment
+python_env <- NULL
+
 #'@import reticulate
-#'@export
-load_python_file <- function() {
-#  path <- paste(system.file(package="dal"), "ts_tlstm.py", sep="/")
-#  reticulate::py_run_file(system.file("python", "ts_tlstm.py", package = "dal"))
-#  source_python('~/Downloads/dal/inst/python/ts_tlstm.py')
-#  reticulate::source_python('./inst/python/ts_tlstm.py')
-  reticulate::source_python('./inst/python/ts_tlstm.py', envir=parent.frame())
+.onLoad <- function(libname, pkgname) {
+  ## use superassignment to update global reference
+  python_env <<- new.env()
+
+  ## loads script to environment
+  reticulate::source_python('./inst/python/ts_tlstm.py', envir=python_env)
+
+  if (reticulate::py_module_available('torch')) {
+    print('Módulo torch disponível')
+  }
+  if (reticulate::py_module_available('pyreadr')) {
+    print('Módulo pyreadr disponível')
+  }
+  if (reticulate::py_module_available('matplotlib')) {
+    print('Módulo matplotlib disponível')
+  }
 }
+
 
 #'@title
 #'@description

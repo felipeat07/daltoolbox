@@ -24,7 +24,7 @@ ts_tlstm <- function(preprocess = NA, input_size = NA, epochs = 10000L) {
   obj <- tsreg_sw(preprocess, input_size)
   obj$deep_debug <- FALSE
   obj$epochs <- epochs
-  class(obj) <- append("ts_tlstm", class(obj))    
+  class(obj) <- append("ts_tlstm", class(obj))
   return(obj)
 }
 
@@ -43,16 +43,18 @@ set_params.ts_tlstm <- function(obj, params) {
   return(obj)
 }
 
+## TODO: verificar se é melhor abordagem
 #'@export
 do_fit.ts_tlstm <- function(obj, x, y) {
-  if (is.null(obj$model)) 
-    obj$model <- create_torch_lstm(obj$input_size, obj$input_size)
-  
+  if (is.null(obj$model))
+    obj$model <- python_env$create_torch_lstm(obj$input_size, obj$input_size)  ## TODO: verificar uso python_env
+
   df_train <- as.data.frame(x)
   df_train$t0 <- as.vector(y)
-  
-  obj$model <- train_torch_lstm(obj$model, df_train, obj$epochs, 0.001, obj$deep_debug, obj$reproduce)
-  
+
+  ## TODO: verificar uso python_env
+  obj$model <- python_env$train_torch_lstm(obj$model, df_train, obj$epochs, 0.001, obj$deep_debug, obj$reproduce)
+
   return(obj)
 }
 
