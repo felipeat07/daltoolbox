@@ -18,7 +18,7 @@
 smoothing <- function(n) {
   obj <- dal_transform()
   obj$n <- n
-  class(obj) <- append("smoothing", class(obj))    
+  class(obj) <- append("smoothing", class(obj))
   return(obj)
 }
 
@@ -32,11 +32,11 @@ optimize.smoothing <- function(obj, data, do_plot=FALSE) {
     obj$n <- i
     obj <- fit(obj, data)
     vm <- transform(obj, data)
-    mse <- mean((data - vm)^2, na.rm = TRUE) 
+    mse <- mean((data - vm)^2, na.rm = TRUE)
     row <- c(mse , i)
     opt <- rbind(opt, row)
   }
-  colnames(opt)<-c("mean","num") 
+  colnames(opt)<-c("mean","num")
   curv <- fit_curvature_max()
   res <- transform(curv, opt$mean)
   obj$n <- res$x
@@ -54,12 +54,21 @@ fit.smoothing <- function(obj, data) {
   interval[length(interval)] <- max(v)
   interval.adj <- interval
   interval.adj[1] <- -.Machine$double.xmax
-  interval.adj[length(interval)] <- .Machine$double.xmax  
+  interval.adj[length(interval)] <- .Machine$double.xmax
   obj$interval <- interval
   obj$interval.adj <- interval.adj
   return(obj)
 }
 
+#'@title Transform smoothing
+#'@description
+#'@details
+#'
+#'@param obj object: .
+#'@param data optional arguments./ further arguments passed to or from other methods.
+#'@return
+#'@examples
+#' x <- transform(obj, data)
 #'@export
 transform.smoothing <- function(obj, data) {
   v <- data
@@ -67,7 +76,7 @@ transform.smoothing <- function(obj, data) {
   vp <- cut(v, unique(interval.adj), FALSE, include.lowest=TRUE)
   m <- tapply(v, vp, mean)
   vm <- m[vp]
-  return(vm)  
+  return(vm)
 }
 
 # smoothing by interval
@@ -81,8 +90,8 @@ transform.smoothing <- function(obj, data) {
 #'@export
 smoothing_inter <- function(n) {
   obj <- smoothing(n)
-  class(obj) <- append("smoothing_inter", class(obj))    
-  return(obj)  
+  class(obj) <- append("smoothing_inter", class(obj))
+  return(obj)
 }
 
 #'@export
@@ -112,8 +121,8 @@ fit.smoothing_inter <- function(obj, data) {
 #'@export
 smoothing_freq <- function(n) {
   obj <- smoothing(n)
-  class(obj) <- append("smoothing_freq", class(obj))    
-  return(obj)  
+  class(obj) <- append("smoothing_freq", class(obj))
+  return(obj)
 }
 
 #'@export
@@ -137,8 +146,8 @@ fit.smoothing_freq <- function(obj, data) {
 #'@export
 smoothing_cluster <- function(n) {
   obj <- smoothing(n)
-  class(obj) <- append("smoothing_cluster", class(obj))    
-  return(obj)  
+  class(obj) <- append("smoothing_cluster", class(obj))
+  return(obj)
 }
 
 #'@export
@@ -164,22 +173,22 @@ fit.smoothing_cluster <- function(obj, data) {
 #'@export
 smoothing_evaluation <- function(data, attribute) {
   obj <- list(data=as.factor(data), attribute=as.factor(attribute))
-  attr(obj, "class") <- "cluster_evaluation"  
-  
+  attr(obj, "class") <- "cluster_evaluation"
+
   compute_entropy <- function(obj) {
     value <- getOption("dplyr.summarise.inform")
     options(dplyr.summarise.inform = FALSE)
-    
-    base <- data.frame(x = obj$data, y = obj$attribute) 
-    tbl <- base %>% group_by(x, y) %>% summarise(qtd=n()) 
-    tbs <- base %>% group_by(x) %>% summarise(t=n()) 
+
+    base <- data.frame(x = obj$data, y = obj$attribute)
+    tbl <- base %>% group_by(x, y) %>% summarise(qtd=n())
+    tbs <- base %>% group_by(x) %>% summarise(t=n())
     tbl <- merge(x=tbl, y=tbs, by.x="x", by.y="x")
     tbl$e <- -(tbl$qtd/tbl$t)*log(tbl$qtd/tbl$t,2)
-    tbl <- tbl %>% group_by(x) %>% summarise(ce=sum(e), qtd=sum(qtd)) 
+    tbl <- tbl %>% group_by(x) %>% summarise(ce=sum(e), qtd=sum(qtd))
     tbl$ceg <- tbl$ce*tbl$qtd/length(obj$data)
     obj$entropy_clusters <- tbl
     obj$entropy <- sum(obj$entropy$ceg)
-    
+
     options(dplyr.summarise.inform = value)
     return(obj)
   }

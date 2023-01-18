@@ -7,7 +7,7 @@ if (!exists("repos_name"))
   repos_name <<- getOption("repos")[1]
 
 setrepos <- function(repos=repos) {
-  repos_name <<- repos 
+  repos_name <<- repos
 }
 
 loadlibrary <- function(packagename) {
@@ -32,7 +32,7 @@ dal_transform <- function() {
   obj$log <- FALSE
   obj$debug <- FALSE
   obj$reproduce <- FALSE
-  attr(obj, "class") <- "dal_transform"  
+  attr(obj, "class") <- "dal_transform"
   return(obj)
 }
 
@@ -56,7 +56,7 @@ fit.default <- function(obj) {
 }
 
 #transform
-#'@title
+#'@title Transform teste
 #'@description
 #'@details
 #'

@@ -30,21 +30,22 @@ python_env <- NULL
 
 #'@import reticulate
 .onLoad <- function(libname, pkgname) {
+  if (! reticulate::py_module_available('torch')) {
+    print('Módulo torch indisponível, favor instalar')
+  }
+  if (! reticulate::py_module_available('pyreadr')) {
+    print('Módulo pyreadr indisponível, favor instalar')
+  }
+  if (! reticulate::py_module_available('matplotlib')) {
+    print('Módulo matplotlib indisponível, favor instalar')
+  }
+
   ## use superassignment to update global reference
   python_env <<- new.env()
 
   ## loads script to environment
   reticulate::source_python('./inst/python/ts_tlstm.py', envir=python_env)
 
-  if (reticulate::py_module_available('torch')) {
-    print('Módulo torch disponível')
-  }
-  if (reticulate::py_module_available('pyreadr')) {
-    print('Módulo pyreadr disponível')
-  }
-  if (reticulate::py_module_available('matplotlib')) {
-    print('Módulo matplotlib disponível')
-  }
 }
 
 
