@@ -138,10 +138,8 @@ predict.tsreg_sw <- function(obj, x, steps_ahead=1) {
     return(y)
   }
   else {
-    if (nrow(x) > 1) {
-      print(x)
+    if (nrow(x) > 1)
       stop("In steps ahead, x should have a single row")
-    }
     prediction <- NULL
     cnames <- colnames(x)
     x <- x[1,]
