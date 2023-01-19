@@ -26,13 +26,34 @@ Authors@R:
             role = "cph"
         )
    )
-Description: What the package does (one paragraph).
+Description: DAL Package.
 License: MIT + file LICENSE
 URL: https://github.com/cefet-rj-dal/dal
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.2.2
 Imports: 
     dplyr,
     fpc,
-    reticulate
+    reticulate,
+    utils,
+    e1071,
+    caret,
+    nnet,
+    cluster,
+    factoextra,
+    FNN,
+    randomForest,
+    elmNNRcpp,
+    Rcpp,
+    leaps,
+    glmnet, 
+    FSelector,
+    doBy,
+    forecast,
+    smotefamily,
+    ROCR, 
+    RSNNS,
+    MLmetrics,
+    tree,
+    Matrix

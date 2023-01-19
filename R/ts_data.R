@@ -48,6 +48,15 @@ ts_data <- function(y, sw=1) {
   return(y)
 }
 
+#'@title
+#'@description
+#'@details
+#'
+#'@param x
+#'@param i
+#'@param j
+#'@return
+#'@examples
 #'@export
 `[.ts_data` <- function(x, i, j, ...) {
   y <- unclass(x)[i, j, drop = FALSE, ...]
@@ -56,7 +65,6 @@ ts_data <- function(y, sw=1) {
   return(y)
 }
 
-#'@export
 head.ts_data <- function(x, n = 6L, ...) {
   head(unclass(x), n)
 }
@@ -83,7 +91,7 @@ ts_sample <- function(ts, test_size=1, offset=0) {
 }
 
 
-#ts_projection
+#adjust.ts_data
 #'@export
 adjust.ts_data <- function(data) {
   if (!is.matrix(data))
@@ -94,6 +102,7 @@ adjust.ts_data <- function(data) {
   return(data)
 }
 
+#ts_projection
 #'@title
 #'@description
 #'@details
