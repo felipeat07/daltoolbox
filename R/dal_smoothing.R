@@ -60,15 +60,6 @@ fit.smoothing <- function(obj, data) {
   return(obj)
 }
 
-#'@title Transform smoothing
-#'@description
-#'@details
-#'
-#'@param obj object: .
-#'@param data optional arguments./ further arguments passed to or from other methods.
-#'@return
-#'@examples
-#' x <- transform(obj, data)
 #'@export
 transform.smoothing <- function(obj, data) {
   v <- data

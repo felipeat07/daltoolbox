@@ -31,7 +31,7 @@ ts_maintune <- function(preprocess, input_size, base_model, augment = ts_augment
   obj$augment <- augment
   obj$folds <- folds
   obj$name <- ""
-  class(obj) <- append("ts_maintune", class(obj))    
+  class(obj) <- append("ts_maintune", class(obj))
   return(obj)
 }
 
@@ -85,24 +85,24 @@ build_model <- function(obj, ranges, x, y) {
     data <- adjust.ts_data(data)
     data <- transform(augment, data)
     data <- adjust.ts_data(data)
-    
+
     io <- ts_projection(data)
-    
-    return(list(x=io$input, y=io$output))    
+
+    return(list(x=io$input, y=io$output))
   }
-  
+
   model <- obj$base_model
   model$log <- FALSE
   model$input_size <- ranges$input_size
   model$preprocess <- get_preprocess(obj, ranges$preprocess)
   model <- set_params(model, ranges)
-  
+
   augment <- get_augment(obj, ranges$augment)
   data <- augment_data(augment, x, y)
-  
+
   model <- fit(model, data$x, data$y)
   attr(model, "augment") <- augment
-  
+
   return(model)
 }
 
@@ -118,13 +118,13 @@ build_model <- function(obj, ranges, x, y) {
 prepare_ranges <- function(obj, ranges) {
   obj$names_preprocess <- sapply(obj$preprocess, function(x) { as.character(class(x)[1]) })
   obj$names_augment <- sapply(obj$augment, function(x) { as.character(class(x)[1]) })
-  
+
   ranges <- append(list(input_size = obj$input_size, preprocess = obj$names_preprocess, augment = obj$names_augment), ranges)
   ranges <- expand.grid(ranges)
-  ranges$preprocess <- as.character(ranges$preprocess) 
+  ranges$preprocess <- as.character(ranges$preprocess)
   ranges$augment <- as.character(ranges$augment)
   ranges$key <- 1:nrow(ranges)
-  
+
   obj$ranges <- ranges
   return(obj)
 }
@@ -145,7 +145,7 @@ evaluate_error <- function(obj, model, i, x, y) {
   x <- x[i,]
   y <- as.vector(y[i,])
   prediction <- as.vector(predict(model, x))
-  error <- evaluation.tsreg(y, prediction)$mse 
+  error <- evaluation.tsreg(y, prediction)$mse
   return(error)
 }
 
@@ -162,15 +162,15 @@ fit_augment.ts_maintune <- function(obj, x, y) {
 
 #'@export
 fit.ts_maintune <- function(obj, x, y, ranges) {
-  obj <- start_log(obj)   
+  obj <- start_log(obj)
   if (obj$base_model$reproduce)
     set.seed(1)
-  
+
   obj <- prepare_ranges(obj, ranges)
   ranges <- obj$ranges
-  
+
   obj <- fit_augment.ts_maintune(obj, x, y)
-  
+
   n <- nrow(ranges)
   i <- 1
   hyperparameters <- NULL
@@ -186,7 +186,7 @@ fit.ts_maintune <- function(obj, x, y, ranges) {
       msg <- rep("", n)
       for (i in 1:n) {
         err <- tryCatch(
-          {   
+          {
             model <- build_model(obj, ranges[i,], x[tt$train$i,], y[tt$train$i,])
             error[i] <- evaluate_error(obj, model, tt$test$i, x, y)
             ""
@@ -208,31 +208,32 @@ fit.ts_maintune <- function(obj, x, y, ranges) {
     hyperparameters$error[hyperparameters$msg != ""] <- NA
     i <- optimize(obj, hyperparameters)
   }
-  
+
   model <- build_model(obj, ranges[i,], x, y)
   if (n == 1) {
     prediction <- predict(model, x)
-    error <- evaluation.tsreg(y, prediction)$mse 
+    error <- evaluation.tsreg(y, prediction)$mse
     hyperparameters <- cbind(ranges, error)
   }
-  
+
   attr(model, "params") <- as.list(ranges[i,])
-  attr(model, "hyperparameters") <- hyperparameters  
+  attr(model, "hyperparameters") <- hyperparameters
   augment <- attr(model, "augment")
-  
+
   msg <- sprintf("%s-%s-%s", describe(obj), describe(model), describe(augment))
   if (obj$base_model$log)
-    obj <- register_log(obj, msg)    
+    obj <- register_log(obj, msg)
   return(model)
-} 
+}
 
+#'@import dplyr
 #'@export
 optimize.ts_maintune <- function(obj, hyperparameters) {
-  hyper_summary <- hyperparameters |> dplyr::filter(msg == "") |> 
+  hyper_summary <- hyperparameters |> dplyr::filter(msg == "") |>
     dplyr::group_by(key) |> dplyr::summarise(error = mean(error, na.rm=TRUE))
-  
+
   mim_error <- hyper_summary |> dplyr::summarise(error = min(error))
-  
+
   key <- which(hyper_summary$error == mim_error$error)
   i <- min(hyper_summary$key[key])
   return(i)

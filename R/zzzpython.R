@@ -30,22 +30,28 @@ python_env <- NULL
 
 #'@import reticulate
 .onLoad <- function(libname, pkgname) {
-  if (! reticulate::py_module_available('torch')) {
-    print('Módulo torch indisponível, favor instalar')
-  }
-  if (! reticulate::py_module_available('pyreadr')) {
-    print('Módulo pyreadr indisponível, favor instalar')
-  }
-  if (! reticulate::py_module_available('matplotlib')) {
-    print('Módulo matplotlib indisponível, favor instalar')
-  }
+  # if (! reticulate::py_module_available('torch')) {
+  #   print('Módulo torch indisponível.')
+  #   print('Instale manualmente ou use dal::install_python_dependencies()')
+  # }
+  # if (! reticulate::py_module_available('pyreadr')) {
+  #   print('Módulo pyreadr indisponível.')
+  #   print('Instale manualmente ou use dal::install_python_dependencies()')
+  # }
+  # if (! reticulate::py_module_available('matplotlib')) {
+  #   print('Módulo matplotlib indisponível.')
+  #   print('Instale manualmente ou use dal::install_python_dependencies()')
+  # }
 
   ## use superassignment to update global reference
   python_env <<- new.env()
 
-  ## loads script to environment
-  reticulate::source_python('./inst/python/ts_tlstm.py', envir=python_env)
+  ## loads scripts to environment
+  path <- system.file(package="dal")
 
+  reticulate::source_python(paste(path, "python/ts_tconv1d.py", sep="/"), envir=python_env)
+  reticulate::source_python(paste(path, "python/ts_tlstm.py", sep="/"), envir=python_env)
+  reticulate::source_python(paste(path, "python/ts_tmlp.py", sep="/"), envir=python_env)
 }
 
 

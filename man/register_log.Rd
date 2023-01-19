@@ -10,6 +10,8 @@ register_log(obj, msg, ref)
 \item{obj}{object: .}
 
 \item{msg}{string: a message to the log.}
+
+\item{ref}{.}
 }
 \description{
 Register log details

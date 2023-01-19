@@ -2,7 +2,7 @@
 % Please edit documentation in R/dal_transform.R
 \name{transform}
 \alias{transform}
-\title{Transform teste}
+\title{Transform}
 \usage{
 transform(obj, ...)
 }
@@ -12,5 +12,5 @@ transform(obj, ...)
 \item{...}{optional arguments./ further arguments passed to or from other methods.}
 }
 \description{
-Transform teste
+Transform
 }
