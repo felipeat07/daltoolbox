@@ -62,7 +62,7 @@ do_fit.ts_tlstm <- function(obj, x, y) {
 do_predict.ts_tlstm <- function(obj, x) {
   X_values <- as.data.frame(x)
   X_values$t0 <- 0
-  prediction <- predict_torch_lstm(obj$model, X_values)
+  prediction <- python_env$predict_torch_lstm(obj$model, X_values)
   prediction <- as.vector(prediction)
   return(prediction)
 }
