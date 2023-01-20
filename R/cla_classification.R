@@ -5,22 +5,24 @@
 
 # classification
 #loadlibrary("ROCR")
-#loadlibrary("RSNNS")  
-#loadlibrary("nnet")  
-#loadlibrary("MLmetrics")  
+#loadlibrary("RSNNS")
+#loadlibrary("nnet")
+#loadlibrary("MLmetrics")
 
-#'@title
-#'@description
-#'@details
+#'@title classification class
+#'@description Ancestor class for classification problems
+#'@details basic wrapper for classification problems
 #'
-#'@param attribute
-#'@param slevels
-#'@return
+#'@param attribute - name of the attribute used as target classification
+#'@param slevels - possible values for the target classification
+#'@return classification object
 #'@examples
+#'data(iris)
+#'template_model <- classification("Species", levels(iris$Species))
 #'@export
 classification <- function(attribute, slevels=NULL) {
   obj <- dal_transform()
-  class(obj) <- append("classification", class(obj))  
+  class(obj) <- append("classification", class(obj))
   obj$attribute <- attribute
   obj$slevels <- slevels
   obj$ilevels <- 1:length(slevels)
@@ -42,7 +44,7 @@ fit.classification <- function(obj, data) {
   obj <- start_log(obj)
   if (obj$reproduce)
     set.seed(1)
-  obj$x <- setdiff(colnames(data), obj$attribute)  
+  obj$x <- setdiff(colnames(data), obj$attribute)
   return(obj)
 }
 
@@ -51,10 +53,10 @@ tune.classification <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun 
   ranges <- expand.grid(ranges)
   n <- nrow(ranges)
   accuracies <- rep(0,n)
-  
+
   data <- data.frame(i = 1:nrow(x), idx = 1:nrow(x))
   folds <- k_fold(sample_random(), data, folds)
-  
+
   i <- 1
   if (n > 1) {
     for (i in 1:n) {
@@ -62,10 +64,10 @@ tune.classification <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun 
         if (obj$reproduce)
           set.seed(1)
         tt <- train_test_from_folds(folds, j)
-        
+
         params <- append(list(x = x[tt$train$i,], y = y[tt$train$i]), as.list(ranges[i,]))
         model <- do.call(fit.func, params)
-        prediction <- pred.fun(model, x[tt$test$i,]) 
+        prediction <- pred.fun(model, x[tt$test$i,])
         accuracies[i] <- accuracies[i] + evaluation.classification(decodeClassLabels(y[tt$test$i]), prediction)$accuracy
       }
     }
@@ -81,14 +83,14 @@ tune.classification <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun 
 
 #evaluation.classification
 #'@export
-evaluation.classification <- function(data, prediction) {
+evaluation.classification <- function(data, prediction, roc=FALSE) {
   obj <- list(data=data, prediction=prediction)
-  
+
   adjust_predictions <- function(predictions) {
     predictions_i <- matrix(rep.int(0, nrow(predictions)*ncol(predictions)), nrow=nrow(predictions), ncol=ncol(predictions))
     y <- apply(predictions, 1, which.is.max)
     for(i in unique(y)) {
-      predictions_i[y==i,i] <- 1  
+      predictions_i[y==i,i] <- 1
     }
     return(predictions_i)
   }
@@ -101,26 +103,14 @@ evaluation.classification <- function(data, prediction) {
   obj$precision <- Precision(y_pred = predictions, y_true = data, positive = 1)
   obj$recall <- Recall(y_pred = predictions, y_true = data, positive = 1)
   obj$metrics <- data.frame(accuracy=obj$accuracy, f1=obj$f1, sensitivity=obj$sensitivity, specificity=obj$specificity, precision=obj$precision, recall=obj$recall)
-  
-  attr(obj, "class") <- "evaluation.classification"  
+
+  if (roc) {
+    pred <- prediction(obj$prediction, obj$data)
+    obj$rocr <- performance(pred, "tpr", "fpr")
+  }
+
+  attr(obj, "class") <- "evaluation.classification"
+
   return(obj)
 }
 
-#'@title
-#'@description
-#'@details
-#'
-#'@param obj object: .
-#'@return
-#'@examples
-#'@export
-roc_curve <- function(obj) {
-  UseMethod("roc_curve")
-}
-
-#'@export
-roc_curve.evaluation.classification <- function(obj) {
-  pred <- prediction(obj$prediction, obj$data)
-  rocr <- performance(pred, "tpr", "fpr")  
-  return (rocr)  
-}
