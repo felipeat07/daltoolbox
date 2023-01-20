@@ -76,7 +76,7 @@ ts_data <- function(y, sw=1) {
 #'@examples
 #'@export
 head.ts_data <- function(x, n = 6L, ...) {
-  head(as.data.frame(x), n)
+  head(unclass(x), n)
 }
 
 #ts_sample
