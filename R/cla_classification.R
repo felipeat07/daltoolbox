@@ -83,7 +83,7 @@ tune.classification <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun 
 
 #evaluation.classification
 #'@export
-evaluation.classification <- function(data, prediction, roc=FALSE) {
+evaluation.classification <- function(data, prediction) {
   obj <- list(data=data, prediction=prediction)
 
   adjust_predictions <- function(predictions) {
@@ -104,13 +104,16 @@ evaluation.classification <- function(data, prediction, roc=FALSE) {
   obj$recall <- Recall(y_pred = predictions, y_true = data, positive = 1)
   obj$metrics <- data.frame(accuracy=obj$accuracy, f1=obj$f1, sensitivity=obj$sensitivity, specificity=obj$specificity, precision=obj$precision, recall=obj$recall)
 
-  if (roc) {
-    pred <- prediction(obj$prediction, obj$data)
-    obj$rocr <- performance(pred, "tpr", "fpr")
-  }
-
-  attr(obj, "class") <- "evaluation.classification"
-
   return(obj)
 }
+
+#roc_curve
+#'@export
+roc_curve <- function(data, prediction) {
+  pred <- prediction(prediction, data)
+  rocr <- performance(pred, "tpr", "fpr")
+  return (rocr)
+}
+
+
 
