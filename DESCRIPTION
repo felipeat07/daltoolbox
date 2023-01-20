@@ -35,6 +35,7 @@ RoxygenNote: 7.2.2
 Imports: 
     dplyr,
     fpc,
+    dbscan,
     reticulate,
     utils,
     e1071,
