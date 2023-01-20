@@ -38,10 +38,10 @@ fit.cluster_dbscan <- function(obj, data) {
   return(cluster)
 }
 
-#'@import fpc
+#'@import dbscan
 #'@export
 optimize.cluster_dbscan <- function(obj, data, do_plot=FALSE) {
-  t <- sort(fpc::kNNdist(data, k = obj$MinPts))
+  t <- sort(dbscan::kNNdist(data, k = obj$MinPts))
 
   y <- t
   myfit <- fit_curvature_max()
