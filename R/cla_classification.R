@@ -96,12 +96,12 @@ evaluation.classification <- function(data, prediction) {
   }
   predictions <- adjust_predictions(obj$prediction)
   obj$conf_mat <- RSNNS::confusionMatrix(data, predictions)
-  obj$accuracy <- Accuracy(y_pred = predictions, y_true = data)
-  obj$f1 <- F1_Score(y_pred = predictions, y_true = data, positive = 1)
-  obj$sensitivity <- Sensitivity(y_pred = predictions, y_true = data, positive = 1)
-  obj$specificity <- Specificity(y_pred = predictions, y_true = data, positive = 1)
-  obj$precision <- Precision(y_pred = predictions, y_true = data, positive = 1)
-  obj$recall <- Recall(y_pred = predictions, y_true = data, positive = 1)
+  obj$accuracy <- MLmetrics::Accuracy(y_pred = predictions, y_true = data)
+  obj$f1 <- MLmetrics::F1_Score(y_pred = predictions, y_true = data, positive = 1)
+  obj$sensitivity <- MLmetrics::Sensitivity(y_pred = predictions, y_true = data, positive = 1)
+  obj$specificity <- MLmetrics::Specificity(y_pred = predictions, y_true = data, positive = 1)
+  obj$precision <- MLmetrics::Precision(y_pred = predictions, y_true = data, positive = 1)
+  obj$recall <- MLmetrics::Recall(y_pred = predictions, y_true = data, positive = 1)
   obj$metrics <- data.frame(accuracy=obj$accuracy, f1=obj$f1, sensitivity=obj$sensitivity, specificity=obj$specificity, precision=obj$precision, recall=obj$recall)
 
   return(obj)
