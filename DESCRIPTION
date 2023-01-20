@@ -1,6 +1,6 @@
 Package: dal
 Title: Data Analytics Lab R Package
-Version: 1.0.4
+Version: 1.0.7
 Authors@R: 
   c(    person(
             given = "Antonio",
@@ -34,7 +34,6 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.2
 Imports: 
     dplyr,
-    fpc,
     dbscan,
     reticulate,
     utils,

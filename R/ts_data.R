@@ -65,6 +65,16 @@ ts_data <- function(y, sw=1) {
   return(y)
 }
 
+#head
+#'@title
+#'@description
+#'@details
+#'
+#'@param x
+#'@param n integer: size of test data.
+#'@return
+#'@examples
+#'@export
 head.ts_data <- function(x, n = 6L, ...) {
   head(unclass(x), n)
 }
