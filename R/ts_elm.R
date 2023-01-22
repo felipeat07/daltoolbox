@@ -29,8 +29,8 @@ ts_elm <- function(preprocess=NA, input_size=NA, nhid=NA, actfun='purelin') {
   obj$nhid <- nhid
   #actfun = c('sig', 'radbas', 'tribas', 'relu', 'purelin')
   obj$actfun <- as.character(actfun)
-  
-  class(obj) <- append("ts_elm", class(obj))    
+
+  class(obj) <- append("ts_elm", class(obj))
   return(obj)
 }
 
@@ -51,16 +51,18 @@ set_params.ts_elm <- function(obj, params) {
   return(obj)
 }
 
+#'@import elmNNRcpp
 #'@export
 do_fit.ts_elm <- function(obj, x, y) {
-  obj$model <- elm_train(x, y, nhid = obj$nhid, actfun = obj$actfun, init_weights = "uniform_positive", bias = FALSE, verbose = FALSE)  
+  obj$model <- elmNNRcpp::elm_train(x, y, nhid = obj$nhid, actfun = obj$actfun, init_weights = "uniform_positive", bias = FALSE, verbose = FALSE)
   return(obj)
 }
 
+#'@import elmNNRcpp
 #'@export
 do_predict.ts_elm <- function(obj, x) {
   if (is.data.frame(x))
     x <- as.matrix(x)
-  prediction <- elm_predict(obj$model, x)
+  prediction <- elmNNRcpp::elm_predict(obj$model, x)
   return(prediction)
 }

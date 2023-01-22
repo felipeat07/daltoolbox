@@ -8,7 +8,7 @@
 # tsreg_arima
 # loadlibrary("forecast")
 
-#'@title
+#'@title Time Series
 #'@description
 #'@details
 #'
@@ -17,8 +17,8 @@
 #'@export
 tsreg_arima <- function() {
   obj <- tsreg()
-    
-  class(obj) <- append("tsreg_arima", class(obj))  
+
+  class(obj) <- append("tsreg_arima", class(obj))
   return(obj)
 }
 
@@ -30,13 +30,14 @@ describe.tsreg_arima <- function(obj) {
     return(as.character(obj$model))
 }
 
+#'@import forecast
 #'@export
 fit.tsreg_arima <- function(obj, x, y = NULL) {
-  obj <- start_log(obj)   
+  obj <- start_log(obj)
   if (obj$reproduce)
     set.seed(1)
-  
-  obj$model <- auto.arima(x, allowdrift = TRUE, allowmean = TRUE) 
+
+  obj$model <- forecast::auto.arima(x, allowdrift = TRUE, allowmean = TRUE)
   order <- obj$model$arma[c(1, 6, 2, 3, 7, 4, 5)]
   obj$p <- order[1]
   obj$d <- order[2]
@@ -44,12 +45,13 @@ fit.tsreg_arima <- function(obj, x, y = NULL) {
   obj$drift <- (NCOL(obj$model$xreg) == 1) && is.element("drift", names(obj$model$coef))
   params <- list(p = obj$p, d = obj$d, q = obj$q, drift = obj$drift)
   attr(obj, "params") <- params
-  
+
   if (obj$log)
-    obj <- register_log(obj)    
+    obj <- register_log(obj)
   return(obj)
 }
 
+#'@import forecast
 #'@export
 predict.tsreg_arima <- function(obj, x, y = NULL, steps_ahead=NULL) {
   if (!is.null(x) && (length(obj$model$x) == length(x)) && (sum(obj$model$x-x) == 0)){
@@ -67,20 +69,20 @@ predict.tsreg_arima <- function(obj, x, y = NULL, steps_ahead=NULL) {
       while (i <= length(x)) {
         pred <- c(pred, forecast(model, h = 1)$mean)
         y <- c(y, x[i])
-        
+
         model <- tryCatch(
-          {   
-            Arima(y, order=c(obj$p, obj$d, obj$q), include.drift = obj$drift)
+          {
+            forecast::Arima(y, order=c(obj$p, obj$d, obj$q), include.drift = obj$drift)
           },
           error = function(cond) {
-            auto.arima(y, allowdrift = TRUE, allowmean = TRUE) 
+            forecast::auto.arima(y, allowdrift = TRUE, allowmean = TRUE)
           }
         )
         i <- i + 1
       }
     }
     else {
-      pred <- forecast(obj$model, h = steps_ahead)$mean
+      pred <- forecast::forecast(obj$model, h = steps_ahead)$mean
     }
   }
   return(pred)

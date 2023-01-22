@@ -22,11 +22,11 @@
 #'@export
 ts_rf <- function(preprocess=NA, input_size=NA, nodesize = 5, ntree = 20) {
   obj <- tsreg_sw(preprocess, input_size)
-  
+
   obj$nodesize <- nodesize
   obj$ntree <- ntree
 
-  class(obj) <- append("ts_rf", class(obj))    
+  class(obj) <- append("ts_rf", class(obj))
   return(obj)
 }
 
@@ -48,14 +48,15 @@ set_params.ts_rf <- function(obj, params) {
   return(obj)
 }
 
+#'@import randomForest
 #'@export
 do_fit.ts_rf <- function(obj, x, y) {
-  obj$model <- randomForest(x = as.data.frame(x), y = as.vector(y), mtry=ceiling(obj$input_size/3), nodesize = obj$nodesize, ntree=obj$ntree)
+  obj$model <- randomForest::randomForest(x = as.data.frame(x), y = as.vector(y), mtry=ceiling(obj$input_size/3), nodesize = obj$nodesize, ntree=obj$ntree)
   return(obj)
 }
 
 #'@export
 do_predict.ts_rf <- function(obj, x) {
-  prediction <- predict(obj$model, as.data.frame(x))  
+  prediction <- predict(obj$model, as.data.frame(x))
   return(prediction)
 }

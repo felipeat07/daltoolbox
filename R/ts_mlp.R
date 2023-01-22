@@ -7,7 +7,7 @@
 # depends ts_preprocessing.R
 
 # class ts_mlp
-# loadlibrary("nnet")  
+# loadlibrary("nnet")
 
 #'@title
 #'@description
@@ -29,8 +29,8 @@ ts_mlp <- function(preprocess=NA, input_size=NA, size=NA, decay=0.01, maxit=1000
   obj$size <- size
   obj$decay <- decay
   obj$maxit <- maxit
-  
-  class(obj) <- append("ts_mlp", class(obj))  
+
+  class(obj) <- append("ts_mlp", class(obj))
   return(obj)
 }
 
@@ -50,12 +50,13 @@ set_params.ts_mlp <- function(obj, params) {
     obj$decay <- params$decay
   if (!is.null(params$maxit))
     obj$maxit <- params$maxit
-  
+
   return(obj)
 }
 
+#'@import nnet
 #'@export
 do_fit.ts_mlp <- function(obj, x, y) {
-  obj$model <- nnet(x = x, y = y, size = obj$size, decay=obj$decay, maxit = obj$maxit, linout=TRUE, trace = FALSE)
+  obj$model <- nnet::nnet(x = x, y = y, size = obj$size, decay=obj$decay, maxit = obj$maxit, linout=TRUE, trace = FALSE)
   return(obj)
 }

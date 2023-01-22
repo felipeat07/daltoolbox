@@ -15,7 +15,7 @@
 ts_augment <- function() {
   obj <- ts_transform()
   obj$preserve_data <- TRUE
-  class(obj) <- append("ts_augment", class(obj))    
+  class(obj) <- append("ts_augment", class(obj))
   return(obj)
 }
 
@@ -34,14 +34,14 @@ fit.ts_augment <- function(obj, data) {
 #'@export
 jitter <- function() {
   obj <- ts_augment()
-  class(obj) <- append("jitter", class(obj))    
+  class(obj) <- append("jitter", class(obj))
   return(obj)
 }
 
 #'@export
 fit.jitter <- function(obj, data) {
-  an <- apply(data, 1, mean) 
-  x <- data - an 
+  an <- apply(data, 1, mean)
+  x <- data - an
   obj$sd <- sd(x)
   return(obj)
 }
@@ -53,7 +53,7 @@ transform.jitter <- function(obj, data) {
     x <- matrix(x, nrow=nrow(data), ncol=ncol(data))
     x[,ncol(data)] <- 0
     data <- data + x
-    attr(data, "idx") <- 1:nrow(data) 
+    attr(data, "idx") <- 1:nrow(data)
     return(data)
   }
   result <- add.jitter(obj, data)
@@ -61,7 +61,7 @@ transform.jitter <- function(obj, data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
     result <- adjust.ts_data(result)
-    attr(result, "idx") <- idx 
+    attr(result, "idx") <- idx
   }
   return(result)
 }
@@ -83,19 +83,19 @@ describe.jitter <- function(obj) {
 stretch <- function(factor=1.2) {
   obj <- ts_augment()
   obj$factor <- factor
-  class(obj) <- append("stretch", class(obj))    
+  class(obj) <- append("stretch", class(obj))
   return(obj)
 }
 
 #'@export
 transform.stretch <- function(obj, data) {
   add.stretch <- function(obj, data) {
-    an <- apply(data, 1, mean) 
-    x <- data - an 
+    an <- apply(data, 1, mean)
+    x <- data - an
     x <- x * obj$factor
     x[,ncol(data)] <- 0
     data <- data + x
-    attr(data, "idx") <- 1:nrow(data) 
+    attr(data, "idx") <- 1:nrow(data)
     return(data)
   }
   result <- add.stretch(obj, data)
@@ -103,7 +103,7 @@ transform.stretch <- function(obj, data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
     result <- adjust.ts_data(result)
-    attr(result, "idx") <- idx 
+    attr(result, "idx") <- idx
   }
   return(result)
 }
@@ -125,19 +125,19 @@ describe.stretch <- function(obj) {
 shrink <- function(factor = 0.8) {
   obj <- ts_augment()
   obj$factor <- factor
-  class(obj) <- append("shrink", class(obj))    
+  class(obj) <- append("shrink", class(obj))
   return(obj)
 }
 
 #'@export
 transform.shrink <- function(obj, data) {
   add.shrink <- function(obj, data) {
-    an <- apply(data, 1, mean) 
-    x <- data - an 
+    an <- apply(data, 1, mean)
+    x <- data - an
     x <- x * obj$factor
     x[,ncol(data)] <- 0
     data <- data + x
-    attr(data, "idx") <- 1:nrow(data) 
+    attr(data, "idx") <- 1:nrow(data)
     return(data)
   }
   result <- add.shrink(obj, data)
@@ -145,7 +145,7 @@ transform.shrink <- function(obj, data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
     result <- adjust.ts_data(result)
-    attr(result, "idx") <- idx 
+    attr(result, "idx") <- idx
   }
   return(result)
 }
@@ -165,17 +165,17 @@ describe.shrink <- function(obj) {
 #'@export
 flip <- function() {
   obj <- ts_augment()
-  class(obj) <- append("flip", class(obj))    
+  class(obj) <- append("flip", class(obj))
   return(obj)
 }
 
 #'@export
 transform.flip <- function(obj, data) {
   add.flip <- function(obj, data) {
-    an <- apply(data, 1, mean) 
+    an <- apply(data, 1, mean)
     x <- data - an
     data <- an - x
-    attr(data, "idx") <- 1:nrow(data) 
+    attr(data, "idx") <- 1:nrow(data)
     return(data)
   }
   result <- add.flip(obj, data)
@@ -183,7 +183,7 @@ transform.flip <- function(obj, data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
     result <- adjust.ts_data(result)
-    attr(result, "idx") <- idx 
+    attr(result, "idx") <- idx
   }
   return(result)
 }
@@ -204,7 +204,7 @@ describe.flip <- function(obj) {
 wormhole <- function() {
   obj <- ts_augment()
   obj$fold <- 1
-  class(obj) <- append("wormhole", class(obj))    
+  class(obj) <- append("wormhole", class(obj))
   return(obj)
 }
 
@@ -230,12 +230,12 @@ transform.wormhole <- function(obj, data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
     result <- adjust.ts_data(result)
-    attr(result, "idx") <- idx 
+    attr(result, "idx") <- idx
   }
   return(result)
 }
 
 #'@export
 describe.wormhole <- function(obj) {
-  return("warmhole")
+  return("wormhole")
 }

@@ -43,7 +43,6 @@ set_params.ts_tlstm <- function(obj, params) {
   return(obj)
 }
 
-## TODO: verificar se é melhor abordagem
 #'@export
 do_fit.ts_tlstm <- function(obj, x, y) {
   if (is.null(obj$model))
@@ -52,7 +51,6 @@ do_fit.ts_tlstm <- function(obj, x, y) {
   df_train <- as.data.frame(x)
   df_train$t0 <- as.vector(y)
 
-  ## TODO: verificar uso python_env
   obj$model <- python_env$train_torch_lstm(obj$model, df_train, obj$epochs, 0.001, obj$deep_debug, obj$reproduce)
 
   return(obj)

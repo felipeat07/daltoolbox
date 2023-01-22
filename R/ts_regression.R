@@ -23,7 +23,6 @@ tsreg <- function() {
 }
 
 #predict
-
 #'@export
 predict.tsreg <- function(obj, x) {
   return(x[,ncol(x)])

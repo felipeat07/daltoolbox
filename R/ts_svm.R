@@ -23,12 +23,12 @@
 #'@export
 ts_svm <- function(preprocess=NA, input_size=NA, kernel="radial", epsilon=0, cost=10) {
   obj <- tsreg_sw(preprocess, input_size)
-  
+
   obj$kernel <- kernel #c("radial", "poly", "linear", "sigmoid")
   obj$epsilon <- epsilon #seq(0, 1, 0.1)
   obj$cost <- cost #=seq(10, 100, 10)
-  
-  class(obj) <- append("ts_svm", class(obj))  
+
+  class(obj) <- append("ts_svm", class(obj))
   return(obj)
 }
 
@@ -51,14 +51,15 @@ set_params.ts_svm <- function(obj, params) {
   return(obj)
 }
 
+#'@import e1071
 #'@export
 do_fit.ts_svm <- function(obj, x, y) {
-  obj$model <- svm(x = as.data.frame(x), y = y, epsilon=obj$epsilon, cost=obj$cost, kernel=obj$kernel)
+  obj$model <- e1071::svm(x = as.data.frame(x), y = y, epsilon=obj$epsilon, cost=obj$cost, kernel=obj$kernel)
   return(obj)
 }
 
 #'@export
 do_predict.ts_svm <- function(obj, x) {
-  prediction <- predict(obj$model, as.data.frame(x))  
+  prediction <- predict(obj$model, as.data.frame(x))
   return(prediction)
 }
