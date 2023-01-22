@@ -5,7 +5,7 @@
 
 # decision_tree
 # loadlibrary("tree")
-#'@title
+#'@title Decision Tree for Regression
 #'@description
 #'@details
 #'
@@ -15,19 +15,20 @@
 #'@export
 reg_dtree <- function(attribute) {
   obj <- regression(attribute)
-  
-  class(obj) <- append("reg_dtree", class(obj))    
+
+  class(obj) <- append("reg_dtree", class(obj))
   return(obj)
 }
 
+#'@import tree
 #'@export
 fit.reg_dtree <- function(obj, data) {
   data <- adjust.data.frame(data)
-  obj <- fit.regression(obj, data)  
-  
-  regression <- formula(paste(obj$attribute, "  ~ ."))  
-  obj$model <- tree(regression, data)
-  
+  obj <- fit.regression(obj, data)
+
+  regression <- formula(paste(obj$attribute, "  ~ ."))
+  obj$model <- tree::tree(regression, data)
+
   obj <- register_log(obj)
   return(obj)
 }
@@ -35,7 +36,7 @@ fit.reg_dtree <- function(obj, data) {
 #'@export
 predict.reg_dtree <- function(obj, x) {
   x <- adjust.data.frame(x)
-  x <- x[,obj$x]   
-  prediction <- predict(obj$model, x, type="vector")  
+  x <- x[,obj$x]
+  prediction <- predict(obj$model, x, type="vector")
   return(prediction)
 }

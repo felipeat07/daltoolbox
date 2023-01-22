@@ -7,7 +7,7 @@
 # random forest
 #loadlibrary("randomForest")
 
-#'@title
+#'@title Random Forest Regression
 #'@description
 #'@details
 #'
