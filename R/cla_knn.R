@@ -25,7 +25,7 @@ cla_knn <- function(attribute, slevels=NULL, k=1:30) {
   return(obj)
 }
 
-#'@import class
+#'@import class RSNNS
 #'@export
 fit.cla_knn <- function(obj, data) {
 
@@ -36,7 +36,7 @@ fit.cla_knn <- function(obj, data) {
 
   internal_predict.cla_knn <- function(model, x) {
     prediction <- class::knn(train=model$x, test=x, cl=model$y, prob=TRUE)
-    prediction <- decodeClassLabels(prediction)
+    prediction <- RSNNS::decodeClassLabels(prediction)
     return(prediction)
   }
 
@@ -56,14 +56,14 @@ fit.cla_knn <- function(obj, data) {
   return(obj)
 }
 
-#'@import class
+#'@import class RSNNS
 #'@export
 predict.cla_knn  <- function(obj, x) {
   x <- adjust.data.frame(x)
   x <- x[,obj$x]
 
   prediction <- class::knn(train=obj$model$x, test=x, cl=obj$model$y, prob=TRUE)
-  prediction <- decodeClassLabels(prediction)
+  prediction <- RSNNS::decodeClassLabels(prediction)
 
   return(prediction)
 }

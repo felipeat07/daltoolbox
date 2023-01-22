@@ -24,13 +24,14 @@ cla_majority <- function(attribute, slevels=NULL) {
   return(obj)
 }
 
+#'@import RSNNS
 #'@export
 fit.cla_majority <- function(obj, data) {
   data <- adjust.data.frame(data)
   data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
   obj <- fit.classification(obj, data)
 
-  y <- decodeClassLabels(data[,obj$attribute])
+  y <- RSNNS::decodeClassLabels(data[,obj$attribute])
   cols <- apply(y, 2, sum)
   col <- match(max(cols),cols)
   obj$model <- list(cols=cols, col=col)

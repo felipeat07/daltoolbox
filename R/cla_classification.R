@@ -48,6 +48,7 @@ fit.classification <- function(obj, data) {
   return(obj)
 }
 
+#'@import RSNNS
 #'@export
 tune.classification <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun = predict) {
   ranges <- expand.grid(ranges)
@@ -68,7 +69,7 @@ tune.classification <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun 
         params <- append(list(x = x[tt$train$i,], y = y[tt$train$i]), as.list(ranges[i,]))
         model <- do.call(fit.func, params)
         prediction <- pred.fun(model, x[tt$test$i,])
-        accuracies[i] <- accuracies[i] + evaluation.classification(decodeClassLabels(y[tt$test$i]), prediction)$accuracy
+        accuracies[i] <- accuracies[i] + evaluation.classification(RSNNS::decodeClassLabels(y[tt$test$i]), prediction)$accuracy
       }
     }
     i <- which.max(accuracies)
@@ -109,10 +110,11 @@ evaluation.classification <- function(data, prediction) {
 }
 
 #roc_curve
+#'@import ROCR
 #'@export
 roc_curve <- function(data, prediction) {
-  pred <- prediction(prediction, data)
-  rocr <- performance(pred, "tpr", "fpr")
+  pred <- ROCR::prediction(prediction, data)
+  rocr <- ROCR::performance(pred, "tpr", "fpr")
   return (rocr)
 }
 
