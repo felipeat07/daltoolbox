@@ -6,12 +6,12 @@
 # cla_svm
 # loadlibrary("e1071")
 
-#'@title
+#'@title Support Vector Machine Classification
 #'@description
 #'@details
 #'
-#'@param attribute
-#'@param slevels
+#'@param attribute - name of the attribute used as target classification
+#'@param slevels - possible values for the target classification
 #'@param epsilon
 #'@param cost
 #'@param kernel
@@ -30,10 +30,11 @@ cla_svm <- function(attribute, slevels=NULL, epsilon=seq(0,1,0.2), cost=seq(20,1
   return(obj)
 }
 
+#'@import e1071
 #'@export
 fit.cla_svm <- function(obj, data) {
   internal_fit.cla_svm <- function (x, y, epsilon, cost, kernel) {
-    model <- svm(x, y, probability=TRUE, epsilon=epsilon, cost=cost, kernel=kernel)
+    model <- e1071::svm(x, y, probability=TRUE, epsilon=epsilon, cost=cost, kernel=kernel)
     attr(model, "slevels")  <- levels(y)
     return (model)
   }

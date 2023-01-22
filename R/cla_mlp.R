@@ -6,15 +6,15 @@
 # mlp_nnet
 #loadlibrary("nnet")
 
-#'@title
+#'@title Classification using Artificial Neural Network (ANN)
 #'@description
 #'@details
 #'
-#'@param attribute
-#'@param slevels
-#'@param size
-#'@param decay
-#'@param maxit
+#'@param attribute - name of the attribute used as target classification
+#'@param slevels - possible values for the target classification
+#'@param size - number of nodes that will be used in the hidden layer
+#'@param decay - how quickly it decreases in gradient descent
+#'@param maxit - maximun interations
 #'@return
 #'@examples
 #'@export
@@ -28,10 +28,11 @@ cla_mlp <- function(attribute, slevels=NULL, size=NULL, decay=seq(0, 1, 0.0335),
   return(obj)
 }
 
+#'@import nnet
 #'@export
 fit.cla_mlp <- function(obj, data) {
   internal_fit.cla_mlp <- function (x, y, size, decay, maxit) {
-    return (nnet(x,decodeClassLabels(y),size=size,decay=decay,maxit=maxit,trace=FALSE))
+    return (nnet::nnet(x,decodeClassLabels(y),size=size,decay=decay,maxit=maxit,trace=FALSE))
   }
 
   internal_predict.cla_mlp <- function(model, x) {

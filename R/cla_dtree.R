@@ -7,43 +7,42 @@
 # decision_tree
 # loadlibrary("tree")
 
-#'@title
-#'@description
+#'@title Decision Tree Classification
+#'@description Classification using Decision Tree algorithm
 #'@details
 #'
-#'@param attribute
-#'@param slevels
-#'@return
+#'@param attribute - name of the attribute used as target classification
+#'@param slevels - possible values for the target classification
+#'@return classification object
 #'@examples
 #'@export
 cla_dtree <- function(attribute, slevels=NULL) {
   obj <- classification(attribute, slevels)
-  
-  class(obj) <- append("cla_dtree", class(obj))    
+
+  class(obj) <- append("cla_dtree", class(obj))
   return(obj)
 }
 
+#'@import tree
 #'@export
 fit.cla_dtree <- function(obj, data) {
   data <- adjust.data.frame(data)
   data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
   obj <- fit.classification(obj, data)
-  
-  loadlibrary("tree")
-  regression <- formula(paste(obj$attribute, "  ~ ."))  
-  obj$model <- tree(regression, data)
-  
-  obj <- register_log(obj)  
+
+  regression <- formula(paste(obj$attribute, "  ~ ."))
+  obj$model <- tree::tree(regression, data)
+
+  obj <- register_log(obj)
   return(obj)
 }
 
 #'@export
 predict.cla_dtree <- function(obj, x) {
   x <- adjust.data.frame(x)
-  x <- x[,obj$x]   
-  
-  loadlibrary("tree")
-  prediction <- predict(obj$model, x, type="vector")  
-  
+  x <- x[,obj$x]
+
+  prediction <- predict(obj$model, x, type="vector")
+
   return(prediction)
 }

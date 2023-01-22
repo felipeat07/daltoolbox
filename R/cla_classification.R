@@ -82,6 +82,7 @@ tune.classification <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun 
 }
 
 #evaluation.classification
+#'@import RSNNS MLmetrics
 #'@export
 evaluation.classification <- function(data, prediction) {
   obj <- list(data=data, prediction=prediction)
