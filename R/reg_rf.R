@@ -27,6 +27,7 @@ reg_rf <- function(attribute, mtry = NULL, ntree = seq(5, 50, 5)) {
   return(obj)
 }
 
+#'@import randomForest
 #'@export
 fit.reg_rf <- function(obj, data) {
   data <- adjust.data.frame(data)
@@ -39,7 +40,7 @@ fit.reg_rf <- function(obj, data) {
   y <- data[,obj$attribute]
 
   ranges <- list(mtry=obj$mtry, ntree=obj$ntree)
-  obj$model <- tune.regression(obj, x = x, y = y, ranges = ranges, fit.func = randomForest)
+  obj$model <- tune.regression(obj, x = x, y = y, ranges = ranges, fit.func = randomForest::randomForest)
 
   params <- attr(obj$model, "params")
   msg <- sprintf("mtry=%d,ntree=%d", params$mtry, params$ntree)

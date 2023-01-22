@@ -83,14 +83,14 @@ tune.classification <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun 
 }
 
 #evaluation.classification
-#'@import RSNNS MLmetrics
+#'@import RSNNS MLmetrics nnet
 #'@export
 evaluation.classification <- function(data, prediction) {
   obj <- list(data=data, prediction=prediction)
 
   adjust_predictions <- function(predictions) {
     predictions_i <- matrix(rep.int(0, nrow(predictions)*ncol(predictions)), nrow=nrow(predictions), ncol=ncol(predictions))
-    y <- apply(predictions, 1, which.is.max)
+    y <- apply(predictions, 1, nnet::which.is.max)
     for(i in unique(y)) {
       predictions_i[y==i,i] <- 1
     }

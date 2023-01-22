@@ -29,6 +29,7 @@ cla_rf <- function(attribute, slevels=NULL, mtry = NULL, ntree = seq(5, 50, 5)) 
   return(obj)
 }
 
+#'@import randomForest
 #'@export
 fit.cla_rf <- function(obj, data) {
 
@@ -48,7 +49,7 @@ fit.cla_rf <- function(obj, data) {
   y <- data[,obj$attribute]
 
   ranges <- list(mtry=obj$mtry, ntree=obj$ntree)
-  obj$model <- tune.classification(obj, x = x, y = y, ranges = ranges, fit.func = randomForest, pred.fun = internal_predict.cla_rf)
+  obj$model <- tune.classification(obj, x = x, y = y, ranges = ranges, fit.func = randomForest::randomForest, pred.fun = internal_predict.cla_rf)
 
   params <- attr(obj$model, "params")
   msg <- sprintf("mtry=%d,ntree=%d", params$mtry, params$ntree)
