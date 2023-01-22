@@ -6,7 +6,7 @@
 ### Normalization
 
 # normalize normalization
-#'@title
+#'@title Normalization
 #'@description
 #'@details
 #'
@@ -15,12 +15,12 @@
 #'@export
 normalize <- function() {
   obj <- dal_transform()
-  class(obj) <- append("normalize", class(obj))    
+  class(obj) <- append("normalize", class(obj))
   return(obj)
-}  
+}
 
 # min-max normalization
-#'@title
+#'@title Min-Max Normalization
 #'@description
 #'@details
 #'
@@ -29,16 +29,16 @@ normalize <- function() {
 #'@export
 minmax <- function() {
   obj <- normalize()
-  class(obj) <- append("minmax", class(obj))    
+  class(obj) <- append("minmax", class(obj))
   return(obj)
-}  
+}
 
 #'@export
 fit.minmax <- function(obj, data) {
   minmax = data.frame(t(ifelse(sapply(data, is.numeric), 1, 0)))
   minmax = rbind(minmax, rep(NA, ncol(minmax)))
   minmax = rbind(minmax, rep(NA, ncol(minmax)))
-  colnames(minmax) = colnames(data)    
+  colnames(minmax) = colnames(data)
   rownames(minmax) = c("numeric", "max", "min")
   for (j in colnames(minmax)[minmax["numeric",]==1]) {
     minmax["min",j] <- min(data[,j], na.rm=TRUE)
@@ -77,7 +77,7 @@ inverse_transform.minmax <- function(obj, data) {
 }
 
 # z-score normalization
-#'@title
+#'@title Z-score Normalization
 #'@description
 #'@details
 #'
@@ -90,9 +90,9 @@ zscore <- function(nmean=0, nsd=1) {
   obj <- normalize()
   obj$nmean <- nmean
   obj$nsd <- nsd
-  class(obj) <- append("zscore", class(obj))    
+  class(obj) <- append("zscore", class(obj))
   return(obj)
-}  
+}
 
 #'@export
 fit.zscore <- function(obj, data) {
@@ -103,7 +103,7 @@ fit.zscore <- function(obj, data) {
   zscore <- rbind(zscore, rep(NA, ncol(zscore)))
   zscore <- rbind(zscore, rep(NA, ncol(zscore)))
   zscore <- rbind(zscore, rep(NA, ncol(zscore)))
-  colnames(zscore) <- colnames(data)    
+  colnames(zscore) <- colnames(data)
   rownames(zscore) <- c("numeric", "mean", "sd","nmean", "nsd")
   for (j in colnames(zscore)[zscore["numeric",]==1]) {
     zscore["mean",j] <- mean(data[,j], na.rm=TRUE)
@@ -112,8 +112,8 @@ fit.zscore <- function(obj, data) {
     zscore["nsd",j] <- nsd
   }
   obj$norm.set <- zscore
-  
-  return(obj)  
+
+  return(obj)
 }
 
 #'@export
@@ -138,7 +138,7 @@ inverse_transform.zscore <- function(obj, data) {
       data[,j] <- (data[,j] - zscore["nmean", j]) / zscore["nsd", j] * zscore["sd", j] + zscore["mean", j]
     }
     else {
-      data[,j] <- zscore["nmean", j]  
+      data[,j] <- zscore["nmean", j]
     }
   }
   return (data)

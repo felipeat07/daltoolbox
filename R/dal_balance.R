@@ -6,7 +6,7 @@
 # class balance_dataset
 # loadlibrary("smotefamily")
 
-#'@title
+#'@title Class Balance Dataset
 #'@description
 #'@details
 #'
@@ -17,13 +17,13 @@
 balance_dataset <- function(attribute) {
   obj <- dal_transform()
   obj$attribute <- attribute
-  class(obj) <- append("balance_dataset", class(obj))  
+  class(obj) <- append("balance_dataset", class(obj))
   return(obj)
 }
 
 #balance_oversampling
 
-#'@title
+#'@title Class Balance Oversampling
 #'@description
 #'@details
 #'
@@ -33,16 +33,16 @@ balance_dataset <- function(attribute) {
 #'@export
 balance_oversampling <- function(attribute) {
   obj <- balance_dataset(attribute)
-  class(obj) <- append("balance_oversampling", class(obj))    
+  class(obj) <- append("balance_oversampling", class(obj))
   return(obj)
 }
 
 #'@export
 transform.balance_oversampling <- function(obj, data) {
   j <- match(obj$attribute, colnames(data))
-  x <- sort((table(data[,obj$attribute]))) 
+  x <- sort((table(data[,obj$attribute])))
   result <- data[data[obj$attribute]==names(x)[length(x)],]
-  
+
   for (i in 1:(length(x)-1)) {
     small <- data[,obj$attribute]==names(x)[i]
     large <- data[,obj$attribute]==names(x)[length(x)]
@@ -57,7 +57,7 @@ transform.balance_oversampling <- function(obj, data) {
 }
 
 # balance_subsampling
-#'@title
+#'@title Class Balance Subsampling
 #'@description
 #'@details
 #'
@@ -67,7 +67,7 @@ transform.balance_oversampling <- function(obj, data) {
 #'@export
 balance_subsampling <- function(attribute) {
   obj <- balance_dataset(attribute)
-  class(obj) <- append("balance_subsampling", class(obj))    
+  class(obj) <- append("balance_subsampling", class(obj))
   return(obj)
 }
 
@@ -75,7 +75,7 @@ balance_subsampling <- function(attribute) {
 transform.balance_subsampling <- function(obj, data) {
   data <- data
   attribute <- obj$attribute
-  x <- sort((table(data[,attribute]))) 
+  x <- sort((table(data[,attribute])))
   qminor = as.integer(x[1])
   newdata = NULL
   for (i in 1:length(x)) {

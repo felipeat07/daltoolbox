@@ -47,13 +47,14 @@ Imports:
     elmNNRcpp,
     Rcpp,
     leaps,
-    glmnet, 
+    glmnet,
     FSelector,
     doBy,
     forecast,
     smotefamily,
-    ROCR, 
+    ROCR,
     RSNNS,
     MLmetrics,
     tree,
-    Matrix
+    Matrix,
+    stats

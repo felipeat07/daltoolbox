@@ -5,7 +5,7 @@
 
 ### Categorical Mapping
 
-#'@title
+#'@title Categorical Mapping
 #'@description
 #'@details
 #'
@@ -16,8 +16,8 @@
 categ_mapping <- function(attribute) {
   obj <- dal_transform()
   obj$attribute <- attribute
-  class(obj) <- append("categ_mapping", class(obj))  
-  return(obj)  
+  class(obj) <- append("categ_mapping", class(obj))
+  return(obj)
 }
 
 #'@export

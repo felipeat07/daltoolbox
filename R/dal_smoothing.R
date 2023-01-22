@@ -141,6 +141,7 @@ smoothing_cluster <- function(n) {
   return(obj)
 }
 
+#'@import stats
 #'@export
 fit.smoothing_cluster <- function(obj, data) {
   v <- data
@@ -161,6 +162,7 @@ fit.smoothing_cluster <- function(obj, data) {
 #'@param attribute
 #'@return
 #'@examples
+#'@import dplyr
 #'@export
 smoothing_evaluation <- function(data, attribute) {
   obj <- list(data=as.factor(data), attribute=as.factor(attribute))
@@ -171,11 +173,11 @@ smoothing_evaluation <- function(data, attribute) {
     options(dplyr.summarise.inform = FALSE)
 
     base <- data.frame(x = obj$data, y = obj$attribute)
-    tbl <- base %>% group_by(x, y) %>% summarise(qtd=n())
-    tbs <- base %>% group_by(x) %>% summarise(t=n())
-    tbl <- merge(x=tbl, y=tbs, by.x="x", by.y="x")
+    tbl <- base %>% dplyr::group_by(x, y) %>% summarise(qtd=n())
+    tbs <- base %>% dplyr::group_by(x) %>% summarise(t=n())
+    tbl <- dplyr::merge(x=tbl, y=tbs, by.x="x", by.y="x")
     tbl$e <- -(tbl$qtd/tbl$t)*log(tbl$qtd/tbl$t,2)
-    tbl <- tbl %>% group_by(x) %>% summarise(ce=sum(e), qtd=sum(qtd))
+    tbl <- tbl %>% dplyr::group_by(x) %>% dplyr::summarise(ce=sum(e), qtd=sum(qtd))
     tbl$ceg <- tbl$ce*tbl$qtd/length(obj$data)
     obj$entropy_clusters <- tbl
     obj$entropy <- sum(obj$entropy$ceg)
