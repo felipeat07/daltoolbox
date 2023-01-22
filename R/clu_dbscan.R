@@ -9,7 +9,7 @@
 # loadlibrary("Rcpp")
 # loadlibrary("dbscan")
 
-#'@title
+#'@title Clustering using DBSCAN
 #'@description
 #'@details
 #'
@@ -30,7 +30,7 @@ cluster_dbscan <- function(eps, MinPts) {
 #'@export
 fit.cluster_dbscan <- function(obj, data) {
 
-  cluster <- dbscan(data, eps = obj$eps, MinPts = obj$MinPts)
+  cluster <- fpc::dbscan(data, eps = obj$eps, MinPts = obj$MinPts)
 
   cluster <- cluster$cluster
   attr(cluster, "dist") <- 0

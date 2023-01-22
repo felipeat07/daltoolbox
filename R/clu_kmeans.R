@@ -6,28 +6,29 @@
 
 # kmeans
 # loadlibrary("cluster")
-# loadlibrary("factoextra")  
+# loadlibrary("factoextra")
 
-#'@title
+#'@title Clustering using k-means
 #'@description
 #'@details
 #'
-#'@param k
-#'@return
+#'@param k - number of clusters
+#'@return clustering object
 #'@examples
 #'@export
 cluster_kmeans <- function(k) {
   obj <- clustering()
   obj$k <- k
-  
+
   class(obj) <- append("cluster_kmeans", class(obj))
   return(obj)
 }
 
+#'@import factoextra
 #'@export
 optimize.cluster_kmeans <- function(obj, data, kmax=20, do_plot=FALSE) {
-  t <- fviz_nbclust(data, kmeans, k.max = kmax, method = "wss")
-  
+  t <- factoextra::fviz_nbclust(data, kmeans, k.max = kmax, method = "wss")
+
   y <- t$data$y
   myfit <- fit_curvature_max()
   res <- transform(myfit, y)
@@ -48,7 +49,7 @@ fit.cluster_kmeans <- function(obj, data) {
     center <- cluster$centers[i,]
     dist <- dist + sum(rowSums((data[idx,] - center)^2))
   }
-  
+
   cluster <- cluster$cluster
   attr(cluster, "dist") <- dist
   return(cluster)
