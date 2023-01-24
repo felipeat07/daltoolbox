@@ -70,6 +70,20 @@ ts_data <- function(y, sw=1) {
 #'@description
 #'@details
 #'
+#'@param obj object: .
+#'@param ... optional arguments./ further arguments passed to or from other methods.
+#'@return
+#'@examples
+#'@export
+head <- function(obj, ...) {
+  UseMethod("head")
+}
+
+#head
+#'@title
+#'@description
+#'@details
+#'
 #'@param x
 #'@param n integer: size of test data.
 #'@return
