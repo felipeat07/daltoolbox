@@ -134,7 +134,7 @@ predict.tsreg_sw <- function(obj, x, steps_ahead=1) {
     data <- ts_as_matrix(x, obj$input_size)
     y <- do_predict(obj, data)
     y <- inverse_transform(obj$preprocess, x, y)
-    return(y)
+    return(as.vector(y))
   }
   else {
     if (nrow(x) > 1)
@@ -154,7 +154,7 @@ predict.tsreg_sw <- function(obj, x, steps_ahead=1) {
       x[1, ncol(x)] <- y
       prediction <- c(prediction, y)
     }
-    return(prediction)
+    return(as.vector(prediction))
   }
   return(prediction)
 }
@@ -204,9 +204,12 @@ plot.tsreg <- function(obj, y, yadj, ypre, main=NULL, xlabels=NULL) {
   if (is.null(main)) {
     prepname <- ""
     if (!is.null(obj$preprocess))
-      prepname <- sprintf("-%s", class(obj$preprocess)[1])
-    main <- sprintf("%s%s", class(obj)[1], prepname)
+      prepname <- sprintf("-%s", describe(obj$preprocess))
+    main <- sprintf("%s%s", describe(obj), prepname)
   }
+  y <- as.vector(y)
+  yadj <- as.vector(yadj)
+  ypre <- as.vector(ypre)
   ntrain <- length(yadj)
   smape_train <- sMAPE.tsreg(y[1:ntrain], yadj)*100
   smape_test <- sMAPE.tsreg(y[(ntrain+1):(ntrain+length(ypre))], ypre)*100
