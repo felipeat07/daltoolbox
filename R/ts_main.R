@@ -200,7 +200,7 @@ evaluation.tsreg <- function(values, prediction) {
 }
 
 #'@export
-plot.tsreg <- function(obj, y, yadj, ypre, main=NULL, xlabels=NULL) {
+tsplot <- function(obj, y, yadj, ypre, main=NULL, xlabels=NULL) {
   if (is.null(main)) {
     prepname <- ""
     if (!is.null(obj$preprocess))
