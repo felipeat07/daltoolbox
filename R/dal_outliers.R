@@ -62,9 +62,9 @@ transform.outliers <- function(obj, data) {
         idx = idx | (!is.na(data[,i]) & (data[,i] < lq1[i] | data[,i] > hq3[i]))
   }
   if(is.matrix(data))
-    data <- adjust.matrix(data[!idx,])
+    data <- adjust_matrix(data[!idx,])
   else if (is.data.frame(data))
-    data <- adjust.data.frame(data[!idx,])
+    data <- adjust_data.frame(data[!idx,])
   else {
     if (!is.na(lq1) && !is.na(hq3)) {
       idx <- data < lq1 | data > hq3

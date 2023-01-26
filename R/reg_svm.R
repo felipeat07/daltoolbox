@@ -31,7 +31,7 @@ reg_svm <- function(attribute, epsilon=seq(0,1,0.2), cost=seq(20,100,20), kernel
 
 #'@export
 fit.reg_svm <- function(obj, data) {
-  data <- adjust.data.frame(data)
+  data <- adjust_data.frame(data)
   obj <- fit.regression(obj, data)
 
   x <- data[,obj$x]
@@ -48,7 +48,7 @@ fit.reg_svm <- function(obj, data) {
 
 #'@export
 predict.reg_svm  <- function(obj, x) {
-  x <- adjust.data.frame(x)
+  x <- adjust_data.frame(x)
   x <- x[,obj$x]
   prediction <- predict(obj$model, x)
   return(prediction)

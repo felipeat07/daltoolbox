@@ -27,7 +27,7 @@ cla_majority <- function(attribute, slevels=NULL) {
 #'@import RSNNS
 #'@export
 fit.cla_majority <- function(obj, data) {
-  data <- adjust.data.frame(data)
+  data <- adjust_data.frame(data)
   data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
   obj <- fit.classification(obj, data)
 

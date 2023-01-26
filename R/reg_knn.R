@@ -34,7 +34,7 @@ fit.reg_knn <- function(obj, data) {
     prediction <- FNN::knn.reg(train = model$x, test = x, y = model$y, k = model$k)
     return(prediction$pred)
   }
-  data <- adjust.data.frame(data)
+  data <- adjust_data.frame(data)
   obj <- fit.regression(obj, data)
 
   x <- as.matrix(data[,obj$x])
@@ -53,7 +53,7 @@ fit.reg_knn <- function(obj, data) {
 #'@export
 predict.reg_knn  <- function(obj, x) {
   #develop from FNN https://daviddalpiaz.github.io/r4sl/knn-reg.html
-  x <- adjust.data.frame(x)
+  x <- adjust_data.frame(x)
   x <- as.matrix(x[,obj$x])
   prediction <- FNN::knn.reg(train = obj$model$x, test = x, y = obj$model$y, k = obj$model$k)
   return(prediction$pred)

@@ -30,7 +30,7 @@ reg_rf <- function(attribute, mtry = NULL, ntree = seq(5, 50, 5)) {
 #'@import randomForest
 #'@export
 fit.reg_rf <- function(obj, data) {
-  data <- adjust.data.frame(data)
+  data <- adjust_data.frame(data)
   obj <- fit.regression(obj, data)
 
   if (is.null(obj$mtry))
@@ -50,7 +50,7 @@ fit.reg_rf <- function(obj, data) {
 
 #'@export
 predict.reg_rf  <- function(obj, x) {
-  x <- adjust.data.frame(x)
+  x <- adjust_data.frame(x)
   x <- x[,obj$x]
   prediction <- predict(obj$model, x)
   return(prediction)

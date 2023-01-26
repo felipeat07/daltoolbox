@@ -26,7 +26,7 @@ cla_dtree <- function(attribute, slevels=NULL) {
 #'@import tree
 #'@export
 fit.cla_dtree <- function(obj, data) {
-  data <- adjust.data.frame(data)
+  data <- adjust_data.frame(data)
   data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
   obj <- fit.classification(obj, data)
 
@@ -39,7 +39,7 @@ fit.cla_dtree <- function(obj, data) {
 
 #'@export
 predict.cla_dtree <- function(obj, x) {
-  x <- adjust.data.frame(x)
+  x <- adjust_data.frame(x)
   x <- x[,obj$x]
 
   prediction <- predict(obj$model, x, type="vector")
