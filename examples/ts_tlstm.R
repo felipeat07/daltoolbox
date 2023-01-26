@@ -38,12 +38,12 @@ set_params.ts_tlstm <- function(obj, params) {
 #'@export
 do_fit.ts_tlstm <- function(obj, x, y) {
   if (is.null(obj$model))
-    obj$model <- python_env$create_torch_lstm(obj$input_size, obj$input_size)  ## TODO: verificar uso python_env
+    obj$model <- create_torch_lstm(obj$input_size, obj$input_size)
 
   df_train <- as.data.frame(x)
   df_train$t0 <- as.vector(y)
 
-  obj$model <- python_env$train_torch_lstm(obj$model, df_train, obj$epochs, 0.001, obj$deep_debug, obj$reproduce)
+  obj$model <- train_torch_lstm(obj$model, df_train, obj$epochs, 0.001, obj$deep_debug, obj$reproduce)
 
   return(obj)
 }
@@ -52,7 +52,7 @@ do_fit.ts_tlstm <- function(obj, x, y) {
 do_predict.ts_tlstm <- function(obj, x) {
   X_values <- as.data.frame(x)
   X_values$t0 <- 0
-  prediction <- python_env$predict_torch_lstm(obj$model, X_values)
+  prediction <- predict_torch_lstm(obj$model, X_values)
   prediction <- as.vector(prediction)
   return(prediction)
 }

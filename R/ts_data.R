@@ -158,3 +158,16 @@ ts_transform <- function() {
   return(obj)
 }
 
+
+#'@title
+#'@description
+#'@details
+#'
+#'@return
+#'@examples
+#'@export
+transform.ts_transform <- function(obj, data) {
+  return(data)
+}
+
+
