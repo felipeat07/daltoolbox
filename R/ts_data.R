@@ -70,20 +70,6 @@ ts_data <- function(y, sw=1) {
 #'@description
 #'@details
 #'
-#'@param obj object: .
-#'@param ... optional arguments./ further arguments passed to or from other methods.
-#'@return
-#'@examples
-#'@export
-head <- function(obj, ...) {
-  UseMethod("head")
-}
-
-#head
-#'@title
-#'@description
-#'@details
-#'
 #'@param x
 #'@param n integer: size of test data.
 #'@return
@@ -172,12 +158,3 @@ ts_transform <- function() {
   return(obj)
 }
 
-#'@export
-transform.ts_transform <- function(obj, data) {
-  return(data)
-}
-
-#'@export
-describe.ts_transform <- function(obj) {
-  return("none")
-}

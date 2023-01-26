@@ -66,11 +66,6 @@ transform.jitter <- function(obj, data) {
   return(result)
 }
 
-#'@export
-describe.jitter <- function(obj) {
-  return("jitter")
-}
-
 ### stretch
 #'@title
 #'@description
@@ -106,11 +101,6 @@ transform.stretch <- function(obj, data) {
     attr(result, "idx") <- idx
   }
   return(result)
-}
-
-#'@export
-describe.stretch <- function(obj) {
-  return(sprintf("stretch%.1f", obj$factor))
 }
 
 ### shrink
@@ -150,11 +140,6 @@ transform.shrink <- function(obj, data) {
   return(result)
 }
 
-#'@export
-describe.shrink <- function(obj) {
-  return(sprintf("shrink%.1f", obj$factor))
-}
-
 ### flip
 #'@title
 #'@description
@@ -186,11 +171,6 @@ transform.flip <- function(obj, data) {
     attr(result, "idx") <- idx
   }
   return(result)
-}
-
-#'@export
-describe.flip <- function(obj) {
-  return("flip")
 }
 
 ### Wormhole
@@ -235,7 +215,3 @@ transform.wormhole <- function(obj, data) {
   return(result)
 }
 
-#'@export
-describe.wormhole <- function(obj) {
-  return("wormhole")
-}

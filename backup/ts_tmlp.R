@@ -31,14 +31,6 @@ ts_tmlp <- function(preprocess = NA, input_size = NA, hidden_size = 16, epochs =
 }
 
 #'@export
-describe.ts_tmlp <- function(obj) {
-  if (!is.na(obj$input_size))
-    return(sprintf("dmlp(input_size=%d,hidden_size=%d,epochs=%d)-%s", obj$input_size, obj$hidden_size, obj$epochs, describe(obj$preprocess)))
-  else
-    return("dmlp")
-}
-
-#'@export
 set_params.ts_tmlp <- function(obj, params) {
   if (!is.null(params$hidden_size))
     obj$hidden_size <- as.integer(params$hidden_size)

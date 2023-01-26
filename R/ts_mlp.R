@@ -35,14 +35,6 @@ ts_mlp <- function(preprocess=NA, input_size=NA, size=NA, decay=0.01, maxit=1000
 }
 
 #'@export
-describe.ts_mlp <- function(obj) {
-  if (!is.na(obj$input_size))
-    return(sprintf("mlp(input_size=%d,size=%d,decay=%.2f,maxit=%d)-%s", obj$input_size, obj$size, obj$decay, obj$maxit, describe(obj$preprocess)))
-  else
-    return("mlp")
-}
-
-#'@export
 set_params.ts_mlp <- function(obj, params) {
   if (!is.null(params$size))
     obj$size <- params$size

@@ -35,14 +35,6 @@ ts_elm <- function(preprocess=NA, input_size=NA, nhid=NA, actfun='purelin') {
 }
 
 #'@export
-describe.ts_elm <- function(obj) {
-  if (!is.na(obj$input_size))
-    return(sprintf("elm(input_size=%d,nhid=%d,actfun=%s)-%s", obj$input_size, obj$nhid, obj$actfun, describe(obj$preprocess)))
-  else
-    return("elm")
-}
-
-#'@export
 set_params.ts_elm <- function(obj, params) {
   if (!is.null(params$nhid))
     obj$nhid <- params$nhid

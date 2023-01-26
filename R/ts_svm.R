@@ -33,14 +33,6 @@ ts_svm <- function(preprocess=NA, input_size=NA, kernel="radial", epsilon=0, cos
 }
 
 #'@export
-describe.ts_svm <- function(obj) {
-  if (!is.na(obj$input_size))
-    return(sprintf("svm(input_size=%d,kernel=%s,epsilon=%.1f,cost=%d)-%s", obj$input_size, obj$kernel, obj$epsilon, obj$cost, describe(obj$preprocess)))
-  else
-    return("svm")
-}
-
-#'@export
 set_params.ts_svm <- function(obj, params) {
   if (!is.null(params$kernel))
     obj$kernel <- params$kernel

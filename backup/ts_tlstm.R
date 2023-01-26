@@ -29,14 +29,6 @@ ts_tlstm <- function(preprocess = NA, input_size = NA, epochs = 10000L) {
 }
 
 #'@export
-describe.ts_tlstm <- function(obj) {
-  if (!is.na(obj$input_size))
-    return(sprintf("lstm(input_size=%d,epochs=%d)-%s", obj$input_size, obj$epochs, describe(obj$preprocess)))
-  else
-    return("lstm")
-}
-
-#'@export
 set_params.ts_tlstm <- function(obj, params) {
   if (!is.null(params$epochs))
     obj$epochs <- as.integer(params$epochs)

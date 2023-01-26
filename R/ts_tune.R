@@ -35,11 +35,6 @@ ts_maintune <- function(preprocess, input_size, base_model, augment = ts_augment
   return(obj)
 }
 
-#'@export
-describe.ts_maintune <- function(obj) {
-  return(obj$name)
-}
-
 #'@title
 #'@description
 #'@details

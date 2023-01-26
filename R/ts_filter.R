@@ -66,7 +66,3 @@ transform.ts_smooth <- function(obj, data) {
   return(xd)
 }
 
-#'@export
-describe.ts_smooth <- function(obj) {
-  return("smooth")
-}

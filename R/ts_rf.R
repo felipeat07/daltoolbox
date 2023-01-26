@@ -31,14 +31,6 @@ ts_rf <- function(preprocess=NA, input_size=NA, nodesize = 5, ntree = 20) {
 }
 
 #'@export
-describe.ts_rf <- function(obj) {
-  if (!is.na(obj$input_size))
-    return(sprintf("rf(input_size=%d,nodesize=%d,ntree=%d)-%s", obj$input_size, obj$nodesize, obj$ntree, describe(obj$preprocess)))
-  else
-    return("rf")
-}
-
-#'@export
 set_params.ts_rf <- function(obj, params) {
   if (!is.null(params$nodesize))
     obj$nodesize <- params$nodesize

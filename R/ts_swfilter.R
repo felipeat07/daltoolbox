@@ -67,12 +67,6 @@ transform.ts_swsmooth <- function(obj, data) {
   return(result)
 }
 
-#'@export
-describe.ts_swsmooth <- function(obj) {
-  return("smooth")
-}
-
-
 ### ts_ma
 #'@title
 #'@description
@@ -99,11 +93,6 @@ transform.ts_ma <- function(obj, data) {
   idx <- obj$ma - 1 + (1:nrow(result))
   attr(result, "idx") <- idx
   return(result)
-}
-
-#'@export
-describe.ts_ma <- function(obj) {
-  return(sprintf("ma%d", obj$ma))
 }
 
 ### ts_ema
@@ -143,11 +132,6 @@ transform.ts_ema <- function(obj, data) {
   idx <- obj$ema - 1 + (1:nrow(result))
   attr(result, "idx") <- idx
   return(result)
-}
-
-#'@export
-describe.ts_ema <- function(obj) {
-  return(sprintf("ema%d", obj$ema))
 }
 
 #'@title
@@ -201,11 +185,6 @@ transform.ts_awareness <- function(obj, data) {
   result <- adjust.ts_data(result)
   attr(result, "idx") <- idx
   return(result)
-}
-
-#'@export
-describe.ts_awareness <- function(obj) {
-  return(sprintf("awareness%.2f", obj$factor))
 }
 
 ### ts_aware_smooth
@@ -294,7 +273,3 @@ transform.ts_aware_smooth <- function(obj, data) {
   return(result)
 }
 
-#'@export
-describe.ts_aware_smooth <- function(obj) {
-  return(sprintf("aware_smooth%.2f", obj$factor))
-}

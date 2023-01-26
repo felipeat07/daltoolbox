@@ -29,14 +29,6 @@ ts_tconv1d <- function(preprocess = NA, input_size = NA, epochs = 10000L) {
 }
 
 #'@export
-describe.ts_tconv1d <- function(obj) {
-  if (!is.na(obj$input_size))
-    return(sprintf("conv1d(input_size=%d,epochs=%d)-%s", obj$input_size, obj$epochs, describe(obj$preprocess)))
-  else
-    return("conv1d")
-}
-
-#'@export
 set_params.ts_tconv1d <- function(obj, params) {
   if (!is.null(params$epochs))
     obj$epochs <- as.integer(params$epochs)

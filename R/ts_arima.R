@@ -22,14 +22,6 @@ tsreg_arima <- function() {
   return(obj)
 }
 
-#'@export
-describe.tsreg_arima <- function(obj) {
-  if (is.null(obj$model))
-    return("arima")
-  else
-    return(as.character(obj$model))
-}
-
 #'@import forecast
 #'@export
 fit.tsreg_arima <- function(obj, x, y = NULL) {
