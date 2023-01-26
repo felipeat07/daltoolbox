@@ -66,3 +66,65 @@ transform.ts_smooth <- function(obj, data) {
   return(xd)
 }
 
+
+### ts_ma
+#'@title
+#'@description
+#'@details
+#'
+#'@param ma
+#'@return
+#'@examples
+#'@export
+ts_ma <- function(ma = 3) {
+  obj <- ts_filter()
+  obj$ma <- ma
+  class(obj) <- append("ts_ma", class(obj))
+  return(obj)
+}
+
+#'@export
+transform.ts_ma <- function(obj, data) {
+  data <- ts_data(data, obj$ma)
+  ma <- apply(data, 1, mean)
+  result <- c(rep(NA, obj$ma-1), ma)
+  return(result)
+}
+
+### ts_ema
+#'@title
+#'@description
+#'@details
+#'
+#'@param ema
+#'@return
+#'@examples
+#'@export
+ts_ema <- function(ema = 3) {
+  obj <- ts_filter()
+  obj$ema <- ema
+  class(obj) <- append("ts_ema", class(obj))
+  return(obj)
+}
+
+#'@export
+transform.ts_ema <- function(obj, data) {
+  exp_mean <- function(x) {
+    n <- length(x)
+    y <- rep(0,n)
+    alfa <- 1 - 2.0 / (n + 1);
+    for (i in 0:(n-1)) {
+      y[n-i] <- alfa^i
+    }
+    m <- sum(y * x)/sum(y)
+    return(m)
+  }
+
+  data <- ts_data(data, obj$ema)
+  ema <- apply(data, 1, exp_mean)
+  result <- c(rep(NA, obj$ma-1), ema)
+  return(result)
+}
+
+
+
