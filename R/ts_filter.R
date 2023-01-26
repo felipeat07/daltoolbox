@@ -122,7 +122,7 @@ transform.ts_ema <- function(obj, data) {
 
   data <- ts_data(data, obj$ema)
   ema <- apply(data, 1, exp_mean)
-  result <- c(rep(NA, obj$ma-1), ema)
+  result <- c(rep(NA, obj$ema-1), ema)
   return(result)
 }
 
