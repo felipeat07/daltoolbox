@@ -1,7 +1,8 @@
 # DAL Library
 # version 2.1
 
-#source("examples/examples.R")
+source("dal/examples/examples.R")
+library(dal)
 
 #loading DAL
 #load_dal() # see ../examples.R
@@ -50,13 +51,14 @@ if (steps_ahead > 1)
 print(sprintf("%.2f, %.2f", output, prediction))
 
 ev_test <- evaluation.tsreg(output, prediction)
+
 print(head(ev_test$metrics))
 print(sprintf("%s: smape: %.2f", describe(model), 100*ev_test$metrics$smape))
 
 yvalues <- c(as.vector(io_train$output), as.vector(io_test$output))
 length(yvalues)
 
-plot.tsreg(model, y=yvalues, yadj=adjust, ypre=prediction)
+tsplot(model, y=yvalues, yadj=adjust, ypre=prediction)
 
 length(c(adjust, prediction))
 
