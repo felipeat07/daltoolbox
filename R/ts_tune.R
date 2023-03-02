@@ -11,7 +11,7 @@
 # class ts_maintune
 # loadlibrary("dplyr")
 
-#'@title
+#'@title Time Series Main Tune
 #'@description
 #'@details
 #'
@@ -20,7 +20,7 @@
 #'@param base_model
 #'@param augment
 #'@param folds
-#'@return
+#'@return a `ts_maintune` object.
 #'@examples
 #'@export
 ts_maintune <- function(preprocess, input_size, base_model, augment = ts_augment(), folds=10) {
@@ -35,7 +35,7 @@ ts_maintune <- function(preprocess, input_size, base_model, augment = ts_augment
   return(obj)
 }
 
-#'@title
+#'@title Get Preprocess
 #'@description
 #'@details
 #'
@@ -49,7 +49,7 @@ get_preprocess <- function(obj, name) {
   return(obj$preprocess[[i]])
 }
 
-#'@title
+#'@title Get Augment
 #'@description
 #'@details
 #'
@@ -63,7 +63,7 @@ get_augment <- function(obj, name) {
   return(obj$augment[[i]])
 }
 
-#'@title
+#'@title Build Model
 #'@description
 #'@details
 #'
@@ -101,7 +101,7 @@ build_model <- function(obj, ranges, x, y) {
   return(model)
 }
 
-#'@title
+#'@title Prepare Ranges
 #'@description
 #'@details
 #'
@@ -124,7 +124,7 @@ prepare_ranges <- function(obj, ranges) {
   return(obj)
 }
 
-#'@title
+#'@title Evaluate Error
 #'@description
 #'@details
 #'
@@ -133,7 +133,7 @@ prepare_ranges <- function(obj, ranges) {
 #'@param i
 #'@param x
 #'@param y
-#'@return
+#'@return error (MSE)
 #'@examples
 #'@export
 evaluate_error <- function(obj, model, i, x, y) {
