@@ -5,11 +5,15 @@
 # depends ts_data.R
 
 ### ts_augment
-#'@title
-#'@description
+#'@title Time Series Augmentation
+#'@description Augmentation is a technique used to increase the size and
+#' diversity of a time series dataset by creating new instances of the original
+#' data through transformations or modifications. The goal is to improve the
+#' performance of machine learning models trained on time series data by
+#' reducing overfitting and improving generalization.
 #'@details
 #'
-#'@return
+#'@return a `ts_augment` object
 #'@examples
 #'@export
 ts_augment <- function() {
@@ -27,11 +31,11 @@ fit.ts_augment <- function(obj, data) {
 
 
 ### jitter
-#'@title
-#'@description
+#'@title Time Series Augmentation Jitter
+#'@description Jitter adds random "noise" to each data point in the time series.
 #'@details
 #'
-#'@return
+#'@return a `jitter` object
 #'@examples
 #'@export
 jitter <- function() {
@@ -69,12 +73,12 @@ transform.jitter <- function(obj, data) {
 }
 
 ### stretch
-#'@title
-#'@description
+#'@title Time Series Augmentation Stretch
+#'@description Apply temporal distortion to the time axis of the data.
 #'@details
 #'
-#'@param factor
-#'@return
+#'@param factor a real value (default = 1.2) define the degree of distortion applied.
+#'@return a `stretch` object.
 #'@examples
 #'@export
 stretch <- function(factor=1.2) {
@@ -106,12 +110,12 @@ transform.stretch <- function(obj, data) {
 }
 
 ### shrink
-#'@title
+#'@title Time Series Augmentation Shrink
 #'@description
 #'@details
 #'
-#'@param factor
-#'@return
+#'@param factor a real value (default = 0.8) define the degree of distortion applied.
+#'@return a `shrink` object.
 #'@examples
 #'@export
 shrink <- function(factor = 0.8) {
@@ -143,11 +147,11 @@ transform.shrink <- function(obj, data) {
 }
 
 ### flip
-#'@title
-#'@description
+#'@title Time Series Augmentation Flip
+#'@description reverse the order of the data along the time axis.
 #'@details
 #'
-#'@return
+#'@return a `flip` object.
 #'@examples
 #'@export
 flip <- function() {
@@ -176,11 +180,11 @@ transform.flip <- function(obj, data) {
 }
 
 ### Wormhole
-#'@title
-#'@description
+#'@title Time Series Augmentation Wormhole
+#'@description Inserts or removes segments of the time series data.
 #'@details
 #'
-#'@return
+#'@return a `wormhole` object.
 #'@examples
 #'@export
 wormhole <- function() {

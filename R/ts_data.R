@@ -5,13 +5,13 @@
 
 # ts_data
 
-#'@title
+#'@title Time Series Data
 #'@description
 #'@details
 #'
 #'@param y
 #'@param sw integer: sliding window size.
-#'@return
+#'@return a `ts_data` object.
 #'@examples
 #'@export
 ts_data <- function(y, sw=1) {
@@ -80,13 +80,13 @@ head.ts_data <- function(x, n = 6L, ...) {
 }
 
 #ts_sample
-#'@title
+#'@title Time Series Sample
 #'@description
 #'@details
 #'
-#'@param ts
-#'@param test_size integer: size of test data.
-#'@param offset integer: .
+#'@param ts time series data.
+#'@param test_size integer: size of test data (default = 1).
+#'@param offset integer: starting point (default = 0).
 #'@return
 #'@examples
 #'@export
@@ -113,12 +113,12 @@ adjust.ts_data <- function(data) {
 }
 
 #ts_projection
-#'@title
+#'@title Time Series Projection
 #'@description
 #'@details
 #'
-#'@param ts
-#'@return
+#'@param ts matrix or data.frame containing the time series.
+#'@return a `ts_projection` object.
 #'@examples
 #'@export
 ts_projection <- function(ts) {
@@ -145,11 +145,12 @@ ts_projection <- function(ts) {
   return(proj)
 }
 
-#'@title
-#'@description
+#'@title Time Series Transformation
+#'@description Manipulate and reshapa a time series to better understand and
+#' analyze the underlying patterns, trends, and relationships.
 #'@details
 #'
-#'@return
+#'@return a `ts_transform` object.
 #'@examples
 #'@export
 ts_transform <- function() {
@@ -158,13 +159,6 @@ ts_transform <- function() {
   return(obj)
 }
 
-
-#'@title
-#'@description
-#'@details
-#'
-#'@return
-#'@examples
 #'@export
 transform.ts_transform <- function(obj, data) {
   return(data)

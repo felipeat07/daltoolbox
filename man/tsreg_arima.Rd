@@ -2,10 +2,14 @@
 % Please edit documentation in R/ts_arima.R
 \name{tsreg_arima}
 \alias{tsreg_arima}
-\title{Time Series}
+\title{Time Series AutoRegressive Integrated Moving Average (ARIMA)}
 \usage{
 tsreg_arima()
 }
 \description{
-Time Series
+ARIMA is a regression model for forecasting time series data
+}
+\details{
+This model is used when the time series data has a linear trend and
+is not stationary.
 }
