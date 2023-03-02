@@ -5,11 +5,11 @@
 # depends ts_data.R
 
 ### ts_filter
-#'@title
-#'@description
+#'@title Time Series Filter
+#'@description Used to extract or remove specific components from a time series.
 #'@details
 #'
-#'@return
+#'@return a `ts_filter` object.
 #'@examples
 #'@export
 ts_filter <- function() {
@@ -24,11 +24,11 @@ fit.ts_filter <- function(obj, data) {
 }
 
 ### ts_smooth
-#'@title
-#'@description
+#'@title Time Series Smooth
+#'@description Used to remove or reduce randomness (noise).
 #'@details
 #'
-#'@return
+#'@return a `ts_smooth` object.
 #'@examples
 #'@export
 ts_smooth <- function() {
@@ -68,12 +68,12 @@ transform.ts_smooth <- function(obj, data) {
 
 
 ### ts_ma
-#'@title
-#'@description
+#'@title Time Series Moving Average
+#'@description Used to smooth out fluctuations and reduce noise in a time series.
 #'@details
 #'
 #'@param ma
-#'@return
+#'@return a `ts_ma` object.
 #'@examples
 #'@export
 ts_ma <- function(ma = 3) {
@@ -92,12 +92,14 @@ transform.ts_ma <- function(obj, data) {
 }
 
 ### ts_ema
-#'@title
-#'@description
+#'@title Time Series Exponential Moving Average
+#'@description Used to smooth out fluctuations, while giving more weight to
+#' recent observations. Particularly useful when the data has a trend or
+#' seasonality component.
 #'@details
 #'
 #'@param ema
-#'@return
+#'@return a `ts_ema` object.
 #'@examples
 #'@export
 ts_ema <- function(ema = 3) {
@@ -125,6 +127,3 @@ transform.ts_ema <- function(obj, data) {
   result <- c(rep(NA, obj$ema-1), ema)
   return(result)
 }
-
-
-
