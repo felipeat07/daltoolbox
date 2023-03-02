@@ -5,11 +5,11 @@
 # depends ts_data.R
 
 ### ts_swfilter
-#'@title
+#'@title Time Series Sliding Window Filter
 #'@description
 #'@details
 #'
-#'@return
+#'@return a `ts_swfilter` object.
 #'@examples
 #'@export
 ts_swfilter <- function() {
@@ -18,12 +18,12 @@ ts_swfilter <- function() {
   return(obj)
 }
 
-#'@title
+#'@title Time Series Awareness
 #'@description
 #'@details
 #'
 #'@param factor
-#'@return
+#'@return a `ts_awareness` object.
 #'@examples
 #'@export
 ts_awareness <- function(factor = 1) {
@@ -72,12 +72,12 @@ transform.ts_awareness <- function(obj, data) {
 }
 
 ### ts_aware_smooth
-#'@title
+#'@title Time Series Awareness Smooth
 #'@description
 #'@details
 #'
 #'@param factor
-#'@return
+#'@return a `ts_aware_smooth` object.
 #'@examples
 #'@export
 ts_aware_smooth <- function(factor = 0) {
