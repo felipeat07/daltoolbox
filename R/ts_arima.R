@@ -8,9 +8,10 @@
 # tsreg_arima
 # loadlibrary("forecast")
 
-#'@title Time Series
-#'@description
-#'@details
+#'@title Time Series AutoRegressive Integrated Moving Average (ARIMA)
+#'@description ARIMA is a regression model for forecasting time series data
+#'@details This model is used when the time series data has a linear trend and
+#' is not stationary.
 #'
 #'@return
 #'@examples
