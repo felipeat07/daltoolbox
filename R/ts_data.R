@@ -164,4 +164,7 @@ transform.ts_transform <- function(obj, data) {
   return(data)
 }
 
-
+#'@export
+describe.ts_transform <- function(obj) {
+  return("none")
+}
