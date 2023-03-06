@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.18</span>
       </span>
     </div>
 
@@ -139,15 +139,11 @@
 <span><span class="co">#&gt; loading 'dal'</span></span>
 <span><span class="co">#&gt; Warning: replacing previous import 'Matrix::update' by 'stats::update' when</span></span>
 <span><span class="co">#&gt; loading 'dal'</span></span>
-<span><span class="co">#&gt; Warning: S3 method 'head.default' was declared in NAMESPACE but not found</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dal'</span></span>
 <span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     optimize</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:utils':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     head</span></span>
 <span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     jitter, transform</span></span></code></pre></div>
@@ -160,7 +156,7 @@
 <p><img src="ts_data_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_data.html">ts_data</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span><span class="fu">head.ts_data</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;             t0</span></span>
 <span><span class="co">#&gt; [1,] 0.0000000</span></span>
 <span><span class="co">#&gt; [2,] 0.2474040</span></span>
@@ -172,7 +168,7 @@
 <p><img src="ts_data_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data10</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_data.html">ts_data</a></span><span class="op">(</span><span class="va">y</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data10</span><span class="op">)</span></span>
+<span><span class="fu">head.ts_data</span><span class="op">(</span><span class="va">data10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;             t9        t8        t7        t6        t5        t4        t3</span></span>
 <span><span class="co">#&gt; [1,] 0.0000000 0.2474040 0.4794255 0.6816388 0.8414710 0.9489846 0.9974950</span></span>
 <span><span class="co">#&gt; [2,] 0.2474040 0.4794255 0.6816388 0.8414710 0.9489846 0.9974950 0.9839859</span></span>
@@ -213,7 +209,7 @@
 <span><span class="co">#&gt; [1] 10</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">c1</span> <span class="op">&lt;-</span> <span class="va">data10</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">c1</span><span class="op">)</span></span>
+<span><span class="fu">head.ts_data</span><span class="op">(</span><span class="va">c1</span><span class="op">)</span></span>
 <span><span class="co">#&gt;             t9</span></span>
 <span><span class="co">#&gt; [1,] 0.0000000</span></span>
 <span><span class="co">#&gt; [2,] 0.2474040</span></span>
@@ -223,7 +219,7 @@
 <span><span class="co">#&gt; [6,] 0.9489846</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">c2</span> <span class="op">&lt;-</span> <span class="va">data10</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">c2</span><span class="op">)</span></span>
+<span><span class="fu">head.ts_data</span><span class="op">(</span><span class="va">c2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;             t9        t8</span></span>
 <span><span class="co">#&gt; [1,] 0.0000000 0.2474040</span></span>
 <span><span class="co">#&gt; [2,] 0.2474040 0.4794255</span></span>

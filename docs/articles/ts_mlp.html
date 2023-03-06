@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dal</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.18</span>
       </span>
     </div>
 
@@ -139,15 +139,11 @@
 <span><span class="co">#&gt; loading 'dal'</span></span>
 <span><span class="co">#&gt; Warning: replacing previous import 'Matrix::update' by 'stats::update' when</span></span>
 <span><span class="co">#&gt; loading 'dal'</span></span>
-<span><span class="co">#&gt; Warning: S3 method 'head.default' was declared in NAMESPACE but not found</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dal'</span></span>
 <span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     optimize</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:utils':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     head</span></span>
 <span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     jitter, transform</span></span></code></pre></div>
@@ -171,7 +167,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sw_size</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
 <span><span class="va">ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_data.html">ts_data</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">sw_size</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ts</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu">head.ts_data</span><span class="op">(</span><span class="va">ts</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt;             t9        t8        t7        t6        t5         t4         t3</span></span>
 <span><span class="co">#&gt; [1,] 1.0000000 0.9689124 0.8775826 0.7316889 0.5403023  0.3153224  0.0707372</span></span>
 <span><span class="co">#&gt; [2,] 0.9689124 0.8775826 0.7316889 0.5403023 0.3153224  0.0707372 -0.1782461</span></span>
@@ -187,7 +183,7 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_size</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span><span class="va">samp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_sample.html">ts_sample</a></span><span class="op">(</span><span class="va">ts</span>, <span class="va">test_size</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">samp</span><span class="op">$</span><span class="va">train</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu">head.ts_data</span><span class="op">(</span><span class="va">samp</span><span class="op">$</span><span class="va">train</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt;             t9        t8        t7        t6        t5         t4         t3</span></span>
 <span><span class="co">#&gt; [1,] 1.0000000 0.9689124 0.8775826 0.7316889 0.5403023  0.3153224  0.0707372</span></span>
 <span><span class="co">#&gt; [2,] 0.9689124 0.8775826 0.7316889 0.5403023 0.3153224  0.0707372 -0.1782461</span></span>
@@ -196,7 +192,7 @@
 <span><span class="co">#&gt; [1,] -0.1782461 -0.4161468 -0.6281736</span></span>
 <span><span class="co">#&gt; [2,] -0.4161468 -0.6281736 -0.8011436</span></span>
 <span><span class="co">#&gt; [3,] -0.6281736 -0.8011436 -0.9243024</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">samp</span><span class="op">$</span><span class="va">test</span><span class="op">)</span></span>
+<span><span class="fu">head.ts_data</span><span class="op">(</span><span class="va">samp</span><span class="op">$</span><span class="va">test</span><span class="op">)</span></span>
 <span><span class="co">#&gt;              t9        t8         t7          t6        t5       t4       t3</span></span>
 <span><span class="co">#&gt; [1,] -0.7256268 -0.532833 -0.3069103 -0.06190529 0.1869486 0.424179 0.635036</span></span>
 <span><span class="co">#&gt;             t2        t1        t0</span></span>
