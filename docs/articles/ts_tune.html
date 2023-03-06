@@ -139,6 +139,7 @@
 <span><span class="co">#&gt; loading 'dal'</span></span>
 <span><span class="co">#&gt; Warning: replacing previous import 'Matrix::update' by 'stats::update' when</span></span>
 <span><span class="co">#&gt; loading 'dal'</span></span>
+<span><span class="co">#&gt; Warning: S3 method 'head.default' was declared in NAMESPACE but not found</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dal'</span></span>
 <span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
@@ -219,7 +220,7 @@ this notebook.</p>
 <span></span>
 <span><span class="va">io_train</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_projection.html">ts_projection</a></span><span class="op">(</span><span class="va">samp</span><span class="op">$</span><span class="va">train</span><span class="op">)</span></span>
 <span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">tune</span>, x<span class="op">=</span><span class="va">io_train</span><span class="op">$</span><span class="va">input</span>, y<span class="op">=</span><span class="va">io_train</span><span class="op">$</span><span class="va">output</span>, <span class="va">ranges</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ts_maintune-ts_elm-ts_augment,0.041</span></span>
+<span><span class="co">#&gt; ts_maintune-ts_elm-none,0.042</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">describe</span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "ts_elm"</span></span></code></pre></div>
