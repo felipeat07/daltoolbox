@@ -27,3 +27,8 @@ if (FALSE) {
   library(devtools)
   devtools::build_readme()
 }
+
+if (FALSE) {
+  pkgdown::build_site()  ## para ver o resultado, o site fica muito legal
+  usethis::use_pkgdown_github_pages()
+}
