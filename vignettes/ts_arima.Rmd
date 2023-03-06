@@ -36,15 +36,15 @@ for ARIMA should be 0
 ```{r}
 sw_size <- 0
 ts <- ts_data(x, sw_size)
-head.ts_data(ts, 3)
+tshead(ts, 3)
 ```
 
 ### data sampling
 ```{r}
 test_size <- 1
 samp <- ts_sample(ts, test_size)
-head.ts_data(samp$train, 3)
-head.ts_data(samp$test)
+tshead(samp$train, 3)
+tshead(samp$test)
 ```
 
 ### Model training

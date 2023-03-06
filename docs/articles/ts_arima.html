@@ -168,7 +168,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sw_size</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span><span class="va">ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_data.html">ts_data</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">sw_size</span><span class="op">)</span></span>
-<span><span class="fu">head.ts_data</span><span class="op">(</span><span class="va">ts</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu">tshead</span><span class="op">(</span><span class="va">ts</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt;             t0</span></span>
 <span><span class="co">#&gt; [1,] 1.0000000</span></span>
 <span><span class="co">#&gt; [2,] 0.9689124</span></span>
@@ -180,12 +180,12 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_size</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span><span class="va">samp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_sample.html">ts_sample</a></span><span class="op">(</span><span class="va">ts</span>, <span class="va">test_size</span><span class="op">)</span></span>
-<span><span class="fu">head.ts_data</span><span class="op">(</span><span class="va">samp</span><span class="op">$</span><span class="va">train</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu">tshead</span><span class="op">(</span><span class="va">samp</span><span class="op">$</span><span class="va">train</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt;             t0</span></span>
 <span><span class="co">#&gt; [1,] 1.0000000</span></span>
 <span><span class="co">#&gt; [2,] 0.9689124</span></span>
 <span><span class="co">#&gt; [3,] 0.8775826</span></span>
-<span><span class="fu">head.ts_data</span><span class="op">(</span><span class="va">samp</span><span class="op">$</span><span class="va">test</span><span class="op">)</span></span>
+<span><span class="fu">tshead</span><span class="op">(</span><span class="va">samp</span><span class="op">$</span><span class="va">test</span><span class="op">)</span></span>
 <span><span class="co">#&gt;             t0</span></span>
 <span><span class="co">#&gt; [1,] 0.9912028</span></span></code></pre></div>
 </div>
