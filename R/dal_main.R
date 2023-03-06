@@ -3,6 +3,24 @@
 
 ### basic transformation functions
 
+#'@title dal_base object
+#'@description
+#'@details
+#'
+#'@return
+#'@examples
+#'@export
+dal_base <- function() {
+  obj <- list()
+  obj$log <- FALSE
+  obj$debug <- FALSE
+  obj$reproduce <- FALSE
+  attr(obj, "class") <- "dal_base"
+  return(obj)
+}
+
+### basic transformation functions
+
 #'@title DAL Transform
 #'@description A transformation function can be applied to a time series dataset
 #' to alter its properties.
@@ -12,11 +30,8 @@
 #'@examples
 #'@export
 dal_transform <- function() {
-  obj <- list()
-  obj$log <- FALSE
-  obj$debug <- FALSE
-  obj$reproduce <- FALSE
-  attr(obj, "class") <- "dal_transform"
+  obj <- dal_base()
+  class(obj) <- append("dal_transform", class(obj))
   return(obj)
 }
 
