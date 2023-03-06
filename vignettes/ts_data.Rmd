@@ -32,14 +32,14 @@ lines(x, y)
 
 ```{r}
 data <- ts_data(y)
-head(data)
+head.ts_data(data)
 plot(data)
 ```
 
 
 ```{r}
 data10 <- ts_data(y, 10)
-head(data10)
+head.ts_data(data10)
 ```
 
 
@@ -57,13 +57,13 @@ r2
 
 ```{r}
 c1 <- data10[,1]
-head(c1)
+head.ts_data(c1)
 ```
 
 
 ```{r}
 c2 <- data10[,1:2]
-head(c2)
+head.ts_data(c2)
 ```
 
 

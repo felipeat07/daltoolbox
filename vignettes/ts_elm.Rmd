@@ -33,15 +33,15 @@ lines(i, x)
 ```{r}
 sw_size <- 10
 ts <- ts_data(x, sw_size)
-head(ts, 3)
+head.ts_data(ts, 3)
 ```
 
 ### data sampling
 ```{r}
 test_size <- 1
 samp <- ts_sample(ts, test_size)
-head(samp$train, 3)
-head(samp$test)
+head.ts_data(samp$train, 3)
+head.ts_data(samp$test)
 ```
 
 ### data preprocessing
