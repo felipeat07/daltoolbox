@@ -4,6 +4,9 @@
 # dal
 
 <!-- badges: start -->
+
+![GitHub Repo
+stars](https://img.shields.io/github/stars/cefet-rj-dal/dal?logo=Github)
 <!-- badges: end -->
 
 The goal of dal is to …
@@ -15,7 +18,7 @@ You can install the development version of dal from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("cefet-rj-dal/dal")
+devtools::install_github("cefet-rj-dal/dal", dependencies = TRUE, build_vignettes = TRUE)
 ```
 
 ## Example
@@ -69,10 +72,7 @@ summary(cars)
 ```
 
 You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
+up-to-date. `devtools::build_readme()` is handy for this.
 
 You can also embed plots, for example:
 
@@ -80,3 +80,9 @@ You can also embed plots, for example:
 
 In that case, don’t forget to commit and push the resulting figure
 files, so they display on GitHub and CRAN.
+
+## Authors
+
+> Rafaelli Coutinho •
+> [@rafaelliiicoutinho](https://github.com/rafaelliiicoutinho) <br>
+> Eduardo Ogasawara • [@eogasawara](https://github.com/eogasawara) <br>
