@@ -5,8 +5,14 @@ Authors@R:
   c(    person(
             given = "Antonio",
             family = "Castro",
-            role = c("ctb"),
+            role = c("aut", "ctb"),
             email = "antonio.castro@eic.cefet-rj.br"
+        ),
+        person(
+            given = "Eduardo",
+            family = "Bezerra",
+            role = c("aut", "ths"),
+            email = "ebezerra@cefet-rj.br"
         ),
         person(
             given = "Rafaelli",

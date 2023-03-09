@@ -80,9 +80,3 @@ You can also embed plots, for example:
 
 In that case, don’t forget to commit and push the resulting figure
 files, so they display on GitHub and CRAN.
-
-## Authors
-
-> Rafaelli Coutinho •
-> [@rafaelliiicoutinho](https://github.com/rafaelliiicoutinho) <br>
-> Eduardo Ogasawara • [@eogasawara](https://github.com/eogasawara) <br>
