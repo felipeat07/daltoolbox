@@ -67,5 +67,7 @@ Imports:
     utils
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    datasets,
+    MASS
 VignetteBuilder: knitr
