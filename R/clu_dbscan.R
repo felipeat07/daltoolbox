@@ -27,6 +27,7 @@ cluster_dbscan <- function(eps, MinPts) {
   return(obj)
 }
 
+#'@import fpc
 #'@export
 fit.cluster_dbscan <- function(obj, data) {
 

@@ -64,7 +64,8 @@ Imports:
     smotefamily,
     stats,
     tree,
-    utils
+    utils,
+    fpc
 Suggests: 
     knitr,
     rmarkdown,
