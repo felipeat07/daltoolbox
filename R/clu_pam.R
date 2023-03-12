@@ -39,9 +39,10 @@ optimize.cluster_pam <- function(obj, data, kmax=20, do_plot=FALSE) {
   return(obj)
 }
 
+#'@import cluster
 #'@export
 fit.cluster_pam <- function(obj, data) {
-  cluster <- pam(data, obj$k)
+  cluster <- cluster::pam(data, obj$k)
   dist <- 0
   for (i in 1:obj$k) {
     idx <- i==cluster$clustering
