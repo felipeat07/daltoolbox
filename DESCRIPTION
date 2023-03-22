@@ -1,6 +1,6 @@
 Package: dal
 Title: Data Analytics Lab R Package
-Version: 1.0.20
+Version: 1.0.21
 Authors@R: 
   c(    person(
             given = "Antonio",
