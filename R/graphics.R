@@ -303,9 +303,11 @@ plot.dotchar <- function(data, colors, colorline = "lightgray", xlabel = "", yla
 #'@return plot
 #'@examples
 #'@export
-plot.hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=0.25) {
+plot.histogram <-  function(data, label_x = "", label_y = "", color = 'white', alpha=0.25) {
+  print(head(data))
   cnames <- colnames(data)[1]
   series <- melt(as.data.frame(data))
+  print(head(series))
   series <- series |> filter(variable %in% cnames)
   tmp <- hist(series$value, plot = FALSE)
   grf <- ggplot(series, aes(x=value))
