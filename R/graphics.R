@@ -248,10 +248,10 @@ plot.pieplot <- function(data, label_x = "", label_y = "", colors = NULL, textco
 
     series$colors <- colors
 
-    series <- series %>%
-      arrange(desc(x)) %>%
-      mutate(prop = value / sum(series$value) *100) %>%
-      mutate(ypos = cumsum(prop)- 0.5*prop) %>%
+    series <- series |>
+      arrange(desc(x)) |>
+      mutate(prop = value / sum(series$value) *100) |>
+      mutate(ypos = cumsum(prop)- 0.5*prop) |>
       mutate(label = paste(round(value / sum(value) * 100, 0), "%"))
     return(series)
   }
@@ -306,7 +306,7 @@ plot.dotchar <- function(data, colors, colorline = "lightgray", xlabel = "", yla
 plot.hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=0.25) {
   cnames <- colnames(data)[1]
   series <- melt(as.data.frame(data))
-  series <- series %>% filter(variable %in% cnames)
+  series <- series |> filter(variable %in% cnames)
   tmp <- hist(series$value, plot = FALSE)
   grf <- ggplot(series, aes(x=value))
   grf <- grf + geom_histogram(breaks=tmp$breaks,fill=color, alpha = alpha, colour="black")
