@@ -1,6 +1,6 @@
 Package: dal
 Title: Data Analytics Lab R Package
-Version: 1.0.21
+Version: 1.0.22
 Authors@R: 
   c(    person(
             given = "Antonio",
@@ -58,6 +58,7 @@ Imports:
     nnet,
     randomForest,
     reticulate,
+    reshape,
     Rcpp,
     ROCR,
     RSNNS,
