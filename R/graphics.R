@@ -5,26 +5,12 @@
 
 ### Balance Dataset
 
-if (!exists("repos_name"))
-  repos_name <<- getOption("repos")[1]
 
-setrepos <- function(repos=repos) {
-  repos_name <<- repos
-}
-
-loadlibrary <- function(packagename)
-{
-  if (!require(packagename, character.only = TRUE))
-  {
-    install.packages(packagename, repos=repos_name, dep=TRUE, verbose = FALSE)
-    require(packagename, character.only = TRUE)
-  }
-}
-
-plot.size <-function(width, height) {
-  options(repr.plot.width=width, repr.plot.height=height)
-}
-
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.scatter <- function(series, label_series = "", label_x = "", label_y = "", colors = NULL) {
   grf <- ggplot(data=series, aes(x = x, y = value, colour=variable, group=variable)) + geom_point(size=1)
   if (!is.null(colors)) {
@@ -39,6 +25,11 @@ plot.scatter <- function(series, label_series = "", label_x = "", label_y = "", 
   return(grf)
 }
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.points <- function(data, label_x = "", label_y = "", colors = NULL) {
   series <- melt(as.data.frame(data), id.vars = c(1))
   cnames <- colnames(data)[-1]
@@ -56,6 +47,11 @@ plot.points <- function(data, label_x = "", label_y = "", colors = NULL) {
   return(grf)
 }
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.series <- function(data, label_x = "", label_y = "", colors = NULL) {
   series <- melt(as.data.frame(data), id.vars = c(1))
   cnames <- colnames(data)[-1]
@@ -73,6 +69,11 @@ plot.series <- function(data, label_x = "", label_y = "", colors = NULL) {
   return(grf)
 }
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.series_second_axis <- function(data, label_x = "", label_y = "", label_z = "", colors = c("blue", "red")) {
   loadlibrary("scales")
 
@@ -111,6 +112,11 @@ plot.series_second_axis <- function(data, label_x = "", label_y = "", label_z = 
   return(grf)
 }
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.bar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
   series <- as.data.frame(data)
   if (!is.factor(series[,1]))
@@ -130,6 +136,11 @@ plot.bar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
   return(grf)
 }
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.groupedbar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
   cnames <- colnames(data)[-1]
   series <- melt(as.data.frame(data), id.vars = c(1))
@@ -150,6 +161,11 @@ plot.groupedbar <- function(data, label_x = "", label_y = "", colors = NULL, alp
   return(grf)
 }
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.stackedbar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
   cnames <- colnames(data)[-1]
   series <- melt(as.data.frame(data), id.vars = c(1))
@@ -170,6 +186,11 @@ plot.stackedbar <- function(data, label_x = "", label_y = "", colors = NULL, alp
   return(grf)
 }
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.radar <- function(data, label_x = "", label_y = "", colors = NULL)  {
   series <- as.data.frame(data)
   if (!is.factor(series[,1]))
@@ -183,6 +204,11 @@ plot.radar <- function(data, label_x = "", label_y = "", colors = NULL)  {
   return(grf)
 }
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.lollipop <- function(data, colors, xlabel = "", ylabel = "", size_text=3, size_ball=8, alpha_ball=0.2, min_value=0, max_value_gap=1, flip = TRUE) {
   cnames <- colnames(data)[-1]
   series <- melt(as.data.frame(data), id.vars = c(1))
@@ -208,6 +234,11 @@ plot.lollipop <- function(data, colors, xlabel = "", ylabel = "", size_text=3, s
   return(grf)
 }
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.pieplot <- function(data, label_x = "", label_y = "", colors = NULL, textcolor="white", bordercolor="black") {
   prepare.pieplot <- function(series) {
     colnames(series) <- c("x", "value")
@@ -241,8 +272,12 @@ plot.pieplot <- function(data, label_x = "", label_y = "", colors = NULL, textco
 }
 
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.dotchar <- function(data, colors, colorline = "lightgray", xlabel = "", ylabel = "", sorting="ascending") {
-  loadlibrary("ggpubr")
   cnames <- colnames(data)[-1]
   series <- data
   colnames(series)[1] <- "x"
@@ -263,6 +298,11 @@ plot.dotchar <- function(data, colors, colorline = "lightgray", xlabel = "", yla
   return(grf)
 }
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=0.25) {
   cnames <- colnames(data)[1]
   series <- melt(as.data.frame(data))
@@ -278,6 +318,11 @@ plot.hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=
   return(grf)
 }
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.boxplot <- function(data, label_x = "", label_y = "", colors = NULL, barwith=0.25) {
   cnames <- colnames(data)
   series <- melt(as.data.frame(data))
@@ -300,6 +345,11 @@ plot.boxplot <- function(data, label_x = "", label_y = "", colors = NULL, barwit
 }
 
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.boxplot.class <- function(data, class_label, label_x = "", label_y = "", colors = NULL) {
   data <- melt(data, id=class_label)
   colnames(data)[1] <- "x"
@@ -324,6 +374,11 @@ plot.boxplot.class <- function(data, class_label, label_x = "", label_y = "", co
 }
 
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.density <-  function(data, label_x = "", label_y = "", colors = NULL, bin = NULL, alpha=0.25) {
   grouped <- ncol(data) > 1
   cnames <- colnames(data)
@@ -360,6 +415,11 @@ plot.density <-  function(data, label_x = "", label_y = "", colors = NULL, bin =
   return(grf)
 }
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.density.class <-  function(data, class_label, label_x = "", label_y = "", colors = NULL, bin = NULL, alpha=0.5) {
   data <- melt(data, id=class_label)
   colnames(data)[1] <- "x"
@@ -380,18 +440,24 @@ plot.density.class <-  function(data, class_label, label_x = "", label_y = "", c
   return(grf)
 }
 
-###
-
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.correlation <- function(data, colors="") {
   if (colors == "")
     colors <- brewer.pal(n=8, name="RdYlBu")
-  loadlibrary("corrplot")
   series <-cor(data)
   corrplot(series, type="upper", order="hclust", col=colors)
 }
 
 
-
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.norm_dist <- function(vect, label_x = "", label_y = "",  colors)  {
   data <- data.frame(value = vect)
   grf <- ggplot(data, aes(sample = value)) +
@@ -402,8 +468,12 @@ plot.norm_dist <- function(vect, label_x = "", label_y = "",  colors)  {
 }
 
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.pair <- function(data, cnames, title = NULL, clabel = NULL, colors) {
-  loadlibrary("WVPlots")
   grf <- PairPlot(data, cnames, title, group_var = clabel, palette=NULL) + theme_bw(base_size = 10)
   if (is.null(clabel))
     grf <- grf + geom_point(color=colors)
@@ -412,8 +482,12 @@ plot.pair <- function(data, cnames, title = NULL, clabel = NULL, colors) {
   return (grf)
 }
 
+#'@title plot scatter
+#'@description plot scatter
+#'@return plot
+#'@examples
+#'@export
 plot.pair.adv <- function(data, cnames, title = NULL, clabel= NULL, colors) {
-  loadlibrary("GGally")
   if (!is.null(clabel)) {
     data$clabel <- data[,clabel]
     cnames <- c(cnames, 'clabel')

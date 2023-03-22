@@ -1,6 +1,6 @@
 Package: dal
 Title: Data Analytics Lab R Package
-Version: 1.0.19
+Version: 1.0.20
 Authors@R: 
   c(    person(
             given = "Antonio",
@@ -65,7 +65,11 @@ Imports:
     stats,
     tree,
     utils,
-    fpc
+    fpc,
+    ggpubr,
+    WVPlots,
+    GGally,
+    corrplot
 Suggests: 
     knitr,
     rmarkdown,
