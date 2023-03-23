@@ -1,15 +1,15 @@
 ---
-title: "reg_mlp"
+title: "reg_dtree"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{reg_mlp}
+  %\VignetteIndexEntry{reg_dtree}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 # DAL Package
 
-## Regression MLP
+## Regression Decision Tree
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(dal)
+library(tree)
 ```
 
 ### Dataset for regression analysis
@@ -50,7 +51,7 @@ boston_test = sr$test
 ### Training
 
 ```{r}
-model <- reg_mlp("medv", size=5,decay=0.54)
+model <- reg_dtree("medv")
 describe(model)
 model <- fit(model, boston_train)
 
@@ -68,4 +69,3 @@ boston_test_predictand = boston_test[,"medv"]
 test_eval <- evaluation.regression(boston_test_predictand, test_prediction)
 print(test_eval$metrics)
 ```
-

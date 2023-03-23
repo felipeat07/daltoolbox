@@ -1,15 +1,15 @@
 ---
-title: "clu_kmeans"
+title: "clu_dbscan"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{clu_kmeans}
+  %\VignetteIndexEntry{clu_dbscan}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 # DAL Package
 
-## Clustering - Kmeans
+## Clustering - dbscan
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -20,10 +20,21 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(dal)
+library(dplyr)
+library(fpc)
+library(Rcpp)
+library(dbscan)
 ```
 
 ```{r}
 iris <- datasets::iris
+```
+
+General entropy of dataset
+
+```{r}
+eval <- cluster_evaluation(rep(1, nrow(iris)), iris$Species)
+print(eval$entropy)
 ```
 
 ## General function to test clustering methods
@@ -41,12 +52,12 @@ test_clustering <- function(model, data, attribute, opt=FALSE) {
 ```
 
 ```{r}
-# kmeans with k equals 3
-test_clustering(cluster_kmeans(k=3), iris[,1:4], iris[,5])
+# dbscan
+test_clustering(cluster_dbscan(eps = 0.4, MinPts = 3), iris[,1:4], iris[,5])
 ```
 
 ```{r}
-test_clustering(cluster_kmeans(NULL), iris[,1:4], iris[,5], TRUE)
+test_clustering(cluster_dbscan(eps = NULL, MinPts = 3), iris[,1:4], iris[,5], TRUE)
 ```
 
 ## Influence of normalization in clustering
@@ -54,12 +65,6 @@ test_clustering(cluster_kmeans(NULL), iris[,1:4], iris[,5], TRUE)
 ```{r}
 norm_minmax <- fit(minmax(), iris)
 iris_minmax <- transform(norm_minmax, iris)
-test_clustering(cluster_kmeans(k=8), iris_minmax[,1:4], iris_minmax[,5])
-```
-
-```{r}
-norm_zscore <- fit(zscore(), iris)
-iris_zscore <- transform(norm_zscore, iris)
-# kmeans with k equals 8
-test_clustering(cluster_kmeans(k=8), iris_zscore[,1:4], iris_zscore[,5])
+# dbscan optimized
+test_clustering(cluster_dbscan(eps = NULL, MinPts = 3), iris_minmax[,1:4], iris_minmax[,5], TRUE)
 ```
