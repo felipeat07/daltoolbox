@@ -1,8 +1,8 @@
 ---
-title: "ts_svm"
+title: "ts_mlp"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{ts_svm}
+  %\VignetteIndexEntry{ts_mlp}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,9 +18,10 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(dal)
+library(nnet)
 ```
 
-## Time Series regression - SVM
+## Time Series regression - Multilayer perceptron
 
 ### Cosine series for studying
 ```{r}
@@ -53,7 +54,7 @@ preproc <- ts_gminmax()
 
 ### Model training
 ```{r}
-model <- ts_svm(preproc, input_size=4)
+model <- ts_mlp(preproc, input_size=4, size=4, decay=0)
 
 io_train <- ts_projection(samp$train)
 model <- fit(model, x=io_train$input, y=io_train$output)

@@ -1,8 +1,8 @@
 ---
-title: "ts_rf"
+title: "ts_svm"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{ts_rf}
+  %\VignetteIndexEntry{ts_svm}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,9 +18,10 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(dal)
+library(e1071)
 ```
 
-## Time Series regression - Random Forest
+## Time Series regression - SVM
 
 ### Cosine series for studying
 ```{r}
@@ -53,7 +54,7 @@ preproc <- ts_gminmax()
 
 ### Model training
 ```{r}
-model <- ts_rf(preproc, input_size=4, nodesize=3, ntree=50)
+model <- ts_svm(preproc, input_size=4)
 
 io_train <- ts_projection(samp$train)
 model <- fit(model, x=io_train$input, y=io_train$output)
