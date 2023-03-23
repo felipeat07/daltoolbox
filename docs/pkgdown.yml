@@ -2,16 +2,10 @@ pandoc: 2.17.1.1
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
-  ts_arima: ts_arima.html
-  ts_augment: ts_augment.html
-  ts_data: ts_data.html
-  ts_elm: ts_elm.html
-  ts_filter: ts_filter.html
-  ts_mlp: ts_mlp.html
-  ts_preprocessing: ts_preprocessing.html
-  ts_rf: ts_rf.html
-  ts_svm: ts_svm.html
-  ts_swfilter: ts_swfilter.html
-  ts_tune: ts_tune.html
-last_built: 2023-03-06T02:11Z
+  dal_categorical_mapping: dal_categorical_mapping.html
+  dal_normalization: dal_normalization.html
+last_built: 2023-03-23T03:24Z
+urls:
+  reference: https://cefet-rj-dal.github.io/dal/reference
+  article: https://cefet-rj-dal.github.io/dal/articles
 
