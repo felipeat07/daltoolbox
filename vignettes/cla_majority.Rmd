@@ -18,6 +18,12 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(dal)
+library(ROCR)
+library(RSNNS)  
+library(nnet)  
+library(MLmetrics) 
+library(RSNNS)
+library(Matrix)
 ```
 
 ## Classification
