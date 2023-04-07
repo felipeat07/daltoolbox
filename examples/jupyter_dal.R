@@ -14,14 +14,14 @@ loadlibrary <- function(packagename)
   }
 }
 
-load_dal <- function()
+load_daltoolbox <- function()
 {
-  if (!require("dal", character.only = TRUE))
+  if (!require("daltoolbox", character.only = TRUE))
   {
     library(devtools)
 
-    devtools::install_github("cefet-rj-dal/dal", force=TRUE, dep=FALSE, upgrade="never")
+    devtools::install_github("cefet-rj-dal/daltoolbox", force=TRUE, dep=FALSE, upgrade="never")
 
-    library(dal)
+    library(daltoolbox)
   }
 }

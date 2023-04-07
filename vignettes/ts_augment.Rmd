@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(dal)
+library(daltoolbox)
 ```
 
 ## Time series data augmentation

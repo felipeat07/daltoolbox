@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(dal)
+library(daltoolbox)
 library(dplyr)
 library(cluster)
 library(factoextra)
