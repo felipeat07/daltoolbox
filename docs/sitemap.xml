@@ -4,12 +4,6 @@
     <loc>https://cefet-rj-dal.github.io/dal/404.html</loc>
   </url>
   <url>
-    <loc>https://cefet-rj-dal.github.io/dal/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://cefet-rj-dal.github.io/dal/LICENSE.html</loc>
-  </url>
-  <url>
     <loc>https://cefet-rj-dal.github.io/dal/articles/cla_dtree.html</loc>
   </url>
   <url>
@@ -103,6 +97,12 @@
     <loc>https://cefet-rj-dal.github.io/dal/index.html</loc>
   </url>
   <url>
+    <loc>https://cefet-rj-dal.github.io/dal/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://cefet-rj-dal.github.io/dal/LICENSE.html</loc>
+  </url>
+  <url>
     <loc>https://cefet-rj-dal.github.io/dal/reference/balance_dataset.html</loc>
   </url>
   <url>
@@ -116,6 +116,9 @@
   </url>
   <url>
     <loc>https://cefet-rj-dal.github.io/dal/reference/categ_mapping.html</loc>
+  </url>
+  <url>
+    <loc>https://cefet-rj-dal.github.io/dal/reference/classification.html</loc>
   </url>
   <url>
     <loc>https://cefet-rj-dal.github.io/dal/reference/cla_dtree.html</loc>
@@ -139,7 +142,7 @@
     <loc>https://cefet-rj-dal.github.io/dal/reference/cla_svm.html</loc>
   </url>
   <url>
-    <loc>https://cefet-rj-dal.github.io/dal/reference/classification.html</loc>
+    <loc>https://cefet-rj-dal.github.io/dal/reference/clustering.html</loc>
   </url>
   <url>
     <loc>https://cefet-rj-dal.github.io/dal/reference/cluster_dbscan.html</loc>
@@ -149,9 +152,6 @@
   </url>
   <url>
     <loc>https://cefet-rj-dal.github.io/dal/reference/cluster_pam.html</loc>
-  </url>
-  <url>
-    <loc>https://cefet-rj-dal.github.io/dal/reference/clustering.html</loc>
   </url>
   <url>
     <loc>https://cefet-rj-dal.github.io/dal/reference/dal_base.html</loc>
@@ -256,6 +256,12 @@
     <loc>https://cefet-rj-dal.github.io/dal/reference/prepare_ranges.html</loc>
   </url>
   <url>
+    <loc>https://cefet-rj-dal.github.io/dal/reference/register_log.html</loc>
+  </url>
+  <url>
+    <loc>https://cefet-rj-dal.github.io/dal/reference/regression.html</loc>
+  </url>
+  <url>
     <loc>https://cefet-rj-dal.github.io/dal/reference/reg_dtree.html</loc>
   </url>
   <url>
@@ -271,12 +277,6 @@
     <loc>https://cefet-rj-dal.github.io/dal/reference/reg_svm.html</loc>
   </url>
   <url>
-    <loc>https://cefet-rj-dal.github.io/dal/reference/register_log.html</loc>
-  </url>
-  <url>
-    <loc>https://cefet-rj-dal.github.io/dal/reference/regression.html</loc>
-  </url>
-  <url>
     <loc>https://cefet-rj-dal.github.io/dal/reference/shrink.html</loc>
   </url>
   <url>
@@ -286,16 +286,19 @@
     <loc>https://cefet-rj-dal.github.io/dal/reference/transform.html</loc>
   </url>
   <url>
+    <loc>https://cefet-rj-dal.github.io/dal/reference/tsreg_arima.html</loc>
+  </url>
+  <url>
     <loc>https://cefet-rj-dal.github.io/dal/reference/ts_an.html</loc>
   </url>
   <url>
     <loc>https://cefet-rj-dal.github.io/dal/reference/ts_augment.html</loc>
   </url>
   <url>
-    <loc>https://cefet-rj-dal.github.io/dal/reference/ts_aware_smooth.html</loc>
+    <loc>https://cefet-rj-dal.github.io/dal/reference/ts_awareness.html</loc>
   </url>
   <url>
-    <loc>https://cefet-rj-dal.github.io/dal/reference/ts_awareness.html</loc>
+    <loc>https://cefet-rj-dal.github.io/dal/reference/ts_aware_smooth.html</loc>
   </url>
   <url>
     <loc>https://cefet-rj-dal.github.io/dal/reference/ts_data.html</loc>
@@ -353,9 +356,6 @@
   </url>
   <url>
     <loc>https://cefet-rj-dal.github.io/dal/reference/ts_transform.html</loc>
-  </url>
-  <url>
-    <loc>https://cefet-rj-dal.github.io/dal/reference/tsreg_arima.html</loc>
   </url>
   <url>
     <loc>https://cefet-rj-dal.github.io/dal/reference/wormhole.html</loc>
