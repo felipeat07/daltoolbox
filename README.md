@@ -9,16 +9,17 @@
 stars](https://img.shields.io/github/stars/cefet-rj-dal/dal?logo=Github)
 <!-- badges: end -->
 
-The goal of dal is to …
+The goal of DAL Toolbox is to provide a series data analytics functions organized as a framework. 
+It supports data preprocessing, classification, regression, clustering, and time series prediction functions. 
 
 ## Installation
 
-You can install the development version of dal from
+You can install the development version of DAL Toolbox from
 [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("cefet-rj-dal/dal", dependencies = TRUE, build_vignettes = TRUE)
+devtools::install_github("cefet-rj-dal/daltoolbox", force=TRUE, dependencies=FALSE, upgrade="never", build_vignettes = TRUE)
 ```
 
 ## Example
@@ -26,57 +27,9 @@ devtools::install_github("cefet-rj-dal/dal", dependencies = TRUE, build_vignette
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(dal)
-#> Warning: replacing previous import 'FNN::knn.cv' by 'class::knn.cv' when
-#> loading 'dal'
-#> Warning: replacing previous import 'FNN::knn' by 'class::knn' when loading
-#> 'dal'
-#> Registered S3 method overwritten by 'quantmod':
-#>   method            from
-#>   as.zoo.data.frame zoo
-#> Warning: replacing previous import 'dplyr::combine' by 'randomForest::combine'
-#> when loading 'dal'
-#> Warning: replacing previous import 'Matrix::cov2cor' by 'stats::cov2cor' when
-#> loading 'dal'
-#> Warning: replacing previous import 'dplyr::filter' by 'stats::filter' when
-#> loading 'dal'
-#> Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading
-#> 'dal'
-#> Warning: replacing previous import 'Matrix::toeplitz' by 'stats::toeplitz' when
-#> loading 'dal'
-#> Warning: replacing previous import 'Matrix::update' by 'stats::update' when
-#> loading 'dal'
+library(daltoolbox)
 #> 
-#> Attaching package: 'dal'
-#> The following object is masked from 'package:stats':
-#> 
-#>     optimize
-#> The following objects are masked from 'package:base':
-#> 
-#>     jitter, transform
-## basic example code
+#> Attaching package: 'daltoolbox'
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
 
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
