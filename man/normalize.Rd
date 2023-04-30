@@ -7,5 +7,8 @@
 normalize()
 }
 \description{
-Normalization
+The normalize() function in the DAL package performs a normalization on the input data so that each feature (column) has zero mean and unit variance. Normalizing the data is a common preprocessing step in machine learning, particularly when using algorithms that are sensitive to the scale of the input features. The resulting normalized object is returned with the "normalize" class added to it.
+}
+\details{
+The normalize() function subtracts the mean value of each feature from the data and then divides each feature by its standard deviation to ensure that all features have the same scale. This is done to make sure that the contribution of each feature to the analysis is balanced and no single feature dominates the analysis. The resulting object is returned with the "normalize" class added to it.
 }

@@ -4,7 +4,7 @@
 # depends dal_transform.R
 
 ### PCA
-#'@title
+#'@title PCA
 #'@description
 #'@details
 #'
@@ -17,9 +17,9 @@ dt_pca <- function(attribute=NULL, components = NULL) {
   obj <- dal_transform()
   obj$attribute <- attribute
   obj$components <- components
-  class(obj) <- append("dt_pca", class(obj))    
+  class(obj) <- append("dt_pca", class(obj))
   return(obj)
-}  
+}
 
 #'@export
 fit.dt_pca <- function(obj, data) {
@@ -36,20 +36,20 @@ fit.dt_pca <- function(obj, data) {
   }
   nums[remove] <- FALSE
   data = as.matrix(data[ , nums])
-  
+
   pca_res <- prcomp(data, center=TRUE, scale.=TRUE)
-  
+
   if (is.null(obj$components)) {
     y <-  cumsum(pca_res$sdev^2/sum(pca_res$sdev^2))
     curv <-  fit_curvature_min()
     res <- transform(curv, y)
     obj$components <- res$x
-    
+
   }
-  
+
   obj$pca.transf <- as.matrix(pca_res$rotation[, 1:obj$components])
   obj$nums <- nums
-  
+
   return(obj)
 }
 
@@ -58,18 +58,18 @@ transform.dt_pca <- function(obj, data) {
   attribute <- obj$attribute
   pca.transf <- obj$pca.transf
   nums <- obj$nums
-  
+
   data <- data.frame(data)
   if (!is.null(attribute)) {
     predictand <- data[,attribute]
     data[,attribute] <- NULL
   }
   data = as.matrix(data[ , nums])
-  
+
   data = data %*% pca.transf
   data = data.frame(data)
   if (!is.null(attribute)){
     data[,attribute] <- predictand
   }
-  return(data) 
-}  
+  return(data)
+}

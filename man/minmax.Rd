@@ -7,5 +7,8 @@
 minmax()
 }
 \description{
-Min-Max Normalization
+The minmax() function performs Min-Max normalization on the data using the normalize() function from the DAL package and adds the "minmax" class to the resulting object. Min-Max normalization transforms the data to a specific range of values. Specifically, the function maps the smallest input value to 0 and the largest input value to 1, and transforms all other values to a range between 0 and 1. This normalization is useful when we want to put all variables on the same scale and avoid larger values dominating the analysis.
+}
+\details{
+The minmax() function calls the normalize() function from the DAL package to normalize the data and then adds the "minmax" class to the resulting object. The "minmax" class is added so that users can easily distinguish between different types of normalizations applied to the data.
 }
