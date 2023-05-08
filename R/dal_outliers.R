@@ -6,15 +6,17 @@
 ### outliers
 #'@title Outliers
 #'@description This R function defines an object of class "outliers" that can be used for outlier detection in a dataset.
-#'@details The outliers function has an optional parameter alpha that sets the threshold for identifying outliers. The default value for alpha is 1.5, which is a common value used in many outlier detection methods. The function creates an object using the dal_transform function, which must be defined elsewhere in the code or in an R package. The object created by the dal_transform function can be a base class object "dal_transform", which may include additional properties and methods for data transformation.
+#'@details The outliers function has an optional parameter alpha that sets the threshold for identifying outliers.
+#'The default value for alpha is 1.5, which is a common value used in many outlier detection methods.
+#'The function creates an object using the dal_transform function, which must be defined elsewhere in the code or in an R package.
+#'The object created by the dal_transform function can be a base class object "dal_transform",
+#'which may include additional properties and methods for data transformation.
 #'
 #'@param alpha
 #'@return
 #'@examples out_obj <- outliers()
-#'out_obj_custom <- outliers(alpha = 2.0)
-#'out_obj_custom
+#'out_obj_custom <- outliers(alpha = 1.5)
 #'
-#'This example creates two objects of the "outliers" class, one with the default value of alpha and one with a custom value of alpha. These objects can be used to detect outliers in a dataset using methods specific to the "outliers" class.
 #'@export
 outliers <- function(alpha = 1.5) {
   obj <- dal_transform()
