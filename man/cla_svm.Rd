@@ -20,7 +20,27 @@ cla_svm(
 \item{slevels}{\itemize{
 \item possible values for the target classification
 }}
+
+\item{epsilon}{\itemize{
+\item parameter that controls the width of the margin around the separating hyperplane
+}}
+
+\item{cost}{\itemize{
+\item parameter that controls the trade-off between having a wide margin and correctly classifying training data points
+}}
+
+\item{kernel}{\itemize{
+\item the type of kernel function to be used in the SVM algorithm (linear, radial, polynomial, sigmoid)
+}}
+}
+\value{
+classification object
 }
 \description{
-Support Vector Machine Classification
+Classification using Support Vector Machine (SVM) algorithm
+}
+\details{
+This function creates a classification object using the Support Vector Machine (SVM) algorithm.
+The SVM is a popular machine learning algorithm used in classification tasks.
+It works by finding the optimal hyperplane that separates data points belonging to different classes.
 }

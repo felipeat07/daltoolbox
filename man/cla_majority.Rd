@@ -7,17 +7,16 @@
 cla_majority(attribute, slevels = NULL)
 }
 \arguments{
-\item{attribute}{\itemize{
-\item name of the attribute used as target classification
-}}
+\item{attribute}{Name of the attribute used as target classification.}
 
-\item{slevels}{\itemize{
-\item possible values for the target classification
-}}
+\item{slevels}{Possible values for the target classification.}
 }
 \value{
-classification object
+Returns a classification object.
 }
 \description{
-Majority Classification
+This function creates a classification object that uses the majority vote strategy to predict the target attribute. Given a target attribute, the function counts the number of occurrences of each value in the dataset and selects the one that appears most often.
+}
+\details{
+The function takes two arguments: the name of the attribute used as target classification and the possible values for the target classification. The second argument is optional and should be provided only if the dataset does not contain all possible values for the target attribute.
 }

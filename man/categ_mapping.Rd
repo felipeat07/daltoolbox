@@ -6,6 +6,19 @@
 \usage{
 categ_mapping(attribute)
 }
+\arguments{
+\item{attribute}{The attribute representing the categorical variable.}
+}
+\value{
+An instance of the CategoricalMapping class.
+}
 \description{
-Categorical Mapping
+The CategoricalMapping class in R provides a way to map the levels of a categorical variable to new values. It is often used to recode or reclassify categorical variables in data preprocessing and data analysis tasks.
+}
+\details{
+The CategoricalMapping class has the following properties:
+mapping: the named character vector that defines the mapping;
+The CategoricalMapping class has the following methods:
+map(x): maps the levels of a categorical variable x to new values based on the mapping;
+summary(): provides a summary of the mapping, including the original and new levels.
 }

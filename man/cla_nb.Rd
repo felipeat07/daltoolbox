@@ -7,14 +7,16 @@
 cla_nb(attribute, slevels = NULL)
 }
 \arguments{
-\item{attribute}{\itemize{
-\item name of the attribute used as target classification
-}}
+\item{attribute}{Name of the attribute used as the target classification.}
 
-\item{slevels}{\itemize{
-\item possible values for the target classification
-}}
+\item{slevels}{Possible values for the target classification.}
+}
+\value{
+A classification object.
 }
 \description{
-Naive Bayes Classifier
+Classification using the Naive Bayes algorithm
+}
+\details{
+This function fits a Naive Bayes model to the data provided, which can be used to classify new instances. The Naive Bayes algorithm is a probabilistic algorithm that makes predictions based on the probability of each class, given the values of the input features.
 }

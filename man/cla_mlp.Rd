@@ -33,6 +33,12 @@ cla_mlp(
 \item maximun interations
 }}
 }
+\value{
+a classification object
+}
 \description{
-Classification using Artificial Neural Network (ANN)
+Performs classification using Artificial Neural Network (ANN) algorithm
+}
+\details{
+This function creates an object of class "cla_mlp" that can be used for classification of a target attribute using the ANN algorithm. The number of nodes in the hidden layer can be specified using the size parameter. The decay parameter controls how quickly the gradient descent decreases, and the maxit parameter sets the maximum number of iterations.
 }

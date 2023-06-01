@@ -5,9 +5,9 @@
 
 # sample_stratified
 # loadlibrary("caret") for stratified
-#'@title
-#'@description
-#'@details
+#'@title  sample_stratified
+#'@description The sample_stratified function in R is used to generate a stratified random sample from a given dataset. Stratified sampling is a statistical method that is used when the population is divided into non-overlapping subgroups or strata, and a sample is selected from each stratum to represent the entire population. In stratified sampling, the sample is selected in such a way that it is representative of the entire population and the variability within each stratum is minimized.
+#'@details The sample_stratified function requires the following inputs: data: A data frame containing the data to be sampled.; strata: A character vector containing the name of the variable(s) to be used as strata.; size: An integer value specifying the size of the sample to be drawn.; replace: A logical value indicating whether sampling should be done with replacement or without replacement.; seed: An optional integer value used to set the seed for the random number generator.
 #'
 #'@param attribute
 #'@return
@@ -16,16 +16,16 @@
 sample_stratified <- function(attribute) {
   obj <- sample_random()
   obj$attribute <- attribute
-  class(obj) <- append("sample_stratified", class(obj))  
+  class(obj) <- append("sample_stratified", class(obj))
   return(obj)
 }
 
 #'@export
 train_test.sample_stratified <- function(obj, data, perc=0.8) {
   predictors_name <- setdiff(colnames(data), obj$attribute)
-  predictand <- data[,obj$attribute] 
-  
-  idx <- createDataPartition(predictand, p=perc, list=FALSE) 
+  predictand <- data[,obj$attribute]
+
+  idx <- createDataPartition(predictand, p=perc, list=FALSE)
   train <- data[idx,]
   test <- data[-idx,]
   return (list(train=train, test=test))

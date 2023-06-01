@@ -7,21 +7,18 @@
 cla_knn(attribute, slevels = NULL, k = 1:30)
 }
 \arguments{
-\item{attribute}{\itemize{
-\item name of the attribute used as target classification
-}}
+\item{attribute}{Name of the attribute used as target classification.}
 
-\item{slevels}{\itemize{
-\item possible values for the target classification
-}}
+\item{slevels}{Possible values for the target classification.}
 
-\item{k}{\itemize{
-\item number od classes
-}}
+\item{k}{A vector of integers indicating the number of neighbors to be considered.}
 }
 \value{
-classification object
+A classification object.
 }
 \description{
-Classification using KNN algorithm
+Classifies using the K-Nearest Neighbor algorithm.
+}
+\details{
+This function implements the K-Nearest Neighbor algorithm for classification. It computes the K nearest neighbors of each data point in the training set, and then determines the class label of each point by taking the majority vote of the K neighbors.
 }

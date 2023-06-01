@@ -7,17 +7,16 @@
 cla_dtree(attribute, slevels = NULL)
 }
 \arguments{
-\item{attribute}{\itemize{
-\item name of the attribute used as target classification
-}}
+\item{attribute}{The name of the attribute used as the target classification.}
 
-\item{slevels}{\itemize{
-\item possible values for the target classification
-}}
+\item{slevels}{The possible values for the target classification.}
 }
 \value{
-classification object
+A classification object that uses the Decision Tree algorithm for classification.
 }
 \description{
-Classification using Decision Tree algorithm
+Creates a classification object that uses the Decision Tree algorithm for classification.
+}
+\details{
+This function trains a Decision Tree model on the given dataset and creates a classification object that can be used to predict the target attribute values for new data points.
 }

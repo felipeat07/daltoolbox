@@ -27,4 +27,5 @@ basic wrapper for classification problems
 \examples{
 data(iris)
 template_model <- classification("Species", levels(iris$Species))
+print(template_model)
 }

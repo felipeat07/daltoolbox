@@ -6,6 +6,20 @@
 \usage{
 balance_dataset(attribute)
 }
+\arguments{
+\item{attribute}{The attribute to be balanced in the dataset.}
+}
+\value{
+An instance of the BalanceDataset class.
+}
 \description{
-Class Balance Dataset
+The R class BalanceDataset represents a dataset that has been balanced in terms of class distribution. It can be used as a wrapper around a standard dataset to ensure that the classes are equally represented in the data used for modeling or analysis.
+}
+\details{
+The BalanceDataset class has the following properties:
+data: the balanced data frame; method: the balancing method used (oversampling, undersampling, or both);
+seed: the random seed used for reproducibility;
+And the BalanceDataset class has the following methods:
+summary(): provides a summary of the balanced dataset, including the class distribution before and after balancing;
+plot(): produces a plot of the class distribution before and after balancing
 }

@@ -1,6 +1,6 @@
 # DAL Library
 # version 2.1
-
+ 
 # depends dal_transform.R
 
 ### Feature Selection
@@ -8,13 +8,21 @@
 # loadlibrary("glmnet")
 # loadlibrary("FSelector")
 # loadlibrary("doBy")
-
+ 
 #'@title Feature Selection
-#'@description
-#'@details
+#'@description Feature selection is a process of selecting a subset of relevant features from a larger set of features in a dataset for use in model training. The FeatureSelection class in R provides a framework for performing feature selection.
+#'@details The FeatureSelection class has the following properties:
+#'data: the data frame containing the features and target variable;
+#'target: the name of the target variable in the data frame;
+#'selected: a logical vector indicating which features have been selected.
+#'The FeatureSelection class has the following methods:
+#'filter(method): applies a filtering method to the data to select the most relevant features;
+#'wrapper(method): applies a wrapper method to the data to select the most relevant features;
+#'embedded(method): applies an embedded method to the data to select the most relevant features;
+#'summary(): provides a summary of the selected features.
 #'
-#'@param attribute
-#'@return
+#'@param attribute The target variable.
+#'@return An instance of the FeatureSelection class.
 #'@examples
 #'@export
 feature_selection <- function(attribute) {
@@ -26,17 +34,26 @@ feature_selection <- function(attribute) {
 
 #'@export
 transform.feature_selection <- function(obj, data) {
-  data = data[,c(obj$features, obj$attribute)]
+  data <- data[, c(obj$selected, obj$attribute)]
   return(data)
 }
 
+
 #Lasso
 #'@title Feature Selection using Lasso regression
-#'@description
-#'@details
+#'@description Feature selection using Lasso regression is a technique for selecting a subset of relevant features from a larger set of features in a dataset for use in model training. The FeatureSelectionLasso class in R provides a framework for performing feature selection using Lasso regression.
+#'@details The FeatureSelectionLasso class has the following properties:
+#'data: the data frame containing the features and target variable;
+#'target: the name of the target variable in the data frame;
+#'selected: a logical vector indicating which features have been selected;
+#'lambda: the regularization parameter lambda used in Lasso regression;
+#'coef: the coefficients of the Lasso regression model.
+#'The FeatureSelectionLasso class has the following methods:
+#'fit(): fits a Lasso regression model to the data and selects the most relevant features;
+#'summary(): provides a summary of the selected features and the Lasso regression model.
 #'
-#'@param attribute
-#'@return
+#'@param attribute The target variable.
+#'@return An instance of the FeatureSelectionLasso class.
 #'@examples
 #'@export
 feature_selection_lasso <- function(attribute) {
@@ -44,6 +61,7 @@ feature_selection_lasso <- function(attribute) {
   class(obj) <- append("feature_selection_lasso", class(obj))
   return(obj)
 }
+
 
 #'@import glmnet
 #'@export
@@ -72,12 +90,20 @@ fit.feature_selection_lasso <- function(obj, data) {
 }
 
 # forward stepwise selection
-#'@title
-#'@description
-#'@details
+#'@title Forward Stepwise Selection
+#'@description Forward stepwise selection is a technique for feature selection in which features are added to a model one at a time, based on their ability to improve the performance of the model. The ForwardStepwiseSelection class in R provides a framework for performing forward stepwise selection.
+#'@details The ForwardStepwiseSelection class has the following properties:
+#'data: the data frame containing the features and target variable;
+#'target: the name of the target variable in the data frame;
+#'selected: a logical vector indicating which features have been selected;
+#'model: the model object containing the selected features;
+#'performance: the performance metric of the selected model.
+#'The ForwardStepwiseSelection class has the following methods:
+#'fit(): fits a model using forward stepwise selection and selects the most relevant features;
+#'summary(): provides a summary of the selected features and the model.
 #'
-#'@param attribute
-#'@return
+#'@param attribute The target variable.
+#'@return An instance of the ForwardStepwiseSelection class.
 #'@examples
 #'@export
 feature_selection_fss <- function(attribute) {
@@ -89,21 +115,20 @@ feature_selection_fss <- function(attribute) {
 #'@export
 fit.feature_selection_fss <- function(obj, data) {
   data = data.frame(data)
-  if (!is.numeric(data[,obj$attribute]))
-    data[,obj$attribute] =  as.numeric(data[,obj$attribute])
+  if (!is.numeric(data[, obj$attribute]))
+    data[, obj$attribute] = as.numeric(data[, obj$attribute])
 
   nums = unlist(lapply(data, is.numeric))
-  data = data[ , nums]
+  data = data[, nums]
 
-  predictors_name  = setdiff(colnames(data), obj$attribute)
-  predictors = as.matrix(data[,predictors_name])
-  predictand = data[,obj$attribute]
+  predictors_name = setdiff(colnames(data), obj$attribute)
+  predictors = as.matrix(data[, predictors_name])
+  predictand = data[, obj$attribute]
 
-  regfit.fwd = regsubsets(predictors, predictand, nvmax=ncol(data)-1, method="forward")
-  summary(regfit.fwd)
+  regfit.fwd = regsubsets(predictors, predictand, nvmax = ncol(data) - 1, method = "forward")
   reg.summaryfwd = summary(regfit.fwd)
   b1 = which.max(reg.summaryfwd$adjr2)
-  t = coef(regfit.fwd,b1)
+  t = coef(regfit.fwd, b1)
   vec = names(t)[-1]
 
   obj$features <- vec
@@ -111,10 +136,11 @@ fit.feature_selection_fss <- function(obj, data) {
   return(obj)
 }
 
+
 # information gain
-#'@title
-#'@description
-#'@details
+#'@title Information Gain
+#'@description Information Gain is a feature selection technique used in machine learning to determine the relevance of a feature to the target variable. It measures the amount of information obtained for the target variable by knowing the presence or absence of a feature.
+#'@details The InformationGain function has the following parameters: data: the data frame containing the features and target variable; target: the name of the target variable in the data frame; threshold: a threshold value for selecting features (optional). The InformationGain function returns a named numeric vector of Information Gain scores for each feature in the data frame.
 #'
 #'@param attribute
 #'@return
@@ -149,9 +175,9 @@ fit.feature_selection_ig <- function(obj, data) {
 }
 
 # relief
-#'@title
-#'@description
-#'@details
+#' @title Relief
+#' @description The Relief algorithm is a feature selection technique used in machine learning to determine the relevance of a feature to the target variable. It calculates the relevance of a feature by considering the difference in feature values between nearest neighbors of the same and different classes.
+#' @details The relief function has the following parameters: data: the data frame containing the features and target variable; target: the name of the target variable in the data frame; nn: the number of nearest neighbors to consider (optional); sample.size: the number of samples to use in the estimation of the feature distribution (optional). The relief function returns a named numeric vector of Relief scores for each feature in the data frame.
 #'
 #'@param attribute
 #'@return
@@ -163,16 +189,16 @@ feature_selection_relief <- function(attribute) {
   return(obj)
 }
 
-#'@export
+#' @export
 fit.feature_selection_relief <- function(obj, data) {
   data <- data.frame(data)
-  data[,obj$attribute] = as.factor(data[, obj$attribute])
+  data[, obj$attribute] <- as.factor(data[, obj$attribute])
 
   class_formula <- formula(paste(obj$attribute, "  ~ ."))
   weights <- relief(class_formula, data)
 
   tab <- data.frame(weights)
-  tab <- orderBy(~-attr_importance, data=tab)
+  tab <- orderBy(~-attr_importance, data = tab)
   tab$i <- row(tab)
   tab$import_acum <- cumsum(tab$attr_importance)
   myfit <- fit_curvature_min()

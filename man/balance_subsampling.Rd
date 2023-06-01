@@ -6,6 +6,20 @@
 \usage{
 balance_subsampling(attribute)
 }
+\arguments{
+\item{attribute}{The attribute to be balanced through subsampling.}
+}
+\value{
+An instance of the BalanceSubsampling class.
+}
 \description{
-Class Balance Subsampling
+The R class BalanceSubsampling represents a method to balance the class distribution of a dataset by subsampling the majority class. It can be used to reduce the representation of the majority class in the data used for modeling or analysis.
+}
+\details{
+The BalanceSubsampling class has the following properties:
+data: the subsampled data frame;
+seed: the random seed used for reproducibility.
+The BalanceSubsampling class has the following methods:
+summary(): provides a summary of the subsampled dataset, including the class distribution before and after subsampling;
+plot(): produces a plot of the class distribution before and after subsampling.
 }

@@ -4,7 +4,7 @@
 # depends dal_transform.R
 
 ### clustering
-# loadlibrary("dplyr")
+# library("dplyr")
 
 #'@title Clustering Class
 #'@description Ancestor class for clustering problems
@@ -20,13 +20,13 @@ clustering <- function() {
 }
 
 #cluster_evaluation
-#'@title
-#'@description
-#'@details
+#'@title Cluster Evaluation
+#'@description Evaluate the quality of a clustering model using entropy metric
+#'@details This function computes the entropy metric of a clustering model. The entropy metric measures how well the clustering labels match the true labels. A lower entropy means that the clustering model is doing a better job at grouping similar data together.
 #'
-#'@param cluster
-#'@param attribute - name of the attribute used as target clustering
-#'@return
+#'@param cluster A vector of integers indicating the clustering labels of the data
+#'@param attribute A vector of integers indicating the true labels of the data
+#'@return A cluster_evaluation object containing the entropy metric of the clustering model
 #'@examples
 #'@import dplyr
 #'@export
