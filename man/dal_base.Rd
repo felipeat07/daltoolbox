@@ -6,6 +6,12 @@
 \usage{
 dal_base()
 }
+\value{
+An empty object
+}
 \description{
-dal_base object
+Creates a base object that will be used by other library functions
+}
+\details{
+It creates an empty object, adds some boolean properties (log, debug and reproduce) to it, and then sets the object's class to "dal_base"
 }

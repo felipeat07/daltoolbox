@@ -13,5 +13,8 @@ ts_projection(ts)
 a \code{ts_projection} object.
 }
 \description{
-Time Series Projection
+It takes a time series as input (an object of type matrix or data.frame)
+}
+\details{
+If the time series has more than one column, the function assumes that the last column is the output variable (or response variable), and all other columns are input variables (or independent variables)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/dal_main.R
 \name{start_log}
 \alias{start_log}
-\title{Start Log}
+\title{Start logging on an obj object}
 \usage{
 start_log(obj)
 }
@@ -10,5 +10,8 @@ start_log(obj)
 \item{obj}{object: .}
 }
 \description{
-Start Log
+It takes as parameter an obj object
+}
+\details{
+As it makes use of UseMethod, it is expected that there are other functions that define specific behaviors for different classes of objects
 }

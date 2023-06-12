@@ -2,7 +2,7 @@
 % Please edit documentation in R/dal_main.R
 \name{optimize}
 \alias{optimize}
-\title{Optimize}
+\title{Allow different types of objects to be optimized using different optimization algorithms}
 \usage{
 optimize(obj, ...)
 }
@@ -12,8 +12,8 @@ optimize(obj, ...)
 \item{...}{further arguments passed to or from other methods.}
 }
 \description{
-In R, the optimize function is a built-in function used for numerical optimization. It is typically used to find the minimum or maximum value of a function within a given interval. The optimize function takes a function and an interval as input, and returns the minimum or maximum value of the function within that interval.
+It uses the "UseMethod" method to call a specific optimization function for the object type that is passed to "obj"
 }
 \details{
-The optimize function takes two required arguments: f: the function to be optimized; interval: a two-element vector giving the lower and upper bounds of the interval in which to search for the minimum or maximum. In addition, the optimize function has several optional arguments, including: maximum: a logical value indicating whether to find the maximum value of the function instead of the minimum (default is FALSE); tol: a tolerance level for the optimization algorithm (default is sqrt(.Machine$double.eps)). The optimize function returns a list with the following components: minimum: the minimum (or maximum) value of the function within the interval; objective: the value of the function at the minimum (or maximum) point; converged: a logical value indicating whether the optimization algorithm converged; iterations: the number of iterations required by the optimization algorithm.
+This function is a generic wrapper for calling specific optimization functions for a given type of object in R.
 }

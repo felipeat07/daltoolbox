@@ -13,5 +13,8 @@ ts_ean(remove_outliers = TRUE, nw = 0)
 a \code{ts_ean} object.
 }
 \description{
-Time Series Adaptive Normalization (Exponential Moving Average - EMA)
+It takes 2 parameters: remove_outliers and nw
+}
+\details{
+The function uses the "emean" function to calculate the exponentially weighted average. The time series can be pre-processed to remove outliers (remove_outliers) and can also have a specified window size for smoothing (nw)
 }

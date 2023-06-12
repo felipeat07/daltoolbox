@@ -13,5 +13,8 @@ ts_data(y, sw = 1)
 a \code{ts_data} object.
 }
 \description{
-Time Series Data
+receives a vector or matrix y containing the data of a time series and an integer sw indicating the size of the sliding window
+}
+\details{
+Prepare data for time series analysis
 }

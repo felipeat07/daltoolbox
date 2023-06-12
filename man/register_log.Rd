@@ -14,5 +14,8 @@ register_log(obj, msg, ref)
 \item{ref}{.}
 }
 \description{
-Register log details
+It takes as parameters the variables obj, msg and ref. It serves to direct the appropriate method call, depending on the type of object passed as the obj argument.
+}
+\details{
+This function is just a wrapper for the register_log method that must be implemented by other functions that use this programming pattern
 }

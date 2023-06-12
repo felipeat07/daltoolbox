@@ -13,5 +13,8 @@ ts_diff(remove_outliers = TRUE)
 a \code{ts_diff} object.
 }
 \description{
-Time Series Diff
+It receives as parameter the variable remove_outliters. This function calculates the difference between the values of a time series
+}
+\details{
+It calls the "ts_normalize" function which normalizes the time series so that it has zero mean and unit standard deviation. If the "remove_outliers" argument is set to TRUE, the "ts_normalize" function also removes the outliers from the time series
 }

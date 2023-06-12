@@ -13,6 +13,12 @@ ts_sample(ts, test_size = 1, offset = 0)
 
 \item{offset}{integer: starting point (default = 0).}
 }
+\value{
+A list with the two samples
+}
 \description{
-Time Series Sample
+Has three arguments: ts: the time series to split; test_size: the size of the test sample, in number of observations; offset: the number of observations to be ignored at the end of the time series.
+}
+\details{
+The function calculates the offset offset index and creates the training sample, which includes all time series observations up to the offset offset index
 }

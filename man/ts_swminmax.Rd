@@ -13,5 +13,8 @@ ts_swminmax(remove_outliers = TRUE)
 a \code{ts_swminmax} object.
 }
 \description{
-Time Series Sliding Window Min-Max
+It takes as parameter the variable remove_outliers. The ts_swminmax function creates an object for normalizing a time series based on the "sliding window min-max scaling" method
+}
+\details{
+The function uses the ts_normalize function to normalize the data and then adds the "ts_swminmax" class to the resulting object.
 }

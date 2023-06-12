@@ -10,5 +10,8 @@ ts_rf(preprocess = NA, input_size = NA, nodesize = 5, ntree = 20)
 a \code{ts_rf} object.
 }
 \description{
-Time Series Random Forest
+The function receives as arguments the variables preprocess, input_size, nodesize and ntree
+}
+\details{
+Create an object that contains information about the preprocessing (if applicable), the input window size (input_size), the node size (nodesize), and the number of trees (ntree) for the model
 }
