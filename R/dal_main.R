@@ -53,6 +53,12 @@ fit <- function(obj, ...) {
   UseMethod("fit")
 }
 
+#'@title dal_base object
+#'@description Receives the obj object as a parameter, ...
+#'@details
+#'
+#'@return The input object "obj"
+#'@examples
 #'@export
 fit.default <- function(obj, ...) {
   return(obj)
@@ -75,6 +81,14 @@ transform <- function(obj, ...) {
   UseMethod("transform")
 }
 
+#'@title dal_base object
+#'@description A default function that defines the default behavior of the transform function for objects of class dal_transform
+#'@details This function can be overridden by other custom transform methods for dal_transform objects that require different behavior
+#'
+#'@param obj, ...
+#'
+#'@return It simply returns NULL, which indicates that no transforms are applied
+#'@examples
 #'@export
 transform.default <- function(obj, ...) {
   return(NULL)
@@ -94,6 +108,14 @@ inverse_transform <- function(obj, ...) {
   UseMethod("inverse_transform")
 }
 
+
+#'@title dal_base object
+#'@description It receives as parameter the object obj, ...
+#'@details It is used when no specific method is defined for a specific dal_transform object and the generic function inverse_transform() is called
+#'
+#'@param obj, ...
+#'@return Simply returns NULL
+#'@examples
 #'@export
 inverse_transform.default <- function(obj, ...) {
   return(NULL)
@@ -113,6 +135,13 @@ optimize <- function(obj, ...) {
   UseMethod("optimize")
 }
 
+#'@title dal_base object
+#'@description It receives as parameter the obj object
+#'@details Generic method that calls a specific implementation to optimize an object, depending on its class. When there is no specific implementation defined for the object's class, the generic method optimize.default is called
+#'
+#'@param obj
+#'@return Simply returns the object
+#'@examples
 #'@export
 optimize.default <- function(obj) {
   return(obj)
@@ -172,7 +201,7 @@ adjust_matrix <- function(data) {
 
 #'@title dal_base object
 #'@description It takes as parameter an obj object
-#'@details This verification is useful when object is not a datafram'
+#'@details This verification is useful when object is not a dataframe
 #'@param data
 #'@return The date argument
 #'@examples

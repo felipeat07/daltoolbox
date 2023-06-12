@@ -13,10 +13,10 @@
 #'which may include additional properties and methods for data transformation.
 #'
 #'@param alpha
-#'@return
-#'@examples out_obj <- outliers()
-#'out_obj_custom <- outliers(alpha = 1.5)
 #'
+#'@return An outlier object
+#'
+#'@examples
 #'@export
 outliers <- function(alpha = 1.5) {
   obj <- dal_transform()
