@@ -20,12 +20,13 @@ sample_stratified <- function(attribute) {
   return(obj)
 }
 
+#'@importFrom caret createDataPartition
 #'@export
 train_test.sample_stratified <- function(obj, data, perc=0.8) {
   predictors_name <- setdiff(colnames(data), obj$attribute)
   predictand <- data[,obj$attribute]
 
-  idx <- createDataPartition(predictand, p=perc, list=FALSE)
+  idx <- caret::createDataPartition(predictand, p=perc, list=FALSE)
   train <- data[idx,]
   test <- data[-idx,]
   return (list(train=train, test=test))
