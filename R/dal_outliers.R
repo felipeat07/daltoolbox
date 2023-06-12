@@ -25,6 +25,18 @@ outliers <- function(alpha = 1.5) {
   return(obj)
 }
 
+#'@title Calculates upper and lower bounds based on alpha value
+#'
+#'@description A function that takes two parameters, an object and a collection of data
+#'
+#'@details The function checks whether the input data object is an array or a data frame. It then checks whether each column is numeric using the is.numeric function and, if so, calculates the first and third quartiles (Q1 and Q3) using the quantile function. Then the function calculates the interquartile range (IQR) as the difference between Q3 and Q1
+#'
+#'@param obj
+#'@param data
+#'
+#'@return An updated 'outliers' object, containing the lower and upper bounds for each numerical variable
+#'
+#'@examples
 #'@export
 fit.outliers <- function(obj, data) {
   lq1 <- NA
@@ -56,6 +68,18 @@ fit.outliers <- function(obj, data) {
   return(obj)
 }
 
+#'@title Remove outliers from data
+#'
+#'@description The function takes two arguments, the first is an outliers object returned by the outliers() function, which contains the necessary parameters to perform the transformation, including the cutoff limits calculated in the fit.outliers function. The second argument is the set of input data you want to transform
+#'
+#'@details Removes lines that contain values that are considered outliers according to the limits calculated in the fit.outliers function
+#'
+#'@param obj
+#'@param data
+#'
+#'@return returns the output dataset after applying the transformation and adds an "idx" attribute that contains a boolean vector indicating which rows were removed from the original dataset
+#'
+#'@examples
 #'@export
 transform.outliers <- function(obj, data) {
   idx <- FALSE

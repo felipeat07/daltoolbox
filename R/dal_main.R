@@ -4,10 +4,10 @@
 ### basic transformation functions
 
 #'@title dal_base object
-#'@description
-#'@details
+#'@description Creates a base object that will be used by other library functions
+#'@details It creates an empty object, adds some boolean properties (log, debug and reproduce) to it, and then sets the object's class to "dal_base"
 #'
-#'@return
+#'@return An empty object
 #'@examples
 #'@export
 dal_base <- function() {
@@ -100,9 +100,9 @@ inverse_transform.default <- function(obj, ...) {
 }
 
 #optimize
-#'@title Optimize
-#'@description In R, the optimize function is a built-in function used for numerical optimization. It is typically used to find the minimum or maximum value of a function within a given interval. The optimize function takes a function and an interval as input, and returns the minimum or maximum value of the function within that interval.
-#'@details The optimize function takes two required arguments: f: the function to be optimized; interval: a two-element vector giving the lower and upper bounds of the interval in which to search for the minimum or maximum. In addition, the optimize function has several optional arguments, including: maximum: a logical value indicating whether to find the maximum value of the function instead of the minimum (default is FALSE); tol: a tolerance level for the optimization algorithm (default is sqrt(.Machine$double.eps)). The optimize function returns a list with the following components: minimum: the minimum (or maximum) value of the function within the interval; objective: the value of the function at the minimum (or maximum) point; converged: a logical value indicating whether the optimization algorithm converged; iterations: the number of iterations required by the optimization algorithm.
+#'@title Allow different types of objects to be optimized using different optimization algorithms
+#'@description It uses the "UseMethod" method to call a specific optimization function for the object type that is passed to "obj"
+#'@details This function is a generic wrapper for calling specific optimization functions for a given type of object in R.
 #'
 #'@param obj object: .
 #'@param ... further arguments passed to or from other methods.
@@ -136,6 +136,13 @@ describe <- function(obj, ...) {
   UseMethod("describe")
 }
 
+#'@title dal_base object
+#'@description It takes as parameter the object obj. It checks if the given object is NULL and returns an empty string in that case, otherwise it returns the object's class name as a string
+#'@details This function provides a basic description of the given object
+#'
+#'@param obj
+#'@return Class of the object passed as an argument in character format (string), if it is not null. If the object is null, the function returns an empty string
+#'@examples
 #'@export
 describe.default <- function(obj) {
   if (is.null(obj))
@@ -147,6 +154,13 @@ describe.default <- function(obj) {
 ### basic data structures for sliding windows
 
 # general functions
+#'@title dal_base object
+#'@description  It takes a data object as an argument
+#'@details Useful for ensuring that an input object is treated as an array even if it is initially of another type
+#'
+#'@param data
+#'@return An array corresponding to the object passed as a parameter, if it is not an array. If the object is already an array, the function simply returns it
+#'@examples
 #'@export
 adjust_matrix <- function(data) {
   if(!is.matrix(data)) {
@@ -156,6 +170,12 @@ adjust_matrix <- function(data) {
     return(data)
 }
 
+#'@title dal_base object
+#'@description It takes as parameter an obj object
+#'@details This verification is useful when object is not a datafram'
+#'@param data
+#'@return The date argument
+#'@examples
 #'@export
 adjust_data.frame <- function(data) {
   if(!is.data.frame(data)) {
@@ -169,9 +189,9 @@ adjust_data.frame <- function(data) {
 ### Basic log functions
 
 #start_log
-#'@title Start Log
-#'@description
-#'@details
+#'@title Start logging on an obj object
+#'@description It takes as parameter an obj object
+#'@details As it makes use of UseMethod, it is expected that there are other functions that define specific behaviors for different classes of objects
 #'
 #'@param obj object: .
 #'@return
@@ -181,6 +201,13 @@ start_log <- function(obj) {
   UseMethod("start_log")
 }
 
+#'@title dal_base object
+#'@description It takes as parameter the obj object
+#'@details This function is a method to start logging on an object. The default method assigns the current time to the object and returns it
+#'
+#'@param obj object: .
+#'@return The object with a new attribute "log_time",
+#'@examples
 #'@export
 start_log.default <- function(obj) {
   obj$log_time <- Sys.time()
@@ -189,8 +216,8 @@ start_log.default <- function(obj) {
 
 #register_log
 #'@title Register log details
-#'@description
-#'@details
+#'@description It takes as parameters the variables obj, msg and ref. It serves to direct the appropriate method call, depending on the type of object passed as the obj argument.
+#'@details This function is just a wrapper for the register_log method that must be implemented by other functions that use this programming pattern
 #'
 #'@param obj object: .
 #'@param msg string: a message to the log.
@@ -202,6 +229,16 @@ register_log <- function(obj, msg, ref) {
   UseMethod("register_log")
 }
 
+#'@title dal_base object
+#'
+#'@description It takes as parameters the obj object and the variable msg. This function logs a log message to an object and returns the updated object itself
+#'
+#'@details If the message is not provided, the function uses the describe function to get a description of the object's class as a log message. The function then calculates the time since the last time logging was started using the difftime function and stores the time in obj$log_time
+#'
+#'@param obj object: .
+#'@param msg
+#'@return The obj object updated with log record information
+#'@examples
 #'@export
 register_log.default <- function(obj, msg = "") {
   obj$log_time <- as.numeric(difftime(Sys.time(), obj$log_time, units = "min"))
