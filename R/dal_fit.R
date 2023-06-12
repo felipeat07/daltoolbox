@@ -43,26 +43,6 @@ transform.fit_curvature <- function(obj, y) {
   return(res)
 }
 
-#' @title plot.fit_curvature
-#'
-#' @description A function to plot a fit_curvature object
-#'
-#' @details This function takes a fit_curvature object as input and plots the corresponding data.
-#' The points where the curvature is maximum or minimum are highlighted in red.
-#'
-#' @param obj A fit_curvature object
-#' @param y A numeric vector of data points to be plotted
-#' @param res A list containing the results of fitting the data using the fit_curvature object
-#'
-#' @return None
-#'
-#' @examples
-#' @export
-plot.fit_curvature <- function(obj, y, res) {
-  x <- 1:length(y)
-  plot(x, y, col=ifelse(x==res$x, "red", "black"))
-}
-
 #' @title fit_curvature_min
 #' @description The function fit_curvature_min() fits a curvature function to a dataset, and returns a list object with the results. This function is similar to fit_curvature(), but it selects the minimum value of the curvature function as the optimal cut point.
 #' @details The fit_curvature_min() function uses the fit_curvature() function to fit a curvature function to the dataset. It then selects the minimum value of the curvature function as the optimal cut point, and returns a list object with the following elements:
