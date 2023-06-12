@@ -22,6 +22,7 @@ dt_pca <- function(attribute=NULL, components = NULL) {
 }
 
 #'@export
+#'@importFrom stats prcomp
 fit.dt_pca <- function(obj, data) {
   data <- data.frame(data)
   attribute <- obj$attribute
@@ -37,7 +38,7 @@ fit.dt_pca <- function(obj, data) {
   nums[remove] <- FALSE
   data = as.matrix(data[ , nums])
 
-  pca_res <- prcomp(data, center=TRUE, scale.=TRUE)
+  pca_res <- stats::prcomp(data, center=TRUE, scale.=TRUE)
 
   if (is.null(obj$components)) {
     y <-  cumsum(pca_res$sdev^2/sum(pca_res$sdev^2))

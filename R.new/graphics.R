@@ -512,3 +512,16 @@ plot.pair.adv <- function(data, cnames, title = NULL, clabel= NULL, colors) {
   }
   return(grf)
 }
+
+#roc_curve
+#'@import ROCR
+#'@export
+roc_curve <- function(data, prediction) {
+  pred <- ROCR::prediction(prediction, data)
+  rocr <- ROCR::performance(pred, "tpr", "fpr")
+  return (rocr)
+}
+
+
+
+

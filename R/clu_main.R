@@ -4,8 +4,6 @@
 # depends dal_transform.R
 
 ### clustering
-# library("dplyr")
-
 #'@title Clustering Class
 #'@description Ancestor class for clustering problems
 #'@details basic wrapper for clustering problems
@@ -39,11 +37,11 @@ cluster_evaluation <- function(cluster, attribute) {
     options(dplyr.summarise.inform = FALSE)
 
     dataset <- data.frame(x = obj$data, y = obj$attribute)
-    tbl <- dataset %>% dplyr::group_by(x, y) %>% summarise(qtd=n())
-    tbs <- dataset %>% dplyr::group_by(x) %>% summarise(t=n())
+    tbl <- dataset |> dplyr::group_by(x, y) |> dplyr::summarise(qtd=n())
+    tbs <- dataset |> dplyr::group_by(x) |> dplyr::summarise(t=n())
     tbl <- base::merge(x=tbl, y=tbs, by.x="x", by.y="x")
     tbl$e <- -(tbl$qtd/tbl$t)*log(tbl$qtd/tbl$t,2)
-    tbl <- tbl %>% dplyr::group_by(x) %>% dplyr::summarise(ce=sum(e), qtd=sum(qtd))
+    tbl <- tbl |> dplyr::group_by(x) |> dplyr::summarise(ce=sum(e), qtd=sum(qtd))
     tbl$ceg <- tbl$ce*tbl$qtd/length(obj$data)
     obj$entropy_clusters <- tbl
     obj$entropy <- sum(obj$entropy$ceg)

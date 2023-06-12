@@ -74,9 +74,10 @@ ts_data <- function(y, sw=1) {
 #'@param n integer: size of test data.
 #'@return The first n observations of a time series x
 #'@examples
+#'@importFrom utils head
 #'@export
 tshead <- function(x, n = 6L, ...) {
-  head(unclass(x), n)
+  utils::head(unclass(x), n)
 }
 
 #ts_sample

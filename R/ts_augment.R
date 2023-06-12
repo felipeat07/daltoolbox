@@ -44,18 +44,20 @@ jitter <- function() {
   return(obj)
 }
 
+#'@importFrom stats sd
 #'@export
 fit.jitter <- function(obj, data) {
   an <- apply(data, 1, mean)
   x <- data - an
-  obj$sd <- sd(x)
+  obj$sd <- stats::sd(x)
   return(obj)
 }
 
+#'@importFrom stats rnorm
 #'@export
 transform.jitter <- function(obj, data) {
   add.jitter <- function(obj, data) {
-    x <- rnorm(length(data), mean = 0, sd = obj$sd)
+    x <- stats::rnorm(length(data), mean = 0, sd = obj$sd)
     x <- matrix(x, nrow=nrow(data), ncol=ncol(data))
     x[,ncol(data)] <- 0
     data <- data + x
@@ -194,6 +196,7 @@ wormhole <- function() {
   return(obj)
 }
 
+#'@importFrom utils combn
 #'@export
 transform.wormhole <- function(obj, data) {
   add.wormhole <- function(data) {

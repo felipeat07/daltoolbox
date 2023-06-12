@@ -24,25 +24,11 @@ cluster_kmeans <- function(k) {
   return(obj)
 }
 
-#'@import factoextra
-#'@export
-optimize.cluster_kmeans <- function(obj, data, kmax=20, do_plot=FALSE) {
-  t <- factoextra::fviz_nbclust(data, kmeans, k.max = kmax, method = "wss")
-
-  y <- t$data$y
-  myfit <- fit_curvature_max()
-  res <- transform(myfit, y)
-  if (do_plot)
-    plot(myfit, y, res)
-  obj$k <- res$x
-
-  return(obj)
-}
-
+#'@importFrom stats kmeans
 #'@export
 fit.cluster_kmeans <- function(obj, data) {
   k <- obj$k
-  cluster <- kmeans(x = data, centers = k)
+  cluster <- stats::kmeans(x = data, centers = k)
   dist <- 0
   for (i in 1:k) {
     idx <- i == cluster$cluster
@@ -54,3 +40,17 @@ fit.cluster_kmeans <- function(obj, data) {
   attr(cluster, "dist") <- dist
   return(cluster)
 }
+
+#optimize.cluster_kmeans <- function(obj, data, kmax=20, do_plot=FALSE) {
+#  t <- factoextra::fviz_nbclust(data, kmeans, k.max = kmax, method = "wss")
+
+#  y <- t$data$y
+#  myfit <- fit_curvature_max()
+#  res <- transform(myfit, y)
+#  if (do_plot)
+#    plot(myfit, y, res)
+#  obj$k <- res$x
+
+#  return(obj)
+#}
+

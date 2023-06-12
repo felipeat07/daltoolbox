@@ -26,7 +26,7 @@ smoothing <- function(n) {
 }
 
 #'@export
-optimize.smoothing <- function(obj, data, do_plot=FALSE) {
+tune.smoothing <- function(obj, data, do_plot=FALSE) {
   n <- obj$n
   opt <- data.frame()
   interval <- list()
@@ -92,10 +92,11 @@ smoothing_inter <- function(n) {
 }
 
 #'@export
+#'@importFrom graphics boxplot
 fit.smoothing_inter <- function(obj, data) {
   v <- data
   n <- obj$n
-  bp <- boxplot(v, range=1.5, plot = FALSE)
+  bp <- graphics::boxplot(v, range=1.5, plot = FALSE)
   bimax <- bp$stats[5]
   bimin <- bp$stats[1]
   if (bimin == bimax) {
@@ -125,12 +126,13 @@ smoothing_freq <- function(n) {
   return(obj)
 }
 
+#'@importFrom stats quantile
 #'@export
 fit.smoothing_freq <- function(obj, data) {
   v <- data
   n <- obj$n
   p <- seq(from = 0, to = 1, by = 1/n)
-  obj$interval <- quantile(v, p)
+  obj$interval <- stats::quantile(v, p)
   obj <- fit.smoothing(obj, data)
   return(obj)
 }
@@ -152,12 +154,13 @@ smoothing_cluster <- function(n) {
   return(obj)
 }
 
-#'@import stats
+#'@importFrom stats filter
+#'@importFrom stats kmeans
 #'@export
 fit.smoothing_cluster <- function(obj, data) {
   v <- data
   n <- obj$n
-  km <- kmeans(x = v, centers = n)
+  km <- stats::kmeans(x = v, centers = n)
   s <- sort(km$centers)
   s <- stats::filter(s,rep(1/2,2), sides=2)[1:(n-1)]
   obj$interval <- c(min(v), s, max(v))
@@ -189,11 +192,11 @@ smoothing_evaluation <- function(data, attribute) {
     options(dplyr.summarise.inform = FALSE)
 
     dataset <- data.frame(x = obj$data, y = obj$attribute)
-    tbl <- dataset %>% dplyr::group_by(x, y) %>% summarise(qtd=n())
-    tbs <- dataset %>% dplyr::group_by(x) %>% summarise(t=n())
+    tbl <- dataset |> dplyr::group_by(x, y) |> summarise(qtd=n())
+    tbs <- dataset |> dplyr::group_by(x) |> summarise(t=n())
     tbl <- base::merge(x=tbl, y=tbs, by.x="x", by.y="x")
     tbl$e <- -(tbl$qtd/tbl$t)*log(tbl$qtd/tbl$t,2)
-    tbl <- tbl %>% dplyr::group_by(x) %>% dplyr::summarise(ce=sum(e), qtd=sum(qtd))
+    tbl <- tbl |> dplyr::group_by(x) |> dplyr::summarise(ce=sum(e), qtd=sum(qtd))
     tbl$ceg <- tbl$ce*tbl$qtd/length(obj$data)
     obj$entropy_clusters <- tbl
     obj$entropy <- sum(obj$entropy$ceg)

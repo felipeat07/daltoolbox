@@ -52,7 +52,6 @@ set_params.ts_svm <- function(obj, params) {
   return(obj)
 }
 
-#'@import e1071
 #'@title Fits an SVM model to time series
 #'
 #'@description It takes as input the model object obj, the input data x and the expected outputs y
@@ -64,20 +63,22 @@ set_params.ts_svm <- function(obj, params) {
 #'@param y
 #'
 #'@return The obj model object with the adjusted model
+#'@import e1071
 #'@export
 do_fit.ts_svm <- function(obj, x, y) {
   obj$model <- e1071::svm(x = as.data.frame(x), y = y, epsilon=obj$epsilon, cost=obj$cost, kernel=obj$kernel)
   return(obj)
 }
 
-#'@export
 #'@title Uses an adjusted SVM model for time series to make predictions
 #'@description It takes as input the model object obj and the input data x
 #'@details The function uses the SVM model stored in the model attribute of the obj object to make predictions using the predict function from the e1071 library
 #'@param obj
 #'@param x
 #'@return The prediction variable
+#'@importFrom stats predict
+#'@export
 do_predict.ts_svm <- function(obj, x) {
-  prediction <- predict(obj$model, as.data.frame(x))
+  prediction <- stats::predict(obj$model, as.data.frame(x))
   return(prediction)
 }

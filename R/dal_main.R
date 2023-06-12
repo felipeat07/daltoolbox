@@ -121,33 +121,6 @@ inverse_transform.default <- function(obj, ...) {
   return(NULL)
 }
 
-#optimize
-#'@title Allow different types of objects to be optimized using different optimization algorithms
-#'@description It uses the "UseMethod" method to call a specific optimization function for the object type that is passed to "obj"
-#'@details This function is a generic wrapper for calling specific optimization functions for a given type of object in R.
-#'
-#'@param obj object: .
-#'@param ... further arguments passed to or from other methods.
-#'@return
-#'@examples
-#'@export
-optimize <- function(obj, ...) {
-  UseMethod("optimize")
-}
-
-#'@title dal_base object
-#'@description It receives as parameter the obj object
-#'@details Generic method that calls a specific implementation to optimize an object, depending on its class. When there is no specific implementation defined for the object's class, the generic method optimize.default is called
-#'
-#'@param obj
-#'@return Simply returns the object
-#'@examples
-#'@export
-optimize.default <- function(obj) {
-  return(obj)
-}
-
-
 #'@title Describe
 #'@description Generates a summary of the time series dataset, including statistical
 #' measures such as mean, variance, skewness, and kurtosis.

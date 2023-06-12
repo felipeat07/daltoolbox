@@ -4,7 +4,7 @@
 \alias{plot.fit_curvature}
 \title{plot.fit_curvature}
 \usage{
-plot.fit_curvature(obj, y, res)
+\method{plot}{fit_curvature}(obj, y, res)
 }
 \arguments{
 \item{obj}{A fit_curvature object}

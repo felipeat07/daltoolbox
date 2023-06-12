@@ -135,11 +135,12 @@ prepare_ranges <- function(obj, ranges) {
 #'@param y
 #'@return error (MSE)
 #'@examples
+#'@importFrom stats predict
 #'@export
 evaluate_error <- function(obj, model, i, x, y) {
   x <- x[i,]
   y <- as.vector(y[i,])
-  prediction <- as.vector(predict(model, x))
+  prediction <- as.vector(stats::predict(model, x))
   error <- evaluation.tsreg(y, prediction)$mse
   return(error)
 }
@@ -155,8 +156,10 @@ fit_augment.ts_maintune <- function(obj, x, y) {
   return(obj)
 }
 
+#'@importFrom stats predict
 #'@export
 fit.ts_maintune <- function(obj, x, y, ranges) {
+
   obj <- start_log(obj)
   if (obj$base_model$reproduce)
     set.seed(1)
@@ -201,12 +204,12 @@ fit.ts_maintune <- function(obj, x, y, ranges) {
       hyperparameters <- rbind(hyperparameters, cbind(ranges, error, msg))
     }
     hyperparameters$error[hyperparameters$msg != ""] <- NA
-    i <- optimize(obj, hyperparameters)
+    i <- select_hyper(obj, hyperparameters)
   }
 
   model <- build_model(obj, ranges[i,], x, y)
   if (n == 1) {
-    prediction <- predict(model, x)
+    prediction <- stats::predict(model, x)
     error <- evaluation.tsreg(y, prediction)$mse
     hyperparameters <- cbind(ranges, error)
   }
@@ -221,9 +224,9 @@ fit.ts_maintune <- function(obj, x, y, ranges) {
   return(model)
 }
 
-#'@import dplyr
-#'@export
-optimize.ts_maintune <- function(obj, hyperparameters) {
+
+# build a specific task for this activity
+select_hyper <- function(obj, hyperparameters) {
   hyper_summary <- hyperparameters |> dplyr::filter(msg == "") |>
     dplyr::group_by(key) |> dplyr::summarise(error = mean(error, na.rm=TRUE))
 

@@ -125,6 +125,7 @@ zscore <- function(nmean=0, nsd=1) {
 #'
 #'@return The function returns the input normalization object with the "norm.set" slot updated to contain the mean and standard deviation of each numeric column in the input data frame.
 #'@examples
+#'@importFrom stats sd
 #'@export
 fit.zscore <- function(obj, data) {
   nmean <- obj$nmean
@@ -138,7 +139,7 @@ fit.zscore <- function(obj, data) {
   rownames(zscore) <- c("numeric", "mean", "sd","nmean", "nsd")
   for (j in colnames(zscore)[zscore["numeric",]==1]) {
     zscore["mean",j] <- mean(data[,j], na.rm=TRUE)
-    zscore["sd",j] <- sd(data[,j], na.rm=TRUE)
+    zscore["sd",j] <- stats::sd(data[,j], na.rm=TRUE)
     zscore["nmean",j] <- nmean
     zscore["nsd",j] <- nsd
   }

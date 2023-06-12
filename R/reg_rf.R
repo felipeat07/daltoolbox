@@ -27,7 +27,7 @@ reg_rf <- function(attribute, mtry = NULL, ntree = seq(5, 50, 5)) {
   return(obj)
 }
 
-#'@import randomForest
+#'@importFrom randomForest randomForest
 #'@export
 fit.reg_rf <- function(obj, data) {
   data <- adjust_data.frame(data)

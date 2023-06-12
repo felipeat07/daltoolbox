@@ -25,9 +25,11 @@ categ_mapping <- function(attribute) {
 }
 
 #'@export
+#'@importFrom stats formula
+#'@importFrom stats model.matrix
 transform.categ_mapping <- function(obj, data) {
-  mdlattribute <- formula(paste("~", paste(obj$attribute, "-1")))
-  catmap <- model.matrix(mdlattribute, data=data)
+  mdlattribute <- stats::formula(paste("~", paste(obj$attribute, "-1")))
+  catmap <- stats::model.matrix(mdlattribute, data=data)
   data <- cbind(data, catmap)
   return(data)
 }

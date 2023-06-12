@@ -27,21 +27,6 @@ cluster_pam <- function(k) {
   return(obj)
 }
 
-#'@import factoextra
-#'@export
-optimize.cluster_pam <- function(obj, data, kmax=20, do_plot=FALSE) {
-  t <- factoextra::fviz_nbclust(data, pam, k.max = kmax, method = "wss")
-
-  y <- t$data$y
-  myfit <- fit_curvature_max()
-  res <- transform(myfit, y)
-  if (do_plot)
-    plot(myfit, y, res)
-  obj$k <- res$x
-
-  return(obj)
-}
-
 #'@import cluster
 #'@export
 fit.cluster_pam <- function(obj, data) {
@@ -57,3 +42,17 @@ fit.cluster_pam <- function(obj, data) {
   attr(cluster, "dist") <- dist
   return(cluster)
 }
+
+#optimize.cluster_pam <- function(obj, data, kmax=20, do_plot=FALSE) {
+#  t <- factoextra::fviz_nbclust(data, pam, k.max = kmax, method = "wss")
+
+#  y <- t$data$y
+#  myfit <- fit_curvature_max()
+#  res <- transform(myfit, y)
+#  if (do_plot)
+#    plot(myfit, y, res)
+#  obj$k <- res$x
+#
+#  return(obj)
+#}
+

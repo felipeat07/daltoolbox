@@ -28,11 +28,11 @@ cla_mlp <- function(attribute, slevels=NULL, size=NULL, decay=seq(0, 1, 0.0335),
   return(obj)
 }
 
-#'@import nnet RSNNS
+#'@import nnet
 #'@export
 fit.cla_mlp <- function(obj, data) {
   internal_fit.cla_mlp <- function (x, y, size, decay, maxit) {
-    return (nnet::nnet(x, RSNNS::decodeClassLabels(y),size=size,decay=decay,maxit=maxit,trace=FALSE))
+    return (nnet::nnet(x, adjustClassLabels(y), size=size, decay=decay, maxit=maxit, trace=FALSE))
   }
 
   internal_predict.cla_mlp <- function(model, x) {

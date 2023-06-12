@@ -30,10 +30,12 @@ fit_curvature <- function() {
 #'
 #' @examples
 #'@export
+#'@importFrom stats predict
+#'@importFrom stats smooth.spline
 transform.fit_curvature <- function(obj, y) {
   x <- 1:length(y)
-  smodel = smooth.spline(x, y, df = obj$df)
-  curvature = predict(smodel, x = x, deriv = obj$deriv)
+  smodel = stats::smooth.spline(x, y, df = obj$df)
+  curvature = stats::predict(smodel, x = x, deriv = obj$deriv)
   yfit = obj$func(curvature$y)
   xfit = match(yfit, curvature$y)
   y <- y[xfit]

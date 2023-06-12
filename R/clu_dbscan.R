@@ -6,8 +6,6 @@
 
 # cluster_dbscan
 # loadlibrary("fpc")
-# loadlibrary("Rcpp")
-# loadlibrary("dbscan")
 
 #'@title Clustering using DBSCAN
 #'@description
@@ -30,7 +28,6 @@ cluster_dbscan <- function(eps, MinPts) {
 #'@import fpc
 #'@export
 fit.cluster_dbscan <- function(obj, data) {
-
   cluster <- fpc::dbscan(data, eps = obj$eps, MinPts = obj$MinPts)
 
   cluster <- cluster$cluster
@@ -38,17 +35,15 @@ fit.cluster_dbscan <- function(obj, data) {
   return(cluster)
 }
 
-#'@import dbscan
-#'@export
-optimize.cluster_dbscan <- function(obj, data, do_plot=FALSE) {
-  t <- sort(dbscan::kNNdist(data, k = obj$MinPts))
+#optimize.cluster_dbscan <- function(obj, data, do_plot=FALSE) {
+#  t <- sort(dbscan::kNNdist(data, k = obj$MinPts))
 
-  y <- t
-  myfit <- fit_curvature_max()
-  res <- transform(myfit, y)
-  if (do_plot)
-    plot(myfit, y, res)
-  obj$eps <- res$y
+#  y <- t
+#  myfit <- fit_curvature_max()
+#  res <- transform(myfit, y)
+#  if (do_plot)
+#    plot(myfit, y, res)
+#  obj$eps <- res$y
 
-  return(obj)
-}
+#  return(obj)
+#}

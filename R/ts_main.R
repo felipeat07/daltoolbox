@@ -204,8 +204,9 @@ predict.tsreg_sw <- function(obj, x, steps_ahead=1) {
 #'@param x
 #'@return The forecast matrix
 #'@export
+#'@importFrom stats predict
 do_predict.tsreg_sw <- function(obj, x) {
-  prediction <- predict(obj$model, x)
+  prediction <- stats::predict(obj$model, x)
   return(prediction)
 }
 
@@ -288,6 +289,8 @@ evaluation.tsreg <- function(values, prediction) {
 #'
 #'
 #'@export
+#'@importFrom graphics lines
+#'@importFrom graphics par
 tsplot <- function(obj, y, yadj, ypre, main=NULL, xlabels=NULL) {
   if (is.null(main)) {
     prepname <- ""
@@ -305,7 +308,7 @@ tsplot <- function(obj, y, yadj, ypre, main=NULL, xlabels=NULL) {
   if(is.null(xlabels))
     xlabels <- 1:length(y)
   plot(xlabels, y, main = main, xlab = sprintf("time [smape train=%.2f%%], [smape test=%.2f%%]", smape_train, smape_test), ylab="value")
-  lines(xlabels[1:ntrain], yadj, col="blue")
-  lines(xlabels[ntrain:(ntrain+length(ypre))], c(yadj[length(yadj)],ypre), col="green")
-  par(xpd=FALSE)
+  graphics::lines(xlabels[1:ntrain], yadj, col="blue")
+  graphics::lines(xlabels[ntrain:(ntrain+length(ypre))], c(yadj[length(yadj)],ypre), col="green")
+  graphics::par(xpd=FALSE)
 }

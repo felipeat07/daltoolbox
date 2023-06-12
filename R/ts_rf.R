@@ -52,7 +52,6 @@ set_params.ts_rf <- function(obj, params) {
   return(obj)
 }
 
-#'@import randomForest
 #'
 #'@title Fits a random forest model to time series
 #'
@@ -65,6 +64,7 @@ set_params.ts_rf <- function(obj, params) {
 #'@param y
 #'
 #'@return The updated ts_rf object
+#'@importFrom randomForest randomForest
 #'@export
 do_fit.ts_rf <- function(obj, x, y) {
   obj$model <- randomForest::randomForest(x = as.data.frame(x), y = as.vector(y), mtry=ceiling(obj$input_size/3), nodesize = obj$nodesize, ntree=obj$ntree)
@@ -81,8 +81,9 @@ do_fit.ts_rf <- function(obj, x, y) {
 #'@param x
 #'
 #'@return The prediction vector
+#'@importFrom stats predict
 #'@export
 do_predict.ts_rf <- function(obj, x) {
-  prediction <- predict(obj$model, as.data.frame(x))
+  prediction <- stats::predict(obj$model, as.data.frame(x))
   return(prediction)
 }

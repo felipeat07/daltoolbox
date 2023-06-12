@@ -4,8 +4,6 @@
 # depends dal_transform.R
 
 # classification
-#loadlibrary("ROCR")
-#loadlibrary("RSNNS")
 #loadlibrary("nnet")
 #loadlibrary("MLmetrics")
 
@@ -48,10 +46,22 @@ fit.classification <- function(obj, data) {
   obj$x <- setdiff(colnames(data), obj$attribute)
   return(obj)
 }
- 
-#'@import RSNNS
+
+#'@export
+adjustClassLabels <- function (x, valTrue = 1, valFalse = 0)
+{
+  n <- length(x)
+  x <- as.factor(x)
+  res <- matrix(valFalse, n, length(levels(x)))
+  res[(1:n) + n * (unclass(x) - 1)] <- valTrue
+  dimnames(res) <- list(names(x), levels(x))
+  res
+}
+
 #'@export
 tune.classification <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun = predict) {
+
+
   ranges <- expand.grid(ranges)
   n <- nrow(ranges)
   accuracies <- rep(0,n)
@@ -70,7 +80,7 @@ tune.classification <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun 
         params <- append(list(x = x[tt$train$i,], y = y[tt$train$i]), as.list(ranges[i,]))
         model <- do.call(fit.func, params)
         prediction <- pred.fun(model, x[tt$test$i,])
-        accuracies[i] <- accuracies[i] + evaluation.classification(RSNNS::decodeClassLabels(y[tt$test$i]), prediction)$accuracy
+        accuracies[i] <- accuracies[i] + evaluation.classification(adjustClassLabels(y[tt$test$i]), prediction)$accuracy
       }
     }
     i <- which.max(accuracies)
@@ -84,7 +94,7 @@ tune.classification <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun 
 }
 
 #evaluation.classification
-#'@import RSNNS MLmetrics nnet
+#'@import MLmetrics nnet
 #'@export
 evaluation.classification <- function(data, prediction) {
   obj <- list(data=data, prediction=prediction)
@@ -98,7 +108,8 @@ evaluation.classification <- function(data, prediction) {
     return(predictions_i)
   }
   predictions <- adjust_predictions(obj$prediction)
-  obj$conf_mat <- RSNNS::confusionMatrix(data, predictions)
+  #obj$conf_mat <- RSNNS::confusionMatrix(data, predictions)
+  obj$conf_mat <- MLmetrics::ConfusionMatrix(data, predictions)
   obj$accuracy <- MLmetrics::Accuracy(y_pred = predictions, y_true = data)
   obj$f1 <- MLmetrics::F1_Score(y_pred = predictions, y_true = data, positive = 1)
   obj$sensitivity <- MLmetrics::Sensitivity(y_pred = predictions, y_true = data, positive = 1)
@@ -109,16 +120,4 @@ evaluation.classification <- function(data, prediction) {
 
   return(obj)
 }
-
-#roc_curve
-#'@import ROCR
-#'@export
-roc_curve <- function(data, prediction) {
-  pred <- ROCR::prediction(prediction, data)
-  rocr <- ROCR::performance(pred, "tpr", "fpr")
-  return (rocr)
-}
-
-
-
 

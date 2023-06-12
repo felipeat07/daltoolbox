@@ -29,7 +29,7 @@ cla_rf <- function(attribute, slevels=NULL, mtry = NULL, ntree = seq(5, 50, 5)) 
   return(obj)
 }
 
-#'@import randomForest
+#'@importFrom randomForest randomForest
 #'@export
 fit.cla_rf <- function(obj, data) {
 

@@ -33,17 +33,20 @@ ts_awareness <- function(factor = 1) {
   return(obj)
 }
 
+#'@importFrom stats rexp
+#'@importFrom stats rnorm
+#'@importFrom stats sd
 #'@export
 transform.ts_awareness <- function(obj, data) {
   noise.parameters <- function(obj, data) {
     an <- apply(data, 1, mean)
     x <- data - an
-    obj$xsd <- sd(x)
+    obj$xsd <- stats::sd(x)
     return(obj)
   }
 
   add.noise <- function(obj, data) {
-    x <- rnorm(length(data), mean = 0, sd = obj$xsd)
+    x <- stats::rnorm(length(data), mean = 0, sd = obj$xsd)
     x <- matrix(x, nrow=nrow(data), ncol=ncol(data))
     x[,ncol(data)] <- 0
     data <- data + x
@@ -52,7 +55,7 @@ transform.ts_awareness <- function(obj, data) {
   filter.data <- function(data) {
     n <- nrow(data)
     rate <- 10/n
-    i <- ceiling(rexp(10*n, rate))
+    i <- ceiling(stats::rexp(10*n, rate))
     i <- i[(i > 0) & (i < n)]
     i <- sample(i, obj$factor*n)
     i <- n - i + 1
@@ -87,23 +90,27 @@ ts_aware_smooth <- function(factor = 0) {
   return(obj)
 }
 
+#'@importFrom stats rexp
+#'@importFrom stats rnorm
+#'@importFrom stats sd
+#'@importFrom graphics boxplot
 #'@export
 transform.ts_aware_smooth <- function(obj, data) {
   progressive_smoothing <- function(serie) {
-    serie <- na.omit(serie)
+    serie <- stats::na.omit(serie)
     repeat {
       n <- length(serie)
       diff <- serie[2:n] - serie[1:(n-1)]
 
       names(diff) <- 1:length(diff)
-      bp <- boxplot(diff, plot = FALSE)
+      bp <- graphics::boxplot(diff, plot = FALSE)
       j <- as.integer(names(bp$out))
 
       rj <- j[(j > 1) & (j < length(serie))]
       serie[rj] <- (serie[rj-1]+serie[rj+1])/2
 
       diff <- serie[2:n] - serie[1:(n-1)]
-      bpn <- boxplot(diff, plot = FALSE)
+      bpn <- graphics::boxplot(diff, plot = FALSE)
 
       if ((length(bpn$out) == 0) || (length(bp$out) == length(bpn$out))) {
         break
@@ -116,7 +123,7 @@ transform.ts_aware_smooth <- function(obj, data) {
     filter_data <- function(data, factor) {
       n <- nrow(data)
       rate <- 10/n
-      i <- ceiling(rexp(10*n, rate))
+      i <- ceiling(stats::rexp(10*n, rate))
       i <- i[(i > 0) & (i < n)]
       i <- sample(i, factor*n)
       i <- n - i + 1
@@ -127,8 +134,8 @@ transform.ts_aware_smooth <- function(obj, data) {
     add_noise <- function(input, data) {
       an <- apply(data, 1, mean)
       x <- data - an
-      xsd <- sd(x)
-      x <- rnorm(length(input), mean = 0, sd = xsd)
+      xsd <- stats::sd(x)
+      x <- stats::rnorm(length(input), mean = 0, sd = xsd)
       x <- matrix(x, nrow=nrow(input), ncol=ncol(input))
       x[,ncol(input)] <- 0
       input <- input + x

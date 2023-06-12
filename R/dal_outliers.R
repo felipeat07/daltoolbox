@@ -1,6 +1,6 @@
 # DAL Library
 # version 2.1
- 
+
 # depends dal_transform.R
 
 ### outliers
@@ -37,6 +37,7 @@ outliers <- function(alpha = 1.5) {
 #'@return An updated 'outliers' object, containing the lower and upper bounds for each numerical variable
 #'
 #'@examples
+#'@importFrom stats quantile
 #'@export
 fit.outliers <- function(obj, data) {
   lq1 <- NA
@@ -47,7 +48,7 @@ fit.outliers <- function(obj, data) {
     if (nrow(data) >= 30) {
       for (i in 1:ncol(data)) {
         if (is.numeric(data[,i])) {
-          q <- quantile(data[,i])
+          q <- stats::quantile(data[,i])
           IQR <- q[4] - q[2]
           lq1[i] <- q[2] - obj$alpha*IQR
           hq3[i] <- q[4] + obj$alpha*IQR
@@ -57,7 +58,7 @@ fit.outliers <- function(obj, data) {
   }
   else {
     if ((length(data) >= 30) && is.numeric(data)) {
-      q <- quantile(data)
+      q <- stats::quantile(data)
       IQR <- q[4] - q[2]
       lq1 <- q[2] - obj$alpha*IQR
       hq3 <- q[4] + obj$alpha*IQR
