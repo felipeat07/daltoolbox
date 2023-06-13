@@ -26,10 +26,10 @@ smoothing <- function(n) {
 }
 
 tune_smoothing <- function(obj, data, do_plot=FALSE) {
-  n <- obj$n
+  options <- obj$n
   opt <- data.frame()
   interval <- list()
-  for (i in 1:n)
+  for (i in options)
   {
     obj$n <- i
     obj <- fit(obj, data)
