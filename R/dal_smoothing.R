@@ -93,7 +93,7 @@ smoothing_inter <- function(n) {
 #'@export
 #'@importFrom graphics boxplot
 fit.smoothing_inter <- function(obj, data) {
-  if (length(ob$n) > 1)
+  if (length(obj$n) > 1)
     obj <- tune_smoothing(obj, data)
   else {
     v <- data
@@ -132,7 +132,7 @@ smoothing_freq <- function(n) {
 #'@importFrom stats quantile
 #'@export
 fit.smoothing_freq <- function(obj, data) {
-  if (length(ob$n) > 1)
+  if (length(obj$n) > 1)
     obj <- tune_smoothing(obj, data)
   else {
     v <- data
@@ -165,7 +165,7 @@ smoothing_cluster <- function(n) {
 #'@importFrom stats kmeans
 #'@export
 fit.smoothing_cluster <- function(obj, data) {
-  if (length(ob$n) > 1)
+  if (length(obj$n) > 1)
     obj <- tune_smoothing(obj, data)
   else {
     v <- data
