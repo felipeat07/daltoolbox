@@ -5,7 +5,7 @@ setrepos <- function(repos=repos) {
   repos_name <<- repos
 }
 
-loadlibrary <- function(packagename)
+loadlibrary_internal <- function(packagename)
 {
   if (!require(packagename, character.only = TRUE))
   {
@@ -14,8 +14,13 @@ loadlibrary <- function(packagename)
   }
 }
 
-load_daltoolbox <- function()
+loadlibrary <- function(packagename)
 {
+  suppressWarnings(loadlibrary_internal(packagename))
+}
+
+
+load_daltoolbox_internal <- function() {
   if (!require("daltoolbox", character.only = TRUE))
   {
     library(devtools)
@@ -24,4 +29,10 @@ load_daltoolbox <- function()
 
     library(daltoolbox)
   }
+}
+
+
+load_daltoolbox <- function()
+{
+  suppressWarnings(load_daltoolbox_internal())
 }
