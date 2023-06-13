@@ -12,7 +12,7 @@
 #'@examples
 #'@import ggplot2
 #'@export
-plot.scatter <- function(series, label_series = "", label_x = "", label_y = "", colors = NULL) {
+plot_scatter <- function(series, label_series = "", label_x = "", label_y = "", colors = NULL) {
   grf <- ggplot(data=series, aes(x = x, y = value, colour=variable, group=variable)) + geom_point(size=1)
   if (!is.null(colors)) {
     grf <- grf + scale_color_manual(values=colors)
@@ -33,7 +33,7 @@ plot.scatter <- function(series, label_series = "", label_x = "", label_y = "", 
 #'@import ggplot2
 #'@import reshape
 #'@export
-plot.points <- function(data, label_x = "", label_y = "", colors = NULL) {
+plot_points <- function(data, label_x = "", label_y = "", colors = NULL) {
   series <- melt(as.data.frame(data), id.vars = c(1))
   cnames <- colnames(data)[-1]
   colnames(series)[1] <- "x"
@@ -57,7 +57,7 @@ plot.points <- function(data, label_x = "", label_y = "", colors = NULL) {
 #'@import ggplot2
 #'@import reshape
 #'@export
-plot.series <- function(data, label_x = "", label_y = "", colors = NULL) {
+plot_series <- function(data, label_x = "", label_y = "", colors = NULL) {
   series <- melt(as.data.frame(data), id.vars = c(1))
   cnames <- colnames(data)[-1]
   colnames(series)[1] <- "x"
@@ -80,7 +80,7 @@ plot.series <- function(data, label_x = "", label_y = "", colors = NULL) {
 #'@examples
 #'@import ggplot2
 #'@export
-plot.bar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
+plot_bar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
   series <- as.data.frame(data)
   if (!is.factor(series[,1]))
     series[,1] <- as.factor(series[,1])
@@ -106,7 +106,7 @@ plot.bar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
 #'@import ggplot2
 #'@import reshape
 #'@export
-plot.groupedbar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
+plot_groupedbar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
   cnames <- colnames(data)[-1]
   series <- melt(as.data.frame(data), id.vars = c(1))
   colnames(series)[1] <- "x"
@@ -133,7 +133,7 @@ plot.groupedbar <- function(data, label_x = "", label_y = "", colors = NULL, alp
 #'@import ggplot2
 #'@import reshape
 #'@export
-plot.stackedbar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
+plot_stackedbar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
   cnames <- colnames(data)[-1]
   series <- melt(as.data.frame(data), id.vars = c(1))
   colnames(series)[1] <- "x"
@@ -160,7 +160,7 @@ plot.stackedbar <- function(data, label_x = "", label_y = "", colors = NULL, alp
 #'@import ggplot2
 #'@import reshape
 #'@export
-plot.radar <- function(data, label_x = "", label_y = "", colors = NULL)  {
+plot_radar <- function(data, label_x = "", label_y = "", colors = NULL)  {
   series <- as.data.frame(data)
   if (!is.factor(series[,1]))
     series[,1] <- as.factor(series[,1])
@@ -180,7 +180,7 @@ plot.radar <- function(data, label_x = "", label_y = "", colors = NULL)  {
 #'@import ggplot2
 #'@import reshape
 #'@export
-plot.lollipop <- function(data, colors, xlabel = "", ylabel = "", size_text=3, size_ball=8, alpha_ball=0.2, min_value=0, max_value_gap=1, flip = TRUE) {
+plot_lollipop <- function(data, colors, xlabel = "", ylabel = "", size_text=3, size_ball=8, alpha_ball=0.2, min_value=0, max_value_gap=1, flip = TRUE) {
   cnames <- colnames(data)[-1]
   series <- melt(as.data.frame(data), id.vars = c(1))
   colnames(series)[1] <- "x"
@@ -212,7 +212,7 @@ plot.lollipop <- function(data, colors, xlabel = "", ylabel = "", size_text=3, s
 #'@import ggplot2
 #'@import reshape
 #'@export
-plot.pieplot <- function(data, label_x = "", label_y = "", colors = NULL, textcolor="white", bordercolor="black") {
+plot_pieplot <- function(data, label_x = "", label_y = "", colors = NULL, textcolor="white", bordercolor="black") {
   prepare.pieplot <- function(series) {
     colnames(series) <- c("x", "value")
     if (!is.factor(series$x)) {
@@ -252,7 +252,7 @@ plot.pieplot <- function(data, label_x = "", label_y = "", colors = NULL, textco
 #'@import ggplot2
 #'@import reshape
 #'@export
-plot.hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=0.25) {
+plot_hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=0.25) {
   cnames <- colnames(data)[1]
   series <- melt(as.data.frame(data))
   series <- series |> dplyr::filter(variable %in% cnames)
@@ -274,7 +274,7 @@ plot.hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=
 #'@import ggplot2
 #'@import reshape
 #'@export
-plot.boxplot <- function(data, label_x = "", label_y = "", colors = NULL, barwith=0.25) {
+plot_boxplot <- function(data, label_x = "", label_y = "", colors = NULL, barwith=0.25) {
   cnames <- colnames(data)
   series <- melt(as.data.frame(data))
   grf <- ggplot(aes(y = value, x = variable), data = series)
@@ -303,7 +303,7 @@ plot.boxplot <- function(data, label_x = "", label_y = "", colors = NULL, barwit
 #'@import ggplot2
 #'@import reshape
 #'@export
-plot.boxplot.class <- function(data, class_label, label_x = "", label_y = "", colors = NULL) {
+plot_boxplot_class <- function(data, class_label, label_x = "", label_y = "", colors = NULL) {
   data <- melt(data, id=class_label)
   colnames(data)[1] <- "x"
   if (!is.factor(data$x))
@@ -334,7 +334,7 @@ plot.boxplot.class <- function(data, class_label, label_x = "", label_y = "", co
 #'@import ggplot2
 #'@import reshape
 #'@export
-plot.density <-  function(data, label_x = "", label_y = "", colors = NULL, bin = NULL, alpha=0.25) {
+plot_density <-  function(data, label_x = "", label_y = "", colors = NULL, bin = NULL, alpha=0.25) {
   grouped <- ncol(data) > 1
   cnames <- colnames(data)
   series <- melt(as.data.frame(data))
@@ -377,7 +377,7 @@ plot.density <-  function(data, label_x = "", label_y = "", colors = NULL, bin =
 #'@import ggplot2
 #'@import reshape
 #'@export
-plot.density.class <-  function(data, class_label, label_x = "", label_y = "", colors = NULL, bin = NULL, alpha=0.5) {
+plot_density.class <-  function(data, class_label, label_x = "", label_y = "", colors = NULL, bin = NULL, alpha=0.5) {
   data <- melt(data, id=class_label)
   colnames(data)[1] <- "x"
   if (!is.factor(data$x))
