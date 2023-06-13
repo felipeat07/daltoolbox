@@ -1,6 +1,6 @@
 Package: daltoolbox
 Title: DAL ToolBox Package 
-Version: 1.0.51
+Version: 1.0.52
 Authors@R: 
   c(    person(
             given = "Antonio",
