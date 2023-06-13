@@ -22,7 +22,7 @@ reg_knn <- function(attribute, k=1:30) {
   return(obj)
 }
 
-#'@importFrom class knn.reg
+#'@importFrom FNN knn.reg
 #'@export
 fit.reg_knn <- function(obj, data) {
   internal_fit.reg_knn <- function (x, y, k, ...) {
@@ -31,7 +31,7 @@ fit.reg_knn <- function(obj, data) {
   }
 
   internal_predict.reg_knn <- function(model, x) {
-    prediction <- class::knn.reg(train = model$x, test = x, y = model$y, k = model$k)
+    prediction <- FNN::knn.reg(train = model$x, test = x, y = model$y, k = model$k)
     return(prediction$pred)
   }
   data <- adjust_data.frame(data)
@@ -49,12 +49,12 @@ fit.reg_knn <- function(obj, data) {
   return(obj)
 }
 
-#'@importFrom class knn.reg
+#'@importFrom FNN knn.reg
 #'@export
 predict.reg_knn  <- function(obj, x) {
   #develop from FNN https://daviddalpiaz.github.io/r4sl/knn-reg.html
   x <- adjust_data.frame(x)
   x <- as.matrix(x[,obj$x])
-  prediction <- class::knn.reg(train = obj$model$x, test = x, y = obj$model$y, k = obj$model$k)
+  prediction <- FNN::knn.reg(train = obj$model$x, test = x, y = obj$model$y, k = obj$model$k)
   return(prediction$pred)
 }
