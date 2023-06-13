@@ -22,7 +22,7 @@ reg_knn <- function(attribute, k=1:30) {
   return(obj)
 }
 
-#'@import class
+#'@importFrom class knn.reg
 #'@export
 fit.reg_knn <- function(obj, data) {
   internal_fit.reg_knn <- function (x, y, k, ...) {
@@ -49,7 +49,7 @@ fit.reg_knn <- function(obj, data) {
   return(obj)
 }
 
-#'@import class
+#'@importFrom class knn.reg
 #'@export
 predict.reg_knn  <- function(obj, x) {
   #develop from FNN https://daviddalpiaz.github.io/r4sl/knn-reg.html
