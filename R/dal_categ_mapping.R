@@ -30,7 +30,7 @@ categ_mapping <- function(attribute) {
 transform.categ_mapping <- function(obj, data) {
   data <- iris[,obj$attribute, drop=FALSE]
   mdlattribute <- stats::formula(paste("~", paste(obj$attribute, "-1")))
-  data <- stats::model.matrix(mdlattribute, data=data)
+  data <- as.data.frame(stats::model.matrix(mdlattribute, data=data))
   data[,obj$attribute] <- NULL
   return(data)
 }
