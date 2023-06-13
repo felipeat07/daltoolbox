@@ -9,7 +9,6 @@
 # class ts_elm
 # loadlibrary("elmNNRcpp")
 
-### ts_augment
 #'@title Time Series Extreme Learning Machine (ELM)
 #'@description Machine learning technique used for time series forecasting.
 #' ELM is a type of feedforward neural network that uses a single hidden layer

@@ -4,17 +4,17 @@
 # depends dal_transform.R
 # depends ts_data.R
 
-### ts_swfilter
+### tsfil_swfilter
 #'@title Time Series Sliding Window Filter
 #'@description
 #'@details
 #'
-#'@return a `ts_swfilter` object.
+#'@return a `tsfil_swfilter` object.
 #'@examples
 #'@export
-ts_swfilter <- function() {
+tsfil_swfilter <- function() {
   obj <- ts_transform()
-  class(obj) <- append("ts_swfilter", class(obj))
+  class(obj) <- append("tsfil_swfilter", class(obj))
   return(obj)
 }
 
@@ -23,13 +23,13 @@ ts_swfilter <- function() {
 #'@details
 #'
 #'@param factor
-#'@return a `ts_awareness` object.
+#'@return a `tsaug_awareness` object.
 #'@examples
 #'@export
-ts_awareness <- function(factor = 1) {
-  obj <- ts_swfilter()
+tsaug_awareness <- function(factor = 1) {
+  obj <- tsfil_swfilter()
   obj$factor <- factor
-  class(obj) <- append("ts_awareness", class(obj))
+  class(obj) <- append("tsaug_awareness", class(obj))
   return(obj)
 }
 
@@ -37,7 +37,7 @@ ts_awareness <- function(factor = 1) {
 #'@importFrom stats rnorm
 #'@importFrom stats sd
 #'@export
-transform.ts_awareness <- function(obj, data) {
+transform.tsaug_awareness <- function(obj, data) {
   noise.parameters <- function(obj, data) {
     an <- apply(data, 1, mean)
     x <- data - an
@@ -74,19 +74,19 @@ transform.ts_awareness <- function(obj, data) {
   return(result)
 }
 
-### ts_aware_smooth
+### tsaug_aware_smooth
 #'@title Time Series Awareness Smooth
 #'@description
 #'@details
 #'
 #'@param factor
-#'@return a `ts_aware_smooth` object.
+#'@return a `tsaug_aware_smooth` object.data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAWElEQVR42mNgGPTAxsZmJsVqQApgmGw1yApwKcQiT7phRBuCzzCSDSHGMKINIeDNmWQlA2IigKJwIssQkHdINgxfmBBtGDEBS3KCxBc7pMQgMYE5c/AXPwAwSX4lV3pTWwAAAABJRU5ErkJggg==
 #'@examples
 #'@export
-ts_aware_smooth <- function(factor = 0) {
-  obj <- ts_swfilter()
+tsaug_aware_smooth <- function(factor = 0) {
+  obj <- tsfil_swfilter()
   obj$factor <- factor
-  class(obj) <- append("ts_aware_smooth", class(obj))
+  class(obj) <- append("tsaug_aware_smooth", class(obj))
   return(obj)
 }
 
@@ -95,7 +95,7 @@ ts_aware_smooth <- function(factor = 0) {
 #'@importFrom stats sd
 #'@importFrom graphics boxplot
 #'@export
-transform.ts_aware_smooth <- function(obj, data) {
+transform.tsaug_aware_smooth <- function(obj, data) {
   progressive_smoothing <- function(serie) {
     serie <- stats::na.omit(serie)
     repeat {
@@ -119,7 +119,7 @@ transform.ts_aware_smooth <- function(obj, data) {
     return(serie)
   }
 
-  transform_ts_awareness <- function(data, factor) {
+  transform_tsaug_awareness <- function(data, factor) {
     filter_data <- function(data, factor) {
       n <- nrow(data)
       rate <- 10/n
@@ -158,7 +158,7 @@ transform.ts_aware_smooth <- function(obj, data) {
   xd <- progressive_smoothing(x)
   result <- ts_data(xd, n)
 
-  result <- transform_ts_awareness(result, obj$factor)
+  result <- transform_tsaug_awareness(result, obj$factor)
 
   idx <- attr(result, "idx")
   return(result)

@@ -30,23 +30,23 @@ fit.ts_augment <- function(obj, data) {
 
 
 
-### jitter
-#'@title Time Series Augmentation Jitter
-#'@description Jitter adds random "noise" to each data point in the time series.
+### tsaug_jitter
+#'@title Time Series Augmentation tsaug_jitter
+#'@description tsaug_jitter adds random "noise" to each data point in the time series.
 #'@details
 #'
-#'@return a `jitter` object
+#'@return a `tsaug_jitter` object
 #'@examples
 #'@export
-jitter <- function() {
+tsaug_jitter <- function() {
   obj <- ts_augment()
-  class(obj) <- append("jitter", class(obj))
+  class(obj) <- append("tsaug_jitter", class(obj))
   return(obj)
 }
 
 #'@importFrom stats sd
 #'@export
-fit.jitter <- function(obj, data) {
+fit.tsaug_jitter <- function(obj, data) {
   an <- apply(data, 1, mean)
   x <- data - an
   obj$sd <- stats::sd(x)
@@ -55,8 +55,8 @@ fit.jitter <- function(obj, data) {
 
 #'@importFrom stats rnorm
 #'@export
-transform.jitter <- function(obj, data) {
-  add.jitter <- function(obj, data) {
+transform.tsaug_jitter <- function(obj, data) {
+  add.tsaug_jitter <- function(obj, data) {
     x <- stats::rnorm(length(data), mean = 0, sd = obj$sd)
     x <- matrix(x, nrow=nrow(data), ncol=ncol(data))
     x[,ncol(data)] <- 0
@@ -64,7 +64,7 @@ transform.jitter <- function(obj, data) {
     attr(data, "idx") <- 1:nrow(data)
     return(data)
   }
-  result <- add.jitter(obj, data)
+  result <- add.tsaug_jitter(obj, data)
   if (obj$preserve_data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
@@ -74,25 +74,25 @@ transform.jitter <- function(obj, data) {
   return(result)
 }
 
-### stretch
-#'@title Time Series Augmentation Stretch
+### tsaug_stretch
+#'@title Time Series Augmentation tsaug_stretch
 #'@description Apply temporal distortion to the time axis of the data.
 #'@details
 #'
 #'@param factor a real value (default = 1.2) define the degree of distortion applied.
-#'@return a `stretch` object.
+#'@return a `tsaug_stretch` object.
 #'@examples
 #'@export
-stretch <- function(factor=1.2) {
+tsaug_stretch <- function(factor=1.2) {
   obj <- ts_augment()
   obj$factor <- factor
-  class(obj) <- append("stretch", class(obj))
+  class(obj) <- append("tsaug_stretch", class(obj))
   return(obj)
 }
 
 #'@export
-transform.stretch <- function(obj, data) {
-  add.stretch <- function(obj, data) {
+transform.tsaug_stretch <- function(obj, data) {
+  add.tsaug_stretch <- function(obj, data) {
     an <- apply(data, 1, mean)
     x <- data - an
     x <- x * obj$factor
@@ -101,7 +101,7 @@ transform.stretch <- function(obj, data) {
     attr(data, "idx") <- 1:nrow(data)
     return(data)
   }
-  result <- add.stretch(obj, data)
+  result <- add.tsaug_stretch(obj, data)
   if (obj$preserve_data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
@@ -111,25 +111,25 @@ transform.stretch <- function(obj, data) {
   return(result)
 }
 
-### shrink
-#'@title Time Series Augmentation Shrink
+### tsaug_shrink
+#'@title Time Series Augmentation tsaug_shrink
 #'@description
 #'@details
 #'
 #'@param factor a real value (default = 0.8) define the degree of distortion applied.
-#'@return a `shrink` object.
+#'@return a `tsaug_shrink` object.
 #'@examples
 #'@export
-shrink <- function(factor = 0.8) {
+tsaug_shrink <- function(factor = 0.8) {
   obj <- ts_augment()
   obj$factor <- factor
-  class(obj) <- append("shrink", class(obj))
+  class(obj) <- append("tsaug_shrink", class(obj))
   return(obj)
 }
 
 #'@export
-transform.shrink <- function(obj, data) {
-  add.shrink <- function(obj, data) {
+transform.tsaug_shrink <- function(obj, data) {
+  add.tsaug_shrink <- function(obj, data) {
     an <- apply(data, 1, mean)
     x <- data - an
     x <- x * obj$factor
@@ -138,7 +138,7 @@ transform.shrink <- function(obj, data) {
     attr(data, "idx") <- 1:nrow(data)
     return(data)
   }
-  result <- add.shrink(obj, data)
+  result <- add.tsaug_shrink(obj, data)
   if (obj$preserve_data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
@@ -148,30 +148,30 @@ transform.shrink <- function(obj, data) {
   return(result)
 }
 
-### flip
-#'@title Time Series Augmentation Flip
+### tsaug_flip
+#'@title Time Series Augmentation tsaug_flip
 #'@description reverse the order of the data along the time axis.
 #'@details
 #'
-#'@return a `flip` object.
+#'@return a `tsaug_flip` object.
 #'@examples
 #'@export
-flip <- function() {
+tsaug_flip <- function() {
   obj <- ts_augment()
-  class(obj) <- append("flip", class(obj))
+  class(obj) <- append("tsaug_flip", class(obj))
   return(obj)
 }
 
 #'@export
-transform.flip <- function(obj, data) {
-  add.flip <- function(obj, data) {
+transform.tsaug_flip <- function(obj, data) {
+  add.tsaug_flip <- function(obj, data) {
     an <- apply(data, 1, mean)
     x <- data - an
     data <- an - x
     attr(data, "idx") <- 1:nrow(data)
     return(data)
   }
-  result <- add.flip(obj, data)
+  result <- add.tsaug_flip(obj, data)
   if (obj$preserve_data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
@@ -181,25 +181,25 @@ transform.flip <- function(obj, data) {
   return(result)
 }
 
-### Wormhole
-#'@title Time Series Augmentation Wormhole
+### tsaug_wormhole
+#'@title Time Series Augmentation tsaug_wormhole
 #'@description Inserts or removes segments of the time series data.
 #'@details
 #'
-#'@return a `wormhole` object.
+#'@return a `tsaug_wormhole` object.
 #'@examples
 #'@export
-wormhole <- function() {
+tsaug_wormhole <- function() {
   obj <- ts_augment()
   obj$fold <- 1
-  class(obj) <- append("wormhole", class(obj))
+  class(obj) <- append("tsaug_wormhole", class(obj))
   return(obj)
 }
 
 #'@importFrom utils combn
 #'@export
-transform.wormhole <- function(obj, data) {
-  add.wormhole <- function(data) {
+transform.tsaug_wormhole <- function(obj, data) {
+  add.tsaug_wormhole <- function(data) {
     n <- ncol(data)
     x <- c(as.vector(data[1,1:(n-1)]), as.vector(data[,n]))
     ts <- ts_data(x, n+1)
@@ -214,7 +214,7 @@ transform.wormhole <- function(obj, data) {
     attr(data, "idx") <- idx
     return(data)
   }
-  result <- add.wormhole(data)
+  result <- add.tsaug_wormhole(data)
   if (obj$preserve_data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)

@@ -4,43 +4,43 @@
 # depends dal_transform.R
 # depends ts_data.R
 
-### ts_filter
+### tsfil_filter
 #'@title Time Series Filter
 #'@description Used to extract or remove specific components from a time series.
 #'@details
 #'
-#'@return a `ts_filter` object.
+#'@return a `tsfil_filter` object.
 #'@examples
 #'@export
-ts_filter <- function() {
+tsfil_filter <- function() {
   obj <- ts_transform()
-  class(obj) <- append("ts_filter", class(obj))
+  class(obj) <- append("tsfil_filter", class(obj))
   return(obj)
 }
 
 #'@export
-fit.ts_filter <- function(obj, data) {
+fit.tsfil_filter <- function(obj, data) {
   return(obj)
 }
 
-### ts_smooth
+### tsfil_smooth
 #'@title Time Series Smooth
 #'@description Used to remove or reduce randomness (noise).
 #'@details
 #'
-#'@return a `ts_smooth` object.
+#'@return a `tsfil_smooth` object.
 #'@examples
 #'@export
-ts_smooth <- function() {
-  obj <- ts_filter()
-  class(obj) <- append("ts_smooth", class(obj))
+tsfil_smooth <- function() {
+  obj <- tsfil_filter()
+  class(obj) <- append("tsfil_smooth", class(obj))
   return(obj)
 }
 
 #'@export
 #'@importFrom stats na.omit
 #'@importFrom graphics boxplot
-transform.ts_smooth <- function(obj, data) {
+transform.tsfil_smooth <- function(obj, data) {
   progressive_smoothing <- function(serie) {
     serie <- stats::na.omit(serie)
     repeat {
@@ -69,31 +69,31 @@ transform.ts_smooth <- function(obj, data) {
 }
 
 
-### ts_ma
+### tsfil_ma
 #'@title Time Series Moving Average
 #'@description Used to smooth out fluctuations and reduce noise in a time series.
 #'@details
 #'
 #'@param ma
-#'@return a `ts_ma` object.
+#'@return a `tsfil_ma` object.
 #'@examples
 #'@export
-ts_ma <- function(ma = 3) {
-  obj <- ts_filter()
+tsfil_ma <- function(ma = 3) {
+  obj <- tsfil_filter()
   obj$ma <- ma
-  class(obj) <- append("ts_ma", class(obj))
+  class(obj) <- append("tsfil_ma", class(obj))
   return(obj)
 }
 
 #'@export
-transform.ts_ma <- function(obj, data) {
+transform.tsfil_ma <- function(obj, data) {
   data <- ts_data(data, obj$ma)
   ma <- apply(data, 1, mean)
   result <- c(rep(NA, obj$ma-1), ma)
   return(result)
 }
 
-### ts_ema
+### tsfil_ema
 #'@title Time Series Exponential Moving Average
 #'@description Used to smooth out fluctuations, while giving more weight to
 #' recent observations. Particularly useful when the data has a trend or
@@ -101,18 +101,18 @@ transform.ts_ma <- function(obj, data) {
 #'@details
 #'
 #'@param ema
-#'@return a `ts_ema` object.
+#'@return a `tsfil_ema` object.
 #'@examples
 #'@export
-ts_ema <- function(ema = 3) {
-  obj <- ts_filter()
+tsfil_ema <- function(ema = 3) {
+  obj <- tsfil_filter()
   obj$ema <- ema
-  class(obj) <- append("ts_ema", class(obj))
+  class(obj) <- append("tsfil_ema", class(obj))
   return(obj)
 }
 
 #'@export
-transform.ts_ema <- function(obj, data) {
+transform.tsfil_ema <- function(obj, data) {
   exp_mean <- function(x) {
     n <- length(x)
     y <- rep(0,n)
