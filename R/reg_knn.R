@@ -22,7 +22,7 @@ reg_knn <- function(attribute, k=1:30) {
   return(obj)
 }
 
-#'@importFrom class
+#'@import class
 #'@export
 fit.reg_knn <- function(obj, data) {
   internal_fit.reg_knn <- function (x, y, k, ...) {
