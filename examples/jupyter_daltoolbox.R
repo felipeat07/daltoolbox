@@ -16,7 +16,7 @@ loadlibrary_internal <- function(packagename)
 
 loadlibrary <- function(packagename)
 {
-  suppressWarnings(loadlibrary_internal(packagename))
+  suppressPackageStartupMessages(loadlibrary_internal(packagename))
 }
 
 
@@ -34,5 +34,5 @@ load_daltoolbox_internal <- function() {
 
 load_daltoolbox <- function()
 {
-  suppressWarnings(load_daltoolbox_internal())
+  suppressPackageStartupMessages(load_daltoolbox_internal())
 }
