@@ -25,8 +25,7 @@ smoothing <- function(n) {
   return(obj)
 }
 
-#'@export
-tune.smoothing <- function(obj, data, do_plot=FALSE) {
+tune_smoothing <- function(obj, data, do_plot=FALSE) {
   n <- obj$n
   opt <- data.frame()
   interval <- list()
@@ -94,17 +93,21 @@ smoothing_inter <- function(n) {
 #'@export
 #'@importFrom graphics boxplot
 fit.smoothing_inter <- function(obj, data) {
-  v <- data
-  n <- obj$n
-  bp <- graphics::boxplot(v, range=1.5, plot = FALSE)
-  bimax <- bp$stats[5]
-  bimin <- bp$stats[1]
-  if (bimin == bimax) {
-    bimax = max(v)
-    bimin = min(v)
+  if (length(ob$n) > 1)
+    obj <- tune_smoothing(obj, data)
+  else {
+    v <- data
+    n <- obj$n
+    bp <- graphics::boxplot(v, range=1.5, plot = FALSE)
+    bimax <- bp$stats[5]
+    bimin <- bp$stats[1]
+    if (bimin == bimax) {
+      bimax = max(v)
+      bimin = min(v)
+    }
+    obj$interval <- seq(from = bimin, to = bimax, by = (bimax-bimin)/n)
+    obj <- fit.smoothing(obj, data)
   }
-  obj$interval <- seq(from = bimin, to = bimax, by = (bimax-bimin)/n)
-  obj <- fit.smoothing(obj, data)
   return(obj)
 }
 
@@ -129,11 +132,15 @@ smoothing_freq <- function(n) {
 #'@importFrom stats quantile
 #'@export
 fit.smoothing_freq <- function(obj, data) {
-  v <- data
-  n <- obj$n
-  p <- seq(from = 0, to = 1, by = 1/n)
-  obj$interval <- stats::quantile(v, p)
-  obj <- fit.smoothing(obj, data)
+  if (length(ob$n) > 1)
+    obj <- tune_smoothing(obj, data)
+  else {
+    v <- data
+    n <- obj$n
+    p <- seq(from = 0, to = 1, by = 1/n)
+    obj$interval <- stats::quantile(v, p)
+    obj <- fit.smoothing(obj, data)
+  }
   return(obj)
 }
 
@@ -158,13 +165,17 @@ smoothing_cluster <- function(n) {
 #'@importFrom stats kmeans
 #'@export
 fit.smoothing_cluster <- function(obj, data) {
-  v <- data
-  n <- obj$n
-  km <- stats::kmeans(x = v, centers = n)
-  s <- sort(km$centers)
-  s <- stats::filter(s,rep(1/2,2), sides=2)[1:(n-1)]
-  obj$interval <- c(min(v), s, max(v))
-  obj <- fit.smoothing(obj, data)
+  if (length(ob$n) > 1)
+    obj <- tune_smoothing(obj, data)
+  else {
+    v <- data
+    n <- obj$n
+    km <- stats::kmeans(x = v, centers = n)
+    s <- sort(km$centers)
+    s <- stats::filter(s,rep(1/2,2), sides=2)[1:(n-1)]
+    obj$interval <- c(min(v), s, max(v))
+    obj <- fit.smoothing(obj, data)
+  }
   return(obj)
 }
 
