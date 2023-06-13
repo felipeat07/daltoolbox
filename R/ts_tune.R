@@ -1,164 +1,56 @@
 # DAL Library
 # version 2.1
 
-# depends dal_transform.R
-# depends dal_sample.R
-# depends ts_data.R
-# depends ts_regression.R
-# depends ts_preprocessing.R
-# depends ts_augmentation.R
-
-# class ts_maintune
-# loadlibrary("dplyr")
-
-#'@title Time Series Main Tune
+#'@title Time Series Tune
 #'@description
 #'@details
 #'
 #'@param preprocess
 #'@param input_size
 #'@param base_model
-#'@param augment
 #'@param folds
-#'@return a `ts_maintune` object.
+#'@return a `ts_tune` object.
 #'@examples
 #'@export
-ts_maintune <- function(preprocess, input_size, base_model, augment = ts_augment(), folds=10) {
-  obj <- tsreg_sw(preprocess, input_size)
-  obj$base_model <- base_model
+ts_tune <- function(input_size, base_model, folds=10) {
+  obj <- dal_base()
   obj$input_size <- input_size
-  obj$preprocess <- preprocess
-  obj$augment <- augment
+  obj$base_model <- base_model
   obj$folds <- folds
   obj$name <- ""
-  class(obj) <- append("ts_maintune", class(obj))
+  class(obj) <- append("ts_tune", class(obj))
   return(obj)
 }
 
-#'@title Get Preprocess
-#'@description
-#'@details
-#'
-#'@param obj
-#'@param name
-#'@return
-#'@examples
-#'@export
-get_preprocess <- function(obj, name) {
-  i <- which(obj$names_preprocess == name)
-  return(obj$preprocess[[i]])
-}
-
-#'@title Get Augment
-#'@description
-#'@details
-#'
-#'@param obj
-#'@param name
-#'@return
-#'@examples
-#'@export
-get_augment <- function(obj, name) {
-  i <- which(obj$names_augment == name)
-  return(obj$augment[[i]])
-}
-
-#'@title Build Model
-#'@description
-#'@details
-#'
-#'@param obj
-#'@param ranges
-#'@param x
-#'@param y
-#'@return
-#'@examples
-#'@export
-build_model <- function(obj, ranges, x, y) {
-  augment_data <- function(augment, x, y) {
-    data <- cbind(x, y)
-    data <- adjust.ts_data(data)
-    data <- transform(augment, data)
-    data <- adjust.ts_data(data)
-
-    io <- ts_projection(data)
-
-    return(list(x=io$input, y=io$output))
-  }
-
-  model <- obj$base_model
-  model$log <- FALSE
-  model$input_size <- ranges$input_size
-  model$preprocess <- get_preprocess(obj, ranges$preprocess)
-  model <- set_params(model, ranges)
-
-  augment <- get_augment(obj, ranges$augment)
-  data <- augment_data(augment, x, y)
-
-  model <- fit(model, data$x, data$y)
-  attr(model, "augment") <- augment
-
-  return(model)
-}
-
-#'@title Prepare Ranges
-#'@description
-#'@details
-#'
-#'@param obj
-#'@param ranges
-#'@return
-#'@examples
-#'@export
-prepare_ranges <- function(obj, ranges) {
-  obj$names_preprocess <- sapply(obj$preprocess, function(x) { as.character(class(x)[1]) })
-  obj$names_augment <- sapply(obj$augment, function(x) { as.character(class(x)[1]) })
-
-  ranges <- append(list(input_size = obj$input_size, preprocess = obj$names_preprocess, augment = obj$names_augment), ranges)
-  ranges <- expand.grid(ranges)
-  ranges$preprocess <- as.character(ranges$preprocess)
-  ranges$augment <- as.character(ranges$augment)
-  ranges$key <- 1:nrow(ranges)
-
-  obj$ranges <- ranges
-  return(obj)
-}
-
-#'@title Evaluate Error
-#'@description
-#'@details
-#'
-#'@param obj
-#'@param model
-#'@param i
-#'@param x
-#'@param y
-#'@return error (MSE)
-#'@examples
-#'@importFrom stats predict
-#'@export
-evaluate_error <- function(obj, model, i, x, y) {
-  x <- x[i,]
-  y <- as.vector(y[i,])
-  prediction <- as.vector(stats::predict(model, x))
-  error <- evaluation.tsreg(y, prediction)$mse
-  return(error)
-}
-
-#'@export
-fit_augment.ts_maintune <- function(obj, x, y) {
-  data <- cbind(x, y)
-  data <- adjust.ts_data(data)
-  for (i in 1:length(obj$augment)) {
-    augment <- obj$augment[[i]]
-    obj$augment[[i]] <- fit(augment, data)
-  }
-  return(obj)
-}
 
 #'@importFrom stats predict
 #'@export
-fit.ts_maintune <- function(obj, x, y, ranges) {
+fit.ts_tune <- function(obj, x, y, ranges) {
+
+  build_model <- function(obj, ranges, x, y) {
+    model <- obj$base_model
+    model$log <- FALSE
+    model$input_size <- ranges$input_size
+    model <- set_params(model, ranges)
+    model <- fit(model, x, y)
+    return(model)
+  }
+
+  prepare_ranges <- function(obj, ranges) {
+    ranges <- append(list(input_size = obj$input_size), ranges)
+    ranges <- expand.grid(ranges)
+    ranges$key <- 1:nrow(ranges)
+    obj$ranges <- ranges
+    return(obj)
+  }
+
+  evaluate_error <- function(model, i, x, y) {
+    x <- x[i,]
+    y <- as.vector(y[i,])
+    prediction <- as.vector(stats::predict(model, x))
+    error <- evaluate(model, y, prediction)$mse
+    return(error)
+  }
 
   obj <- start_log(obj)
   if (obj$base_model$reproduce)
@@ -166,8 +58,6 @@ fit.ts_maintune <- function(obj, x, y, ranges) {
 
   obj <- prepare_ranges(obj, ranges)
   ranges <- obj$ranges
-
-  obj <- fit_augment.ts_maintune(obj, x, y)
 
   n <- nrow(ranges)
   i <- 1
@@ -186,7 +76,7 @@ fit.ts_maintune <- function(obj, x, y, ranges) {
         err <- tryCatch(
           {
             model <- build_model(obj, ranges[i,], x[tt$train$i,], y[tt$train$i,])
-            error[i] <- evaluate_error(obj, model, tt$test$i, x, y)
+            error[i] <- evaluate_error(model, tt$test$i, x, y)
             ""
           },
           error = function(cond) {
@@ -210,15 +100,14 @@ fit.ts_maintune <- function(obj, x, y, ranges) {
   model <- build_model(obj, ranges[i,], x, y)
   if (n == 1) {
     prediction <- stats::predict(model, x)
-    error <- evaluation.tsreg(y, prediction)$mse
+    error <- evaluate(model, y, prediction)$mse
     hyperparameters <- cbind(ranges, error)
   }
 
   attr(model, "params") <- as.list(ranges[i,])
   attr(model, "hyperparameters") <- hyperparameters
-  augment <- attr(model, "augment")
 
-  msg <- sprintf("%s-%s-%s", describe(obj), describe(model), describe(augment))
+  msg <- sprintf("%s-%s", describe(obj), describe(model))
   if (obj$base_model$log)
     obj <- register_log(obj, msg)
   return(model)
@@ -226,7 +115,7 @@ fit.ts_maintune <- function(obj, x, y, ranges) {
 
 
 # build a specific task for this activity
-select_hyper <- function(obj, hyperparameters) {
+select_hyper.ts_tune <- function(obj, hyperparameters) {
   hyper_summary <- hyperparameters |> dplyr::filter(msg == "") |>
     dplyr::group_by(key) |> dplyr::summarise(error = mean(error, na.rm=TRUE))
 

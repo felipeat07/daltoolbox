@@ -121,6 +121,43 @@ inverse_transform.default <- function(obj, ...) {
   return(NULL)
 }
 
+#evaluate
+#'@title evaluate
+#'@description
+#'@details
+#'
+#'@param obj object: .
+#'@param values data set with hyper parameters.
+#'@param predict data set with hyper parameters.
+#'@return
+#'@examples
+#'@export
+evaluate <- function(obj, values, prediction) {
+  UseMethod("evaluate")
+}
+
+evaluate.default <- function(obj, values, prediction) {
+  return(NULL)
+}
+
+#select_hyper
+#'@title select hyper parameters
+#'@description
+#'@details
+#'
+#'@param obj object: .
+#'@param hyperparameters data set with hyper parameters.
+#'@return
+#'@examples
+#'@export
+select_hyper <- function(obj, hyperparameters) {
+  UseMethod("select_hyper")
+}
+
+select_hyper.default <- function(obj, hyperparameters) {
+  return(1)
+}
+
 #'@title Describe
 #'@description Generates a summary of the time series dataset, including statistical
 #' measures such as mean, variance, skewness, and kurtosis.

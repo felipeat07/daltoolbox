@@ -255,23 +255,22 @@ sMAPE.tsreg <- function (actual, prediction) {
 #'
 #'@description The function receives two variables as a parameter, which are values and prediction
 #'
-#'@details The returned object is also assigned to the "evaluation.tsreg" class
+#'@details The returned object is a list containt all metrics
 #'
 #'@param values
 #'@param prediction
 #'
 #'@return An object that contains these metrics and their values, stored in a data frame
 #'@export
-evaluation.tsreg <- function(values, prediction) {
-  obj <- list(values=values, prediction=prediction)
+evaluate.tsreg <- function(obj, values, prediction) {
+  result <- list(values=values, prediction=prediction)
 
-  obj$smape <- sMAPE.tsreg(values, prediction)
-  obj$mse <- MSE.tsreg(values, prediction)
+  result$smape <- sMAPE.tsreg(values, prediction)
+  result$mse <- MSE.tsreg(values, prediction)
 
-  obj$metrics <- data.frame(mse=obj$mse, smape=obj$smape)
+  result$metrics <- data.frame(mse=result$mse, smape=result$smape)
 
-  attr(obj, "class") <- "evaluation.tsreg"
-  return(obj)
+  return(result)
 }
 
 #'@title Plot a time series chart
