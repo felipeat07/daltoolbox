@@ -17,7 +17,7 @@
 #'@return
 #'@examples
 #'@export
-reg_rf <- function(attribute, mtry = NULL, ntree = seq(5, 50, 5)) {
+reg_rf <- function(attribute, mtry = NULL, ntree = 10) {
   obj <- regression(attribute)
 
   obj$mtry <- mtry

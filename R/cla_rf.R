@@ -19,7 +19,7 @@
 #'@return
 #'@examples
 #'@export
-cla_rf <- function(attribute, slevels=NULL, mtry = NULL, ntree = seq(5, 50, 5)) {
+cla_rf <- function(attribute, slevels=NULL, mtry = NULL, ntree = 10) {
   obj <- classification(attribute, slevels)
 
   obj$ntree <- ntree
@@ -48,27 +48,19 @@ set_params.cla_rf <- function(obj, params) {
 #'@importFrom randomForest randomForest
 #'@export
 fit.cla_rf <- function(obj, data) {
-
-  internal_predict.cla_rf <- function(model, x) {
-    prediction <- predict(model, x, type="prob")
-    return(prediction)
-  }
-
   data <- adjust_data.frame(data)
   data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
   obj <- fit.classification(obj, data)
 
   if (is.null(obj$mtry))
-    obj$mtry <- ceiling(c(1,1.5,2)*sqrt(ncol(data)))
+    obj$mtry <- ceiling(sqrt(ncol(data)))
 
   x <- data[,obj$x, drop=FALSE]
   y <- data[,obj$attribute]
 
-  ranges <- list(mtry=obj$mtry, ntree=obj$ntree)
-  obj$model <- tune.classification(obj, x = x, y = y, ranges = ranges, fit.func = randomForest::randomForest, pred.fun = internal_predict.cla_rf)
+  obj$model <- randomForest::randomForest(x = x, y = y, mtry=obj$mtry, ntree=obj$ntree)
 
-  params <- attr(obj$model, "params")
-  msg <- sprintf("mtry=%d,ntree=%d", params$mtry, params$ntree)
+  msg <- sprintf("mtry=%d,ntree=%d", obj$mtry, obj$ntree)
   obj <- register_log(obj, msg)
   return(obj)
 }

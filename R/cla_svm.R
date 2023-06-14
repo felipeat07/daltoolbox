@@ -62,7 +62,6 @@ fit.cla_svm <- function(obj, data) {
   y <- data[,obj$attribute]
 
   obj$model <- e1071::svm(x, y, probability=TRUE, epsilon=obj$epsilon, cost=obj$cost, kernel=obj$kernel)
-  attr(model, "slevels")  <- levels(y)
 
   msg <- sprintf("epsilon=%.1f,cost=%.3f", obj$epsilon, obj$cost)
   obj <- register_log(obj, msg)
@@ -76,8 +75,7 @@ predict.cla_svm  <- function(obj, x) {
 
   prediction <- predict(obj$model, x, probability = TRUE)
   prediction <- attr(prediction, "probabilities")
-  slevels <- attr(obj$model, "slevels")
-  prediction <- prediction[,slevels]
+  prediction <- prediction[,obj$slevels]
 
   return(prediction)
 }

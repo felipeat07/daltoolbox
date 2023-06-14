@@ -43,17 +43,6 @@ set_params.cla_knn <- function(obj, params) {
 #'@export
 fit.cla_knn <- function(obj, data) {
 
-  internal_fit.cla_knn <- function (x, y, k, ...) {
-    model <- list(x=x, y=y, k=k)
-    return (model)
-  }
-
-  internal_predict.cla_knn <- function(model, x) {
-    prediction <- class::knn(train=model$x, test=x, cl=model$y, prob=TRUE)
-    prediction <- adjustClassLabels(prediction)
-    return(prediction)
-  }
-
   data <- adjust_data.frame(data)
   data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
   obj <- fit.classification(obj, data)
@@ -61,11 +50,9 @@ fit.cla_knn <- function(obj, data) {
   x <- data[,obj$x, drop = FALSE]
   y <- data[,obj$attribute]
 
-  ranges <- list(k = obj$k, stub = 0)
-  obj$model <- tune.classification(obj, x = x, y = y, ranges = ranges, fit.func = internal_fit.cla_knn, pred.fun = internal_predict.cla_knn)
+  obj$model <-list(x=x, y=y, k=obj$k)
 
-  params <- attr(obj$model, "params")
-  msg <- sprintf("k=%d", params$k)
+  msg <- sprintf("k=%d", obj$k)
   obj <- register_log(obj, msg)
   return(obj)
 }

@@ -51,15 +51,6 @@ set_params.cla_mlp <- function(obj, params) {
 #'@import nnet
 #'@export
 fit.cla_mlp <- function(obj, data) {
-  internal_fit.cla_mlp <- function (x, y, size, decay, maxit) {
-    return (nnet::nnet(x, adjustClassLabels(y), size=size, decay=decay, maxit=maxit, trace=FALSE))
-  }
-
-  internal_predict.cla_mlp <- function(model, x) {
-    prediction <- predict(model, x, type="raw")
-    return(prediction)
-  }
-
   data <- adjust_data.frame(data)
   data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
   obj <- fit.classification(obj, data)
@@ -70,11 +61,9 @@ fit.cla_mlp <- function(obj, data) {
   x <- data[,obj$x, drop = FALSE]
   y <- data[,obj$attribute]
 
-  ranges <- list(maxit=obj$maxit, decay = obj$decay, size=obj$size)
-  obj$model <- tune.classification(obj, x = x, y = y, ranges = ranges, fit.func = internal_fit.cla_mlp, pred.fun = internal_predict.cla_mlp)
+  obj$model <- nnet::nnet(x = x, y = adjustClassLabels(y), size=obj$size, decay=obj$decay, maxit=obj$maxit, trace=FALSE)
 
-  params <- attr(obj$model, "params")
-  msg <- sprintf("size=%d,decay=%.2f", params$size, params$decay)
+  msg <- sprintf("size=%d,decay=%.2f", obj$size, obj$decay)
   obj <- register_log(obj, msg)
   return(obj)
 }
