@@ -29,7 +29,8 @@ fit.reg_dtree <- function(obj, data) {
   regression <- formula(paste(obj$attribute, "  ~ ."))
   obj$model <- tree::tree(regression, data)
 
-  obj <- register_log(obj)
+  if (obj$log)
+    obj <- register_log(obj)
   return(obj)
 }
 

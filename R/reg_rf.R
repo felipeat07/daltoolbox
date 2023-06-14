@@ -27,6 +27,22 @@ reg_rf <- function(attribute, mtry = NULL, ntree = seq(5, 50, 5)) {
   return(obj)
 }
 
+#'@title Set parameters values for reg_rf
+#'@description It receives as input a reg_rf object (obj) and a set of parameters (params)
+#'@details
+#'@param obj
+#'@param params
+#'@return The reg_rf object updated with the new parameter values
+#'@export
+set_params.reg_rf <- function(obj, params) {
+  if (!is.null(params$mtry))
+    obj$mtry <- params$mtry
+  if (!is.null(params$ntree))
+    obj$ntree <- params$ntree
+
+  return(obj)
+}
+
 #'@importFrom randomForest randomForest
 #'@export
 fit.reg_rf <- function(obj, data) {
@@ -34,17 +50,17 @@ fit.reg_rf <- function(obj, data) {
   obj <- fit.regression(obj, data)
 
   if (is.null(obj$mtry))
-    obj$mtry <- ceiling(c(1,1.5,2)*ncol(data)/3)
+    obj$mtry <- ceiling(ncol(data)/3)
 
   x <- data[,obj$x]
   y <- data[,obj$attribute]
 
-  ranges <- list(mtry=obj$mtry, ntree=obj$ntree)
-  obj$model <- tune.regression(obj, x = x, y = y, ranges = ranges, fit.func = randomForest::randomForest)
+  obj$model <- randomForest::randomForest(x = x, y = y, mtry=obj$mtry, ntree=obj$ntree)
 
-  params <- attr(obj$model, "params")
-  msg <- sprintf("mtry=%d,ntree=%d", params$mtry, params$ntree)
-  obj <- register_log(obj, msg)
+  if (obj$log) {
+    msg <- sprintf("mtry=%d,ntree=%d", obj$mtry, obj$ntree)
+    obj <- register_log(obj, msg)
+  }
   return(obj)
 }
 

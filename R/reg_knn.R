@@ -47,8 +47,10 @@ fit.reg_knn <- function(obj, data) {
 
   obj$model <- list(x=x, y=y, k=obj$k)
 
-  msg <- sprintf("k=%d", obj$model$k)
-  obj <- register_log(obj, msg)
+  if (obj$log) {
+    msg <- sprintf("k=%d", obj$model$k)
+    obj <- register_log(obj, msg)
+  }
   return(obj)
 }
 

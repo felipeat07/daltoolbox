@@ -4,7 +4,7 @@
 \alias{reg_mlp}
 \title{Multi-Layer Perceptron (MLP) Regression}
 \usage{
-reg_mlp(attribute, size = NULL, decay = seq(0, 1, 0.0335), maxit = 1000)
+reg_mlp(attribute, size = NULL, decay = 0.05, maxit = 1000)
 }
 \description{
 Multi-Layer Perceptron (MLP) Regression

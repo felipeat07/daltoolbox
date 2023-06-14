@@ -13,8 +13,8 @@ sr <- train_test(sr, Boston)
 boston_train = sr$train
 boston_test = sr$test
 
-tune <- reg_tune(reg_knn("medv", k=0))
-ranges <- list(k=1:20)
+tune <- reg_tune(reg_mlp("medv", size=5, decay=0.54))
+ranges <- list(size=1:5, decay=seq(0, 1, 0.1))
 model <- fit(tune, boston_train, ranges)
 
 train_prediction <- predict(model, boston_train)

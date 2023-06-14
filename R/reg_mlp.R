@@ -17,12 +17,30 @@
 #'@return
 #'@examples
 #'@export
-reg_mlp <- function(attribute, size=NULL, decay=seq(0, 1, 0.0335), maxit=1000) {
+reg_mlp <- function(attribute, size=NULL, decay=0.05, maxit=1000) {
   obj <- regression(attribute)
   obj$maxit <- maxit
   obj$size <- size
   obj$decay <- decay
   class(obj) <- append("reg_mlp", class(obj))
+  return(obj)
+}
+
+#'@title Set parameters values for reg_mlp
+#'@description It receives as input a reg_mlp object (obj) and a set of parameters (params)
+#'@details
+#'@param obj
+#'@param params
+#'@return The reg_mlp object updated with the new parameter values
+#'@export
+set_params.reg_mlp <- function(obj, params) {
+  if (!is.null(params$size))
+    obj$size <- params$size
+  if (!is.null(params$decay))
+    obj$decay <- params$decay
+  if (!is.null(params$maxit))
+    obj$maxit <- params$maxit
+
   return(obj)
 }
 
@@ -36,12 +54,13 @@ fit.reg_mlp <- function(obj, data) {
 
   x <- data[,obj$x]
   y <- data[,obj$attribute]
-  ranges <- list(size = obj$size, decay = obj$decay, maxit=obj$maxit, linout=TRUE, trace = FALSE)
-  obj$model <- tune.regression(obj, x = x, y = y, ranges = ranges, fit.func = nnet)
 
-  params <- attr(obj$model, "params")
-  msg <- sprintf("size=%d,decay=%.2f", params$size, params$decay)
-  obj <- register_log(obj, msg)
+  obj$model <- nnet(x = x, y = y, size = obj$size, decay = obj$decay, maxit=obj$maxit, linout=TRUE, trace = FALSE)
+
+  if (obj$log) {
+    msg <- sprintf("size=%d,decay=%.2f", obj$size, obj$decay)
+    obj <- register_log(obj, msg)
+  }
   return(obj)
 }
 
