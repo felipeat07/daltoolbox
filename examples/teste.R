@@ -1,56 +1,41 @@
-i <- seq(0, 25, 0.25)
+i <- seq(0, 2*pi+8*pi/50, pi/50)
 x <- cos(i)
+noise <- rnorm(length(x), 0, sd(x)/10)
 
-#library(ggplot2)
-serie <- data.frame(x=i, cos=x)
-grf <- plot_series(serie, colors="black")
-font <- theme(text = element_text(size=16))
-#plot(grf+font)
+x <- x + noise
+x[30] <-rnorm(1, 0, sd(x))
 
-sw_size <- 0
-ts <- ts_data(x, 0)
-tshead(ts, 3)
+x[60] <-rnorm(1, 0, sd(x))
 
-test_size <- 1
-samp <- ts_sample(ts, test_size)
-tshead(samp$train, 3)
-tshead(samp$test)
+x[90] <-rnorm(1, 0, sd(x))
 
-model <- tsreg_arima()
+library(ggplot2)
+ts_plot(x=i, y=x) + theme(text = element_text(size=16))
 
-io_train <- ts_projection(samp$train)
-model <- fit(model, x=io_train$input, y=io_train$output)
+filter <- tsfil_smooth()
+filter <- fit(filter, x)
+y <- transform(filter, x)
 
-print(describe(model))
+ts_plot_pred(y=x, yadj=y) + theme(text = element_text(size=16))
 
-adjust <- predict(model, io_train$input)
-ev_adjust <- evaluate(model, io_train$output, adjust)
-print(head(ev_adjust$metrics))
+filter <- tsfil_ma(3)
+filter <- fit(filter, x)
+y <- transform(filter, x)
 
-steps_ahead <- 1
-io_test <- ts_projection(samp$test)
-prediction <- predict(model, x=io_test$input, steps_ahead=steps_ahead)
-prediction <- as.vector(prediction)
+plot(x = i, y = x, main = "cosine")
+lines(x = i, y = x, col="black")
+lines(x = i, y = y, col="green")
 
-output <- as.vector(io_test$output)
-if (steps_ahead > 1)
-  output <- output[1:steps_ahead]
+filter <- tsfil_ema(3)
+filter <- fit(filter, x)
+y <- transform(filter, x)
 
-print(sprintf("%.2f, %.2f", output, prediction))
-
-ev_test <- evaluate(model, output, prediction)
-print(head(ev_test$metrics))
-print(sprintf("%s: smape: %.2f", describe(model), 100*ev_test$metrics$smape))
-
-yvalues <- c(io_train$output, io_test$output)
+plot(x = i, y = x, main = "cosine")
+lines(x = i, y = x, col="black")
+lines(x = i, y = y, col="green")
 
 
-#grf <- mytsplot(model, y=yvalues, yadj=adjust, ypre=prediction)
-#grf <- ts_plot(y = yvalues)
-#plot(grf)
 
-grf <- ts_plot_pred(y = yvalues, yadj = adjust, ypred = prediction)
-plot(grf)
 
 #  Gráficos em séries temporais
 #  Harbinger retestar
