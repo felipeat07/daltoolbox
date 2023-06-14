@@ -24,6 +24,21 @@ cla_knn <- function(attribute, slevels=NULL, k=1:30) {
   return(obj)
 }
 
+#'@title Set parameters values for cla_knn
+#'@description It receives as input a ts_rf object (obj) and a set of parameters (params)
+#'@details If the parameter set contains an entry for nodesize, the corresponding value is assigned to the ts_rf object. Likewise, if the parameter set contains an entry for ntree, the corresponding value is assigned to the ts_rf object
+#'@param obj
+#'@param params
+#'@return The cla_knn object updated with the new parameter values
+#'@export
+set_params.cla_knn <- function(obj, params) {
+  if (!is.null(params$k))
+    obj$k <- params$k
+
+  return(obj)
+}
+
+
 #'@import class
 #'@export
 fit.cla_knn <- function(obj, data) {

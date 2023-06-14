@@ -4,13 +4,7 @@
 \alias{cla_svm}
 \title{Support Vector Machine Classification}
 \usage{
-cla_svm(
-  attribute,
-  slevels = NULL,
-  epsilon = seq(0, 1, 0.2),
-  cost = seq(20, 100, 20),
-  kernel = "radial"
-)
+cla_svm(attribute, slevels = NULL, epsilon = 0.1, cost = 10, kernel = "radial")
 }
 \arguments{
 \item{attribute}{\itemize{

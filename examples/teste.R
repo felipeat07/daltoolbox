@@ -27,4 +27,7 @@ boston_test_predictand <- boston_test[,"medv"]
 test_eval <- evaluate(model, boston_test_predictand, test_prediction)
 print(test_eval$metrics)
 
-
+#  Gráficos em séries temporais
+#  Harbinger retestar
+#  Repositorio DAL Extended ToolBox
+#  Documentação do DAL

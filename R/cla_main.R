@@ -58,46 +58,11 @@ adjustClassLabels <- function (x, valTrue = 1, valFalse = 0)
   res
 }
 
-#'@export
-tune.classification <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun = predict) {
-
-
-  ranges <- expand.grid(ranges)
-  n <- nrow(ranges)
-  accuracies <- rep(0,n)
-
-  data <- data.frame(i = 1:nrow(x), idx = 1:nrow(x))
-  folds <- k_fold(sample_random(), data, folds)
-
-  i <- 1
-  if (n > 1) {
-    for (i in 1:n) {
-      for (j in 1:length(folds)) {
-        if (obj$reproduce)
-          set.seed(1)
-        tt <- train_test_from_folds(folds, j)
-
-        params <- append(list(x = x[tt$train$i,], y = y[tt$train$i]), as.list(ranges[i,]))
-        model <- do.call(fit.func, params)
-        prediction <- pred.fun(model, x[tt$test$i,])
-        accuracies[i] <- accuracies[i] + evaluation.classification(adjustClassLabels(y[tt$test$i]), prediction)$accuracy
-      }
-    }
-    i <- which.max(accuracies)
-  }
-  if (obj$reproduce)
-    set.seed(1)
-  params <- append(list(x = x, y = y), as.list(ranges[i,]))
-  model <- do.call(fit.func, params)
-  attr(model, "params") <- as.list(ranges[i,])
-  return(model)
-}
-
-#evaluation.classification
+#evaluate.classification
 #'@import MLmetrics nnet
 #'@export
-evaluation.classification <- function(data, prediction) {
-  obj <- list(data=data, prediction=prediction)
+evaluate.classification <- function(obj, data, prediction) {
+  result <- list(data=data, prediction=prediction)
 
   adjust_predictions <- function(predictions) {
     predictions_i <- matrix(rep.int(0, nrow(predictions)*ncol(predictions)), nrow=nrow(predictions), ncol=ncol(predictions))
@@ -107,16 +72,17 @@ evaluation.classification <- function(data, prediction) {
     }
     return(predictions_i)
   }
-  predictions <- adjust_predictions(obj$prediction)
-  #obj$conf_mat <- RSNNS::confusionMatrix(data, predictions)
-  obj$conf_mat <- MLmetrics::ConfusionMatrix(data, predictions)
-  obj$accuracy <- MLmetrics::Accuracy(y_pred = predictions, y_true = data)
-  obj$f1 <- MLmetrics::F1_Score(y_pred = predictions, y_true = data, positive = 1)
-  obj$sensitivity <- MLmetrics::Sensitivity(y_pred = predictions, y_true = data, positive = 1)
-  obj$specificity <- MLmetrics::Specificity(y_pred = predictions, y_true = data, positive = 1)
-  obj$precision <- MLmetrics::Precision(y_pred = predictions, y_true = data, positive = 1)
-  obj$recall <- MLmetrics::Recall(y_pred = predictions, y_true = data, positive = 1)
-  obj$metrics <- data.frame(accuracy=obj$accuracy, f1=obj$f1, sensitivity=obj$sensitivity, specificity=obj$specificity, precision=obj$precision, recall=obj$recall)
+  predictions <- adjust_predictions(result$prediction)
+  result$conf_mat <- MLmetrics::ConfusionMatrix(data, predictions)
+  result$accuracy <- MLmetrics::Accuracy(y_pred = predictions, y_true = data)
+  result$f1 <- MLmetrics::F1_Score(y_pred = predictions, y_true = data, positive = 1)
+  result$sensitivity <- MLmetrics::Sensitivity(y_pred = predictions, y_true = data, positive = 1)
+  result$specificity <- MLmetrics::Specificity(y_pred = predictions, y_true = data, positive = 1)
+  result$precision <- MLmetrics::Precision(y_pred = predictions, y_true = data, positive = 1)
+  result$recall <- MLmetrics::Recall(y_pred = predictions, y_true = data, positive = 1)
+  result$metrics <- data.frame(accuracy=result$accuracy, f1=result$f1,
+    sensitivity=result$sensitivity, specificity=result$specificity,
+    precision=result$precision, recall=result$recall)
 
   return(obj)
 }

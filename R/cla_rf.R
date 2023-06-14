@@ -29,6 +29,22 @@ cla_rf <- function(attribute, slevels=NULL, mtry = NULL, ntree = seq(5, 50, 5)) 
   return(obj)
 }
 
+#'@title Set parameters values for cla_rf
+#'@description It receives as input a cla_rf object (obj) and a set of parameters (params)
+#'@details
+#'@param obj
+#'@param params
+#'@return The cla_rf object updated with the new parameter values
+#'@export
+set_params.cla_rf <- function(obj, params) {
+  if (!is.null(params$mtry))
+    obj$mtry <- params$mtry
+  if (!is.null(params$ntree))
+    obj$ntree <- params$ntree
+
+  return(obj)
+}
+
 #'@importFrom randomForest randomForest
 #'@export
 fit.cla_rf <- function(obj, data) {

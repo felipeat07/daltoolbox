@@ -28,6 +28,26 @@ cla_mlp <- function(attribute, slevels=NULL, size=NULL, decay=seq(0, 1, 0.0335),
   return(obj)
 }
 
+#'@title Set parameters values for cla_mlp
+#'@description It receives as input a cla_mlp object (obj) and a set of parameters (params)
+#'@details
+#'@param obj
+#'@param params
+#'@return The cla_mlp object updated with the new parameter values
+#'@export
+set_params.cla_mlp <- function(obj, params) {
+  if (!is.null(params$size))
+    obj$size <- params$size
+  if (!is.null(params$decay))
+    obj$decay <- params$decay
+  if (!is.null(params$maxit))
+    obj$maxit <- params$maxit
+
+  return(obj)
+}
+
+
+
 #'@import nnet
 #'@export
 fit.cla_mlp <- function(obj, data) {
