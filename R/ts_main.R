@@ -261,6 +261,7 @@ evaluate.tsreg <- function(obj, values, prediction) {
 #'@export
 #'@import ggplot2
 ts_plot <- function(x = NULL, y, color="black", label_x = "", label_y = "")  {
+  y <- as.vector(y)
   if (is.null(x))
     x <- 1:length(y)
   grf <- ggplot() + geom_point(aes(x = x, y = y)) + geom_line(aes(x = x, y = y))
@@ -290,6 +291,7 @@ ts_plot <- function(x = NULL, y, color="black", label_x = "", label_y = "")  {
 #'@export
 #'@import ggplot2
 ts_plot_pred <- function(x = NULL, y, yadj, ypred = NULL, color="black", label_x = "", label_y = "") {
+  y <- as.vector(y)
   if (is.null(x))
     x <- 1:length(y)
   y <- as.vector(y)
