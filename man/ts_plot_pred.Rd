@@ -8,7 +8,7 @@ ts_plot_pred(
   x = NULL,
   y,
   yadj,
-  ypred,
+  ypred = NULL,
   color = "black",
   label_x = "",
   label_y = ""

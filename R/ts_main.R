@@ -289,15 +289,19 @@ ts_plot <- function(x = NULL, y, color="black", label_x = "", label_y = "")  {
 #'
 #'@export
 #'@import ggplot2
-ts_plot_pred <- function(x = NULL, y, yadj, ypred, color="black", label_x = "", label_y = "") {
+ts_plot_pred <- function(x = NULL, y, yadj, ypred = NULL, color="black", label_x = "", label_y = "") {
   if (is.null(x))
     x <- 1:length(y)
   y <- as.vector(y)
   yadj <- as.vector(yadj)
-  ypred <- as.vector(ypred)
-  yhat <- c(yadj, ypred)
   ntrain <- length(yadj)
-  ntest <- length(ypred)
+  yhat <- yadj
+  ntest <- 0
+  if (!is.null(ypred)) {
+    ypred <- as.vector(ypred)
+    yhat <- c(yhat, ypred)
+    ntest <- length(ypred)
+  }
 
   grf <- ggplot() + geom_point(aes(x = x, y = y)) + geom_line(aes(x = x, y = y))
   grf <- grf + xlab(label_x)
@@ -309,7 +313,10 @@ ts_plot_pred <- function(x = NULL, y, yadj, ypred, color="black", label_x = "", 
   smape_train <- sMAPE.tsreg(y[1:ntrain], yadj)*100
   smape_test <- sMAPE.tsreg(y[(ntrain+1):(ntrain+ntest)], ypred)*100
 
-  lin_adj <- geom_line(aes(x = x[1:ntrain], y = yhat[1:ntrain]), color = "blue", linetype = "dashed")
-  lin_pre <- geom_line(aes(x = x[ntrain:(ntrain+ntest)], y = yhat[ntrain:(ntrain+ntest)]), color = "green", linetype = "dashed")
-  return(grf+lin_adj+lin_pre)
+  grf <- grf + geom_line(aes(x = x[1:ntrain], y = yhat[1:ntrain]),
+                         color = "blue", linetype = "dashed")
+  if (!is.null(ypred))
+    grf <- grf +geom_line(aes(x = x[ntrain:(ntrain+ntest)], y = yhat[ntrain:(ntrain+ntest)]),
+                          color = "green", linetype = "dashed")
+  return(grf)
 }
