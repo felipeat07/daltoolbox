@@ -84,6 +84,6 @@ evaluate.classification <- function(obj, data, prediction) {
     sensitivity=result$sensitivity, specificity=result$specificity,
     precision=result$precision, recall=result$recall)
 
-  return(obj)
+  return(result)
 }
 
