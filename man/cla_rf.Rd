@@ -4,7 +4,7 @@
 \alias{cla_rf}
 \title{Random Forest Classifier}
 \usage{
-cla_rf(attribute, slevels = NULL, mtry = NULL, ntree = seq(5, 50, 5))
+cla_rf(attribute, slevels, mtry = NULL, ntree = 10)
 }
 \arguments{
 \item{attribute}{\itemize{

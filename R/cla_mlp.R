@@ -18,7 +18,7 @@
 #'@return a classification object
 #'@examples
 #'@export
-cla_mlp <- function(attribute, slevels=NULL, size=NULL, decay=seq(0, 1, 0.0335), maxit=1000) {
+cla_mlp <- function(attribute, slevels, size=NULL, decay=0.1, maxit=1000) {
   obj <- classification(attribute, slevels)
   obj$maxit <- maxit
   obj$size <- size
@@ -63,8 +63,10 @@ fit.cla_mlp <- function(obj, data) {
 
   obj$model <- nnet::nnet(x = x, y = adjustClassLabels(y), size=obj$size, decay=obj$decay, maxit=obj$maxit, trace=FALSE)
 
-  msg <- sprintf("size=%d,decay=%.2f", obj$size, obj$decay)
-  obj <- register_log(obj, msg)
+  if (obj$log) {
+    msg <- sprintf("size=%d,decay=%.2f", obj$size, obj$decay)
+    obj <- register_log(obj, msg)
+  }
   return(obj)
 }
 

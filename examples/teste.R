@@ -18,9 +18,10 @@ tbl <- rbind(table(iris[,"Species"]),
 rownames(tbl) <- c("dataset", "training", "test")
 head(tbl)
 
-model <- cla_knn("Species", slevels, k=1)
+model <- cla_rf("Species", slevels, mtry=3, ntree=5)
 print(describe(model))
 model <- fit(model, iris_train)
+
 train_prediction <- predict(model, iris_train)
 
 iris_train_predictand <- adjustClassLabels(iris_train[,"Species"])

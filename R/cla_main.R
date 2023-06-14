@@ -19,7 +19,7 @@
 #'template_model <- classification("Species", levels(iris$Species))
 #'print(template_model)
 #'@export
-classification <- function(attribute, slevels=NULL) {
+classification <- function(attribute, slevels) {
   obj <- dal_transform()
   class(obj) <- append("classification", class(obj))
   obj$attribute <- attribute

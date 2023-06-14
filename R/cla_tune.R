@@ -11,11 +11,12 @@
 #'@return a `cla_tune` object.
 #'@examples
 #'@export
-cla_tune <- function(base_model, folds=10) {
+cla_tune <- function(base_model, folds=10, metric="accuracy") {
   obj <- dal_base()
   obj$base_model <- base_model
   obj$folds <- folds
   obj$name <- ""
+  obj$metric <- metric
   class(obj) <- append("cla_tune", class(obj))
   return(obj)
 }
@@ -40,12 +41,12 @@ fit.cla_tune <- function(obj, data, ranges) {
     return(obj)
   }
 
-  evaluate_error <- function(model, data) {
+  evaluate_metric <- function(model, data) {
     x <- as.matrix(data[,model$x])
-    y <- data[,model$attribute]
-    prediction <- as.vector(stats::predict(model, x))
-    error <- evaluate(model, y, prediction)$accuracy
-    return(error)
+    y <- adjustClassLabels(data[,model$attribute])
+    prediction <- stats::predict(model, x)
+    metric <- evaluate(model, y, prediction)$metrics[1,obj$metric]
+    return(metric)
   }
 
   obj <- start_log(obj)
@@ -66,13 +67,13 @@ fit.cla_tune <- function(obj, data, ranges) {
       print(sprintf("%d-%d", nfolds, n))
     for (j in 1:nfolds) {
       tt <- train_test_from_folds(folds, j)
-      error <- rep(0, n)
+      metric <- rep(0, n)
       msg <- rep("", n)
       for (i in 1:n) {
         err <- tryCatch(
           {
             model <- build_model(obj, ranges[i,], data[tt$train$i,])
-            error[i] <- evaluate_error(model, data[tt$test$i,])
+            metric[i] <- evaluate_metric(model, data[tt$test$i,])
             ""
           },
           error = function(cond) {
@@ -87,7 +88,7 @@ fit.cla_tune <- function(obj, data, ranges) {
       }
       if (obj$base_model$debug)
         print(sprintf("%d/%d-%d", j, nfolds, n))
-      hyperparameters <- rbind(hyperparameters, cbind(ranges, error, msg))
+      hyperparameters <- rbind(hyperparameters, cbind(ranges, metric, msg))
     }
     hyperparameters$error[hyperparameters$msg != ""] <- NA
     i <- select_hyper(obj, hyperparameters)
@@ -95,8 +96,8 @@ fit.cla_tune <- function(obj, data, ranges) {
 
   model <- build_model(obj, ranges[i,], data)
   if (n == 1) {
-    error <- evaluate_error(model, data)
-    hyperparameters <- cbind(ranges, error)
+    metric <- evaluate_metric(model, data)
+    hyperparameters <- cbind(ranges, metric)
   }
   attr(model, "params") <- as.list(ranges[i,])
   attr(model, "hyperparameters") <- hyperparameters
@@ -112,11 +113,11 @@ fit.cla_tune <- function(obj, data, ranges) {
 #'@export
 select_hyper.cla_tune <- function(obj, hyperparameters) {
   hyper_summary <- hyperparameters |> dplyr::filter(msg == "") |>
-    dplyr::group_by(key) |> dplyr::summarise(error = mean(error, na.rm=TRUE))
+    dplyr::group_by(key) |> dplyr::summarise(metric = mean(metric, na.rm=TRUE))
 
-  mim_error <- hyper_summary |> dplyr::summarise(error = min(error))
+  max_metric <- hyper_summary |> dplyr::summarise(metric = max(metric))
 
-  key <- which(hyper_summary$error == mim_error$error)
+  key <- which(hyper_summary$metric == max_metric$metric)
   i <- min(hyper_summary$key[key])
   return(i)
 }

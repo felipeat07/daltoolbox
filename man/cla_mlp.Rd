@@ -4,13 +4,7 @@
 \alias{cla_mlp}
 \title{Classification using Artificial Neural Network (ANN)}
 \usage{
-cla_mlp(
-  attribute,
-  slevels = NULL,
-  size = NULL,
-  decay = seq(0, 1, 0.0335),
-  maxit = 1000
-)
+cla_mlp(attribute, slevels, size = NULL, decay = 0.1, maxit = 1000)
 }
 \arguments{
 \item{attribute}{\itemize{

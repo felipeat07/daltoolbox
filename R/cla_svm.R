@@ -20,7 +20,7 @@
 #'@return classification object
 #'@examples
 #'@export
-cla_svm <- function(attribute, slevels=NULL, epsilon=0.1, cost=10, kernel="radial") {
+cla_svm <- function(attribute, slevels, epsilon=0.1, cost=10, kernel="radial") {
   #kernel: linear, radial, polynomial, sigmoid
   #studio: https://rpubs.com/Kushan/296706
   obj <- classification(attribute, slevels)
@@ -41,7 +41,7 @@ cla_svm <- function(attribute, slevels=NULL, epsilon=0.1, cost=10, kernel="radia
 #'@export
 set_params.cla_svm <- function(obj, params) {
   if (!is.null(params$kernel))
-    obj$kernel <- params$kernel
+    obj$kernel <- as.character(params$kernel)
   if (!is.null(params$epsilon))
     obj$epsilon <- params$epsilon
   if (!is.null(params$cost))
@@ -63,8 +63,10 @@ fit.cla_svm <- function(obj, data) {
 
   obj$model <- e1071::svm(x, y, probability=TRUE, epsilon=obj$epsilon, cost=obj$cost, kernel=obj$kernel)
 
-  msg <- sprintf("epsilon=%.1f,cost=%.3f", obj$epsilon, obj$cost)
-  obj <- register_log(obj, msg)
+  if (obj$log) {
+    msg <- sprintf("epsilon=%.1f,cost=%.3f", obj$epsilon, obj$cost)
+    obj <- register_log(obj, msg)
+  }
   return(obj)
 }
 

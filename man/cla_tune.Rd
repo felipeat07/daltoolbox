@@ -4,7 +4,7 @@
 \alias{cla_tune}
 \title{Regression Tune}
 \usage{
-cla_tune(base_model, folds = 10)
+cla_tune(base_model, folds = 10, metric = "accuracy")
 }
 \value{
 a \code{cla_tune} object.

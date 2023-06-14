@@ -4,7 +4,7 @@
 \alias{cla_knn}
 \title{K Nearest Neighbor Classification}
 \usage{
-cla_knn(attribute, slevels = NULL, k = 1:30)
+cla_knn(attribute, slevels, k = 1)
 }
 \arguments{
 \item{attribute}{Name of the attribute used as target classification.}

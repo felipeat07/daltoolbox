@@ -15,7 +15,7 @@
 #'@return Returns a classification object.
 #'@examples
 #'@export
-cla_majority <- function(attribute, slevels=NULL) {
+cla_majority <- function(attribute, slevels) {
   obj <- classification(attribute, slevels)
 
   class(obj) <- append("cla_majority", class(obj))

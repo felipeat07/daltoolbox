@@ -17,7 +17,7 @@
 #' @return A classification object that uses the Decision Tree algorithm for classification.
 #' @examples
 #'@export
-cla_dtree <- function(attribute, slevels=NULL) {
+cla_dtree <- function(attribute, slevels) {
   obj <- classification(attribute, slevels)
 
   class(obj) <- append("cla_dtree", class(obj))

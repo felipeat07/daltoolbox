@@ -4,7 +4,7 @@
 \alias{classification}
 \title{classification class}
 \usage{
-classification(attribute, slevels = NULL)
+classification(attribute, slevels)
 }
 \arguments{
 \item{attribute}{\itemize{

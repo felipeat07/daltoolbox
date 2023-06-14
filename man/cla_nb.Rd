@@ -4,7 +4,7 @@
 \alias{cla_nb}
 \title{Naive Bayes Classifier}
 \usage{
-cla_nb(attribute, slevels = NULL)
+cla_nb(attribute, slevels)
 }
 \arguments{
 \item{attribute}{Name of the attribute used as the target classification.}

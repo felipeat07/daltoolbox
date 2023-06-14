@@ -4,7 +4,7 @@
 \alias{cla_majority}
 \title{Majority Classification}
 \usage{
-cla_majority(attribute, slevels = NULL)
+cla_majority(attribute, slevels)
 }
 \arguments{
 \item{attribute}{Name of the attribute used as target classification.}

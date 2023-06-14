@@ -16,7 +16,7 @@
 #'@return A classification object.
 #'@examples
 #'@export
-cla_nb <- function(attribute, slevels=NULL) {
+cla_nb <- function(attribute, slevels) {
   obj <- classification(attribute, slevels)
 
   class(obj) <- append("cla_nb", class(obj))

@@ -19,7 +19,7 @@
 #'@return
 #'@examples
 #'@export
-cla_rf <- function(attribute, slevels=NULL, mtry = NULL, ntree = 10) {
+cla_rf <- function(attribute, slevels, mtry = NULL, ntree = 10) {
   obj <- classification(attribute, slevels)
 
   obj$ntree <- ntree
@@ -60,8 +60,10 @@ fit.cla_rf <- function(obj, data) {
 
   obj$model <- randomForest::randomForest(x = x, y = y, mtry=obj$mtry, ntree=obj$ntree)
 
-  msg <- sprintf("mtry=%d,ntree=%d", obj$mtry, obj$ntree)
-  obj <- register_log(obj, msg)
+  if (obj$log) {
+    msg <- sprintf("mtry=%d,ntree=%d", obj$mtry, obj$ntree)
+    obj <- register_log(obj, msg)
+  }
   return(obj)
 }
 

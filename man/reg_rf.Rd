@@ -4,7 +4,7 @@
 \alias{reg_rf}
 \title{Random Forest Regression}
 \usage{
-reg_rf(attribute, mtry = NULL, ntree = seq(5, 50, 5))
+reg_rf(attribute, mtry = NULL, ntree = 10)
 }
 \description{
 Random Forest Regression

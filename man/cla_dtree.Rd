@@ -4,7 +4,7 @@
 \alias{cla_dtree}
 \title{Decision Tree Classification}
 \usage{
-cla_dtree(attribute, slevels = NULL)
+cla_dtree(attribute, slevels)
 }
 \arguments{
 \item{attribute}{The name of the attribute used as the target classification.}

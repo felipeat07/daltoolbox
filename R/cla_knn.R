@@ -17,7 +17,7 @@
 #'@return A classification object.
 #'@examples
 #'@export
-cla_knn <- function(attribute, slevels=NULL, k=1:30) {
+cla_knn <- function(attribute, slevels, k=1) {
   obj <- classification(attribute, slevels)
   obj$k <- k
   class(obj) <- append("cla_knn", class(obj))
@@ -52,8 +52,10 @@ fit.cla_knn <- function(obj, data) {
 
   obj$model <-list(x=x, y=y, k=obj$k)
 
-  msg <- sprintf("k=%d", obj$k)
-  obj <- register_log(obj, msg)
+  if (obj$log) {
+    msg <- sprintf("k=%d", obj$k)
+    obj <- register_log(obj, msg)
+  }
   return(obj)
 }
 
