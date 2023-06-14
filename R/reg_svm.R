@@ -17,7 +17,7 @@
 #'@return
 #'@examples
 #'@export
-reg_svm <- function(attribute, epsilon=seq(0,1,0.2), cost=seq(20,100,20), kernel="radial") {
+reg_svm <- function(attribute, epsilon=0.1, cost=10, kernel="radial") {
   #kernel: linear, radial, polynomial, sigmoid
   #analisar: https://rpubs.com/Kushan/296706
   obj <- regression(attribute)
@@ -29,6 +29,25 @@ reg_svm <- function(attribute, epsilon=seq(0,1,0.2), cost=seq(20,100,20), kernel
   return(obj)
 }
 
+#'@title Set parameters values for reg_svm
+#'@description It receives as input a reg_svm object (obj) and a set of parameters (params)
+#'@details
+#'@param obj
+#'@param params
+#'@return The reg_svm object updated with the new parameter values
+#'@export
+set_params.reg_svm <- function(obj, params) {
+  if (!is.null(params$kernel))
+    obj$kernel <- params$kernel
+  if (!is.null(params$epsilon))
+    obj$epsilon <- params$epsilon
+  if (!is.null(params$cost))
+    obj$cost <- params$cost
+
+  return(obj)
+}
+
+
 #'@export
 fit.reg_svm <- function(obj, data) {
   data <- adjust_data.frame(data)
@@ -37,12 +56,12 @@ fit.reg_svm <- function(obj, data) {
   x <- data[,obj$x]
   y <- data[,obj$attribute]
 
-  ranges <- list(epsilon=obj$epsilon, cost=obj$cost, kernel=obj$kernel)
-  obj$model <- tune.regression(obj, x = x, y = y, ranges = ranges, fit.func = svm)
+  obj$model <- svm(x = x, y = y, epsilon=obj$epsilon, cost=obj$cost, kernel=obj$kernel)
 
-  params <- attr(obj$model, "params")
-  msg <- sprintf("epsilon=%.1f,cost=%.3f", params$epsilon, params$cost)
-  obj <- register_log(obj, msg)
+  if (obj$log) {
+    msg <- sprintf("epsilon=%.1f,cost=%.3f", obj$epsilon, obj$cost)
+    obj <- register_log(obj, msg)
+  }
   return(obj)
 }
 

@@ -4,12 +4,7 @@
 \alias{reg_svm}
 \title{Support Vector Machine (SVM) Regression}
 \usage{
-reg_svm(
-  attribute,
-  epsilon = seq(0, 1, 0.2),
-  cost = seq(20, 100, 20),
-  kernel = "radial"
-)
+reg_svm(attribute, epsilon = 0.1, cost = 10, kernel = "radial")
 }
 \description{
 Support Vector Machine (SVM) Regression
