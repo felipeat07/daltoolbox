@@ -311,7 +311,8 @@ ts_plot_pred <- function(x = NULL, y, yadj, ypred = NULL, color="black", label_x
   grf <- grf + theme(legend.title = element_blank()) + theme(legend.position = "bottom") + theme(legend.key = element_blank())
 
   smape_train <- sMAPE.tsreg(y[1:ntrain], yadj)*100
-  smape_test <- sMAPE.tsreg(y[(ntrain+1):(ntrain+ntest)], ypred)*100
+  if (ntest > 0)
+    smape_test <- sMAPE.tsreg(y[(ntrain+1):(ntrain+ntest)], ypred)*100
 
   grf <- grf + geom_line(aes(x = x[1:ntrain], y = yhat[1:ntrain]),
                          color = "blue", linetype = "dashed")
