@@ -64,6 +64,7 @@ fit.default <- function(obj, ...) {
   return(obj)
 }
 
+
 #transform
 #'@title Transform
 #'@description Defines the kind of transformation to be set over a time series.
@@ -139,6 +140,33 @@ evaluate <- function(obj, values, prediction) {
 evaluate.default <- function(obj, values, prediction) {
   return(NULL)
 }
+
+
+# setup parameters for machine learning
+#'@title Update an object's parameters
+#'@description The function receives the obj and params variables as parameters
+#'@details This function serves as a "skeleton" for implementing different set_params methods for different object classes
+#'
+#'@param obj object: .
+#'@param params
+#'@examples
+#'@export
+set_params <- function(obj, params) {
+  UseMethod("set_params")
+}
+
+#'@title Defines a default method for the set_params function
+#'@descritption This function receives the obj and params variables as parameters.
+#'@param obj
+#'@param params
+#'
+#'@return The obj object
+#'@export
+set_params.default <- function(obj, params) {
+  return(obj)
+}
+
+
 
 #select_hyper
 #'@title select hyper parameters

@@ -25,25 +25,24 @@ cluster_dbscan <- function(eps, MinPts) {
   return(obj)
 }
 
-#'@import fpc
+#'@import dbscan
 #'@export
-fit.cluster_dbscan <- function(obj, data) {
-  cluster <- fpc::dbscan(data, eps = obj$eps, MinPts = obj$MinPts)
+cluster.cluster_dbscan <- function(obj, data) {
+  t <- sort(dbscan::kNNdist(data, k = obj$MinPts))
+  y <- t
+  myfit <- fit_curvature_max()
+  res <- transform(myfit, y)
+  obj$eps <- res$y
+  return(obj)
+}
 
+
+#'@import dbscan
+#'@export
+cluster.cluster_dbscan <- function(obj, data) {
+  cluster <- dbscan::dbscan(data, eps = obj$eps, MinPts = obj$MinPts)
   cluster <- cluster$cluster
-  attr(cluster, "dist") <- 0
+  attr(cluster, "metric") <- 0
   return(cluster)
 }
 
-#optimize.cluster_dbscan <- function(obj, data, do_plot=FALSE) {
-#  t <- sort(dbscan::kNNdist(data, k = obj$MinPts))
-
-#  y <- t
-#  myfit <- fit_curvature_max()
-#  res <- transform(myfit, y)
-#  if (do_plot)
-#    plot(myfit, y, res)
-#  obj$eps <- res$y
-
-#  return(obj)
-#}

@@ -50,7 +50,7 @@ Imports:
   nnet, 
   randomForest, 
   cluster, 
-  fpc, 
+  dbscan, 
   caret, 
   FNN,
   ggplot2,

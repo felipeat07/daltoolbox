@@ -3,6 +3,33 @@
 
 # depends dal_transform.R
 
+#cluster
+#'@title cluster
+#'@description Models a time series dataset by estimating the underlying trend
+#' and seasonality components. Used to make predictions and forecast future
+#' values of the time series based on the historical data.
+#'@details
+#'
+#'@param obj object: .
+#'@param ... further arguments passed to or from other methods.
+#'@return
+#'@examples
+#'@export
+cluster <- function(obj, ...) {
+  UseMethod("cluster")
+}
+
+#'@title dal_base object
+#'@description Receives the obj object as a parameter, ...
+#'@details
+#'
+#'@return The input object "obj"
+#'@examples
+#'@export
+cluster.default <- function(obj, ...) {
+  return(obj)
+}
+
 ### clustering
 #'@title Clustering Class
 #'@description Ancestor class for clustering problems
@@ -12,7 +39,7 @@
 #'@examples
 #'@export
 clustering <- function() {
-  obj <- list()
+  obj <- dal_base()
   attr(obj, "class") <- "clustering"
   return(obj)
 }
@@ -28,9 +55,8 @@ clustering <- function() {
 #'@examples
 #'@import dplyr
 #'@export
-cluster_evaluation <- function(cluster, attribute) {
-  obj <- list(data=as.factor(cluster), attribute=as.factor(attribute))
-  attr(obj, "class") <- "cluster_evaluation"
+evaluate.clustering <- function(obj, cluster, attribute) {
+  result <- list(data=as.factor(cluster), attribute=as.factor(attribute))
 
   compute_entropy <- function(obj) {
     value <- getOption("dplyr.summarise.inform")
@@ -49,6 +75,7 @@ cluster_evaluation <- function(cluster, attribute) {
     options(dplyr.summarise.inform = value)
     return(obj)
   }
-  obj <- compute_entropy(obj)
-  return(obj)
+
+  result <- compute_entropy(result)
+  return(result)
 }

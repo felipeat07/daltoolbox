@@ -24,9 +24,23 @@ cluster_kmeans <- function(k) {
   return(obj)
 }
 
+#'@title Updates the parameters of cluster_kmeans
+#'@description It takes as input the obj model object and a set of params parameters to update.
+#'@details The function checks that each parameter specified in params is not null and, if not null, updates the corresponding parameter in the object obj
+#'@param obj
+#'@param params
+#'@return The obj template object updated with the new parameters
+#'@export
+set_params.cluster_kmeans <- function(obj, params) {
+  if (!is.null(params$k))
+    obj$k <- params$k
+  return(obj)
+}
+
+
 #'@importFrom stats kmeans
 #'@export
-fit.cluster_kmeans <- function(obj, data) {
+cluster.cluster_kmeans <- function(obj, data) {
   k <- obj$k
   cluster <- stats::kmeans(x = data, centers = k)
   dist <- 0
@@ -37,7 +51,7 @@ fit.cluster_kmeans <- function(obj, data) {
   }
 
   cluster <- cluster$cluster
-  attr(cluster, "dist") <- dist
+  attr(cluster, "metric") <- dist
   return(cluster)
 }
 

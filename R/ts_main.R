@@ -14,10 +14,6 @@
 #'@export
 tsreg <- function() {
   obj <- dal_transform()
-  obj$log <- TRUE
-  obj$debug <- FALSE
-  obj$reproduce <- TRUE
-
   class(obj) <- append("tsreg", class(obj))
   return(obj)
 }
@@ -35,30 +31,6 @@ tsreg <- function() {
 #'@export
 predict.tsreg <- function(obj, x) {
   return(x[,ncol(x)])
-}
-
-# setup for sliding window
-#'@title Update an object's parameters
-#'@description The function receives the obj and params variables as parameters
-#'@details This function serves as a "skeleton" for implementing different set_params methods for different object classes
-#'
-#'@param obj object: .
-#'@param params
-#'@examples
-#'@export
-set_params <- function(obj, params) {
-  UseMethod("set_params")
-}
-
-#'@title Defines a default method for the set_params function
-#'@descritption This function receives the obj and params variables as parameters.
-#'@param obj
-#'@param params
-#'
-#'@return The obj object
-#'@export
-set_params.default <- function(obj, params) {
-  return(obj)
 }
 
 #'@title Delegate the task of adjusting the model to the specific methods of each class that implements it.
