@@ -251,35 +251,65 @@ evaluate.tsreg <- function(obj, values, prediction) {
 #'
 #'@details It displays the value of the sMAPE metric for the training and test sets. The obj argument is a tsreg object that contains the information of the model used, y is the original series, yadj is the adjusted series and ypre is the predicted series
 #'
-#'@param obj
+#'@param x
 #'@param y
-#'@param yadj
-#'@param ypre
-#'@param main
-#'@param xlabels
+#'@param color
+#'@param label_x
+#'@param label_y
 #'
 #'
 #'@export
-#'@importFrom graphics lines
-#'@importFrom graphics par
-tsplot <- function(obj, y, yadj, ypre, main=NULL, xlabels=NULL) {
-  if (is.null(main)) {
-    prepname <- ""
-    if (!is.null(obj$preprocess))
-      prepname <- sprintf("-%s", describe(obj$preprocess))
-    main <- sprintf("%s%s", describe(obj), prepname)
-  }
+#'@import ggplot2
+ts_plot <- function(x = NULL, y, color="black", label_x = "", label_y = "")  {
+  if (is.null(x))
+    x <- 1:length(y)
+  grf <- ggplot() + geom_point(aes(x = x, y = y)) + geom_line(aes(x = x, y = y))
+  grf <- grf + xlab(label_x)
+  grf <- grf + ylab(label_y)
+  grf <- grf + theme_bw(base_size = 10)
+  grf <- grf + theme(panel.grid.major = element_blank()) + theme(panel.grid.minor = element_blank())
+  grf <- grf + theme(legend.title = element_blank()) + theme(legend.position = "bottom") + theme(legend.key = element_blank())
+  return(grf)
+}
+
+#'@title Plot a time series chart
+#'
+#'@description The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
+#'
+#'@details It displays the value of the sMAPE metric for the training and test sets. The obj argument is a tsreg object that contains the information of the model used, y is the original series, yadj is the adjusted series and ypre is the predicted series
+#'
+#'@param x
+#'@param y
+#'@param yadj
+#'@param ypred
+#'@param color
+#'@param label_x
+#'@param label_y
+#'
+#'
+#'@export
+#'@import ggplot2
+ts_plot_pred <- function(x = NULL, y, yadj, ypred, color="black", label_x = "", label_y = "") {
+  if (is.null(x))
+    x <- 1:length(y)
   y <- as.vector(y)
   yadj <- as.vector(yadj)
-  ypre <- as.vector(ypre)
+  ypred <- as.vector(ypred)
+  yhat <- c(yadj, ypred)
   ntrain <- length(yadj)
+  ntest <- length(ypred)
+
+  grf <- ggplot() + geom_point(aes(x = x, y = y)) + geom_line(aes(x = x, y = y))
+  grf <- grf + xlab(label_x)
+  grf <- grf + ylab(label_y)
+  grf <- grf + theme_bw(base_size = 10)
+  grf <- grf + theme(panel.grid.major = element_blank()) + theme(panel.grid.minor = element_blank())
+  grf <- grf + theme(legend.title = element_blank()) + theme(legend.position = "bottom") + theme(legend.key = element_blank())
+
   smape_train <- sMAPE.tsreg(y[1:ntrain], yadj)*100
-  smape_test <- sMAPE.tsreg(y[(ntrain+1):(ntrain+length(ypre))], ypre)*100
-  par(xpd=TRUE)
-  if(is.null(xlabels))
-    xlabels <- 1:length(y)
-  plot(xlabels, y, main = main, xlab = sprintf("time [smape train=%.2f%%], [smape test=%.2f%%]", smape_train, smape_test), ylab="value")
-  graphics::lines(xlabels[1:ntrain], yadj, col="blue")
-  graphics::lines(xlabels[ntrain:(ntrain+length(ypre))], c(yadj[length(yadj)],ypre), col="green")
-  graphics::par(xpd=FALSE)
+  smape_test <- sMAPE.tsreg(y[(ntrain+1):(ntrain+ntest)], ypred)*100
+
+  lin_adj <- geom_line(aes(x = x[1:ntrain], y = yhat[1:ntrain]), color = "blue", linetype = "dashed")
+  lin_pre <- geom_line(aes(x = x[ntrain:(ntrain+ntest)], y = yhat[ntrain:(ntrain+ntest)]), color = "green", linetype = "dashed")
+  return(grf+lin_adj+lin_pre)
 }

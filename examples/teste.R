@@ -1,43 +1,56 @@
-iris <- datasets::iris
-head(iris)
+i <- seq(0, 25, 0.25)
+x <- cos(i)
 
-#extracting the levels for the dataset
-slevels <- levels(iris$Species)
-slevels
+#library(ggplot2)
+serie <- data.frame(x=i, cos=x)
+grf <- plot_series(serie, colors="black")
+font <- theme(text = element_text(size=16))
+#plot(grf+font)
 
-# preparing dataset for random sampling
-set.seed(1)
-sr <- sample_random()
-sr <- train_test(sr, iris)
-iris_train <- sr$train
-iris_test <- sr$test
+sw_size <- 0
+ts <- ts_data(x, 0)
+tshead(ts, 3)
 
-tbl <- rbind(table(iris[,"Species"]),
-             table(iris_train[,"Species"]),
-             table(iris_test[,"Species"]))
-rownames(tbl) <- c("dataset", "training", "test")
-head(tbl)
+test_size <- 1
+samp <- ts_sample(ts, test_size)
+tshead(samp$train, 3)
+tshead(samp$test)
 
-model <- cla_rf("Species", slevels, mtry=3, ntree=5)
+model <- tsreg_arima()
+
+io_train <- ts_projection(samp$train)
+model <- fit(model, x=io_train$input, y=io_train$output)
+
 print(describe(model))
-model <- fit(model, iris_train)
 
-train_prediction <- predict(model, iris_train)
+adjust <- predict(model, io_train$input)
+ev_adjust <- evaluate(model, io_train$output, adjust)
+print(head(ev_adjust$metrics))
 
-iris_train_predictand <- adjustClassLabels(iris_train[,"Species"])
-train_eval <- evaluate(model, iris_train_predictand, train_prediction)
-print(train_eval$metrics)
+steps_ahead <- 1
+io_test <- ts_projection(samp$test)
+prediction <- predict(model, x=io_test$input, steps_ahead=steps_ahead)
+prediction <- as.vector(prediction)
 
-# Test
-test_prediction <- predict(model, iris_test)
+output <- as.vector(io_test$output)
+if (steps_ahead > 1)
+  output <- output[1:steps_ahead]
 
-iris_test_predictand <- adjustClassLabels(iris_test[,"Species"])
-test_eval <- evaluate(model, iris_test_predictand, test_prediction)
-print(test_eval$metrics)
+print(sprintf("%.2f, %.2f", output, prediction))
+
+ev_test <- evaluate(model, output, prediction)
+print(head(ev_test$metrics))
+print(sprintf("%s: smape: %.2f", describe(model), 100*ev_test$metrics$smape))
+
+yvalues <- c(io_train$output, io_test$output)
 
 
+#grf <- mytsplot(model, y=yvalues, yadj=adjust, ypre=prediction)
+#grf <- ts_plot(y = yvalues)
+#plot(grf)
 
-
+grf <- ts_plot_pred(y = yvalues, yadj = adjust, ypred = prediction)
+plot(grf)
 
 #  Gráficos em séries temporais
 #  Harbinger retestar
