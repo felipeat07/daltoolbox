@@ -14,7 +14,7 @@
 #'@return
 #'@examples
 #'@export
-reg_knn <- function(attribute, k=1:30) {
+reg_knn <- function(attribute, k) {
   obj <- regression(attribute)
   obj$k <- k
 
@@ -22,29 +22,32 @@ reg_knn <- function(attribute, k=1:30) {
   return(obj)
 }
 
+#'@title Set parameters values for reg_knn
+#'@description It receives as input a ts_rf object (obj) and a set of parameters (params)
+#'@details If the parameter set contains an entry for nodesize, the corresponding value is assigned to the ts_rf object. Likewise, if the parameter set contains an entry for ntree, the corresponding value is assigned to the ts_rf object
+#'@param obj
+#'@param params
+#'@return The reg_knn object updated with the new parameter values
+#'@export
+set_params.reg_knn <- function(obj, params) {
+  if (!is.null(params$k))
+    obj$k <- params$k
+
+  return(obj)
+}
+
 #'@importFrom FNN knn.reg
 #'@export
 fit.reg_knn <- function(obj, data) {
-  internal_fit.reg_knn <- function (x, y, k, ...) {
-    model <- list(x=x, y=y, k=k)
-    return (model)
-  }
-
-  internal_predict.reg_knn <- function(model, x) {
-    prediction <- FNN::knn.reg(train = model$x, test = x, y = model$y, k = model$k)
-    return(prediction$pred)
-  }
   data <- adjust_data.frame(data)
   obj <- fit.regression(obj, data)
 
   x <- as.matrix(data[,obj$x])
   y <- data[,obj$attribute]
 
-  ranges <- list(k = obj$k, stub = 0)
-  obj$model <- tune.regression(obj, x = x, y = y, ranges = ranges, fit.func = internal_fit.reg_knn, pred.fun = internal_predict.reg_knn)
+  obj$model <- list(x=x, y=y, k=obj$k)
 
-  params <- attr(obj$model, "params")
-  msg <- sprintf("k=%d", params$k)
+  msg <- sprintf("k=%d", obj$model$k)
   obj <- register_log(obj, msg)
   return(obj)
 }

@@ -26,70 +26,33 @@ fit.regression <- function(obj, data) {
   return(obj)
 }
 
-### tune
+
+# evaluate.regression
 #'@export
-tune.regression <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun = predict) {
-  ranges <- expand.grid(ranges)
-  n <- nrow(ranges)
-  errors <- rep(0,n)
-
-  data <- data.frame(i = 1:nrow(x), idx = 1:nrow(x))
-  folds <- k_fold(sample_random(), data, folds)
-
-  i <- 1
-  if (n > 1) {
-    for (i in 1:n) {
-      for (j in 1:length(folds)) {
-        if (obj$reproduce)
-          set.seed(1)
-        tt <- train_test_from_folds(folds, j)
-
-        params <- append(list(x = x[tt$train$i,], y = y[tt$train$i]), as.list(ranges[i,]))
-        model <- do.call(fit.func, params)
-        prediction <- pred.fun(model, x[tt$test$i,])
-        errors[i] <- errors[i] + evaluation.regression(y[tt$test$i], prediction)$mse
-      }
-    }
-    i <- which.min(errors)
+evaluate.regression <- function(obj, values, prediction) {
+  MSE <- function (actual, prediction) {
+    if (length(actual) != length(prediction))
+      stop("actual and prediction have different lengths")
+    n <- length(actual)
+    res <- mean((actual - prediction)^2)
+    res
   }
-  params <- append(list(x = x, y = y), as.list(ranges[i,]))
-  if (obj$reproduce)
-    set.seed(1)
-  model <- do.call(fit.func, params)
-  attr(model, "params") <- as.list(ranges[i,])
-  return(model)
-}
 
-### evaluation
-#'@export
-MSE.regression <- function (actual, prediction) {
-  if (length(actual) != length(prediction))
-    stop("actual and prediction have different lengths")
-  n <- length(actual)
-  res <- mean((actual - prediction)^2)
-  res
-}
+  sMAPE <- function (actual, prediction) {
+    if (length(actual) != length(prediction))
+      stop("actual and prediction have different lengths")
+    n <- length(actual)
+    res <- (1/n) * sum(abs(actual - prediction)/((abs(actual) +
+                                                    abs(prediction))/2))
+    res
+  }
 
-#'@export
-sMAPE.regression <- function (actual, prediction) {
-  if (length(actual) != length(prediction))
-    stop("actual and prediction have different lengths")
-  n <- length(actual)
-  res <- (1/n) * sum(abs(actual - prediction)/((abs(actual) +
-                                                  abs(prediction))/2))
-  res
-}
+  result <- list(values=values, prediction=prediction)
 
-# evaluation.regression
-#'@export
-evaluation.regression <- function(values, prediction) {
-  obj <- list(values=values, prediction=prediction)
+  result$smape <- sMAPE(values, prediction)
+  result$mse <- MSE(values, prediction)
 
-  obj$smape <- sMAPE.regression(values, prediction)
-  obj$mse <- MSE.regression(values, prediction)
+  result$metrics <- data.frame(mse=result$mse, smape=result$smape)
 
-  obj$metrics <- data.frame(mse=obj$mse, smape=obj$smape)
-
-  attr(obj, "class") <- "evaluation.regression"
-  return(obj)
+  return(result)
 }

@@ -4,7 +4,7 @@
 \alias{reg_knn}
 \title{K-Nearest Neighbors (KNN) Regression}
 \usage{
-reg_knn(attribute, k = 1:30)
+reg_knn(attribute, k)
 }
 \description{
 K-Nearest Neighbors (KNN) Regression

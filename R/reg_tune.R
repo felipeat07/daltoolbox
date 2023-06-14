@@ -1,50 +1,48 @@
 # DAL Library
 # version 2.1
 
-#'@title Time Series Tune
+#'@title Regression Tune
 #'@description
 #'@details
+#'
 #'@param input_size
 #'@param base_model
 #'@param folds
-#'@return a `ts_tune` object.
+#'@return a `reg_tune` object.
 #'@examples
 #'@export
-ts_tune <- function(input_size, base_model, folds=10) {
+reg_tune <- function(base_model, folds=10) {
   obj <- dal_base()
-  obj$input_size <- input_size
   obj$base_model <- base_model
   obj$folds <- folds
   obj$name <- ""
-  class(obj) <- append("ts_tune", class(obj))
+  class(obj) <- append("reg_tune", class(obj))
   return(obj)
 }
 
 
 #'@importFrom stats predict
 #'@export
-fit.ts_tune <- function(obj, x, y, ranges) {
+fit.reg_tune <- function(obj, data, ranges) {
 
-  build_model <- function(obj, ranges, x, y) {
+  build_model <- function(obj, ranges, data) {
     model <- obj$base_model
     model$log <- FALSE
-    model$input_size <- ranges$input_size
     model <- set_params(model, ranges)
-    model <- fit(model, x, y)
+    model <- fit(model, data)
     return(model)
   }
 
   prepare_ranges <- function(obj, ranges) {
-    ranges <- append(list(input_size = obj$input_size), ranges)
     ranges <- expand.grid(ranges)
     ranges$key <- 1:nrow(ranges)
     obj$ranges <- ranges
     return(obj)
   }
 
-  evaluate_error <- function(model, i, x, y) {
-    x <- x[i,]
-    y <- as.vector(y[i,])
+  evaluate_error <- function(model, data) {
+    x <- as.matrix(data[,model$x])
+    y <- data[,model$attribute]
     prediction <- as.vector(stats::predict(model, x))
     error <- evaluate(model, y, prediction)$mse
     return(error)
@@ -61,8 +59,8 @@ fit.ts_tune <- function(obj, x, y, ranges) {
   i <- 1
   hyperparameters <- NULL
   if (n > 1) {
-    data <- data.frame(i = 1:nrow(x), idx = 1:nrow(x))
-    folds <- k_fold(sample_random(), data, obj$folds)
+    ref <- data.frame(i = 1:nrow(data), idx = 1:nrow(data))
+    folds <- k_fold(sample_random(), ref, obj$folds)
     nfolds <- length(folds)
     if (obj$base_model$debug)
       print(sprintf("%d-%d", nfolds, n))
@@ -73,8 +71,8 @@ fit.ts_tune <- function(obj, x, y, ranges) {
       for (i in 1:n) {
         err <- tryCatch(
           {
-            model <- build_model(obj, ranges[i,], x[tt$train$i,], y[tt$train$i,])
-            error[i] <- evaluate_error(model, tt$test$i, x, y)
+            model <- build_model(obj, ranges[i,], data[tt$train$i,])
+            error[i] <- evaluate_error(model, data[tt$test$i,])
             ""
           },
           error = function(cond) {
@@ -95,13 +93,11 @@ fit.ts_tune <- function(obj, x, y, ranges) {
     i <- select_hyper(obj, hyperparameters)
   }
 
-  model <- build_model(obj, ranges[i,], x, y)
+  model <- build_model(obj, ranges[i,], data)
   if (n == 1) {
-    prediction <- stats::predict(model, x)
-    error <- evaluate(model, y, prediction)$mse
+    error <- evaluate_error(model, data)
     hyperparameters <- cbind(ranges, error)
   }
-
   attr(model, "params") <- as.list(ranges[i,])
   attr(model, "hyperparameters") <- hyperparameters
 
@@ -111,9 +107,10 @@ fit.ts_tune <- function(obj, x, y, ranges) {
   return(model)
 }
 
+
 #'@import dplyr
 #'@export
-select_hyper.ts_tune <- function(obj, hyperparameters) {
+select_hyper.reg_tune <- function(obj, hyperparameters) {
   hyper_summary <- hyperparameters |> dplyr::filter(msg == "") |>
     dplyr::group_by(key) |> dplyr::summarise(error = mean(error, na.rm=TRUE))
 
