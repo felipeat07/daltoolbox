@@ -4,7 +4,7 @@
 \alias{cluster_dbscan}
 \title{Clustering using DBSCAN}
 \usage{
-cluster_dbscan(eps, MinPts)
+cluster_dbscan(eps, minPts)
 }
 \description{
 Clustering using DBSCAN
