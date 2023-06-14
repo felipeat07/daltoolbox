@@ -9,12 +9,14 @@
 stars](https://img.shields.io/github/stars/cefet-rj-dal/dal?logo=Github)
 <!-- badges: end -->
 
-The goal of DAL Toolbox is to provide a series data analytics functions organized as a framework. 
-It supports data preprocessing, classification, regression, clustering, and time series prediction functions. 
+The goal of DAL Toolbox is to provide a series data analytics functions
+organized as a framework. It supports data preprocessing,
+classification, regression, clustering, and time series prediction
+functions.
 
 ## Installation
 
-You can install the development version of DAL Toolbox from
+You can install the development version of dal from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -22,14 +24,29 @@ You can install the development version of DAL Toolbox from
 devtools::install_github("cefet-rj-dal/daltoolbox", force=TRUE, dependencies=FALSE, upgrade="never", build_vignettes = TRUE)
 ```
 
-## Example
+## Examples
 
-This is a basic example which shows you how to solve a common problem:
+The DAL Toolbox examples are made available at:
+<https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/examples/>
+
+The examples are organized according to general (data preprocessing),
+clustering, classification, regression, and time series functions.
 
 ``` r
 library(daltoolbox)
+#> Registered S3 method overwritten by 'quantmod':
+#>   method            from
+#>   as.zoo.data.frame zoo
+#> Warning: replacing previous import 'dplyr::rename' by 'reshape::rename' when
+#> loading 'daltoolbox'
+#> Warning: replacing previous import 'class::condense' by 'reshape::condense'
+#> when loading 'daltoolbox'
+#> Warning: replacing previous import 'dplyr::filter' by 'stats::filter' when
+#> loading 'daltoolbox'
 #> 
 #> Attaching package: 'daltoolbox'
+#> The following object is masked from 'package:base':
+#> 
+#>     transform
+## loading DAL Toolbox
 ```
-
-

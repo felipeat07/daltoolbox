@@ -31,9 +31,12 @@ You can install the development version of dal from [GitHub](https://github.com/
 devtools::install_github("cefet-rj-dal/daltoolbox", force=TRUE, dependencies=FALSE, upgrade="never", build_vignettes = TRUE)
 ```
 
-## Example
+## Examples
 
-This is a basic example which shows you how to solve a common problem:
+The DAL Toolbox examples are made available at:
+https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/examples/
+
+The examples are organized according to general (data preprocessing), clustering, classification, regression, and time series functions. 
 
 ```{r example}
 library(daltoolbox)
