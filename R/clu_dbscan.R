@@ -25,7 +25,7 @@ cluster_dbscan <- function(eps, minPts) {
 
 #'@import dbscan
 #'@export
-cluster.cluster_dbscan <- function(obj, data) {
+fit.cluster_dbscan <- function(obj, data) {
   t <- sort(dbscan::kNNdist(data, k = obj$minPts))
   y <- t
   myfit <- fit_curvature_max()
