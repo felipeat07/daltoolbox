@@ -5,8 +5,6 @@
 # depends clu_clustering.R
 
 # cluster_dbscan
-# loadlibrary("fpc")
-
 #'@title Clustering using DBSCAN
 #'@description
 #'@details
