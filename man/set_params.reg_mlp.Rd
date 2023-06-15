@@ -6,6 +6,11 @@
 \usage{
 \method{set_params}{reg_mlp}(obj, params)
 }
+\arguments{
+\item{obj}{object}
+
+\item{params}{parameters}
+}
 \value{
 The reg_mlp object updated with the new parameter values
 }

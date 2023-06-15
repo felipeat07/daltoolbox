@@ -6,9 +6,23 @@
 \usage{
 plot_boxplot(data, label_x = "", label_y = "", colors = NULL, barwith = 0.25)
 }
+\arguments{
+\item{data}{data.frame contain x, value, and variable}
+
+\item{label_x}{x-axis label}
+
+\item{label_y}{y-axis label}
+
+\item{colors}{color vector}
+
+\item{barwith}{width of bar}
+}
 \value{
-plot
+ggplot graphic
 }
 \description{
 plot boxplot
+}
+\examples{
+trans <- dal_transform()
 }

@@ -15,3 +15,6 @@ a \code{tsaug_shrink} object.
 \description{
 Time Series Augmentation tsaug_shrink
 }
+\examples{
+trans <- dal_transform()
+}

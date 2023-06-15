@@ -7,14 +7,15 @@
 \method{do_fit}{ts_rf}(obj, x, y)
 }
 \arguments{
-\item{y}{}
+\item{obj}{object}
+
+\item{x}{input variable}
+
+\item{y}{output variable}
 }
 \value{
 The updated ts_rf object
 }
 \description{
 It receives as input a ts_rf object (obj), an input dataset (x) and an output dataset (y)
-}
-\details{
-The function fits the random forest model using the randomForest::randomForest() function, which is part of the randomForest package
 }

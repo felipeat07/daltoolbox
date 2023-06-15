@@ -6,12 +6,12 @@
 \usage{
 adjust.ts_data(data)
 }
+\arguments{
+\item{data}{dataset}
+}
 \value{
 The date object changed
 }
 \description{
 The first check that is done is to see if data is a matrix using the is.matrix() function. If data is not a matrix, the function converts data to a matrix using the as.matrix() function
-}
-\details{
-Takes a data object as an argument
 }

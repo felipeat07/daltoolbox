@@ -7,7 +7,7 @@
 cla_knn(attribute, slevels, k = 1)
 }
 \arguments{
-\item{attribute}{Name of the attribute used as target classification.}
+\item{attribute}{attribute target to model building.}
 
 \item{slevels}{Possible values for the target classification.}
 
@@ -19,6 +19,6 @@ A classification object.
 \description{
 Classifies using the K-Nearest Neighbor algorithm.
 }
-\details{
-This function implements the K-Nearest Neighbor algorithm for classification. It computes the K nearest neighbors of each data point in the training set, and then determines the class label of each point by taking the majority vote of the K neighbors.
+\examples{
+trans <- dal_transform()
 }

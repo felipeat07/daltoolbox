@@ -6,12 +6,15 @@
 \usage{
 smoothing_inter(n)
 }
+\arguments{
+\item{n}{number of bins}
+}
+\value{
+obj
+}
 \description{
 The "smoothing by interval" function is used to apply a smoothing technique to a vector or time series data using a moving window approach.
 }
-\details{
-The function takes in three arguments:
-data: a numeric vector or time series data to be smoothed.
-window_size: an integer value specifying the size of the moving window. It should be an odd number to ensure a centered window.
-method: a character string specifying the smoothing method to be used. It can be one of "simple", "linear", "exponential", "spline", "kernel", or "loess".
+\examples{
+trans <- dal_transform()
 }

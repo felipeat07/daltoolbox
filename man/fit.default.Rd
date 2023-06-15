@@ -2,13 +2,21 @@
 % Please edit documentation in R/dal_main.R
 \name{fit.default}
 \alias{fit.default}
-\title{dal_base object}
+\title{fit default implementation}
 \usage{
 \method{fit}{default}(obj, ...)
 }
+\arguments{
+\item{obj}{object}
+
+\item{...}{optional arguments}
+}
 \value{
-The input object "obj"
+obj
 }
 \description{
-Receives the obj object as a parameter, ...
+fit efault implementation
+}
+\examples{
+trans <- dal_transform()
 }

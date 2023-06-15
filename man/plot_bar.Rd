@@ -2,13 +2,27 @@
 % Please edit documentation in R/graphics.R
 \name{plot_bar}
 \alias{plot_bar}
-\title{plot bar}
+\title{plot bar graph}
 \usage{
 plot_bar(data, label_x = "", label_y = "", colors = NULL, alpha = 1)
 }
+\arguments{
+\item{data}{data.frame contain x, value, and variable}
+
+\item{label_x}{x-axis label}
+
+\item{label_y}{y-axis label}
+
+\item{colors}{color vector}
+
+\item{alpha}{level of transparency}
+}
 \value{
-plot
+ggplot graphic
 }
 \description{
-plot bar
+plot bar graph
+}
+\examples{
+trans <- dal_transform()
 }

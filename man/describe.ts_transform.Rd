@@ -6,12 +6,15 @@
 \usage{
 \method{describe}{ts_transform}(obj)
 }
+\arguments{
+\item{obj}{object}
+}
 \value{
 The string "none"
 }
 \description{
 The function receives as argument the variable obj
 }
-\details{
-This function can be useful for debugging purposes or to inform the user that there is no information available about the created transform object
+\examples{
+trans <- dal_transform()
 }

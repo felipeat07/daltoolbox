@@ -17,9 +17,33 @@ plot_lollipop(
   flip = TRUE
 )
 }
+\arguments{
+\item{data}{data.frame contain x, value, and variable}
+
+\item{colors}{color vector}
+
+\item{xlabel}{x-axis label}
+
+\item{ylabel}{y-axis label}
+
+\item{size_text}{size of text}
+
+\item{size_ball}{size of ball}
+
+\item{alpha_ball}{transparency of ball}
+
+\item{min_value}{minimum value}
+
+\item{max_value_gap}{maximum value gap}
+
+\item{flip}{flip axis}
+}
 \value{
-plot
+ggplot graphic
 }
 \description{
 plot lollipop
+}
+\examples{
+trans <- dal_transform()
 }

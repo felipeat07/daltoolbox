@@ -6,13 +6,17 @@
 \usage{
 zscore(nmean = 0, nsd = 1)
 }
-\description{
-The zscore() function in the DAL package performs a normalization on the input data so that each feature (column) has zero mean and standard deviation of nsd. Normalizing the data is a common preprocessing step in machine learning, particularly when using algorithms that are sensitive to the scale of the input features. The resulting zscore normalized object is returned with the "zscore" class added to it.
+\arguments{
+\item{nmean}{mean}
+
+\item{nsd}{standard deviation}
 }
-\details{
-The function takes two optional arguments:
-
-nmean: A numeric value that specifies the desired mean of the normalized data. The default value is 0.
-
-nsd: A numeric value that specifies the desired standard deviation of the normalized data. The default value is 1.
+\value{
+zscore object
+}
+\description{
+Scale data using zscore normalization
+}
+\examples{
+trans <- dal_transform()
 }

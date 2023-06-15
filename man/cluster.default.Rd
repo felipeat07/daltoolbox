@@ -2,13 +2,21 @@
 % Please edit documentation in R/clu_main.R
 \name{cluster.default}
 \alias{cluster.default}
-\title{dal_base object}
+\title{cluster dataset basic method}
 \usage{
 \method{cluster}{default}(obj, ...)
 }
+\arguments{
+\item{obj}{object}
+
+\item{...}{optional arguments.}
+}
 \value{
-The input object "obj"
+empty data frame
 }
 \description{
-Receives the obj object as a parameter, ...
+cluster dataset basic method
+}
+\examples{
+trans <- dal_transform()
 }

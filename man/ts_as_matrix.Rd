@@ -6,9 +6,17 @@
 \usage{
 ts_as_matrix(data, input_size)
 }
+\arguments{
+\item{data}{dataset}
+
+\item{input_size}{input size for machine learning model}
+}
 \value{
 An array of the latest input_size observations of each time series at date
 }
 \description{
 Takes a time series dataset data and an input size input_size
+}
+\examples{
+trans <- dal_transform()
 }

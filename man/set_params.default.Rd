@@ -7,11 +7,13 @@
 \method{set_params}{default}(obj, params)
 }
 \arguments{
-\item{params}{}
+\item{obj}{object}
+
+\item{params}{parameters}
 }
 \value{
 The obj object
 }
 \description{
-Defines a default method for the set_params function
+This function receives the obj and params variables as parameters.
 }

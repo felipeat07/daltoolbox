@@ -7,7 +7,7 @@
 \method{start_log}{default}(obj)
 }
 \arguments{
-\item{obj}{object: .}
+\item{obj}{object}
 }
 \value{
 The object with a new attribute "log_time",
@@ -15,6 +15,6 @@ The object with a new attribute "log_time",
 \description{
 It takes as parameter the obj object
 }
-\details{
-This function is a method to start logging on an object. The default method assigns the current time to the object and returns it
+\examples{
+trans <- dal_transform()
 }

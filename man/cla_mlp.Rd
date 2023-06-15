@@ -7,9 +7,7 @@
 cla_mlp(attribute, slevels, size = NULL, decay = 0.1, maxit = 1000)
 }
 \arguments{
-\item{attribute}{\itemize{
-\item name of the attribute used as target classification
-}}
+\item{attribute}{attribute target to model building}
 
 \item{slevels}{\itemize{
 \item possible values for the target classification
@@ -33,6 +31,6 @@ a classification object
 \description{
 Performs classification using Artificial Neural Network (ANN) algorithm
 }
-\details{
-This function creates an object of class "cla_mlp" that can be used for classification of a target attribute using the ANN algorithm. The number of nodes in the hidden layer can be specified using the size parameter. The decay parameter controls how quickly the gradient descent decreases, and the maxit parameter sets the maximum number of iterations.
+\examples{
+trans <- dal_transform()
 }

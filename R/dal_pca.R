@@ -1,17 +1,9 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-
-### PCA
 #'@title PCA
 #'@description PCA (Principal Component Analysis) is a commonly used unsupervised dimensionality reduction technique in data analysis and machine learning. It is used to transform a dataset of possibly correlated variables into a new set of uncorrelated variables called principal components.
-#'@details The prcomp() function returns an object of class prcomp, which contains the following components: sdev: the standard deviations of the principal components; rotation: the matrix of variable loadings (the eigenvectors of the covariance matrix); center: the centering values used, if any; scale: the scaling values used, if any; x: the centered and optionally scaled data matrix; rank: the rank of the data matrix; call: the function call used to generate the result; na.action: the method used to handle missing values, if any
-#'
-#'@param attribute
-#'@param components
-#'@return
-#'@examples
+#'@param attribute attribute target to model building
+#'@param components number of components for PCA
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 dt_pca <- function(attribute=NULL, components = NULL) {
   obj <- dal_transform()
@@ -23,7 +15,7 @@ dt_pca <- function(attribute=NULL, components = NULL) {
 
 #'@export
 #'@importFrom stats prcomp
-fit.dt_pca <- function(obj, data) {
+fit.dt_pca <- function(obj, data, ...) {
   data <- data.frame(data)
   attribute <- obj$attribute
   if (!is.null(attribute)) {
@@ -55,7 +47,7 @@ fit.dt_pca <- function(obj, data) {
 }
 
 #'@export
-transform.dt_pca <- function(obj, data) {
+transform.dt_pca <- function(obj, data, ...) {
   attribute <- obj$attribute
   pca.transf <- obj$pca.transf
   nums <- obj$nums

@@ -13,9 +13,25 @@ plot_pieplot(
   bordercolor = "black"
 )
 }
+\arguments{
+\item{data}{data.frame contain x, value, and variable}
+
+\item{label_x}{x-axis label}
+
+\item{label_y}{y-axis label}
+
+\item{colors}{color vector}
+
+\item{textcolor}{text color}
+
+\item{bordercolor}{border color}
+}
 \value{
-plot
+ggplot graphic
 }
 \description{
 plot pie
+}
+\examples{
+trans <- dal_transform()
 }

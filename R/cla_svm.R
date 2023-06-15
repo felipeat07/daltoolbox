@@ -1,24 +1,12 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-
-# cla_svm
-# loadlibrary("e1071")
-
 #'@title Support Vector Machine Classification
 #'@description Classification using Support Vector Machine (SVM) algorithm
-#'@details This function creates a classification object using the Support Vector Machine (SVM) algorithm.
-#'The SVM is a popular machine learning algorithm used in classification tasks.
-#'It works by finding the optimal hyperplane that separates data points belonging to different classes.
-#'
-#'@param attribute - name of the attribute used as target classification
+#'@param attribute attribute target to model building
 #'@param slevels - possible values for the target classification
 #'@param epsilon - parameter that controls the width of the margin around the separating hyperplane
 #'@param cost - parameter that controls the trade-off between having a wide margin and correctly classifying training data points
 #'@param kernel - the type of kernel function to be used in the SVM algorithm (linear, radial, polynomial, sigmoid)
 #'@return classification object
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 cla_svm <- function(attribute, slevels, epsilon=0.1, cost=10, kernel="radial") {
   #kernel: linear, radial, polynomial, sigmoid
@@ -34,9 +22,8 @@ cla_svm <- function(attribute, slevels, epsilon=0.1, cost=10, kernel="radial") {
 
 #'@title Set parameters values for reg_svm
 #'@description It receives as input a reg_svm object (obj) and a set of parameters (params)
-#'@details
-#'@param obj
-#'@param params
+#'@param obj object
+#'@param params parameters
 #'@return The reg_svm object updated with the new parameter values
 #'@export
 set_params.cla_svm <- function(obj, params) {
@@ -51,9 +38,15 @@ set_params.cla_svm <- function(obj, params) {
 }
 
 
+#'@title fit svm model
+#'@description fit svm model
+#'@param obj object
+#'@param data dataset
+#'@param ... optional arguments
+#'@return fitted obj
 #'@import e1071
 #'@export
-fit.cla_svm <- function(obj, data) {
+fit.cla_svm <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
   data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
   obj <- fit.classification(obj, data)
@@ -70,14 +63,20 @@ fit.cla_svm <- function(obj, data) {
   return(obj)
 }
 
+#'@title predict data from input
+#'@description predict data from input
+#'@param object object
+#'@param x input variable
+#'@param ... optional arguments
+#'@return predicted values
 #'@export
-predict.cla_svm  <- function(obj, x) {
+predict.cla_svm  <- function(object, x, ...) {
   x <- adjust_data.frame(x)
-  x <- x[,obj$x, drop = FALSE]
+  x <- x[,object$x, drop = FALSE]
 
-  prediction <- predict(obj$model, x, probability = TRUE)
+  prediction <- predict(object$model, x, probability = TRUE)
   prediction <- attr(prediction, "probabilities")
-  prediction <- prediction[,obj$slevels]
+  prediction <- prediction[,object$slevels]
 
   return(prediction)
 }

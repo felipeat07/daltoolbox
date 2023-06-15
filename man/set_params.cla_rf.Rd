@@ -6,6 +6,11 @@
 \usage{
 \method{set_params}{cla_rf}(obj, params)
 }
+\arguments{
+\item{obj}{object}
+
+\item{params}{parameters}
+}
 \value{
 The cla_rf object updated with the new parameter values
 }

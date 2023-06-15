@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{plot_scatter}
 \alias{plot_scatter}
-\title{plot scatter}
+\title{scatter graph}
 \usage{
 plot_scatter(
   series,
@@ -12,9 +12,23 @@ plot_scatter(
   colors = NULL
 )
 }
+\arguments{
+\item{series}{data.frame contain x, value, and variable}
+
+\item{label_series}{title label}
+
+\item{label_x}{x-axis label}
+
+\item{label_y}{y-axis label}
+
+\item{colors}{color vector}
+}
 \value{
-plot
+ggplot graphic
 }
 \description{
-plot scatter
+scatter graph
+}
+\examples{
+trans <- dal_transform()
 }

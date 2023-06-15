@@ -7,6 +7,12 @@
 ts_elm(preprocess = NA, input_size = NA, nhid = NA, actfun = "purelin")
 }
 \arguments{
+\item{preprocess}{normalization}
+
+\item{input_size}{input size for machine learning model}
+
+\item{nhid}{ensemble size}
+
 \item{actfun}{string: defines the type to use, possible values: 'sig',
 'radbas', 'tribas', 'relu', 'purelin' (default).}
 }
@@ -17,4 +23,7 @@ a \code{ts_elm} object.
 Machine learning technique used for time series forecasting.
 ELM is a type of feedforward neural network that uses a single hidden layer
 of randomly generated neurons.
+}
+\examples{
+trans <- dal_transform()
 }

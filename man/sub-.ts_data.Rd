@@ -6,12 +6,21 @@
 \usage{
 \method{[}{ts_data}(x, i, j, ...)
 }
+\arguments{
+\item{x}{input variable}
+
+\item{i}{row i}
+
+\item{j}{column j}
+
+\item{...}{optional arguments}
+}
 \value{
 A new ts_data object
 }
 \description{
 Receives as parameters the variables x, i, j ...
 }
-\details{
-The i and j arguments specify the rows and columns to be selected, respectively. The argument ... lets you pass other arguments to the unclass function
+\examples{
+trans <- dal_transform()
 }

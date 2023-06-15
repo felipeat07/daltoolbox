@@ -12,3 +12,6 @@ a \code{tsfil_smooth} object.
 \description{
 Used to remove or reduce randomness (noise).
 }
+\examples{
+trans <- dal_transform()
+}

@@ -7,14 +7,13 @@
 sMAPE.tsreg(actual, prediction)
 }
 \arguments{
-\item{prediction}{}
+\item{actual}{real observations}
+
+\item{prediction}{predicted observations}
 }
 \value{
 The sMAPE between the actual and prediction vectors
 }
 \description{
 The function receives two variables as a parameter, which are actual and prediction
-}
-\details{
-It is an error measure that is useful for assessing the accuracy of forecasts in time series, where observations can have different scales
 }

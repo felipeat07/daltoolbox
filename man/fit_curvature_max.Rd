@@ -23,3 +23,6 @@ The fit_curvature_max function is an extension of the fit_curvature function, wh
 The fit_curvature_max function sets the input function as max, resulting in a curvature function that calculates the maximum curvature value.
 The resulting object can be used to transform a data set by scaling the data according to the maximum curvature value, using the transform method.
 }
+\examples{
+trans <- dal_transform()
+}

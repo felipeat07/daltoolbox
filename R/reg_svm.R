@@ -1,24 +1,13 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-
-# reg_svm
-# loadlibrary("e1071")
-
 #'@title Support Vector Machine (SVM) Regression
-#'@description
-#'@details
-#'
-#'@param attribute
-#'@param epsilon
-#'@param cost
-#'@param kernel
-#'@return
-#'@examples
+#'@description Support Vector Machine (SVM) Regression
+#'@param attribute attribute target to model building
+#'@param epsilon error threshold
+#'@param cost cost
+#'@param kernel SVM kernel (linear, radial, polynomial, sigmoid)
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 reg_svm <- function(attribute, epsilon=0.1, cost=10, kernel="radial") {
-  #kernel: linear, radial, polynomial, sigmoid
   #analisar: https://rpubs.com/Kushan/296706
   obj <- regression(attribute)
   obj$kernel <- kernel
@@ -31,9 +20,8 @@ reg_svm <- function(attribute, epsilon=0.1, cost=10, kernel="radial") {
 
 #'@title Set parameters values for reg_svm
 #'@description It receives as input a reg_svm object (obj) and a set of parameters (params)
-#'@details
-#'@param obj
-#'@param params
+#'@param obj object
+#'@param params parameters
 #'@return The reg_svm object updated with the new parameter values
 #'@export
 set_params.reg_svm <- function(obj, params) {
@@ -49,7 +37,7 @@ set_params.reg_svm <- function(obj, params) {
 
 
 #'@export
-fit.reg_svm <- function(obj, data) {
+fit.reg_svm <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
   obj <- fit.regression(obj, data)
 
@@ -65,10 +53,16 @@ fit.reg_svm <- function(obj, data) {
   return(obj)
 }
 
+#'@title predict data from input
+#'@description predict data from input
+#'@param object object
+#'@param x input variable
+#'@param ... optional arguments
+#'@return predicted values
 #'@export
-predict.reg_svm  <- function(obj, x) {
+predict.reg_svm  <- function(object, x, ...) {
   x <- adjust_data.frame(x)
-  x <- x[,obj$x]
-  prediction <- predict(obj$model, x)
+  x <- x[,object$x]
+  prediction <- predict(object$model, x)
   return(prediction)
 }

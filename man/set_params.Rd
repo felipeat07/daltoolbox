@@ -7,11 +7,13 @@
 set_params(obj, params)
 }
 \arguments{
-\item{obj}{object: .}
+\item{obj}{object}
+
+\item{params}{parameters}
 }
 \description{
 The function receives the obj and params variables as parameters
 }
-\details{
-This function serves as a "skeleton" for implementing different set_params methods for different object classes
+\examples{
+trans <- dal_transform()
 }

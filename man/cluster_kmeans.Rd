@@ -15,6 +15,6 @@ A clustering object.
 \description{
 This function applies the k-means clustering algorithm to a given data set and returns a clustering object.
 }
-\details{
-The k-means algorithm partitions a set of observations into k clusters, such that the observations within each cluster have low variance and are similar to each other, while observations in different clusters are dissimilar. The algorithm works by iteratively assigning each observation to the nearest cluster center and then re-calculating the cluster centers based on the newly assigned observations.
+\examples{
+trans <- dal_transform()
 }

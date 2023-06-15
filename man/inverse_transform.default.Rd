@@ -7,7 +7,9 @@
 \method{inverse_transform}{default}(obj, ...)
 }
 \arguments{
-\item{obj, }{...}
+\item{obj}{object}
+
+\item{...}{optional arguments}
 }
 \value{
 Simply returns NULL
@@ -15,6 +17,6 @@ Simply returns NULL
 \description{
 It receives as parameter the object obj, ...
 }
-\details{
-It is used when no specific method is defined for a specific dal_transform object and the generic function inverse_transform() is called
+\examples{
+trans <- dal_transform()
 }

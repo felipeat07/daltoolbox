@@ -6,6 +6,21 @@
 \usage{
 reg_mlp(attribute, size = NULL, decay = 0.05, maxit = 1000)
 }
+\arguments{
+\item{attribute}{attribute target to model building}
+
+\item{size}{number of neurons in hidden layers}
+
+\item{decay}{decay learning rate}
+
+\item{maxit}{number of maximum iterations for training}
+}
+\value{
+obj
+}
 \description{
 Multi-Layer Perceptron (MLP) Regression
+}
+\examples{
+trans <- dal_transform()
 }

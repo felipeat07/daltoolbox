@@ -19,6 +19,6 @@ A list with the two samples
 \description{
 Has three arguments: ts: the time series to split; test_size: the size of the test sample, in number of observations; offset: the number of observations to be ignored at the end of the time series.
 }
-\details{
-The function calculates the offset offset index and creates the training sample, which includes all time series observations up to the offset offset index
+\examples{
+trans <- dal_transform()
 }

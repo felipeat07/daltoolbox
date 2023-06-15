@@ -4,11 +4,21 @@
 \alias{transform.ts_transform}
 \title{Transform data to objects of class st_transform}
 \usage{
-\method{transform}{ts_transform}(obj, data)
+\method{transform}{ts_transform}(obj, data, ...)
+}
+\arguments{
+\item{obj}{object}
+
+\item{data}{dataset}
+
+\item{...}{optional arguments}
 }
 \value{
 The data given as an argument
 }
 \description{
 The function receives as arguments the variables obj and data
+}
+\examples{
+trans <- dal_transform()
 }

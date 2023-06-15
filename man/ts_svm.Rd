@@ -12,6 +12,17 @@ ts_svm(
   cost = 10
 )
 }
+\arguments{
+\item{preprocess}{normalization}
+
+\item{input_size}{input size for machine learning model}
+
+\item{kernel}{SVM kernel (linear, radial, polynomial, sigmoid)}
+
+\item{epsilon}{error threshold}
+
+\item{cost}{cost}
+}
 \value{
 a \code{ts_svm} object.
 }
@@ -20,4 +31,7 @@ Transform data into vectors of features. The algorithm then
 identifies the support vectors that define the hyperplane that best separates
 the data into different classes based on temporal proximity. The hyperplane
 can then be used to make predictions about future values of the time series.
+}
+\examples{
+trans <- dal_transform()
 }

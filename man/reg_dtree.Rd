@@ -6,6 +6,15 @@
 \usage{
 reg_dtree(attribute)
 }
+\arguments{
+\item{attribute}{attribute target to model building}
+}
+\value{
+obj
+}
 \description{
 Decision Tree for Regression
+}
+\examples{
+trans <- dal_transform()
 }

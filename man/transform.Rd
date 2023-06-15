@@ -9,7 +9,7 @@ transform(obj, ...)
 \arguments{
 \item{obj}{object: a dal_transform object to apply the transformation to.}
 
-\item{...}{further arguments passed to or from other methods.}
+\item{...}{optional arguments.}
 }
 \value{
 the transformed time series data.
@@ -17,9 +17,6 @@ the transformed time series data.
 \description{
 Defines the kind of transformation to be set over a time series.
 }
-\details{
-This function is used to apply different kinds of transformations to time series data,
-such as logarithmic, square root, or Box-Cox transformations, which can alter the underlying properties of the series
-and make it more amenable to modeling and forecasting.
-The specific kind of transformation is determined by calling the appropriate method for the given transformation type.
+\examples{
+trans <- dal_transform()
 }

@@ -1,20 +1,11 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-# depends ts_data.R
-
-### ts_augment
 #'@title Time Series Augmentation
 #'@description Augmentation is a technique used to increase the size and
 #' diversity of a time series dataset by creating new instances of the original
 #' data through transformations or modifications. The goal is to improve the
 #' performance of machine learning models trained on time series data by
 #' reducing overfitting and improving generalization.
-#'@details
-#'
 #'@return a `ts_augment` object
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 ts_augment <- function() {
   obj <- ts_transform()
@@ -24,19 +15,14 @@ ts_augment <- function() {
 }
 
 #'@export
-fit.ts_augment <- function(obj, data) {
+fit.ts_augment <- function(obj, data, ...) {
   return(obj)
 }
 
-
-
-### tsaug_jitter
 #'@title Time Series Augmentation tsaug_jitter
 #'@description tsaug_jitter adds random "noise" to each data point in the time series.
-#'@details
-#'
 #'@return a `tsaug_jitter` object
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 tsaug_jitter <- function() {
   obj <- ts_augment()
@@ -46,7 +32,7 @@ tsaug_jitter <- function() {
 
 #'@importFrom stats sd
 #'@export
-fit.tsaug_jitter <- function(obj, data) {
+fit.tsaug_jitter <- function(obj, data, ...) {
   an <- apply(data, 1, mean)
   x <- data - an
   obj$sd <- stats::sd(x)
@@ -55,7 +41,7 @@ fit.tsaug_jitter <- function(obj, data) {
 
 #'@importFrom stats rnorm
 #'@export
-transform.tsaug_jitter <- function(obj, data) {
+transform.tsaug_jitter <- function(obj, data, ...) {
   add.tsaug_jitter <- function(obj, data) {
     x <- stats::rnorm(length(data), mean = 0, sd = obj$sd)
     x <- matrix(x, nrow=nrow(data), ncol=ncol(data))
@@ -74,14 +60,11 @@ transform.tsaug_jitter <- function(obj, data) {
   return(result)
 }
 
-### tsaug_stretch
 #'@title Time Series Augmentation tsaug_stretch
 #'@description Apply temporal distortion to the time axis of the data.
-#'@details
-#'
 #'@param factor a real value (default = 1.2) define the degree of distortion applied.
 #'@return a `tsaug_stretch` object.
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 tsaug_stretch <- function(factor=1.2) {
   obj <- ts_augment()
@@ -91,7 +74,7 @@ tsaug_stretch <- function(factor=1.2) {
 }
 
 #'@export
-transform.tsaug_stretch <- function(obj, data) {
+transform.tsaug_stretch <- function(obj, data, ...) {
   add.tsaug_stretch <- function(obj, data) {
     an <- apply(data, 1, mean)
     x <- data - an
@@ -111,14 +94,11 @@ transform.tsaug_stretch <- function(obj, data) {
   return(result)
 }
 
-### tsaug_shrink
 #'@title Time Series Augmentation tsaug_shrink
-#'@description
-#'@details
-#'
+#'@description Time Series Augmentation tsaug_shrink
 #'@param factor a real value (default = 0.8) define the degree of distortion applied.
 #'@return a `tsaug_shrink` object.
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 tsaug_shrink <- function(factor = 0.8) {
   obj <- ts_augment()
@@ -128,7 +108,7 @@ tsaug_shrink <- function(factor = 0.8) {
 }
 
 #'@export
-transform.tsaug_shrink <- function(obj, data) {
+transform.tsaug_shrink <- function(obj, data, ...) {
   add.tsaug_shrink <- function(obj, data) {
     an <- apply(data, 1, mean)
     x <- data - an
@@ -148,13 +128,10 @@ transform.tsaug_shrink <- function(obj, data) {
   return(result)
 }
 
-### tsaug_flip
 #'@title Time Series Augmentation tsaug_flip
 #'@description reverse the order of the data along the time axis.
-#'@details
-#'
 #'@return a `tsaug_flip` object.
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 tsaug_flip <- function() {
   obj <- ts_augment()
@@ -163,7 +140,7 @@ tsaug_flip <- function() {
 }
 
 #'@export
-transform.tsaug_flip <- function(obj, data) {
+transform.tsaug_flip <- function(obj, data, ...) {
   add.tsaug_flip <- function(obj, data) {
     an <- apply(data, 1, mean)
     x <- data - an
@@ -181,13 +158,10 @@ transform.tsaug_flip <- function(obj, data) {
   return(result)
 }
 
-### tsaug_wormhole
 #'@title Time Series Augmentation tsaug_wormhole
 #'@description Inserts or removes segments of the time series data.
-#'@details
-#'
 #'@return a `tsaug_wormhole` object.
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 tsaug_wormhole <- function() {
   obj <- ts_augment()
@@ -198,7 +172,7 @@ tsaug_wormhole <- function() {
 
 #'@importFrom utils combn
 #'@export
-transform.tsaug_wormhole <- function(obj, data) {
+transform.tsaug_wormhole <- function(obj, data, ...) {
   add.tsaug_wormhole <- function(data) {
     n <- ncol(data)
     x <- c(as.vector(data[1,1:(n-1)]), as.vector(data[,n]))

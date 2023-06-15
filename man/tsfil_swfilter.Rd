@@ -12,3 +12,6 @@ a \code{tsfil_swfilter} object.
 \description{
 Time Series Sliding Window Filter
 }
+\examples{
+trans <- dal_transform()
+}

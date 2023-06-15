@@ -1,20 +1,7 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-# depends ts_sw.R
-# depends ts_regression.R
-
-# tsreg_arima
-# loadlibrary("forecast")
-
 #'@title Time Series AutoRegressive Integrated Moving Average (ARIMA)
 #'@description ARIMA is a regression model for forecasting time series data
-#'@details This model is used when the time series data has a linear trend and
-#' is not stationary.
-#'
-#'@return
-#'@examples
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 tsreg_arima <- function() {
   obj <- tsreg()
@@ -25,7 +12,7 @@ tsreg_arima <- function() {
 
 #'@import forecast
 #'@export
-fit.tsreg_arima <- function(obj, x, y = NULL) {
+fit.tsreg_arima <- function(obj, x, y = NULL, ...) {
   obj <- start_log(obj)
   if (obj$reproduce)
     set.seed(1)
@@ -44,19 +31,27 @@ fit.tsreg_arima <- function(obj, x, y = NULL) {
   return(obj)
 }
 
+#'@title predict data from input
+#'@description predict data from input
+#'@param object object
+#'@param x input variable
+#'@param y y modeling data
+#'@param steps_ahead step ahead prediction
+#'@param ... optional arguments
+#'@return predicted values
 #'@import forecast
 #'@export
-predict.tsreg_arima <- function(obj, x, y = NULL, steps_ahead=NULL) {
-  if (!is.null(x) && (length(obj$model$x) == length(x)) && (sum(obj$model$x-x) == 0)){
+predict.tsreg_arima <- function(object, x, y = NULL, steps_ahead=NULL, ...) {
+  if (!is.null(x) && (length(object$model$x) == length(x)) && (sum(object$model$x-x) == 0)){
     #get adjusted data
-    pred <- obj$model$x - obj$model$residuals
+    pred <- object$model$x - object$model$residuals
   }
   else {
     if (is.null(steps_ahead))
       steps_ahead <- length(x)
     if ((steps_ahead == 1) && (length(x) != 1)) {
       pred <- NULL
-      model <- obj$model
+      model <- object$model
       i <- 1
       y <- model$x
       while (i <= length(x)) {
@@ -65,7 +60,7 @@ predict.tsreg_arima <- function(obj, x, y = NULL, steps_ahead=NULL) {
 
         model <- tryCatch(
           {
-            forecast::Arima(y, order=c(obj$p, obj$d, obj$q), include.drift = obj$drift)
+            forecast::Arima(y, order=c(object$p, object$d, object$q), include.drift = object$drift)
           },
           error = function(cond) {
             forecast::auto.arima(y, allowdrift = TRUE, allowmean = TRUE)
@@ -75,7 +70,7 @@ predict.tsreg_arima <- function(obj, x, y = NULL, steps_ahead=NULL) {
       }
     }
     else {
-      pred <- forecast::forecast(obj$model, h = steps_ahead)$mean
+      pred <- forecast::forecast(object$model, h = steps_ahead)$mean
     }
   }
   return(pred)

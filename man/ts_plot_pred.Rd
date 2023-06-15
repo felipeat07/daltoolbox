@@ -15,11 +15,20 @@ ts_plot_pred(
 )
 }
 \arguments{
-\item{label_y}{}
+\item{x}{time index}
+
+\item{y}{time series}
+
+\item{yadj}{adjustment of time series}
+
+\item{ypred}{prediction of the time series}
+
+\item{color}{color for the time series}
+
+\item{label_x}{x-axis title}
+
+\item{label_y}{y-axis title}
 }
 \description{
 The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
-}
-\details{
-It displays the value of the sMAPE metric for the training and test sets. The obj argument is a tsreg object that contains the information of the model used, y is the original series, yadj is the adjusted series and ypre is the predicted series
 }

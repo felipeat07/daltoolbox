@@ -7,10 +7,16 @@
 select_hyper(obj, hyperparameters)
 }
 \arguments{
-\item{obj}{object: .}
+\item{obj}{object}
 
 \item{hyperparameters}{data set with hyper parameters.}
 }
+\value{
+index of hyperparameter
+}
 \description{
 select hyper parameters
+}
+\examples{
+trans <- dal_transform()
 }

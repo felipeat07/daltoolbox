@@ -12,9 +12,20 @@ plot_boxplot_class(
   colors = NULL
 )
 }
-\value{
-plot
+\arguments{
+\item{data}{data.frame contain x, value, and variable}
+
+\item{class_label}{name of attribute for class label}
+
+\item{label_x}{x-axis label}
+
+\item{label_y}{y-axis label}
+
+\item{colors}{color vector}
 }
 \description{
 plot boxplot per class
+}
+\examples{
+trans <- dal_transform()
 }

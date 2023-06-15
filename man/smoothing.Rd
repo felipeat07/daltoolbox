@@ -6,12 +6,15 @@
 \usage{
 smoothing(n)
 }
+\arguments{
+\item{n}{number of bins}
+}
+\value{
+obj
+}
 \description{
 Smoothing is a statistical technique that is used to reduce the noise in a signal or a dataset by removing the high-frequency components. It involves applying a smoothing function or algorithm to the dataset that results in a smoother curve that is easier to analyze. The smoothing technique can be applied to any type of data, including time-series data, images, and sound signals.
 }
-\details{
-The process of smoothing involves replacing each data point with an average or weighted average of neighboring points. There are several smoothing algorithms that can be used, depending on the characteristics of the data. Some of the common smoothing techniques include moving average smoothing, Gaussian smoothing, Savitzky-Golay smoothing, and exponential smoothing.
-The syntax for the smoothing function is as follows:
-x: A numeric vector or time series data that needs to be smoothed.
-window_size: An integer value representing the size of the window.
+\examples{
+trans <- dal_transform()
 }

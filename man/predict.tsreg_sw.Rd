@@ -4,10 +4,16 @@
 \alias{predict.tsreg_sw}
 \title{Performs prediction of values for a time series}
 \usage{
-\method{predict}{tsreg_sw}(obj, x, steps_ahead = 1)
+\method{predict}{tsreg_sw}(object, x, steps_ahead = 1, ...)
 }
 \arguments{
-\item{steps_ahead}{}
+\item{object}{object}
+
+\item{x}{input variable}
+
+\item{steps_ahead}{number of step ahead for prediction}
+
+\item{...}{optional arguments}
 }
 \value{
 A vector with forecasts for each time period
@@ -15,6 +21,6 @@ A vector with forecasts for each time period
 \description{
 The function receives three variables as a parameter, which are obj, x and steps_ahead
 }
-\details{
-If the steps_ahead parameter is equal to 1, the function takes a set of data x and returns a forecast y for the next time period. If steps_ahead is greater than 1, the function iterates over the number of time periods to be predicted and performs the same process for each one
+\examples{
+trans <- dal_transform()
 }

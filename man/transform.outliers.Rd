@@ -4,17 +4,21 @@
 \alias{transform.outliers}
 \title{Remove outliers from data}
 \usage{
-\method{transform}{outliers}(obj, data)
+\method{transform}{outliers}(obj, data, ...)
 }
 \arguments{
-\item{data}{}
+\item{obj}{object}
+
+\item{data}{dataset}
+
+\item{...}{optional arguments}
 }
 \value{
 returns the output dataset after applying the transformation and adds an "idx" attribute that contains a boolean vector indicating which rows were removed from the original dataset
 }
 \description{
-The function takes two arguments, the first is an outliers object returned by the outliers() function, which contains the necessary parameters to perform the transformation, including the cutoff limits calculated in the fit.outliers function. The second argument is the set of input data you want to transform
+Remove outliers from data
 }
-\details{
-Removes lines that contain values that are considered outliers according to the limits calculated in the fit.outliers function
+\examples{
+trans <- dal_transform()
 }

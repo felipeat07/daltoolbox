@@ -4,10 +4,14 @@
 \alias{register_log.default}
 \title{dal_base object}
 \usage{
-\method{register_log}{default}(obj, msg = "")
+\method{register_log}{default}(obj, msg = "", ref = "")
 }
 \arguments{
-\item{obj}{object: .}
+\item{obj}{object}
+
+\item{msg}{message to debug}
+
+\item{ref}{reference}
 }
 \value{
 The obj object updated with log record information
@@ -15,6 +19,6 @@ The obj object updated with log record information
 \description{
 It takes as parameters the obj object and the variable msg. This function logs a log message to an object and returns the updated object itself
 }
-\details{
-If the message is not provided, the function uses the describe function to get a description of the object's class as a log message. The function then calculates the time since the last time logging was started using the difftime function and stores the time in obj$log_time
+\examples{
+trans <- dal_transform()
 }

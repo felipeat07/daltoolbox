@@ -7,7 +7,11 @@
 \method{do_fit}{ts_elm}(obj, x, y)
 }
 \arguments{
-\item{y}{}
+\item{obj}{object}
+
+\item{x}{input variable}
+
+\item{y}{output variable}
 }
 \value{
 The obj object updated with the trained model
@@ -15,6 +19,6 @@ The obj object updated with the trained model
 \description{
 This function takes three arguments: obj, which is an object of the ts_elm class, x, which is an array with the predictor variables, and y, which is a vector with the response variable. After training, the resulting ELM model is stored in the obj object using the model attribute
 }
-\details{
-The function uses the implementation of the elmNNRcpp library to train the ELM model
+\examples{
+trans <- dal_transform()
 }

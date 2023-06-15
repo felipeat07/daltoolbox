@@ -6,12 +6,15 @@
 \usage{
 adjust_data.frame(data)
 }
+\arguments{
+\item{data}{dataset}
+}
 \value{
 The date argument
 }
 \description{
 It takes as parameter an obj object
 }
-\details{
-This verification is useful when object is not a dataframe
+\examples{
+trans <- dal_transform()
 }

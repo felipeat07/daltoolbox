@@ -6,10 +6,12 @@
 \usage{
 tsreg_arima()
 }
+\value{
+obj
+}
 \description{
 ARIMA is a regression model for forecasting time series data
 }
-\details{
-This model is used when the time series data has a linear trend and
-is not stationary.
+\examples{
+trans <- dal_transform()
 }

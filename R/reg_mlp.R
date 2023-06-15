@@ -1,21 +1,11 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-
-# mlp_nnet
-# loadlibrary("nnet")
-
 #'@title Multi-Layer Perceptron (MLP) Regression
-#'@description
-#'@details
-#'
-#'@param attribute
-#'@param size
-#'@param decay
-#'@param maxit
-#'@return
-#'@examples
+#'@description Multi-Layer Perceptron (MLP) Regression
+#'@param attribute attribute target to model building
+#'@param size number of neurons in hidden layers
+#'@param decay decay learning rate
+#'@param maxit number of maximum iterations for training
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 reg_mlp <- function(attribute, size=NULL, decay=0.05, maxit=1000) {
   obj <- regression(attribute)
@@ -28,9 +18,8 @@ reg_mlp <- function(attribute, size=NULL, decay=0.05, maxit=1000) {
 
 #'@title Set parameters values for reg_mlp
 #'@description It receives as input a reg_mlp object (obj) and a set of parameters (params)
-#'@details
-#'@param obj
-#'@param params
+#'@param obj object
+#'@param params parameters
 #'@return The reg_mlp object updated with the new parameter values
 #'@export
 set_params.reg_mlp <- function(obj, params) {
@@ -45,7 +34,7 @@ set_params.reg_mlp <- function(obj, params) {
 }
 
 #'@export
-fit.reg_mlp <- function(obj, data) {
+fit.reg_mlp <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
   obj <- fit.regression(obj, data)
 
@@ -64,10 +53,16 @@ fit.reg_mlp <- function(obj, data) {
   return(obj)
 }
 
+#'@title predict data from input
+#'@description predict data from input
+#'@param object object
+#'@param x input variable
+#'@param ... optional arguments
+#'@return predicted values
 #'@export
-predict.reg_mlp  <- function(obj, x) {
+predict.reg_mlp  <- function(object, x, ...) {
   x <- adjust_data.frame(x)
-  x <- x[,obj$x]
-  prediction <- predict(obj$model, x)
+  x <- x[,object$x]
+  prediction <- predict(object$model, x)
   return(prediction)
 }

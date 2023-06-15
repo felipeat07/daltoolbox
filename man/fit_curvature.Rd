@@ -6,9 +6,12 @@
 \usage{
 fit_curvature()
 }
+\value{
+obj
+}
 \description{
 In R, the fit function is a generic function used to fit a model to a data set. It is a fundamental function in many machine learning algorithms and statistical models. The fit function takes a data set and a model specification as input and returns an object containing the fitted model parameters and other relevant information
 }
-\details{
-The exact arguments and behavior of the fit function will depend on the specific model being fit. However, the fit function typically takes a data set as its first argument, and one or more additional arguments specifying the model to be fit. The function then performs an optimization algorithm to find the model parameters that best fit the data.
+\examples{
+trans <- dal_transform()
 }

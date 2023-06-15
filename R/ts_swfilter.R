@@ -1,16 +1,7 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-# depends ts_data.R
-
-### tsfil_swfilter
 #'@title Time Series Sliding Window Filter
-#'@description
-#'@details
-#'
+#'@description Time Series Sliding Window Filter
 #'@return a `tsfil_swfilter` object.
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 tsfil_swfilter <- function() {
   obj <- ts_transform()
@@ -19,12 +10,10 @@ tsfil_swfilter <- function() {
 }
 
 #'@title Time Series Awareness
-#'@description
-#'@details
-#'
-#'@param factor
+#'@description Time Series Awareness filter
+#'@param factor factor of awareness
 #'@return a `tsaug_awareness` object.
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 tsaug_awareness <- function(factor = 1) {
   obj <- tsfil_swfilter()
@@ -37,7 +26,7 @@ tsaug_awareness <- function(factor = 1) {
 #'@importFrom stats rnorm
 #'@importFrom stats sd
 #'@export
-transform.tsaug_awareness <- function(obj, data) {
+transform.tsaug_awareness <- function(obj, data, ...) {
   noise.parameters <- function(obj, data) {
     an <- apply(data, 1, mean)
     x <- data - an
@@ -74,14 +63,11 @@ transform.tsaug_awareness <- function(obj, data) {
   return(result)
 }
 
-### tsaug_aware_smooth
 #'@title Time Series Awareness Smooth
-#'@description
-#'@details
-#'
-#'@param factor
+#'@description Time Series Awareness Smooth filter
+#'@param factor factor of awareness
 #'@return a `tsaug_aware_smooth` object.data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAWElEQVR42mNgGPTAxsZmJsVqQApgmGw1yApwKcQiT7phRBuCzzCSDSHGMKINIeDNmWQlA2IigKJwIssQkHdINgxfmBBtGDEBS3KCxBc7pMQgMYE5c/AXPwAwSX4lV3pTWwAAAABJRU5ErkJggg==
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 tsaug_aware_smooth <- function(factor = 0) {
   obj <- tsfil_swfilter()
@@ -95,7 +81,7 @@ tsaug_aware_smooth <- function(factor = 0) {
 #'@importFrom stats sd
 #'@importFrom graphics boxplot
 #'@export
-transform.tsaug_aware_smooth <- function(obj, data) {
+transform.tsaug_aware_smooth <- function(obj, data, ...) {
   progressive_smoothing <- function(serie) {
     serie <- stats::na.omit(serie)
     repeat {

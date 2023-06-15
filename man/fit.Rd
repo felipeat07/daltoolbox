@@ -7,12 +7,18 @@
 fit(obj, ...)
 }
 \arguments{
-\item{obj}{object: .}
+\item{obj}{object}
 
-\item{...}{further arguments passed to or from other methods.}
+\item{...}{optional arguments.}
+}
+\value{
+obj
 }
 \description{
 Models a time series dataset by estimating the underlying trend
 and seasonality components. Used to make predictions and forecast future
 values of the time series based on the historical data.
+}
+\examples{
+trans <- dal_transform()
 }

@@ -6,6 +6,17 @@
 \usage{
 ts_mlp(preprocess = NA, input_size = NA, size = NA, decay = 0.01, maxit = 1000)
 }
+\arguments{
+\item{preprocess}{normalization}
+
+\item{input_size}{input size for machine learning model}
+
+\item{size}{number of neurons inside hidden layer}
+
+\item{decay}{decay parameter for MLP}
+
+\item{maxit}{maximum number of iterations}
+}
 \value{
 a \code{ts_mlp} object.
 }
@@ -15,4 +26,7 @@ forecasts based on time series data. Consists of multiple layers of
 interconnected nodes or neurons, using a supervised learning algorithm, which
 processes the input data and passes it on. The output of the final layer
 provides the predicted values for the future.
+}
+\examples{
+trans <- dal_transform()
 }

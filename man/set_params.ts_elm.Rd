@@ -7,7 +7,9 @@
 \method{set_params}{ts_elm}(obj, params)
 }
 \arguments{
-\item{params}{}
+\item{obj}{object}
+
+\item{params}{parameters}
 }
 \value{
 The object obj updated with the new parameters
@@ -15,6 +17,6 @@ The object obj updated with the new parameters
 \description{
 This function takes two arguments: obj, which is an object of the ts_elm class, and params, which is a list of parameters to be updated
 }
-\details{
-The function checks if the nhid parameter is present in the params parameter list. If the nhid parameter is present, the nhid value in the obj object is updated with the nhid value in params
+\examples{
+trans <- dal_transform()
 }

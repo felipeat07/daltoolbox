@@ -21,3 +21,7 @@ The fit_curvature_min() function uses the fit_curvature() function to fit a curv
 \item func: the function used to select the optimal cut point (minimum value).
 }
 }
+\examples{
+trans <- dal_transform()
+
+}

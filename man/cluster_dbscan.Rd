@@ -6,6 +6,17 @@
 \usage{
 cluster_dbscan(eps, minPts)
 }
+\arguments{
+\item{eps}{distance value}
+
+\item{minPts}{minimum number of points}
+}
+\value{
+obj
+}
 \description{
 Clustering using DBSCAN
+}
+\examples{
+trans <- dal_transform()
 }

@@ -6,12 +6,12 @@
 \usage{
 sample_random()
 }
+\value{
+obj
+}
 \description{
 The sample_random function in R is used to generate a random sample of specified size from a given data set.
 }
-\details{
-The function takes the following arguments:
-data: a vector or data frame from which to take a random sample.
-size: the number of observations to include in the sample.
-replace: logical, "should sampling be with replacement?".
+\examples{
+trans <- dal_transform()
 }

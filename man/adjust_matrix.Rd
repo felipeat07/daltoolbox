@@ -6,12 +6,15 @@
 \usage{
 adjust_matrix(data)
 }
+\arguments{
+\item{data}{dataset}
+}
 \value{
 An array corresponding to the object passed as a parameter, if it is not an array. If the object is already an array, the function simply returns it
 }
 \description{
 It takes a data object as an argument
 }
-\details{
-Useful for ensuring that an input object is treated as an array even if it is initially of another type
+\examples{
+trans <- dal_transform()
 }

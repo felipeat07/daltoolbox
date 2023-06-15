@@ -2,13 +2,23 @@
 % Please edit documentation in R/dal_normalization.R
 \name{inverse_transform.minmax}
 \alias{inverse_transform.minmax}
-\title{Inverse Transform MinMax}
+\title{Inverse Transform minmax}
 \usage{
-\method{inverse_transform}{minmax}(obj, data)
+\method{inverse_transform}{minmax}(obj, data, ...)
+}
+\arguments{
+\item{obj}{minmax object}
+
+\item{data}{transformed dataset}
+
+\item{...}{optional arguments}
+}
+\value{
+inversed transformed dataset
 }
 \description{
-The inverse_transform() function in the DAL package is used to transform normalized data back to its original scale. It takes as input a DAL object with a "minmax" class and a data frame containing the normalized data. The function applies the inverse min-max scaling formula to each column of the data frame using the maximum and minimum values stored in the DAL object. The resulting data frame is returned with the original scale of the data restored.
+The inverse transform of normalized data to original space
 }
-\details{
-The inverse_transform() function is useful when the original scale of the data needs to be restored for interpretation or visualization purposes after training a model on normalized data. It should be noted that the restored data may not have the same exact scale as the original data due to rounding errors that occur during the normalization process.
+\examples{
+trans <- dal_transform()
 }

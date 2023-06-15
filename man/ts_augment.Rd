@@ -16,3 +16,6 @@ data through transformations or modifications. The goal is to improve the
 performance of machine learning models trained on time series data by
 reducing overfitting and improving generalization.
 }
+\examples{
+trans <- dal_transform()
+}

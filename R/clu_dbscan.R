@@ -1,18 +1,9 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-# depends clu_clustering.R
-
-# cluster_dbscan
 #'@title Clustering using DBSCAN
-#'@description
-#'@details
-#'
-#'@param eps
-#'@param minPts
-#'@return
-#'@examples
+#'@description Clustering using DBSCAN
+#'@param eps distance value
+#'@param minPts minimum number of points
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 cluster_dbscan <- function(eps, minPts) {
   obj <- clustering()
@@ -23,9 +14,15 @@ cluster_dbscan <- function(eps, minPts) {
   return(obj)
 }
 
+#'@title fit dbscan model
+#'@description fit dbscan model
+#'@param obj object
+#'@param data dataset
+#'@param ... optional arguments
+#'@return fitted obj
 #'@import dbscan
 #'@export
-fit.cluster_dbscan <- function(obj, data) {
+fit.cluster_dbscan <- function(obj, data, ...) {
   t <- sort(dbscan::kNNdist(data, k = obj$minPts))
   y <- t
   myfit <- fit_curvature_max()
@@ -37,7 +34,7 @@ fit.cluster_dbscan <- function(obj, data) {
 
 #'@import dbscan
 #'@export
-cluster.cluster_dbscan <- function(obj, data) {
+cluster.cluster_dbscan <- function(obj, data, ...) {
   cluster <- dbscan::dbscan(data, eps = obj$eps, minPts = obj$minPts)
   cluster <- cluster$cluster
   attr(cluster, "metric") <- 0

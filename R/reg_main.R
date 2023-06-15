@@ -1,16 +1,8 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-
-# regression
-#'@title Regression
-#'@description
-#'@details
-#'
-#'@param attribute
-#'@return
-#'@examples
+#'@title Regression base class
+#'@description Regression base class
+#'@param attribute attribute target to model building
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 regression <- function(attribute) {
   obj <- dal_transform()
@@ -20,14 +12,21 @@ regression <- function(attribute) {
 }
 
 #'@export
-fit.regression <- function(obj, data) {
+fit.regression <- function(obj, data, ...) {
   obj <- start_log(obj)
   obj$x <- setdiff(colnames(data), obj$attribute)
   return(obj)
 }
 
 
-# evaluate.regression
+#'@title Regression evaluation
+#'@description Evaluate major regression metrics for trained model
+#'@param obj object
+#'@param values real observations
+#'@param prediction predicted observations
+#'@param ... optional arguments.
+#'@return Computed metrics
+#'@examples trans <- dal_transform()
 #'@export
 evaluate.regression <- function(obj, values, prediction, ...) {
   MSE <- function (actual, prediction) {

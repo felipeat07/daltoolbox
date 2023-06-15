@@ -12,3 +12,6 @@ a \code{tsaug_flip} object.
 \description{
 reverse the order of the data along the time axis.
 }
+\examples{
+trans <- dal_transform()
+}

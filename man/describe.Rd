@@ -2,22 +2,19 @@
 % Please edit documentation in R/dal_main.R
 \name{describe}
 \alias{describe}
-\title{Describe}
+\title{Describe object status}
 \usage{
-describe(obj, ...)
+describe(obj)
 }
 \arguments{
-\item{obj}{object: the time series dataset to be described.}
-
-\item{...}{further arguments passed to or from other methods.}
+\item{obj}{object}
+}
+\value{
+description of object
 }
 \description{
-Generates a summary of the time series dataset, including statistical
-measures such as mean, variance, skewness, and kurtosis.
+Generates a summary object status
 }
-\details{
-The describe function is used to generate a statistical summary of the
-input time series dataset, including measures such as mean, variance, skewness,
-and kurtosis. The exact measures calculated may vary depending on the specific
-implementation of the describe function used.
+\examples{
+trans <- dal_transform()
 }

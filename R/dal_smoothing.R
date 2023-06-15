@@ -1,22 +1,8 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-# depends dal_fit.R
-
-### smoothing
-
-# loadlibrary("dplyr")
 #'@title Smoothing
 #'@description Smoothing is a statistical technique that is used to reduce the noise in a signal or a dataset by removing the high-frequency components. It involves applying a smoothing function or algorithm to the dataset that results in a smoother curve that is easier to analyze. The smoothing technique can be applied to any type of data, including time-series data, images, and sound signals.
-#'@details The process of smoothing involves replacing each data point with an average or weighted average of neighboring points. There are several smoothing algorithms that can be used, depending on the characteristics of the data. Some of the common smoothing techniques include moving average smoothing, Gaussian smoothing, Savitzky-Golay smoothing, and exponential smoothing.
-#'The syntax for the smoothing function is as follows:
-#'x: A numeric vector or time series data that needs to be smoothed.
-#'window_size: An integer value representing the size of the window.
-#'
-#'@param n
-#'@return
-#'@examples
+#'@param n number of bins
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 smoothing <- function(n) {
   obj <- dal_transform()
@@ -48,7 +34,7 @@ tune_smoothing <- function(obj, data, do_plot=FALSE) {
 }
 
 #'@export
-fit.smoothing <- function(obj, data) {
+fit.smoothing <- function(obj, data, ...) {
   v <- data
   interval <- obj$interval
   names(interval) <- NULL
@@ -63,7 +49,7 @@ fit.smoothing <- function(obj, data) {
 }
 
 #'@export
-transform.smoothing <- function(obj, data) {
+transform.smoothing <- function(obj, data, ...) {
   v <- data
   interval.adj <- obj$interval.adj
   vp <- cut(v, unique(interval.adj), FALSE, include.lowest=TRUE)
@@ -75,14 +61,9 @@ transform.smoothing <- function(obj, data) {
 # smoothing by interval
 #'@title Smoothing by interval
 #'@description The "smoothing by interval" function is used to apply a smoothing technique to a vector or time series data using a moving window approach.
-#'@details  The function takes in three arguments:
-#'data: a numeric vector or time series data to be smoothed.
-#'window_size: an integer value specifying the size of the moving window. It should be an odd number to ensure a centered window.
-#'method: a character string specifying the smoothing method to be used. It can be one of "simple", "linear", "exponential", "spline", "kernel", or "loess".
-#'
-#'@param n
-#'@return
-#'@examples
+#'@param n number of bins
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 smoothing_inter <- function(n) {
   obj <- smoothing(n)
@@ -92,7 +73,7 @@ smoothing_inter <- function(n) {
 
 #'@export
 #'@importFrom graphics boxplot
-fit.smoothing_inter <- function(obj, data) {
+fit.smoothing_inter <- function(obj, data, ...) {
   if (length(obj$n) > 1)
     obj <- tune_smoothing(obj, data)
   else {
@@ -111,17 +92,11 @@ fit.smoothing_inter <- function(obj, data) {
   return(obj)
 }
 
-# smoothing by freq
 #'@title Smoothing by Freq
 #'@description The 'smoothing_freq' function is used to smooth a given time series data by aggregating observations within a fixed frequency.
-#'@details The function takes in three arguments:
-#'ts_data: a time series object to be smoothed.
-#'frequency: the frequency at which to aggregate the observations (e.g., "day", "week", "month").
-#'method: the method used to calculate the smoothed values (e.g., "mean", "median", "max", "min").
-#'
-#'@param n
-#'@return
-#'@examples
+#'@param n number of bins
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 smoothing_freq <- function(n) {
   obj <- smoothing(n)
@@ -131,7 +106,7 @@ smoothing_freq <- function(n) {
 
 #'@importFrom stats quantile
 #'@export
-fit.smoothing_freq <- function(obj, data) {
+fit.smoothing_freq <- function(obj, data, ...) {
   if (length(obj$n) > 1)
     obj <- tune_smoothing(obj, data)
   else {
@@ -144,16 +119,11 @@ fit.smoothing_freq <- function(obj, data) {
   return(obj)
 }
 
-# smoothing by cluster
 #'@title Smoothing by cluster
 #'@description The function smoothing_cluster() is used to perform smoothing of data by cluster. This function takes as input a numeric vector, which is divided into clusters using the k-means algorithm. The mean of each cluster is then calculated and used as the smoothed value for all observations within that cluster.
-#'@details The arguments of function:
-#'x: a numeric vector of values to be smoothed;
-#'k: the number of clusters to use in the k-means algorithm.
-#'
-#'@param n
-#'@return
-#'@examples
+#'@param n number of bins
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 smoothing_cluster <- function(n) {
   obj <- smoothing(n)
@@ -164,7 +134,7 @@ smoothing_cluster <- function(n) {
 #'@importFrom stats filter
 #'@importFrom stats kmeans
 #'@export
-fit.smoothing_cluster <- function(obj, data) {
+fit.smoothing_cluster <- function(obj, data, ...) {
   if (length(obj$n) > 1)
     obj <- tune_smoothing(obj, data)
   else {
@@ -181,20 +151,14 @@ fit.smoothing_cluster <- function(obj, data) {
 
 #'@title Smoothing by evaluation
 #'@description The smoothing_evaluation() function performs a smoothing evaluation using cross-validation. It calculates the mean squared error (MSE) for each smoothing parameter and returns a data frame with the results. The function uses the smoothing technique specified by the user to smooth the data.
-#'@details  The arguments of function:
-#'data: a data frame containing the dataset to be smoothed;
-#'target: a string indicating the target variable;
-#'method: a string indicating the smoothing method to be used ("smoothing by interval", "smoothing by freq", "smoothing by cluster");
-#'parameters: a vector containing the parameters to be used for the smoothing method. The number of parameters will depend on the chosen method;
-#'k: an integer indicating the number of folds to be used for cross-validation.
-#'
-#'@param data
-#'@param attribute
-#'@return
-#'@examples
+#'@param data dataset
+#'@param attribute attribute target to model building
+#'@return data entropy
+#'@examples trans <- dal_transform()
 #'@import dplyr
 #'@export
 smoothing_evaluation <- function(data, attribute) {
+  x <- y <- q <- qtd <- e <- 0
   obj <- list(data=as.factor(data), attribute=as.factor(attribute))
   attr(obj, "class") <- "cluster_evaluation"
 

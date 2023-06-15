@@ -1,20 +1,9 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-
-# classification
-#loadlibrary("nnet")
-#loadlibrary("MLmetrics")
-
 #'@title classification class
 #'@description Ancestor class for classification problems
-#'@details basic wrapper for classification problems
-#'
-#'@param attribute - name of the attribute used as target classification
+#'@param attribute attribute target to model building
 #'@param slevels - possible values for the target classification
 #'@return classification object
-#'@examples
+#'@examples trans <- dal_transform()
 #'data(iris)
 #'template_model <- classification("Species", levels(iris$Species))
 #'print(template_model)
@@ -28,6 +17,13 @@ classification <- function(attribute, slevels) {
   return(obj)
 }
 
+#'@title adjust categorical values
+#'@description adjust categorical values
+#'@param value vector to be categorized
+#'@param ilevels - order for categorical values
+#'@param slevels - labels for categorical values
+#'@return factor
+#'@examples trans <- dal_transform()
 #'@export
 adjust.factor <- function(value, ilevels, slevels) {
   if (!is.factor(value)) {
@@ -38,8 +34,14 @@ adjust.factor <- function(value, ilevels, slevels) {
   return(value)
 }
 
+#'@title fit classification
+#'@description fit abstract method for classification
+#'@param obj object
+#'@param data dataset
+#'@param ... optional arguments
+#'@return obj
 #'@export
-fit.classification <- function(obj, data) {
+fit.classification <- function(obj, data, ...) {
   obj <- start_log(obj)
   if (obj$reproduce)
     set.seed(1)
@@ -47,7 +49,14 @@ fit.classification <- function(obj, data) {
   return(obj)
 }
 
-#'@export
+#'@title compute categorical mapping
+#'@description compute categorical mapping
+#'@param x vector to be categorized
+#'@param valTrue - value to represent true
+#'@param valFalse - value to represent false
+#'@return factor
+#'@examples trans <- dal_transform()
+#'#'@export
 adjustClassLabels <- function (x, valTrue = 1, valFalse = 0)
 {
   n <- length(x)
@@ -58,7 +67,14 @@ adjustClassLabels <- function (x, valTrue = 1, valFalse = 0)
   res
 }
 
-#evaluate.classification
+#'@title Classification evaluation
+#'@description Evaluate major classification metrics for trained model
+#'@param obj object
+#'@param data real observations
+#'@param prediction predicted observations
+#'@param ... optional arguments.
+#'@return Computed metrics
+#'@examples trans <- dal_transform()
 #'@import MLmetrics nnet
 #'@export
 evaluate.classification <- function(obj, data, prediction, ...) {

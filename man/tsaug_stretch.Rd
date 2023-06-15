@@ -15,3 +15,6 @@ a \code{tsaug_stretch} object.
 \description{
 Apply temporal distortion to the time axis of the data.
 }
+\examples{
+trans <- dal_transform()
+}

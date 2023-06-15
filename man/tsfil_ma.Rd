@@ -6,9 +6,15 @@
 \usage{
 tsfil_ma(ma = 3)
 }
+\arguments{
+\item{ma}{moving average size}
+}
 \value{
 a \code{tsfil_ma} object.
 }
 \description{
 Used to smooth out fluctuations and reduce noise in a time series.
+}
+\examples{
+trans <- dal_transform()
 }

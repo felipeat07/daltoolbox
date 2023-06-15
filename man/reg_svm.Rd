@@ -6,6 +6,21 @@
 \usage{
 reg_svm(attribute, epsilon = 0.1, cost = 10, kernel = "radial")
 }
+\arguments{
+\item{attribute}{attribute target to model building}
+
+\item{epsilon}{error threshold}
+
+\item{cost}{cost}
+
+\item{kernel}{SVM kernel (linear, radial, polynomial, sigmoid)}
+}
+\value{
+obj
+}
 \description{
 Support Vector Machine (SVM) Regression
+}
+\examples{
+trans <- dal_transform()
 }

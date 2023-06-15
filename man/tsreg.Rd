@@ -12,3 +12,6 @@ An object of the class "tsreg"
 \description{
 The function sets some object attributes, such as log, debug and reproduce, to TRUE or FALSE. Then it adds the "tsreg" class to the object and returns the created object
 }
+\examples{
+trans <- dal_transform()
+}

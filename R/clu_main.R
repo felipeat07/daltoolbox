@@ -1,42 +1,29 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-
-#cluster
-#'@title cluster
-#'@description Models a time series dataset by estimating the underlying trend
-#' and seasonality components. Used to make predictions and forecast future
-#' values of the time series based on the historical data.
-#'@details
-#'
-#'@param obj object: .
-#'@param ... further arguments passed to or from other methods.
-#'@return
-#'@examples
+#'@title cluster dataset abstract method
+#'@description cluster dataset abstract method
+#'@param obj object
+#'@param ... optional arguments.
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 cluster <- function(obj, ...) {
   UseMethod("cluster")
 }
 
-#'@title dal_base object
-#'@description Receives the obj object as a parameter, ...
-#'@details
-#'
-#'@return The input object "obj"
-#'@examples
+#'@title cluster dataset basic method
+#'@description cluster dataset basic method
+#'@param obj object
+#'@param ... optional arguments.
+#'@return empty data frame
+#'@examples trans <- dal_transform()
 #'@export
 cluster.default <- function(obj, ...) {
-  return(obj)
+  return(data.frame())
 }
 
-### clustering
 #'@title Clustering Class
 #'@description Ancestor class for clustering problems
-#'@details basic wrapper for clustering problems
-#'
 #'@return clustering object
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 clustering <- function() {
   obj <- dal_base()
@@ -44,18 +31,18 @@ clustering <- function() {
   return(obj)
 }
 
-#cluster_evaluation
 #'@title Cluster Evaluation
 #'@description Evaluate the quality of a clustering model using entropy metric
-#'@details This function computes the entropy metric of a clustering model. The entropy metric measures how well the clustering labels match the true labels. A lower entropy means that the clustering model is doing a better job at grouping similar data together.
-#'
+#'@param obj object
 #'@param cluster A vector of integers indicating the clustering labels of the data
-#'@param attribute A vector of integers indicating the true labels of the data
-#'@return A cluster_evaluation object containing the entropy metric of the clustering model
-#'@examples
+#'@param attribute attribute target to model building
+#'@param ... optional arguments.
+#'@return Computed metrics
+#'@examples trans <- dal_transform()
 #'@import dplyr
 #'@export
 evaluate.clustering <- function(obj, cluster, attribute, ...) {
+  x <- y <- e <- qtd <- 0
   result <- list(data=as.factor(cluster), attribute=as.factor(attribute))
 
   compute_entropy <- function(obj) {

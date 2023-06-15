@@ -4,12 +4,14 @@
 \alias{transform.fit_curvature}
 \title{transform.fit_curvature}
 \usage{
-\method{transform}{fit_curvature}(obj, y)
+\method{transform}{fit_curvature}(obj, y, ...)
 }
 \arguments{
 \item{obj}{An object of class "fit_curvature", which contains the transformation parameters.}
 
 \item{y}{A numeric vector of the input data.}
+
+\item{...}{optional arguments}
 }
 \value{
 A data frame with the transformed data.
@@ -19,4 +21,7 @@ This function applies curvature smoothing to the input data to transform it.
 }
 \details{
 The function fits a spline to the input data and computes the curvature of the spline, and then applies the transformation function defined in the obj argument to the curvature values. The function returns a data frame with the transformed data.
+}
+\examples{
+trans <- dal_transform()
 }

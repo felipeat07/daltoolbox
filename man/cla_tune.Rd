@@ -6,9 +6,19 @@
 \usage{
 cla_tune(base_model, folds = 10, metric = "accuracy")
 }
+\arguments{
+\item{base_model}{base model for tuning}
+
+\item{folds}{number of folds for cross-validation}
+
+\item{metric}{metric used to optimize}
+}
 \value{
 a \code{cla_tune} object.
 }
 \description{
 Regression Tune
+}
+\examples{
+trans <- dal_transform()
 }

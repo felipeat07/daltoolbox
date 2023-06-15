@@ -6,12 +6,15 @@
 \usage{
 smoothing_freq(n)
 }
+\arguments{
+\item{n}{number of bins}
+}
+\value{
+obj
+}
 \description{
 The 'smoothing_freq' function is used to smooth a given time series data by aggregating observations within a fixed frequency.
 }
-\details{
-The function takes in three arguments:
-ts_data: a time series object to be smoothed.
-frequency: the frequency at which to aggregate the observations (e.g., "day", "week", "month").
-method: the method used to calculate the smoothed values (e.g., "mean", "median", "max", "min").
+\examples{
+trans <- dal_transform()
 }

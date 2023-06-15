@@ -6,9 +6,15 @@
 \usage{
 tsaug_awareness(factor = 1)
 }
+\arguments{
+\item{factor}{factor of awareness}
+}
 \value{
 a \code{tsaug_awareness} object.
 }
 \description{
-Time Series Awareness
+Time Series Awareness filter
+}
+\examples{
+trans <- dal_transform()
 }

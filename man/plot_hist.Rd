@@ -6,9 +6,23 @@
 \usage{
 plot_hist(data, label_x = "", label_y = "", color = "white", alpha = 0.25)
 }
+\arguments{
+\item{data}{data.frame contain x, value, and variable}
+
+\item{label_x}{x-axis label}
+
+\item{label_y}{y-axis label}
+
+\item{color}{color vector}
+
+\item{alpha}{transparency level}
+}
 \value{
-plot
+ggplot graphic
 }
 \description{
 plot histogram
+}
+\examples{
+trans <- dal_transform()
 }

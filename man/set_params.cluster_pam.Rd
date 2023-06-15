@@ -6,12 +6,14 @@
 \usage{
 \method{set_params}{cluster_pam}(obj, params)
 }
+\arguments{
+\item{obj}{object}
+
+\item{params}{parameters}
+}
 \value{
 The obj template object updated with the new parameters
 }
 \description{
 It takes as input the obj model object and a set of params parameters to update.
-}
-\details{
-The function checks that each parameter specified in params is not null and, if not null, updates the corresponding parameter in the object obj
 }

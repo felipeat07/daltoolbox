@@ -1,25 +1,11 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-# depends ts_data.R
-# depends ts_regression.R
-# depends ts_preprocessing.R
-
-# class ts_rf
-# loadlibrary("randomForest")
-
 #'@title Time Series Random Forest
 #'@description The function receives as arguments the variables preprocess, input_size, nodesize and ntree
-#'
-#'@details Create an object that contains information about the preprocessing (if applicable), the input window size (input_size), the node size (nodesize), and the number of trees (ntree) for the model
-#'
-#'@param preprocess
-#'@param input_size
-#'@param nodesize
-#'@param ntree
+#'@param preprocess normalization
+#'@param input_size input size for machine learning model
+#'@param nodesize node size
+#'@param ntree number of trees
 #'@return a `ts_rf` object.
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 ts_rf <- function(preprocess=NA, input_size=NA, nodesize = 5, ntree = 20) {
   obj <- tsreg_sw(preprocess, input_size)
@@ -34,10 +20,8 @@ ts_rf <- function(preprocess=NA, input_size=NA, nodesize = 5, ntree = 20) {
 
 #'@title Allows parameters of a ts_rf object to be updated with new values
 #'@description It receives as input a ts_rf object (obj) and a set of parameters (params)
-#'@details If the parameter set contains an entry for nodesize, the corresponding value is assigned to the ts_rf object. Likewise, if the parameter set contains an entry for ntree, the corresponding value is assigned to the ts_rf object
-#'@param obj
-#'@param params
-#'
+#'@param obj object
+#'@param params parameters
 #'@return The ts_rf object updated with the new parameter values
 #'@export
 set_params.ts_rf <- function(obj, params) {
@@ -49,17 +33,11 @@ set_params.ts_rf <- function(obj, params) {
   return(obj)
 }
 
-#'
 #'@title Fits a random forest model to time series
-#'
 #'@description It receives as input a ts_rf object (obj), an input dataset (x) and an output dataset (y)
-#'
-#'@details The function fits the random forest model using the randomForest::randomForest() function, which is part of the randomForest package
-#'
-#'@param obj
-#'@param x
-#'@param y
-#'
+#'@param obj object
+#'@param x input variable
+#'@param y output variable
 #'@return The updated ts_rf object
 #'@importFrom randomForest randomForest
 #'@export
@@ -69,13 +47,9 @@ do_fit.ts_rf <- function(obj, x, y) {
 }
 
 #'@title Make predictions on a new dataset (x) using the fitted random forest model
-#'
 #'@description It takes as input a ts_rf object (obj) and an input dataset (x)
-#'
-#'@details To make the predictions, the predict() function is used, which is part of the randomForest package
-#'
-#'@param obj
-#'@param x
+#'@param obj object
+#'@param x input variable
 #'
 #'@return The prediction vector
 #'@importFrom stats predict

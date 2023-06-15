@@ -7,7 +7,9 @@
 \method{transform}{default}(obj, ...)
 }
 \arguments{
-\item{obj, }{...}
+\item{obj}{object}
+
+\item{...}{optional arguments}
 }
 \value{
 It simply returns NULL, which indicates that no transforms are applied
@@ -15,6 +17,6 @@ It simply returns NULL, which indicates that no transforms are applied
 \description{
 A default function that defines the default behavior of the transform function for objects of class dal_transform
 }
-\details{
-This function can be overridden by other custom transform methods for dal_transform objects that require different behavior
+\examples{
+trans <- dal_transform()
 }

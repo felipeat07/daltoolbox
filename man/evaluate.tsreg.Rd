@@ -7,14 +7,17 @@
 \method{evaluate}{tsreg}(obj, values, prediction, ...)
 }
 \arguments{
-\item{prediction}{}
+\item{obj}{object}
+
+\item{values}{real observations}
+
+\item{prediction}{predicted observations}
+
+\item{...}{optional arguments.}
 }
 \value{
 An object that contains these metrics and their values, stored in a data frame
 }
 \description{
 The function receives two variables as a parameter, which are values and prediction
-}
-\details{
-The returned object is a list containt all metrics
 }

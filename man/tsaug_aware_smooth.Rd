@@ -6,9 +6,15 @@
 \usage{
 tsaug_aware_smooth(factor = 0)
 }
+\arguments{
+\item{factor}{factor of awareness}
+}
 \value{
 a \code{tsaug_aware_smooth} object.data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAWElEQVR42mNgGPTAxsZmJsVqQApgmGw1yApwKcQiT7phRBuCzzCSDSHGMKINIeDNmWQlA2IigKJwIssQkHdINgxfmBBtGDEBS3KCxBc7pMQgMYE5c/AXPwAwSX4lV3pTWwAAAABJRU5ErkJggg==
 }
 \description{
-Time Series Awareness Smooth
+Time Series Awareness Smooth filter
+}
+\examples{
+trans <- dal_transform()
 }

@@ -7,9 +7,7 @@
 cla_svm(attribute, slevels, epsilon = 0.1, cost = 10, kernel = "radial")
 }
 \arguments{
-\item{attribute}{\itemize{
-\item name of the attribute used as target classification
-}}
+\item{attribute}{attribute target to model building}
 
 \item{slevels}{\itemize{
 \item possible values for the target classification
@@ -33,8 +31,6 @@ classification object
 \description{
 Classification using Support Vector Machine (SVM) algorithm
 }
-\details{
-This function creates a classification object using the Support Vector Machine (SVM) algorithm.
-The SVM is a popular machine learning algorithm used in classification tasks.
-It works by finding the optimal hyperplane that separates data points belonging to different classes.
+\examples{
+trans <- dal_transform()
 }

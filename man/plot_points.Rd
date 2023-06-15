@@ -6,9 +6,18 @@
 \usage{
 plot_points(data, label_x = "", label_y = "", colors = NULL)
 }
-\value{
-plot
+\arguments{
+\item{data}{data.frame contain x, value, and variable}
+
+\item{label_x}{x-axis label}
+
+\item{label_y}{y-axis label}
+
+\item{colors}{color vector}
 }
 \description{
 plot points
+}
+\examples{
+trans <- dal_transform()
 }

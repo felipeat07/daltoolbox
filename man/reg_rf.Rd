@@ -6,6 +6,19 @@
 \usage{
 reg_rf(attribute, mtry = NULL, ntree = 10)
 }
+\arguments{
+\item{attribute}{attribute target to model building}
+
+\item{mtry}{number of attributes to build trees}
+
+\item{ntree}{number of trees}
+}
+\value{
+obj
+}
 \description{
 Random Forest Regression
+}
+\examples{
+trans <- dal_transform()
 }

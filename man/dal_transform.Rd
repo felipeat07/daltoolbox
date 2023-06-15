@@ -12,9 +12,6 @@ a dal_transform object
 \description{
 A transformation function can be applied to a time series dataset to alter its properties.
 }
-\details{
-The dal_transform function returns a dal_transform object, which inherits
-from the dal_base object. This object can be used to apply various transformations
-to a time series dataset, such as scaling or differencing, and is used in the context
-of the Data Analytics Library (DAL).
+\examples{
+trans <- dal_transform()
 }

@@ -7,6 +7,8 @@
 ts_data(y, sw = 1)
 }
 \arguments{
+\item{y}{output variable}
+
 \item{sw}{integer: sliding window size.}
 }
 \value{
@@ -15,6 +17,6 @@ a \code{ts_data} object.
 \description{
 receives a vector or matrix y containing the data of a time series and an integer sw indicating the size of the sliding window
 }
-\details{
-Prepare data for time series analysis
+\examples{
+trans <- dal_transform()
 }

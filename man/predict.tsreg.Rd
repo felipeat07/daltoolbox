@@ -2,19 +2,23 @@
 % Please edit documentation in R/ts_main.R
 \name{predict.tsreg}
 \alias{predict.tsreg}
-\title{Returns the last observed value}
+\title{predict data from input}
 \usage{
-\method{predict}{tsreg}(obj, x)
+\method{predict}{tsreg}(object, x, ...)
 }
 \arguments{
-\item{x}{}
+\item{object}{object}
+
+\item{x}{input variable}
+
+\item{...}{optional arguments}
 }
 \value{
-The last column of the matrix x, that is, the value corresponding to the last time period in the time series
+predicted values
 }
 \description{
-Takes two arguments: the object obj and an array x
+predict data from input
 }
-\details{
-This function does not do any forecasting or statistical modeling of the time series, it simply returns the last observed value
+\examples{
+trans <- dal_transform()
 }

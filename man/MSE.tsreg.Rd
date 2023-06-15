@@ -7,14 +7,13 @@
 MSE.tsreg(actual, prediction)
 }
 \arguments{
-\item{prediction}{}
+\item{actual}{real observations}
+
+\item{prediction}{predicted observations}
 }
 \value{
 A number, which is the calculated MSE
 }
 \description{
 The function receives two variables as a parameter, which are actual and prediction
-}
-\details{
-MSE is a common measure of performance for time series forecasting models, which represents the mean of the squared differences between the actual values and the forecasts
 }

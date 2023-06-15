@@ -2,13 +2,20 @@
 % Please edit documentation in R/dal_normalization.R
 \name{transform.zscore}
 \alias{transform.zscore}
-\title{Transform Z-score}
+\title{Transform z-score}
 \usage{
-\method{transform}{zscore}(obj, data)
+\method{transform}{zscore}(obj, data, ...)
+}
+\arguments{
+\item{obj}{z-score object}
+
+\item{data}{dataset}
+
+\item{...}{optional arguments}
+}
+\value{
+transformed dataset
 }
 \description{
-The function fit.zscore() in the DAL package calculates the mean and standard deviation of each numeric feature in the input data and transforms the data to have zero mean and unit standard deviation using the z-score normalization method. The resulting normalized object is returned with the "zscore" class added to it.
-}
-\details{
-The fit.zscore() function takes an object created by the zscore() function and an input data frame. It first creates an empty data frame to store the z-score normalization parameters, such as mean and standard deviation, for each feature. Then, for each numeric feature in the input data frame, it calculates the mean and standard deviation and stores them in the corresponding rows of the parameter data frame. Finally, it normalizes the input data using the z-score normalization method and returns the normalized object with the "zscore" class.
+Scale data using miz-score normalization
 }

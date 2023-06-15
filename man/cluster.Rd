@@ -2,17 +2,21 @@
 % Please edit documentation in R/clu_main.R
 \name{cluster}
 \alias{cluster}
-\title{cluster}
+\title{cluster dataset abstract method}
 \usage{
 cluster(obj, ...)
 }
 \arguments{
-\item{obj}{object: .}
+\item{obj}{object}
 
-\item{...}{further arguments passed to or from other methods.}
+\item{...}{optional arguments.}
+}
+\value{
+obj
 }
 \description{
-Models a time series dataset by estimating the underlying trend
-and seasonality components. Used to make predictions and forecast future
-values of the time series based on the historical data.
+cluster dataset abstract method
+}
+\examples{
+trans <- dal_transform()
 }

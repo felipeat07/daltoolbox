@@ -2,19 +2,23 @@
 % Please edit documentation in R/dal_outliers.R
 \name{fit.outliers}
 \alias{fit.outliers}
-\title{Calculates upper and lower bounds based on alpha value}
+\title{Fit outliers object}
 \usage{
-\method{fit}{outliers}(obj, data)
+\method{fit}{outliers}(obj, data, ...)
 }
 \arguments{
-\item{data}{}
+\item{obj}{object}
+
+\item{data}{dataset}
+
+\item{...}{optional arguments}
 }
 \value{
 An updated 'outliers' object, containing the lower and upper bounds for each numerical variable
 }
 \description{
-A function that takes two parameters, an object and a collection of data
+Calculates upper and lower bounds based on alpha value
 }
-\details{
-The function checks whether the input data object is an array or a data frame. It then checks whether each column is numeric using the is.numeric function and, if so, calculates the first and third quartiles (Q1 and Q3) using the quantile function. Then the function calculates the interquartile range (IQR) as the difference between Q3 and Q1
+\examples{
+trans <- dal_transform()
 }

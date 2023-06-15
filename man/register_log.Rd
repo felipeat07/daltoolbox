@@ -7,15 +7,18 @@
 register_log(obj, msg, ref)
 }
 \arguments{
-\item{obj}{object: .}
+\item{obj}{object}
 
 \item{msg}{string: a message to the log.}
 
 \item{ref}{.}
 }
+\value{
+obj
+}
 \description{
 It takes as parameters the variables obj, msg and ref. It serves to direct the appropriate method call, depending on the type of object passed as the obj argument.
 }
-\details{
-This function is just a wrapper for the register_log method that must be implemented by other functions that use this programming pattern
+\examples{
+trans <- dal_transform()
 }

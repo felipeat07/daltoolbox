@@ -12,6 +12,6 @@ clustering object
 \description{
 Ancestor class for clustering problems
 }
-\details{
-basic wrapper for clustering problems
+\examples{
+trans <- dal_transform()
 }

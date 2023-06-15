@@ -7,12 +7,16 @@
 evaluate(obj, ...)
 }
 \arguments{
-\item{obj}{object: .}
+\item{obj}{object}
 
-\item{values}{data set with hyper parameters.}
-
-\item{predict}{data set with hyper parameters.}
+\item{...}{optional arguments}
+}
+\value{
+evaluation
 }
 \description{
 evaluate
+}
+\examples{
+trans <- dal_transform()
 }

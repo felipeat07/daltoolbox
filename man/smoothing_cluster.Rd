@@ -6,11 +6,15 @@
 \usage{
 smoothing_cluster(n)
 }
+\arguments{
+\item{n}{number of bins}
+}
+\value{
+obj
+}
 \description{
 The function smoothing_cluster() is used to perform smoothing of data by cluster. This function takes as input a numeric vector, which is divided into clusters using the k-means algorithm. The mean of each cluster is then calculated and used as the smoothed value for all observations within that cluster.
 }
-\details{
-The arguments of function:
-x: a numeric vector of values to be smoothed;
-k: the number of clusters to use in the k-means algorithm.
+\examples{
+trans <- dal_transform()
 }

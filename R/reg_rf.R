@@ -1,21 +1,10 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-
-
-# random forest
-#loadlibrary("randomForest")
-
 #'@title Random Forest Regression
-#'@description
-#'@details
-#'
-#'@param attribute
-#'@param mtry
-#'@param ntree
-#'@return
-#'@examples
+#'@description Random Forest Regression
+#'@param attribute attribute target to model building
+#'@param mtry number of attributes to build trees
+#'@param ntree number of trees
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 reg_rf <- function(attribute, mtry = NULL, ntree = 10) {
   obj <- regression(attribute)
@@ -29,9 +18,8 @@ reg_rf <- function(attribute, mtry = NULL, ntree = 10) {
 
 #'@title Set parameters values for reg_rf
 #'@description It receives as input a reg_rf object (obj) and a set of parameters (params)
-#'@details
-#'@param obj
-#'@param params
+#'@param obj object
+#'@param params parameters
 #'@return The reg_rf object updated with the new parameter values
 #'@export
 set_params.reg_rf <- function(obj, params) {
@@ -45,7 +33,7 @@ set_params.reg_rf <- function(obj, params) {
 
 #'@importFrom randomForest randomForest
 #'@export
-fit.reg_rf <- function(obj, data) {
+fit.reg_rf <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
   obj <- fit.regression(obj, data)
 
@@ -64,10 +52,16 @@ fit.reg_rf <- function(obj, data) {
   return(obj)
 }
 
+#'@title predict data from input
+#'@description predict data from input
+#'@param object object
+#'@param x input variable
+#'@param ... optional arguments
+#'@return predicted values
 #'@export
-predict.reg_rf  <- function(obj, x) {
+predict.reg_rf  <- function(object, x, ...) {
   x <- adjust_data.frame(x)
-  x <- x[,obj$x]
-  prediction <- predict(obj$model, x)
+  x <- x[,object$x]
+  prediction <- predict(object$model, x)
   return(prediction)
 }

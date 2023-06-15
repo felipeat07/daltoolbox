@@ -2,14 +2,12 @@
 # version 2.1
 
 #'@title Regression Tune
-#'@description
-#'@details
-#'
-#'@param input_size
-#'@param base_model
-#'@param folds
+#'@description Regression Tune
+#'@param base_model base model for tuning
+#'@param folds number of folds for cross-validation
+#'@param metric metric used to optimize
 #'@return a `cla_tune` object.
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 cla_tune <- function(base_model, folds=10, metric="accuracy") {
   obj <- dal_base()
@@ -22,9 +20,16 @@ cla_tune <- function(base_model, folds=10, metric="accuracy") {
 }
 
 
+#'@title tune hyperparameters of ml model
+#'@description tune hyperparameters of ml model for classification
+#'@param obj object
+#'@param data dataset
+#'@param ranges hyperparameters ranges
+#'@param ... optional arguments
+#'@return fitted obj
 #'@importFrom stats predict
 #'@export
-fit.cla_tune <- function(obj, data, ranges) {
+fit.cla_tune <- function(obj, data, ranges, ...) {
 
   build_model <- function(obj, ranges, data) {
     model <- obj$base_model
@@ -109,9 +114,15 @@ fit.cla_tune <- function(obj, data, ranges) {
 }
 
 
+#'@title selection of hyperparameters
+#'@description selection of hyperparameters (maximizing classification metric)
+#'@param obj object
+#'@param hyperparameters hyperparameters dataset
+#'@return optimized key number of hyperparameters
 #'@import dplyr
 #'@export
 select_hyper.cla_tune <- function(obj, hyperparameters) {
+  msg <- metric <- 0
   hyper_summary <- hyperparameters |> dplyr::filter(msg == "") |>
     dplyr::group_by(key) |> dplyr::summarise(metric = mean(metric, na.rm=TRUE))
 
@@ -120,41 +131,6 @@ select_hyper.cla_tune <- function(obj, hyperparameters) {
   key <- which(hyper_summary$metric == max_metric$metric)
   i <- min(hyper_summary$key[key])
   return(i)
-}
-
-#'@export
-tune.classification <- function (obj, x, y, ranges, folds=3, fit.func, pred.fun = predict) {
-
-
-  ranges <- expand.grid(ranges)
-  n <- nrow(ranges)
-  accuracies <- rep(0,n)
-
-  data <- data.frame(i = 1:nrow(x), idx = 1:nrow(x))
-  folds <- k_fold(sample_random(), data, folds)
-
-  i <- 1
-  if (n > 1) {
-    for (i in 1:n) {
-      for (j in 1:length(folds)) {
-        if (obj$reproduce)
-          set.seed(1)
-        tt <- train_test_from_folds(folds, j)
-
-        params <- append(list(x = x[tt$train$i,], y = y[tt$train$i]), as.list(ranges[i,]))
-        model <- do.call(fit.func, params)
-        prediction <- pred.fun(model, x[tt$test$i,])
-        accuracies[i] <- accuracies[i] + evaluation.classification(adjustClassLabels(y[tt$test$i]), prediction)$accuracy
-      }
-    }
-    i <- which.max(accuracies)
-  }
-  if (obj$reproduce)
-    set.seed(1)
-  params <- append(list(x = x, y = y), as.list(ranges[i,]))
-  model <- do.call(fit.func, params)
-  attr(model, "params") <- as.list(ranges[i,])
-  return(model)
 }
 
 

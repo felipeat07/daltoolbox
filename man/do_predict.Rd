@@ -7,8 +7,16 @@
 do_predict(obj, x)
 }
 \arguments{
-\item{obj}{object: .}
+\item{obj}{object}
+
+\item{x}{input variable}
+}
+\value{
+predicted values
 }
 \description{
 This function defines the "do_predict" method for a generic object "obj" and a dataset "x"
+}
+\examples{
+trans <- dal_transform()
 }

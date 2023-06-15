@@ -4,18 +4,21 @@
 \alias{fit.zscore}
 \title{Fit Z-score}
 \usage{
-\method{fit}{zscore}(obj, data)
+\method{fit}{zscore}(obj, data, ...)
+}
+\arguments{
+\item{obj}{zscore object}
+
+\item{data}{dataset}
+
+\item{...}{optional arguments}
 }
 \value{
-The function returns the input normalization object with the "norm.set" slot updated to contain the mean and standard deviation of each numeric column in the input data frame.
+fitted zscore object
 }
 \description{
-The fit() function in the DAL package is used to fit a Z-score normalization object to a given data set. The function calculates the mean and standard deviation of each numeric column of the data set and stores these values in a data frame that is added to the normalization object with the "zscore" class. This object can then be used to transform new data to the same normalized scale.
+Compute normalization parameters
 }
-\details{
-The fit() function takes two arguments:
-
-obj: A DAL object with the "zscore" class.
-
-data: A data frame containing the data to be normalized.
+\examples{
+trans <- dal_transform()
 }

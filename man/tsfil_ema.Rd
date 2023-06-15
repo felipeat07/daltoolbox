@@ -6,6 +6,9 @@
 \usage{
 tsfil_ema(ema = 3)
 }
+\arguments{
+\item{ema}{exponential moving average size}
+}
 \value{
 a \code{tsfil_ema} object.
 }
@@ -13,4 +16,7 @@ a \code{tsfil_ema} object.
 Used to smooth out fluctuations, while giving more weight to
 recent observations. Particularly useful when the data has a trend or
 seasonality component.
+}
+\examples{
+trans <- dal_transform()
 }

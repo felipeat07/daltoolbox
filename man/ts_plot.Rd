@@ -7,11 +7,16 @@
 ts_plot(x = NULL, y, color = "black", label_x = "", label_y = "")
 }
 \arguments{
-\item{label_y}{}
+\item{x}{input variable}
+
+\item{y}{output variable}
+
+\item{color}{color for time series}
+
+\item{label_x}{x-axis label}
+
+\item{label_y}{y-axis label}
 }
 \description{
 The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
-}
-\details{
-It displays the value of the sMAPE metric for the training and test sets. The obj argument is a tsreg object that contains the information of the model used, y is the original series, yadj is the adjusted series and ypre is the predicted series
 }

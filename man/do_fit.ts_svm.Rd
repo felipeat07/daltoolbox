@@ -7,14 +7,15 @@
 \method{do_fit}{ts_svm}(obj, x, y)
 }
 \arguments{
-\item{y}{}
+\item{obj}{object}
+
+\item{x}{input variable}
+
+\item{y}{output variable}
 }
 \value{
 The obj model object with the adjusted model
 }
 \description{
 It takes as input the model object obj, the input data x and the expected outputs y
-}
-\details{
-The function uses the e1071 library implementation to tune the SVM model, specifying the following parameters: x: a matrix or a data frame with the explanatory variables; y: a vector with the response variable; epsilon: The SVM smoothing parameter; cost: the SVM cost parameter; kernel: the kernel type to be used by the SVM model
 }

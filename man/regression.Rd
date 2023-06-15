@@ -2,10 +2,19 @@
 % Please edit documentation in R/reg_main.R
 \name{regression}
 \alias{regression}
-\title{Regression}
+\title{Regression base class}
 \usage{
 regression(attribute)
 }
+\arguments{
+\item{attribute}{attribute target to model building}
+}
+\value{
+obj
+}
 \description{
-Regression
+Regression base class
+}
+\examples{
+trans <- dal_transform()
 }

@@ -7,14 +7,13 @@
 \method{set_params}{ts_rf}(obj, params)
 }
 \arguments{
-\item{params}{}
+\item{obj}{object}
+
+\item{params}{parameters}
 }
 \value{
 The ts_rf object updated with the new parameter values
 }
 \description{
 It receives as input a ts_rf object (obj) and a set of parameters (params)
-}
-\details{
-If the parameter set contains an entry for nodesize, the corresponding value is assigned to the ts_rf object. Likewise, if the parameter set contains an entry for ntree, the corresponding value is assigned to the ts_rf object
 }

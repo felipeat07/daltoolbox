@@ -7,14 +7,15 @@
 \method{do_fit}{ts_mlp}(obj, x, y)
 }
 \arguments{
-\item{y}{}
+\item{obj}{object}
+
+\item{x}{input variable}
+
+\item{y}{output variable}
 }
 \value{
 The ts_mlp object updated with the trained model
 }
 \description{
 It takes three arguments: the ts_mlp object to be trained (obj), the input matrix (x) and the output vector (y)
-}
-\details{
-Inside the function, the nnet function is used to train the ts_mlp model
 }

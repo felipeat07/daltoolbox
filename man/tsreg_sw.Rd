@@ -6,9 +6,17 @@
 \usage{
 tsreg_sw(preprocess = NA, input_size = NA)
 }
+\arguments{
+\item{preprocess}{normalization}
+
+\item{input_size}{input size for machine learning model}
+}
 \value{
 A tsreg object
 }
 \description{
 Preprocessing parameters and input size are user specified
+}
+\examples{
+trans <- dal_transform()
 }

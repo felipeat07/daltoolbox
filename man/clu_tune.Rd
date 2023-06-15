@@ -2,13 +2,19 @@
 % Please edit documentation in R/clu_tune.R
 \name{clu_tune}
 \alias{clu_tune}
-\title{Time Series Tune}
+\title{Clustering Tune}
 \usage{
 clu_tune(base_model)
 }
+\arguments{
+\item{base_model}{base model for tuning}
+}
 \value{
-a \code{ts_tune} object.
+a \code{clu_tune} object.
 }
 \description{
-Time Series Tune
+Clustering Tune
+}
+\examples{
+trans <- dal_transform()
 }

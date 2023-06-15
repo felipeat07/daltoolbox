@@ -7,8 +7,18 @@
 do_fit(obj, x, y = NULL)
 }
 \arguments{
-\item{obj}{object: .}
+\item{obj}{object}
+
+\item{x}{input variable}
+
+\item{y}{output variable}
+}
+\value{
+fitted object
 }
 \description{
 This function receives the obj, x and y variables as parameters
+}
+\examples{
+trans <- dal_transform()
 }

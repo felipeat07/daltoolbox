@@ -7,14 +7,22 @@
 cla_rf(attribute, slevels, mtry = NULL, ntree = 10)
 }
 \arguments{
-\item{attribute}{\itemize{
-\item name of the attribute used as target classification
-}}
+\item{attribute}{attribute target to model building}
 
 \item{slevels}{\itemize{
 \item possible values for the target classification
 }}
+
+\item{mtry}{number of attributes to build tree}
+
+\item{ntree}{number of trees}
+}
+\value{
+obj
 }
 \description{
 Random Forest Classifier
+}
+\examples{
+trans <- dal_transform()
 }

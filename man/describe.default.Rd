@@ -6,12 +6,15 @@
 \usage{
 \method{describe}{default}(obj)
 }
+\arguments{
+\item{obj}{object}
+}
 \value{
-Class of the object passed as an argument in character format (string), if it is not null. If the object is null, the function returns an empty string
+description of object
 }
 \description{
-It takes as parameter the object obj. It checks if the given object is NULL and returns an empty string in that case, otherwise it returns the object's class name as a string
+Generates a summary object status
 }
-\details{
-This function provides a basic description of the given object
+\examples{
+trans <- dal_transform()
 }

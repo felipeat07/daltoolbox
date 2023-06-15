@@ -12,3 +12,6 @@ a \code{tsaug_jitter} object
 \description{
 tsaug_jitter adds random "noise" to each data point in the time series.
 }
+\examples{
+trans <- dal_transform()
+}

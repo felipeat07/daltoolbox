@@ -4,10 +4,16 @@
 \alias{fit.tsreg_sw}
 \title{Performs the adjustment (training) of a regression model in time series}
 \usage{
-\method{fit}{tsreg_sw}(obj, x, y)
+\method{fit}{tsreg_sw}(obj, x, y, ...)
 }
 \arguments{
-\item{y}{}
+\item{obj}{object}
+
+\item{x}{input variable}
+
+\item{y}{output variable}
+
+\item{...}{optional arguments}
 }
 \value{
 The updated obj object
@@ -15,6 +21,6 @@ The updated obj object
 \description{
 It takes as input an obj object of the tsreg_sw class, which contains the model settings as well as the x and y data to fit the model
 }
-\details{
-The function first calls the start_log function to start logging the model's training log. Then, if the reproduce parameter is set to true, the function sets the random seed to 1 to ensure reproducible results
+\examples{
+trans <- dal_transform()
 }

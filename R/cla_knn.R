@@ -1,21 +1,10 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-# depends cla_classification.R
-
-# knn
-# loadlibrary("class")
-
-# cla_knn
 #'@title K Nearest Neighbor Classification
 #'@description Classifies using the K-Nearest Neighbor algorithm.
-#'@details This function implements the K-Nearest Neighbor algorithm for classification. It computes the K nearest neighbors of each data point in the training set, and then determines the class label of each point by taking the majority vote of the K neighbors.
-#'@param attribute Name of the attribute used as target classification.
+#'@param attribute attribute target to model building.
 #'@param slevels Possible values for the target classification.
 #'@param k A vector of integers indicating the number of neighbors to be considered.
 #'@return A classification object.
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 cla_knn <- function(attribute, slevels, k=1) {
   obj <- classification(attribute, slevels)
@@ -26,9 +15,8 @@ cla_knn <- function(attribute, slevels, k=1) {
 
 #'@title Set parameters values for cla_knn
 #'@description It receives as input a ts_rf object (obj) and a set of parameters (params)
-#'@details If the parameter set contains an entry for nodesize, the corresponding value is assigned to the ts_rf object. Likewise, if the parameter set contains an entry for ntree, the corresponding value is assigned to the ts_rf object
-#'@param obj
-#'@param params
+#'@param obj object
+#'@param params parameters
 #'@return The cla_knn object updated with the new parameter values
 #'@export
 set_params.cla_knn <- function(obj, params) {
@@ -39,9 +27,15 @@ set_params.cla_knn <- function(obj, params) {
 }
 
 
+#'@title fit knn model
+#'@description fit knn model
+#'@param obj object
+#'@param data dataset
+#'@param ... optional arguments
+#'@return fitted obj
 #'@import class
 #'@export
-fit.cla_knn <- function(obj, data) {
+fit.cla_knn <- function(obj, data, ...) {
 
   data <- adjust_data.frame(data)
   data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
@@ -59,13 +53,19 @@ fit.cla_knn <- function(obj, data) {
   return(obj)
 }
 
+#'@title predict data from input
+#'@description predict data from input
+#'@param object object
+#'@param x input variable
+#'@param ... optional arguments
+#'@return predicted values
 #'@import class
 #'@export
-predict.cla_knn  <- function(obj, x) {
+predict.cla_knn  <- function(object, x, ...) {
   x <- adjust_data.frame(x)
-  x <- x[,obj$x, drop=FALSE]
+  x <- x[,object$x, drop=FALSE]
 
-  prediction <- class::knn(train=obj$model$x, test=x, cl=obj$model$y, prob=TRUE)
+  prediction <- class::knn(train=object$model$x, test=x, cl=object$model$y, prob=TRUE)
   prediction <- adjustClassLabels(prediction)
 
   return(prediction)

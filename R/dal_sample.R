@@ -1,20 +1,7 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-
-# data_sample
 #'@title Data Sample
 #'@description The data_sample function in R is used to randomly sample data from a given data frame. It can be used to obtain a subset of data for further analysis or modeling.
-#'@details The function takes the following arguments:
-#'data: a data frame or a matrix containing the data to be sampled
-#'size: the number of samples to be drawn from the data. If NULL, the function will return a data frame with the same number of rows as the input data
-#'replace: a logical value indicating whether the samples should be drawn with or without replacement. The default is FALSE (sampling without replacement)
-#'prob: a vector of probabilities for each row of the data. The length of this vector should be equal to the number of rows in the data. If NULL, all rows will have equal probability of being selected;
-#'seed: an optional integer value that can be used to set the random number generator seed for reproducibility.
-#'
-#'@return
-#'@examples
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 data_sample <- function() {
   obj <- dal_transform()
@@ -22,34 +9,30 @@ data_sample <- function() {
   return(obj)
 }
 
-#'@title
-#'@description
-#'@details
-#'
-#'@param obj object: .
-#'@param data
-#'@param ... optional arguments./ further arguments passed to or from other methods.
-#'@return
-#'@examples
+#'@title training and test partition object
+#'@description training and test partition object
+#'@param obj object
+#'@param data dataset
+#'@param ... optional arguments.
+#'@return train and test sets
+#'@examples trans <- dal_transform()
 #'@export
 train_test <- function(obj, data, ...) {
   UseMethod("train_test")
 }
 
 #'@export
-train_test.default <- function(obj, data) {
+train_test.default <- function(obj, data, ...) {
   return(list())
 }
 
-#'@title
-#'@description
-#'@details
-#'
-#'@param obj object: .
-#'@param data
-#'@param k
-#'@return
-#'@examples
+#'@title k-fold sampling
+#'@description k-fold sampling
+#'@param obj object
+#'@param data dataset
+#'@param k number of folds
+#'@return k folds
+#'@examples trans <- dal_transform()
 #'@export
 k_fold <- function(obj, data, k) {
   UseMethod("k_fold")
@@ -61,16 +44,10 @@ k_fold.default <- function(obj, data, k) {
 }
 
 
-# sample_random
 #'@title Sample Random
 #'@description The sample_random function in R is used to generate a random sample of specified size from a given data set.
-#'@details The function takes the following arguments:
-#'data: a vector or data frame from which to take a random sample.
-#'size: the number of observations to include in the sample.
-#'replace: logical, "should sampling be with replacement?".
-#'
-#'@return
-#'@examples
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 sample_random <- function() {
   obj <- data_sample()
@@ -79,7 +56,7 @@ sample_random <- function() {
 }
 
 #'@export
-train_test.sample_random <- function(obj, data, perc=0.8) {
+train_test.sample_random <- function(obj, data, perc=0.8, ...) {
   idx <- base::sample(1:nrow(data),as.integer(perc*nrow(data)))
   train <- data[idx,]
   test <- data[-idx,]
@@ -102,14 +79,12 @@ k_fold.sample_random <- function(obj, data, k) {
   return (folds)
 }
 
-#'@title
-#'@description
-#'@details
-#'
-#'@param folds
-#'@param k
-#'@return
-#'@examples
+#'@title k-fold training and test partition object
+#'@description k-fold training and test partition object
+#'@param folds data partitioned into folds
+#'@param k k-fold for test set, all reminder for training set
+#'@return train and test folds
+#'@examples trans <- dal_transform()
 #'@export
 train_test_from_folds <- function(folds, k) {
   test <- folds[[k]]

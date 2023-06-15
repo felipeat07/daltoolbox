@@ -1,16 +1,11 @@
 # DAL Library
 # version 2.1
 
-#'@title Time Series Tune
-#'@description
-#'@details
-#'
-#'@param preprocess
-#'@param input_size
-#'@param base_model
-#'@param folds
-#'@return a `ts_tune` object.
-#'@examples
+#'@title Clustering Tune
+#'@description Clustering Tune
+#'@param base_model base model for tuning
+#'@return a `clu_tune` object.
+#'@examples trans <- dal_transform()
 #'@export
 clu_tune <- function(base_model) {
   obj <- dal_base()
@@ -20,9 +15,16 @@ clu_tune <- function(base_model) {
   return(obj)
 }
 
+#'@title tune hyperparameters of ml model
+#'@description tune hyperparameters of ml model for clustering
+#'@param obj object
+#'@param data dataset
+#'@param ranges hyperparamters ranges
+#'@param ... optional arguments
+#'@return fitted obj
 #'@importFrom stats predict
 #'@export
-fit.clu_tune <- function(obj, data, ranges) {
+fit.clu_tune <- function(obj, data, ranges, ...) {
 
   build_cluster <- function(obj, ranges, data) {
     model <- obj$base_model

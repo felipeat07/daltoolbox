@@ -13,9 +13,22 @@ plot_density(
   alpha = 0.25
 )
 }
-\value{
-plot
+\arguments{
+\item{data}{data.frame contain x, value, and variable}
+
+\item{label_x}{x-axis label}
+
+\item{label_y}{y-axis label}
+
+\item{colors}{color vector}
+
+\item{bin}{bin width}
+
+\item{alpha}{level of transparency}
 }
 \description{
 plot density
+}
+\examples{
+trans <- dal_transform()
 }

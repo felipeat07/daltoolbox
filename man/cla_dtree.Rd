@@ -7,7 +7,7 @@
 cla_dtree(attribute, slevels)
 }
 \arguments{
-\item{attribute}{The name of the attribute used as the target classification.}
+\item{attribute}{attribute target to model building.}
 
 \item{slevels}{The possible values for the target classification.}
 }
@@ -17,6 +17,6 @@ A classification object that uses the Decision Tree algorithm for classification
 \description{
 Creates a classification object that uses the Decision Tree algorithm for classification.
 }
-\details{
-This function trains a Decision Tree model on the given dataset and creates a classification object that can be used to predict the target attribute values for new data points.
+\examples{
+trans <- dal_transform()
 }

@@ -6,14 +6,17 @@
 \usage{
 smoothing_evaluation(data, attribute)
 }
+\arguments{
+\item{data}{dataset}
+
+\item{attribute}{attribute target to model building}
+}
+\value{
+data entropy
+}
 \description{
 The smoothing_evaluation() function performs a smoothing evaluation using cross-validation. It calculates the mean squared error (MSE) for each smoothing parameter and returns a data frame with the results. The function uses the smoothing technique specified by the user to smooth the data.
 }
-\details{
-The arguments of function:
-data: a data frame containing the dataset to be smoothed;
-target: a string indicating the target variable;
-method: a string indicating the smoothing method to be used ("smoothing by interval", "smoothing by freq", "smoothing by cluster");
-parameters: a vector containing the parameters to be used for the smoothing method. The number of parameters will depend on the chosen method;
-k: an integer indicating the number of folds to be used for cross-validation.
+\examples{
+trans <- dal_transform()
 }

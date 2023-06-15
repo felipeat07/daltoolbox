@@ -1,16 +1,7 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-# depends ts_data.R
-
-# tsreg
 #'@title Create an object of class "tsreg" which is a subclass of object "dal_transform
 #'@description The function sets some object attributes, such as log, debug and reproduce, to TRUE or FALSE. Then it adds the "tsreg" class to the object and returns the created object
-#'@details
-#'
 #'@return An object of the class "tsreg"
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 tsreg <- function() {
   obj <- dal_transform()
@@ -18,30 +9,25 @@ tsreg <- function() {
   return(obj)
 }
 
-#predict
-#'@title Returns the last observed value
-#'@description Takes two arguments: the object obj and an array x
-#'@details This function does not do any forecasting or statistical modeling of the time series, it simply returns the last observed value
-#'
-#'@param obj
-#'@param x
-#'
-#'@return The last column of the matrix x, that is, the value corresponding to the last time period in the time series
-#'@examples
+#'@title predict data from input
+#'@description predict data from input
+#'@param object object
+#'@param x input variable
+#'@param ... optional arguments
+#'@return predicted values
+#'@examples trans <- dal_transform()
 #'@export
-predict.tsreg <- function(obj, x) {
+predict.tsreg <- function(object, x, ...) {
   return(x[,ncol(x)])
 }
 
 #'@title Delegate the task of adjusting the model to the specific methods of each class that implements it.
 #'@description This function receives the obj, x and y variables as parameters
-#'@details
-#'
-#'@param obj object: .
-#'@param x
-#'@param y
-#'@return
-#'@examples
+#'@param obj object
+#'@param x input variable
+#'@param y output variable
+#'@return fitted object
+#'@examples trans <- dal_transform()
 #'@export
 do_fit <- function(obj, x, y = NULL) {
   UseMethod("do_fit")
@@ -49,26 +35,21 @@ do_fit <- function(obj, x, y = NULL) {
 
 #'@title Define a generic method and delegate the implementation
 #'@description This function defines the "do_predict" method for a generic object "obj" and a dataset "x"
-#'@details
-#'
-#'@param obj object: .
-#'@param x
-#'@return
-#'@examples
+#'@param obj object
+#'@param x input variable
+#'@return predicted values
+#'@examples trans <- dal_transform()
 #'@export
 do_predict <- function(obj, x) {
   UseMethod("do_predict")
 }
 
-#class tsreg_sw
 #'@title Create an object of class "tsreg_sw", which is an extension of class "tsreg"
 #'@description Preprocessing parameters and input size are user specified
-#'@details
-#'
-#'@param preprocess
-#'@param input_size
+#'@param preprocess normalization
+#'@param input_size input size for machine learning model
 #'@return A tsreg object
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 tsreg_sw <- function(preprocess=NA, input_size=NA) {
   obj <- tsreg()
@@ -82,12 +63,10 @@ tsreg_sw <- function(preprocess=NA, input_size=NA) {
 
 #'@title Prepare the data to feed a machine learning model
 #'@description Takes a time series dataset data and an input size input_size
-#'@details
-#'
-#'@param data
-#'@param input_size
+#'@param data dataset
+#'@param input_size input size for machine learning model
 #'@return An array of the latest input_size observations of each time series at date
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 ts_as_matrix <- function(data, input_size) {
   result <- data[,(ncol(data)-input_size+1):ncol(data)]
@@ -95,19 +74,15 @@ ts_as_matrix <- function(data, input_size) {
 }
 
 #'@title Performs the adjustment (training) of a regression model in time series
-#'
 #'@description It takes as input an obj object of the tsreg_sw class, which contains the model settings as well as the x and y data to fit the model
-#'
-#'@details The function first calls the start_log function to start logging the model's training log. Then, if the reproduce parameter is set to true, the function sets the random seed to 1 to ensure reproducible results
-#'
-#'@param obj
-#'@param x
-#'@param y
-#'
+#'@param obj object
+#'@param x input variable
+#'@param y output variable
+#'@param ... optional arguments
 #'@return The updated obj object
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
-fit.tsreg_sw <- function(obj, x, y) {
+fit.tsreg_sw <- function(obj, x, y, ...) {
   obj <- start_log(obj)
   if (obj$reproduce)
     set.seed(1)
@@ -126,24 +101,20 @@ fit.tsreg_sw <- function(obj, x, y) {
 }
 
 #'@title Performs prediction of values for a time series
-#'
 #'@description The function receives three variables as a parameter, which are obj, x and steps_ahead
-#'
-#'@details If the steps_ahead parameter is equal to 1, the function takes a set of data x and returns a forecast y for the next time period. If steps_ahead is greater than 1, the function iterates over the number of time periods to be predicted and performs the same process for each one
-#'
-#'@param obj
-#'@param x
-#'@param steps_ahead
-#'
+#'@param object object
+#'@param x input variable
+#'@param steps_ahead number of step ahead for prediction
+#'@param ... optional arguments
 #'@return A vector with forecasts for each time period
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
-predict.tsreg_sw <- function(obj, x, steps_ahead=1) {
+predict.tsreg_sw <- function(object, x, steps_ahead=1, ...) {
   if (steps_ahead == 1) {
-    x <- transform(obj$preprocess, x)
-    data <- ts_as_matrix(x, obj$input_size)
-    y <- do_predict(obj, data)
-    y <- inverse_transform(obj$preprocess, x, y)
+    x <- transform(object$preprocess, x)
+    data <- ts_as_matrix(x, object$input_size)
+    y <- do_predict(object, data)
+    y <- inverse_transform(object$preprocess, x, y)
     return(as.vector(y))
   }
   else {
@@ -154,10 +125,10 @@ predict.tsreg_sw <- function(obj, x, steps_ahead=1) {
     x <- x[1,]
     for (i in 1:steps_ahead) {
       colnames(x) <- cnames
-      x <- transform(obj$preprocess, x)
-      y <- do_predict(obj, ts_as_matrix(x, obj$input_size))
-      x <- adjust.ts_data(inverse_transform(obj$preprocess, x))
-      y <- inverse_transform(obj$preprocess, x, y)
+      x <- transform(object$preprocess, x)
+      y <- do_predict(object, ts_as_matrix(x, object$input_size))
+      x <- adjust.ts_data(inverse_transform(object$preprocess, x))
+      y <- inverse_transform(object$preprocess, x, y)
       for (j in 1:(ncol(x)-1)) {
         x[1, j] <- x[1, j+1]
       }
@@ -171,9 +142,8 @@ predict.tsreg_sw <- function(obj, x, steps_ahead=1) {
 
 #'@title Performs the prediction step of the temporal regression model
 #'@description It receives as input the obj object that contains the trained model and the input matrix x
-#'@details The function uses the predict() method to make predictions based on the model fitted by the do_fit() method
-#'@param obj
-#'@param x
+#'@param obj object
+#'@param x input variable
 #'@return The forecast matrix
 #'@export
 #'@importFrom stats predict
@@ -182,16 +152,10 @@ do_predict.tsreg_sw <- function(obj, x) {
   return(prediction)
 }
 
-# regression_evaluation
-
 #'@title Calculate the mean squared error (MSE) between actual values and forecasts of a time series
 #'@description The function receives two variables as a parameter, which are actual and prediction
-#'
-#'@details MSE is a common measure of performance for time series forecasting models, which represents the mean of the squared differences between the actual values and the forecasts
-#'
-#'@param actual
-#'@param prediction
-#'
+#'@param actual real observations
+#'@param prediction predicted observations
 #'@return A number, which is the calculated MSE
 #'@export
 MSE.tsreg <- function (actual, prediction) {
@@ -203,15 +167,9 @@ MSE.tsreg <- function (actual, prediction) {
 }
 
 #'@title Calculate the symmetric mean absolute percent error (sMAPE)
-#'
 #'@description The function receives two variables as a parameter, which are actual and prediction
-#'
-#'
-#'@details It is an error measure that is useful for assessing the accuracy of forecasts in time series, where observations can have different scales
-#'
-#'@param actual
-#'@param prediction
-#'
+#'@param actual real observations
+#'@param prediction predicted observations
 #'@return The sMAPE between the actual and prediction vectors
 #'@export
 sMAPE.tsreg <- function (actual, prediction) {
@@ -224,14 +182,11 @@ sMAPE.tsreg <- function (actual, prediction) {
 }
 
 #'@title Calculate the Mean Squared Error (MSE) error metric and the Symmetric Mean Absolute Percentage Error (sMAPE) error metric
-#'
 #'@description The function receives two variables as a parameter, which are values and prediction
-#'
-#'@details The returned object is a list containt all metrics
-#'
-#'@param values
-#'@param prediction
-#'
+#'@param obj object
+#'@param values real observations
+#'@param prediction predicted observations
+#'@param ... optional arguments.
 #'@return An object that contains these metrics and their values, stored in a data frame
 #'@export
 evaluate.tsreg <- function(obj, values, prediction, ...) {
@@ -246,18 +201,12 @@ evaluate.tsreg <- function(obj, values, prediction, ...) {
 }
 
 #'@title Plot a time series chart
-#'
 #'@description The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
-#'
-#'@details It displays the value of the sMAPE metric for the training and test sets. The obj argument is a tsreg object that contains the information of the model used, y is the original series, yadj is the adjusted series and ypre is the predicted series
-#'
-#'@param x
-#'@param y
-#'@param color
-#'@param label_x
-#'@param label_y
-#'
-#'
+#'@param x input variable
+#'@param y output variable
+#'@param color color for time series
+#'@param label_x x-axis label
+#'@param label_y y-axis label
 #'@export
 #'@import ggplot2
 ts_plot <- function(x = NULL, y, color="black", label_x = "", label_y = "")  {
@@ -274,20 +223,14 @@ ts_plot <- function(x = NULL, y, color="black", label_x = "", label_y = "")  {
 }
 
 #'@title Plot a time series chart
-#'
 #'@description The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
-#'
-#'@details It displays the value of the sMAPE metric for the training and test sets. The obj argument is a tsreg object that contains the information of the model used, y is the original series, yadj is the adjusted series and ypre is the predicted series
-#'
-#'@param x
-#'@param y
-#'@param yadj
-#'@param ypred
-#'@param color
-#'@param label_x
-#'@param label_y
-#'
-#'
+#'@param x time index
+#'@param y time series
+#'@param yadj  adjustment of time series
+#'@param ypred prediction of the time series
+#'@param color color for the time series
+#'@param label_x x-axis title
+#'@param label_y y-axis title
 #'@export
 #'@import ggplot2
 ts_plot_pred <- function(x = NULL, y, yadj, ypred = NULL, color="black", label_x = "", label_y = "") {

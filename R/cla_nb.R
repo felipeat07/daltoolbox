@@ -1,20 +1,9 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-
-# naive_bayes
-
-# loadlibrary("e1071")
-
 #'@title Naive Bayes Classifier
 #'@description Classification using the Naive Bayes algorithm
-#'@details This function fits a Naive Bayes model to the data provided, which can be used to classify new instances. The Naive Bayes algorithm is a probabilistic algorithm that makes predictions based on the probability of each class, given the values of the input features.
-#'
-#'@param attribute Name of the attribute used as the target classification.
+#'@param attribute attribute target to model building.
 #'@param slevels Possible values for the target classification.
 #'@return A classification object.
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 cla_nb <- function(attribute, slevels) {
   obj <- classification(attribute, slevels)
@@ -23,9 +12,15 @@ cla_nb <- function(attribute, slevels) {
   return(obj)
 }
 
+#'@title fit nb model
+#'@description fit nb model
+#'@param obj object
+#'@param data dataset
+#'@param ... optional arguments
+#'@return fitted obj
 #'@import e1071
 #'@export
-fit.cla_nb <- function(obj, data) {
+fit.cla_nb <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
   data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
   obj <- fit.classification(obj, data)
@@ -37,12 +32,18 @@ fit.cla_nb <- function(obj, data) {
   return(obj)
 }
 
+#'@title predict data from input
+#'@description predict data from input
+#'@param object object
+#'@param x input variable
+#'@param ... optional arguments
+#'@return predicted values
 #'@export
-predict.cla_nb  <- function(obj, x) {
+predict.cla_nb  <- function(object, x, ...) {
   x <- adjust_data.frame(x)
-  x <- x[,obj$x, drop=FALSE]
+  x <- x[,object$x, drop=FALSE]
 
-  prediction <- predict(obj$model, x, type="raw")
+  prediction <- predict(object$model, x, type="raw")
 
   return(prediction)
 }

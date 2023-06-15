@@ -6,6 +6,11 @@
 \usage{
 \method{set_params}{cla_svm}(obj, params)
 }
+\arguments{
+\item{obj}{object}
+
+\item{params}{parameters}
+}
 \value{
 The reg_svm object updated with the new parameter values
 }

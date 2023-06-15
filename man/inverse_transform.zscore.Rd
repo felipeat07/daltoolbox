@@ -2,13 +2,23 @@
 % Please edit documentation in R/dal_normalization.R
 \name{inverse_transform.zscore}
 \alias{inverse_transform.zscore}
-\title{Inverse Transform Zscore}
+\title{Inverse Transform z-score}
 \usage{
-\method{inverse_transform}{zscore}(obj, data)
+\method{inverse_transform}{zscore}(obj, data, ...)
+}
+\arguments{
+\item{obj}{z-score object}
+
+\item{data}{transformed dataset}
+
+\item{...}{optional arguments}
+}
+\value{
+reverse transformed dataset
 }
 \description{
-The inverse_transform() function is a part of the DALTOOLBOX  package in R, which is used to perform an inverse transformation on the normalized data that was transformed using the Z-score normalization method. The function takes two arguments - an object obj that contains the Z-score normalization parameters, and a dataset data that needs to be transformed back to its original scale. The function applies the inverse transformation formula to each numeric column in the data and returns the transformed dataset.
+The inverse transform of normalized data to original space
 }
-\details{
-The inverse_transform() function takes two arguments - an object obj that was obtained by calling the zscore() function, and a dataset data that needs to be transformed back to its original scale. The function first extracts the normalization parameters - mean, standard deviation, normalized mean, and normalized standard deviation from the obj object. Then, the function applies the inverse transformation formula to each numeric column in the data using these parameters. If the standard deviation is zero for a column, the function sets the column values to the normalized mean.
+\examples{
+trans <- dal_transform()
 }

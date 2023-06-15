@@ -6,12 +6,14 @@
 \usage{
 \method{do_predict}{tsreg_sw}(obj, x)
 }
+\arguments{
+\item{obj}{object}
+
+\item{x}{input variable}
+}
 \value{
 The forecast matrix
 }
 \description{
 It receives as input the obj object that contains the trained model and the input matrix x
-}
-\details{
-The function uses the predict() method to make predictions based on the model fitted by the do_fit() method
 }

@@ -6,9 +6,19 @@
 \usage{
 ts_tune(input_size, base_model, folds = 10)
 }
+\arguments{
+\item{input_size}{input size for machine learning model}
+
+\item{base_model}{base model for tuning}
+
+\item{folds}{number of folds for cross-validation}
+}
 \value{
 a \code{ts_tune} object.
 }
 \description{
 Time Series Tune
+}
+\examples{
+trans <- dal_transform()
 }

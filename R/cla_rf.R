@@ -1,23 +1,11 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-
-# classif
-
-# random_forest
-# loadlibrary("randomForest")
-
 #'@title Random Forest Classifier
-#'@description
-#'@details
-#'
-#'@param attribute - name of the attribute used as target classification
+#'@description Random Forest Classifier
+#'@param attribute attribute target to model building
 #'@param slevels - possible values for the target classification
-#'@param mtry
-#'@param ntree
-#'@return
-#'@examples
+#'@param mtry number of attributes to build tree
+#'@param ntree number of trees
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 cla_rf <- function(attribute, slevels, mtry = NULL, ntree = 10) {
   obj <- classification(attribute, slevels)
@@ -31,9 +19,8 @@ cla_rf <- function(attribute, slevels, mtry = NULL, ntree = 10) {
 
 #'@title Set parameters values for cla_rf
 #'@description It receives as input a cla_rf object (obj) and a set of parameters (params)
-#'@details
-#'@param obj
-#'@param params
+#'@param obj object
+#'@param params parameters
 #'@return The cla_rf object updated with the new parameter values
 #'@export
 set_params.cla_rf <- function(obj, params) {
@@ -45,9 +32,15 @@ set_params.cla_rf <- function(obj, params) {
   return(obj)
 }
 
+#'@title fit rf model
+#'@description fit rf model
+#'@param obj object
+#'@param data dataset
+#'@param ... optional arguments
+#'@return fitted obj
 #'@importFrom randomForest randomForest
 #'@export
-fit.cla_rf <- function(obj, data) {
+fit.cla_rf <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
   data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
   obj <- fit.classification(obj, data)
@@ -67,11 +60,17 @@ fit.cla_rf <- function(obj, data) {
   return(obj)
 }
 
+#'@title predict data from input
+#'@description predict data from input
+#'@param object object
+#'@param x input variable
+#'@param ... optional arguments
+#'@return predicted values
 #'@export
-predict.cla_rf  <- function(obj, x) {
+predict.cla_rf  <- function(object, x, ...) {
   x <- adjust_data.frame(x)
-  x <- x[,obj$x, drop = FALSE]
+  x <- x[,object$x, drop = FALSE]
 
-  prediction <- predict(obj$model, x, type="prob")
+  prediction <- predict(object$model, x, type="prob")
   return(prediction)
 }

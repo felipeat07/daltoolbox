@@ -7,7 +7,7 @@
 cla_nb(attribute, slevels)
 }
 \arguments{
-\item{attribute}{Name of the attribute used as the target classification.}
+\item{attribute}{attribute target to model building.}
 
 \item{slevels}{Possible values for the target classification.}
 }
@@ -17,6 +17,6 @@ A classification object.
 \description{
 Classification using the Naive Bayes algorithm
 }
-\details{
-This function fits a Naive Bayes model to the data provided, which can be used to classify new instances. The Naive Bayes algorithm is a probabilistic algorithm that makes predictions based on the probability of each class, given the values of the input features.
+\examples{
+trans <- dal_transform()
 }

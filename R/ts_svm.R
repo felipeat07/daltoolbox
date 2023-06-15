@@ -1,28 +1,15 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-# depends ts_data.R
-# depends ts_regression.R
-# depends ts_preprocessing.R
-
-# class ts_svm
-# loadlibrary("e1071")
-
 #'@title Time Series Support Vector Machine
 #'@description Transform data into vectors of features. The algorithm then
 #' identifies the support vectors that define the hyperplane that best separates
 #' the data into different classes based on temporal proximity. The hyperplane
 #' can then be used to make predictions about future values of the time series.
-#'@details
-#'
-#'@param preprocess
-#'@param input_size
-#'@param kernel
-#'@param epsilon
-#'@param cost
+#'@param preprocess normalization
+#'@param input_size input size for machine learning model
+#'@param kernel SVM kernel (linear, radial, polynomial, sigmoid)
+#'@param epsilon error threshold
+#'@param cost cost
 #'@return a `ts_svm` object.
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 ts_svm <- function(preprocess=NA, input_size=NA, kernel="radial", epsilon=0, cost=10) {
   obj <- tsreg_sw(preprocess, input_size)
@@ -37,9 +24,8 @@ ts_svm <- function(preprocess=NA, input_size=NA, kernel="radial", epsilon=0, cos
 
 #'@title Updates the parameters of an SVM model object for time series (ts_svm)
 #'@description It takes as input the obj model object and a set of params parameters to update.
-#'@details The function checks that each parameter specified in params is not null and, if not null, updates the corresponding parameter in the object obj
-#'@param obj
-#'@param params
+#'@param obj object
+#'@param params parameters
 #'@return The obj template object updated with the new parameters
 #'@export
 set_params.ts_svm <- function(obj, params) {
@@ -53,15 +39,10 @@ set_params.ts_svm <- function(obj, params) {
 }
 
 #'@title Fits an SVM model to time series
-#'
 #'@description It takes as input the model object obj, the input data x and the expected outputs y
-#'
-#'@details The function uses the e1071 library implementation to tune the SVM model, specifying the following parameters: x: a matrix or a data frame with the explanatory variables; y: a vector with the response variable; epsilon: The SVM smoothing parameter; cost: the SVM cost parameter; kernel: the kernel type to be used by the SVM model
-#'
-#'@param obj
-#'@param x
-#'@param y
-#'
+#'@param obj object
+#'@param x input variable
+#'@param y output variable
 #'@return The obj model object with the adjusted model
 #'@import e1071
 #'@export
@@ -72,9 +53,8 @@ do_fit.ts_svm <- function(obj, x, y) {
 
 #'@title Uses an adjusted SVM model for time series to make predictions
 #'@description It takes as input the model object obj and the input data x
-#'@details The function uses the SVM model stored in the model attribute of the obj object to make predictions using the predict function from the e1071 library
-#'@param obj
-#'@param x
+#'@param obj object
+#'@param x input variable
 #'@return The prediction variable
 #'@importFrom stats predict
 #'@export

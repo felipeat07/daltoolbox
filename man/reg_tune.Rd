@@ -6,9 +6,17 @@
 \usage{
 reg_tune(base_model, folds = 10)
 }
+\arguments{
+\item{base_model}{base model for tuning}
+
+\item{folds}{number of folds for cross-validation}
+}
 \value{
 a \code{reg_tune} object.
 }
 \description{
 Regression Tune
+}
+\examples{
+trans <- dal_transform()
 }

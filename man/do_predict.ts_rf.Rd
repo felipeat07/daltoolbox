@@ -7,14 +7,13 @@
 \method{do_predict}{ts_rf}(obj, x)
 }
 \arguments{
-\item{x}{}
+\item{obj}{object}
+
+\item{x}{input variable}
 }
 \value{
 The prediction vector
 }
 \description{
 It takes as input a ts_rf object (obj) and an input dataset (x)
-}
-\details{
-To make the predictions, the predict() function is used, which is part of the randomForest package
 }

@@ -6,12 +6,21 @@
 \usage{
 ts_rf(preprocess = NA, input_size = NA, nodesize = 5, ntree = 20)
 }
+\arguments{
+\item{preprocess}{normalization}
+
+\item{input_size}{input size for machine learning model}
+
+\item{nodesize}{node size}
+
+\item{ntree}{number of trees}
+}
 \value{
 a \code{ts_rf} object.
 }
 \description{
 The function receives as arguments the variables preprocess, input_size, nodesize and ntree
 }
-\details{
-Create an object that contains information about the preprocessing (if applicable), the input window size (input_size), the node size (nodesize), and the number of trees (ntree) for the model
+\examples{
+trans <- dal_transform()
 }

@@ -9,7 +9,7 @@ inverse_transform(obj, ...)
 \arguments{
 \item{obj}{object: The transformed time series dataset.}
 
-\item{...}{further arguments passed to or from other methods.}
+\item{...}{optional arguments.}
 }
 \value{
 The time series dataset in its original scale.
@@ -17,6 +17,6 @@ The time series dataset in its original scale.
 \description{
 Reverses the transformation applied to a time series dataset using the transform() function.
 }
-\details{
-This function is used to convert the transformed data back to its original scale, which can be useful for evaluating the performance of a time series model or visualizing the original data alongside the transformed data.
+\examples{
+trans <- dal_transform()
 }

@@ -1,21 +1,9 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-# depends cla_classification.R
-
-# decision_tree
-# loadlibrary("tree")
-
-#' @title Decision Tree Classification
-#' @description Creates a classification object that uses the Decision Tree algorithm for classification.
-#' @details This function trains a Decision Tree model on the given dataset and creates a classification object that can be used to predict the target attribute values for new data points.
-#'
-#' @param attribute The name of the attribute used as the target classification.
-#' @param slevels The possible values for the target classification.
-#'
-#' @return A classification object that uses the Decision Tree algorithm for classification.
-#' @examples
+#'@title Decision Tree Classification
+#'@description Creates a classification object that uses the Decision Tree algorithm for classification.
+#'@param attribute attribute target to model building.
+#'@param slevels The possible values for the target classification.
+#'@return A classification object that uses the Decision Tree algorithm for classification.
+#'@examples trans <- dal_transform()
 #'@export
 cla_dtree <- function(attribute, slevels) {
   obj <- classification(attribute, slevels)
@@ -24,9 +12,15 @@ cla_dtree <- function(attribute, slevels) {
   return(obj)
 }
 
+#'@title fit dtree model
+#'@description fit dtree model
+#'@param obj object
+#'@param data dataset
+#'@param ... optional arguments
+#'@return fitted obj
 #'@import tree
 #'@export
-fit.cla_dtree <- function(obj, data) {
+fit.cla_dtree <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
   data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
   obj <- fit.classification(obj, data)
@@ -38,12 +32,18 @@ fit.cla_dtree <- function(obj, data) {
   return(obj)
 }
 
+#'@title predict data from input
+#'@description predict data from input
+#'@param object object
+#'@param x input variable
+#'@param ... optional arguments
+#'@return predicted values
 #'@export
-predict.cla_dtree <- function(obj, x) {
+predict.cla_dtree <- function(object, x, ...) {
   x <- adjust_data.frame(x)
-  x <- x[,obj$x, drop=FALSE]
+  x <- x[,object$x, drop=FALSE]
 
-  prediction <- predict(obj$model, x, type="vector")
+  prediction <- predict(object$model, x, type="vector")
 
   return(prediction)
 }

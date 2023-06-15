@@ -2,13 +2,12 @@
 # version 2.1
 
 #'@title Time Series Tune
-#'@description
-#'@details
-#'@param input_size
-#'@param base_model
-#'@param folds
+#'@description Time Series Tune
+#'@param input_size input size for machine learning model
+#'@param base_model base model for tuning
+#'@param folds number of folds for cross-validation
 #'@return a `ts_tune` object.
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 ts_tune <- function(input_size, base_model, folds=10) {
   obj <- dal_base()
@@ -23,7 +22,7 @@ ts_tune <- function(input_size, base_model, folds=10) {
 
 #'@importFrom stats predict
 #'@export
-fit.ts_tune <- function(obj, x, y, ranges) {
+fit.ts_tune <- function(obj, x, y, ranges, ...) {
 
   build_model <- function(obj, ranges, x, y) {
     model <- obj$base_model
@@ -114,6 +113,7 @@ fit.ts_tune <- function(obj, x, y, ranges) {
 #'@import dplyr
 #'@export
 select_hyper.ts_tune <- function(obj, hyperparameters) {
+  msg <- error <- 0
   hyper_summary <- hyperparameters |> dplyr::filter(msg == "") |>
     dplyr::group_by(key) |> dplyr::summarise(error = mean(error, na.rm=TRUE))
 

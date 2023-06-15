@@ -1,22 +1,8 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-
-### outliers
 #'@title Outliers
-#'@description This R function defines an object of class "outliers" that can be used for outlier detection in a dataset.
-#'@details The outliers function has an optional parameter alpha that sets the threshold for identifying outliers.
-#'The default value for alpha is 1.5, which is a common value used in many outlier detection methods.
-#'The function creates an object using the dal_transform function, which must be defined elsewhere in the code or in an R package.
-#'The object created by the dal_transform function can be a base class object "dal_transform",
-#'which may include additional properties and methods for data transformation.
-#'
-#'@param alpha
-#'
+#'@description Basic class for outlier removal
+#'@param alpha boxplot outlier threshold
 #'@return An outlier object
-#'
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 outliers <- function(alpha = 1.5) {
   obj <- dal_transform()
@@ -25,21 +11,16 @@ outliers <- function(alpha = 1.5) {
   return(obj)
 }
 
-#'@title Calculates upper and lower bounds based on alpha value
-#'
-#'@description A function that takes two parameters, an object and a collection of data
-#'
-#'@details The function checks whether the input data object is an array or a data frame. It then checks whether each column is numeric using the is.numeric function and, if so, calculates the first and third quartiles (Q1 and Q3) using the quantile function. Then the function calculates the interquartile range (IQR) as the difference between Q3 and Q1
-#'
-#'@param obj
-#'@param data
-#'
+#'@title Fit outliers object
+#'@description Calculates upper and lower bounds based on alpha value
+#'@param obj object
+#'@param data dataset
+#'@param ... optional arguments
 #'@return An updated 'outliers' object, containing the lower and upper bounds for each numerical variable
-#'
-#'@examples
+#'@examples trans <- dal_transform()
 #'@importFrom stats quantile
 #'@export
-fit.outliers <- function(obj, data) {
+fit.outliers <- function(obj, data, ...) {
   lq1 <- NA
   hq3 <- NA
   if(is.matrix(data) || is.data.frame(data)) {
@@ -70,19 +51,14 @@ fit.outliers <- function(obj, data) {
 }
 
 #'@title Remove outliers from data
-#'
-#'@description The function takes two arguments, the first is an outliers object returned by the outliers() function, which contains the necessary parameters to perform the transformation, including the cutoff limits calculated in the fit.outliers function. The second argument is the set of input data you want to transform
-#'
-#'@details Removes lines that contain values that are considered outliers according to the limits calculated in the fit.outliers function
-#'
-#'@param obj
-#'@param data
-#'
+#'@description Remove outliers from data
+#'@param obj object
+#'@param data dataset
+#'@param ... optional arguments
 #'@return returns the output dataset after applying the transformation and adds an "idx" attribute that contains a boolean vector indicating which rows were removed from the original dataset
-#'
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
-transform.outliers <- function(obj, data) {
+transform.outliers <- function(obj, data, ...) {
   idx <- FALSE
   lq1 <- obj$lq1
   hq3 <- obj$hq3

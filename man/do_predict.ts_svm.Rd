@@ -6,12 +6,14 @@
 \usage{
 \method{do_predict}{ts_svm}(obj, x)
 }
+\arguments{
+\item{obj}{object}
+
+\item{x}{input variable}
+}
 \value{
 The prediction variable
 }
 \description{
 It takes as input the model object obj and the input data x
-}
-\details{
-The function uses the SVM model stored in the model attribute of the obj object to make predictions using the predict function from the e1071 library
 }

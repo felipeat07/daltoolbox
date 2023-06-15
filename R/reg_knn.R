@@ -1,18 +1,9 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-#loadlibrary("FNN")
-
-# reg_knn
 #'@title K-Nearest Neighbors (KNN) Regression
-#'@description
-#'@details
-#'
-#'@param attribute
-#'@param k
-#'@return
-#'@examples
+#'@description K-Nearest Neighbors (KNN) Regression
+#'@param attribute attribute target to model building
+#'@param k number of k neighbors
+#'@return obj
+#'@examples trans <- dal_transform()
 #'@export
 reg_knn <- function(attribute, k) {
   obj <- regression(attribute)
@@ -24,9 +15,8 @@ reg_knn <- function(attribute, k) {
 
 #'@title Set parameters values for reg_knn
 #'@description It receives as input a ts_rf object (obj) and a set of parameters (params)
-#'@details If the parameter set contains an entry for nodesize, the corresponding value is assigned to the ts_rf object. Likewise, if the parameter set contains an entry for ntree, the corresponding value is assigned to the ts_rf object
-#'@param obj
-#'@param params
+#'@param obj object
+#'@param params parameters
 #'@return The reg_knn object updated with the new parameter values
 #'@export
 set_params.reg_knn <- function(obj, params) {
@@ -38,7 +28,7 @@ set_params.reg_knn <- function(obj, params) {
 
 #'@importFrom FNN knn.reg
 #'@export
-fit.reg_knn <- function(obj, data) {
+fit.reg_knn <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
   obj <- fit.regression(obj, data)
 
@@ -54,12 +44,18 @@ fit.reg_knn <- function(obj, data) {
   return(obj)
 }
 
+#'@title predict data from input
+#'@description predict data from input
+#'@param object object
+#'@param x input variable
+#'@param ... optional arguments
+#'@return predicted values
 #'@importFrom FNN knn.reg
 #'@export
-predict.reg_knn  <- function(obj, x) {
+predict.reg_knn  <- function(object, x, ...) {
   #develop from FNN https://daviddalpiaz.github.io/r4sl/knn-reg.html
   x <- adjust_data.frame(x)
-  x <- as.matrix(x[,obj$x])
-  prediction <- FNN::knn.reg(train = obj$model$x, test = x, y = obj$model$y, k = obj$model$k)
+  x <- as.matrix(x[,object$x])
+  prediction <- FNN::knn.reg(train = object$model$x, test = x, y = object$model$y, k = object$model$k)
   return(prediction$pred)
 }

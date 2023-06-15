@@ -7,7 +7,11 @@
 tshead(x, n = 6L, ...)
 }
 \arguments{
+\item{x}{input variable}
+
 \item{n}{integer: size of test data.}
+
+\item{...}{optional arguments}
 }
 \value{
 The first n observations of a time series x
@@ -15,6 +19,6 @@ The first n observations of a time series x
 \description{
 The function takes as arguments the variables x, n (default = 6L), ...
 }
-\details{
-The function uses the head function to extract the first n observations of the x-time series, after turning it into a non-class object via the unclass function
+\examples{
+trans <- dal_transform()
 }

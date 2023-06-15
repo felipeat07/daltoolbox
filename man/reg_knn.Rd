@@ -6,6 +6,17 @@
 \usage{
 reg_knn(attribute, k)
 }
+\arguments{
+\item{attribute}{attribute target to model building}
+
+\item{k}{number of k neighbors}
+}
+\value{
+obj
+}
 \description{
 K-Nearest Neighbors (KNN) Regression
+}
+\examples{
+trans <- dal_transform()
 }

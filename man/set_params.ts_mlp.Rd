@@ -6,12 +6,14 @@
 \usage{
 \method{set_params}{ts_mlp}(obj, params)
 }
+\arguments{
+\item{obj}{object}
+
+\item{params}{parameters}
+}
 \value{
 ts_mlp object updated with new parameter values
 }
 \description{
 It takes two arguments: the ts_mlp object to be updated (obj) and a list object containing the new parameter values to be updated (params)
-}
-\details{
-The function checks whether each parameter is present in the params list using the is.null function. If the parameter is present, the corresponding value is assigned to the parameter in the ts_mlp object. Otherwise, the parameter is not changed
 }

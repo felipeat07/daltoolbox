@@ -7,16 +7,20 @@
 \method{evaluate}{clustering}(obj, cluster, attribute, ...)
 }
 \arguments{
+\item{obj}{object}
+
 \item{cluster}{A vector of integers indicating the clustering labels of the data}
 
-\item{attribute}{A vector of integers indicating the true labels of the data}
+\item{attribute}{attribute target to model building}
+
+\item{...}{optional arguments.}
 }
 \value{
-A cluster_evaluation object containing the entropy metric of the clustering model
+Computed metrics
 }
 \description{
 Evaluate the quality of a clustering model using entropy metric
 }
-\details{
-This function computes the entropy metric of a clustering model. The entropy metric measures how well the clustering labels match the true labels. A lower entropy means that the clustering model is doing a better job at grouping similar data together.
+\examples{
+trans <- dal_transform()
 }

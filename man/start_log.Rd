@@ -7,11 +7,14 @@
 start_log(obj)
 }
 \arguments{
-\item{obj}{object: .}
+\item{obj}{object}
+}
+\value{
+obj
 }
 \description{
 It takes as parameter an obj object
 }
-\details{
-As it makes use of UseMethod, it is expected that there are other functions that define specific behaviors for different classes of objects
+\examples{
+trans <- dal_transform()
 }

@@ -12,3 +12,6 @@ a \code{tsfil_filter} object.
 \description{
 Used to extract or remove specific components from a time series.
 }
+\examples{
+trans <- dal_transform()
+}

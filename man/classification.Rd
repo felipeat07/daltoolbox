@@ -7,9 +7,7 @@
 classification(attribute, slevels)
 }
 \arguments{
-\item{attribute}{\itemize{
-\item name of the attribute used as target classification
-}}
+\item{attribute}{attribute target to model building}
 
 \item{slevels}{\itemize{
 \item possible values for the target classification
@@ -21,10 +19,8 @@ classification object
 \description{
 Ancestor class for classification problems
 }
-\details{
-basic wrapper for classification problems
-}
 \examples{
+trans <- dal_transform()
 data(iris)
 template_model <- classification("Species", levels(iris$Species))
 print(template_model)

@@ -13,6 +13,6 @@ a \code{ts_transform} object.
 Manipulate and reshapa a time series to better understand and
 analyze the underlying patterns, trends, and relationships.
 }
-\details{
-Creates an object of class dal_transform and adds class ts_transform to it.
+\examples{
+trans <- dal_transform()
 }

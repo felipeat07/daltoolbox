@@ -2,14 +2,11 @@
 # version 2.1
 
 #'@title Regression Tune
-#'@description
-#'@details
-#'
-#'@param input_size
-#'@param base_model
-#'@param folds
+#'@description Regression Tune
+#'@param base_model base model for tuning
+#'@param folds number of folds for cross-validation
 #'@return a `reg_tune` object.
-#'@examples
+#'@examples trans <- dal_transform()
 #'@export
 reg_tune <- function(base_model, folds=10) {
   obj <- dal_base()
@@ -21,9 +18,16 @@ reg_tune <- function(base_model, folds=10) {
 }
 
 
+#'@title tune hyperparameters of ml model (regression)
+#'@description tune hyperparameters of ml model for regression
+#'@param obj object
+#'@param data dataset
+#'@param ranges hyperparamters ranges
+#'@param ... optional arguments
+#'@return fitted obj
 #'@importFrom stats predict
 #'@export
-fit.reg_tune <- function(obj, data, ranges) {
+fit.reg_tune <- function(obj, data, ranges, ...) {
 
   build_model <- function(obj, ranges, data) {
     model <- obj$base_model
@@ -108,9 +112,15 @@ fit.reg_tune <- function(obj, data, ranges) {
 }
 
 
+#'@title selection of hyperparameters
+#'@description selection of hyperparameters (minimizing regression error)
+#'@param obj object
+#'@param hyperparameters hyperparameters dataset
+#'@return optimized key number of hyperparameters
 #'@import dplyr
 #'@export
 select_hyper.reg_tune <- function(obj, hyperparameters) {
+  msg <- error <- 0
   hyper_summary <- hyperparameters |> dplyr::filter(msg == "") |>
     dplyr::group_by(key) |> dplyr::summarise(error = mean(error, na.rm=TRUE))
 

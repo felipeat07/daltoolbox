@@ -12,3 +12,6 @@ a \code{tsaug_wormhole} object.
 \description{
 Inserts or removes segments of the time series data.
 }
+\examples{
+trans <- dal_transform()
+}
