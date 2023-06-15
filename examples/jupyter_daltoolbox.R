@@ -73,16 +73,16 @@ if (FALSE) {
 }
 
 if (FALSE) {
+  ## display site
+  pkgdown::build_site()
+  #usethis::use_pkgdown_github_pages()
+}
+if (FALSE) {
   #update homepage
   library(devtools)
   devtools::build_readme()
 }
 
-if (FALSE) {
-  ## display site
-  pkgdown::build_site()
-  #usethis::use_pkgdown_github_pages()
-}
 
 if (FALSE) {
   devtools::install(dependencies = TRUE, build_vignettes = TRUE)
