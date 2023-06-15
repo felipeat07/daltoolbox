@@ -133,11 +133,11 @@ inverse_transform.default <- function(obj, ...) {
 #'@return
 #'@examples
 #'@export
-evaluate <- function(obj, values, prediction) {
+evaluate <- function(obj, ...) {
   UseMethod("evaluate")
 }
 
-evaluate.default <- function(obj, values, prediction) {
+evaluate.default <- function(obj, ...) {
   return(NULL)
 }
 

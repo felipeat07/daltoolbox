@@ -4,7 +4,7 @@
 \alias{evaluate}
 \title{evaluate}
 \usage{
-evaluate(obj, values, prediction)
+evaluate(obj, ...)
 }
 \arguments{
 \item{obj}{object: .}

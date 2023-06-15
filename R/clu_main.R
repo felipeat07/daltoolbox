@@ -55,7 +55,7 @@ clustering <- function() {
 #'@examples
 #'@import dplyr
 #'@export
-evaluate.clustering <- function(obj, cluster, attribute) {
+evaluate.clustering <- function(obj, cluster, attribute, ...) {
   result <- list(data=as.factor(cluster), attribute=as.factor(attribute))
 
   compute_entropy <- function(obj) {

@@ -61,7 +61,7 @@ adjustClassLabels <- function (x, valTrue = 1, valFalse = 0)
 #evaluate.classification
 #'@import MLmetrics nnet
 #'@export
-evaluate.classification <- function(obj, data, prediction) {
+evaluate.classification <- function(obj, data, prediction, ...) {
   result <- list(data=data, prediction=prediction)
 
   adjust_predictions <- function(predictions) {

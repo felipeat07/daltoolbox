@@ -29,7 +29,7 @@ fit.regression <- function(obj, data) {
 
 # evaluate.regression
 #'@export
-evaluate.regression <- function(obj, values, prediction) {
+evaluate.regression <- function(obj, values, prediction, ...) {
   MSE <- function (actual, prediction) {
     if (length(actual) != length(prediction))
       stop("actual and prediction have different lengths")

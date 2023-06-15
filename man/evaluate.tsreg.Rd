@@ -4,7 +4,7 @@
 \alias{evaluate.tsreg}
 \title{Calculate the Mean Squared Error (MSE) error metric and the Symmetric Mean Absolute Percentage Error (sMAPE) error metric}
 \usage{
-\method{evaluate}{tsreg}(obj, values, prediction)
+\method{evaluate}{tsreg}(obj, values, prediction, ...)
 }
 \arguments{
 \item{prediction}{}

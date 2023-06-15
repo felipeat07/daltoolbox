@@ -4,7 +4,7 @@
 \alias{evaluate.clustering}
 \title{Cluster Evaluation}
 \usage{
-\method{evaluate}{clustering}(obj, cluster, attribute)
+\method{evaluate}{clustering}(obj, cluster, attribute, ...)
 }
 \arguments{
 \item{cluster}{A vector of integers indicating the clustering labels of the data}

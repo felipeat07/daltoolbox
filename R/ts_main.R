@@ -234,7 +234,7 @@ sMAPE.tsreg <- function (actual, prediction) {
 #'
 #'@return An object that contains these metrics and their values, stored in a data frame
 #'@export
-evaluate.tsreg <- function(obj, values, prediction) {
+evaluate.tsreg <- function(obj, values, prediction, ...) {
   result <- list(values=values, prediction=prediction)
 
   result$smape <- sMAPE.tsreg(values, prediction)

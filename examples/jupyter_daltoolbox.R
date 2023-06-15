@@ -67,17 +67,20 @@ if (FALSE) {
 }
 
 if (FALSE) {
+  #create homepage)
   library(devtools)
-  usethis::use_readme_rmd()
+  #usethis::use_readme_rmd()
 }
 
 if (FALSE) {
+  #update homepage
   library(devtools)
   devtools::build_readme()
 }
 
 if (FALSE) {
-  pkgdown::build_site()  ## para ver o resultado, o site fica muito legal
+  ## display site
+  pkgdown::build_site()
   #usethis::use_pkgdown_github_pages()
 }
 
