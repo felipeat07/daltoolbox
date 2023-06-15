@@ -73,7 +73,7 @@ if (FALSE) {
 }
 
 if (FALSE) {
-  ## display site
+  #update documentation
   pkgdown::build_site()
   #usethis::use_pkgdown_github_pages()
 }
