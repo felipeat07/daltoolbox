@@ -141,7 +141,7 @@ fit.smoothing_cluster <- function(obj, data, ...) {
     n <- obj$n
     km <- stats::kmeans(x = v, centers = n)
     s <- sort(km$centers)
-    #s <- stats::filter(s,rep(1/2,2), sides=2)[1:(n-1)]
+    s <- (s[1:n-1]+s[2:n])/2
     obj$interval <- c(min(v), s, max(v))
     obj <- fit.smoothing(obj, data)
   }
