@@ -9,6 +9,7 @@ plot_lollipop(
   label_x = "",
   label_y = "",
   colors = NULL,
+  color_text = "black",
   size_text = 3,
   size_ball = 8,
   alpha_ball = 0.2,
@@ -25,7 +26,9 @@ plot_lollipop(
 
 \item{colors}{color vector}
 
-\item{size_text}{size of text}
+\item{color_text}{color of text inside ball}
+
+\item{size_text}{size of text inside ball}
 
 \item{size_ball}{size of ball}
 

@@ -215,7 +215,8 @@ plot_radar <- function(data, label_x = "", label_y = "", colors = NULL)  {
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
-#'@param size_text size of text
+#'@param color_text color of text inside ball
+#'@param size_text size of text inside ball
 #'@param size_ball size of ball
 #'@param alpha_ball transparency of ball
 #'@param min_value minimum value
