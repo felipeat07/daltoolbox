@@ -25,5 +25,4 @@ compute categorical mapping
 }
 \examples{
 trans <- dal_transform()
-#'@export
 }

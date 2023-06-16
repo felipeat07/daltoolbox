@@ -56,7 +56,7 @@ fit.classification <- function(obj, data, ...) {
 #'@param valFalse - value to represent false
 #'@return factor
 #'@examples trans <- dal_transform()
-#'#'@export
+#'@export
 adjustClassLabels <- function (x, valTrue = 1, valFalse = 0)
 {
   n <- length(x)
