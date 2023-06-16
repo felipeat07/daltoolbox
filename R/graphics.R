@@ -225,7 +225,7 @@ plot_radar <- function(data, label_x = "", label_y = "", colors = NULL)  {
 #'@import ggplot2
 #'@importFrom reshape melt
 #'@export
-plot_lollipop <- function(data, label_x = "", label_y = "", colors = NULL, size_text=3, size_ball=8, alpha_ball=0.2, min_value=0, max_value_gap=1) {
+plot_lollipop <- function(data, label_x = "", label_y = "", colors = NULL, color_text = "black", size_text=3, size_ball=8, alpha_ball=0.2, min_value=0, max_value_gap=1) {
   value <- 0
   x <- 0
   cnames <- colnames(data)[-1]
@@ -237,7 +237,7 @@ plot_lollipop <- function(data, label_x = "", label_y = "", colors = NULL, size_
 
   grf <- ggplot(data=data, aes(x=x, y=value, label=value)) +
     geom_segment(aes(x=x, xend=x, y=min_value, yend=(value-max_value_gap)), color=colors, size=1) +
-    #geom_text(color="black", size=size_text) +
+    geom_text(color=color_text, size=size_text) +
     geom_point(color=colors, size=size_ball, alpha=alpha_ball) +
     theme_light() +
     theme(
