@@ -117,7 +117,7 @@ fit.reg_tune <- function(obj, data, ranges, ...) {
 #'@param obj object
 #'@param hyperparameters hyperparameters dataset
 #'@return optimized key number of hyperparameters
-#'@import dplyr
+#'@importFrom dplyr filter summarise group_by
 #'@export
 select_hyper.reg_tune <- function(obj, hyperparameters) {
   msg <- error <- 0

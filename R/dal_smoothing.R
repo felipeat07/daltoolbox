@@ -131,7 +131,6 @@ smoothing_cluster <- function(n) {
   return(obj)
 }
 
-#'@importFrom stats filter
 #'@importFrom stats kmeans
 #'@export
 fit.smoothing_cluster <- function(obj, data, ...) {
@@ -142,7 +141,7 @@ fit.smoothing_cluster <- function(obj, data, ...) {
     n <- obj$n
     km <- stats::kmeans(x = v, centers = n)
     s <- sort(km$centers)
-    s <- stats::filter(s,rep(1/2,2), sides=2)[1:(n-1)]
+    #s <- stats::filter(s,rep(1/2,2), sides=2)[1:(n-1)]
     obj$interval <- c(min(v), s, max(v))
     obj <- fit.smoothing(obj, data)
   }
@@ -155,10 +154,10 @@ fit.smoothing_cluster <- function(obj, data, ...) {
 #'@param attribute attribute target to model building
 #'@return data entropy
 #'@examples trans <- dal_transform()
-#'@import dplyr
+#'@importFrom dplyr filter summarise group_by
 #'@export
 smoothing_evaluation <- function(data, attribute) {
-  x <- y <- q <- qtd <- e <- 0
+  x <- y <- q <- qtd <- e <- n <- 0
   obj <- list(data=as.factor(data), attribute=as.factor(attribute))
   attr(obj, "class") <- "cluster_evaluation"
 

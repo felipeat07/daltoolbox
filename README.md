@@ -27,7 +27,7 @@ devtools::install_github("cefet-rj-dal/daltoolbox", force=TRUE, dependencies=FAL
 ## Examples
 
 The DAL Toolbox examples are made available at:
-<https://nbviewer.org/github/cefet-rj-dal/daltoolbox-examples/tree/main/>
+<https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/examples/>
 
 The examples are organized according to general (data preprocessing),
 clustering, classification, regression, and time series functions.
@@ -37,12 +37,6 @@ library(daltoolbox)
 #> Registered S3 method overwritten by 'quantmod':
 #>   method            from
 #>   as.zoo.data.frame zoo
-#> Warning: replacing previous import 'dplyr::rename' by 'reshape::rename' when
-#> loading 'daltoolbox'
-#> Warning: replacing previous import 'class::condense' by 'reshape::condense'
-#> when loading 'daltoolbox'
-#> Warning: replacing previous import 'dplyr::filter' by 'stats::filter' when
-#> loading 'daltoolbox'
 #> 
 #> Attaching package: 'daltoolbox'
 #> The following object is masked from 'package:base':

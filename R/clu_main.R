@@ -39,10 +39,10 @@ clustering <- function() {
 #'@param ... optional arguments.
 #'@return Computed metrics
 #'@examples trans <- dal_transform()
-#'@import dplyr
+#'@importFrom dplyr filter summarise group_by
 #'@export
 evaluate.clustering <- function(obj, cluster, attribute, ...) {
-  x <- y <- e <- qtd <- 0
+  x <- y <- e <- qtd <- n <- 0
   result <- list(data=as.factor(cluster), attribute=as.factor(attribute))
 
   compute_entropy <- function(obj) {

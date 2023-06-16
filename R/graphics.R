@@ -34,13 +34,13 @@ plot_scatter <- function(series, label_series = "", label_x = "", label_y = "", 
 #'@param colors color vector
 #'@examples trans <- dal_transform()
 #'@import ggplot2
-#'@import reshape
+#'@importFrom reshape melt
 #'@export
 plot_points <- function(data, label_x = "", label_y = "", colors = NULL) {
   x <- 0
   value <- 0
   variable <- 0
-  series <- melt(as.data.frame(data), id.vars = c(1))
+  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
   cnames <- colnames(data)[-1]
   colnames(series)[1] <- "x"
   grf <- ggplot(data=series, aes(x = x, y = value, colour=variable, group=variable)) + geom_point(size=1)
@@ -65,13 +65,13 @@ plot_points <- function(data, label_x = "", label_y = "", colors = NULL) {
 #'@return plot
 #'@examples trans <- dal_transform()
 #'@import ggplot2
-#'@import reshape
+#'@importFrom reshape melt
 #'@export
 plot_series <- function(data, label_x = "", label_y = "", colors = NULL) {
   x <- 0
   value <- 0
   variable <- 0
-  series <- melt(as.data.frame(data), id.vars = c(1))
+  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
   cnames <- colnames(data)[-1]
   colnames(series)[1] <- "x"
   grf <- ggplot(data=series, aes(x = x, y = value, colour=variable, group=variable)) + geom_point(size=1.5) + geom_line(linewidth=1)
@@ -127,14 +127,14 @@ plot_bar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
 #'@return ggplot graphic
 #'@examples trans <- dal_transform()
 #'@import ggplot2
-#'@import reshape
+#'@importFrom reshape melt
 #'@export
 plot_groupedbar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
   variable <- 0
   value <- 0
   x <- 0
   cnames <- colnames(data)[-1]
-  series <- melt(as.data.frame(data), id.vars = c(1))
+  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
   colnames(series)[1] <- "x"
   if (!is.factor(series$x))
     series$x <- as.factor(series$x)
@@ -162,14 +162,14 @@ plot_groupedbar <- function(data, label_x = "", label_y = "", colors = NULL, alp
 #'@return ggplot graphic
 #'@examples trans <- dal_transform()
 #'@import ggplot2
-#'@import reshape
+#'@importFrom reshape melt
 #'@export
 plot_stackedbar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
   x <- 0
   value <- 0
   variable <- 0
   cnames <- colnames(data)[-1]
-  series <- melt(as.data.frame(data), id.vars = c(1))
+  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
   colnames(series)[1] <- "x"
   if (!is.factor(series$x))
     series$x <- as.factor(series$x)
@@ -196,7 +196,7 @@ plot_stackedbar <- function(data, label_x = "", label_y = "", colors = NULL, alp
 #'@return ggplot graphic
 #'@examples trans <- dal_transform()
 #'@import ggplot2
-#'@import reshape
+#'@importFrom reshape melt
 #'@export
 plot_radar <- function(data, label_x = "", label_y = "", colors = NULL)  {
   series <- as.data.frame(data)
@@ -226,13 +226,13 @@ plot_radar <- function(data, label_x = "", label_y = "", colors = NULL)  {
 #'@return ggplot graphic
 #'@examples trans <- dal_transform()
 #'@import ggplot2
-#'@import reshape
+#'@importFrom reshape melt
 #'@export
 plot_lollipop <- function(data, colors, xlabel = "", ylabel = "", size_text=3, size_ball=8, alpha_ball=0.2, min_value=0, max_value_gap=1, flip = TRUE) {
   value <- 0
   x <- 0
   cnames <- colnames(data)[-1]
-  series <- melt(as.data.frame(data), id.vars = c(1))
+  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
   colnames(series)[1] <- "x"
   if (!is.factor(series$x))
     series$x <- as.factor(series$x)
@@ -266,10 +266,11 @@ plot_lollipop <- function(data, colors, xlabel = "", ylabel = "", size_text=3, s
 #'@return ggplot graphic
 #'@examples trans <- dal_transform()
 #'@import ggplot2
-#'@import reshape
+#'@importFrom reshape melt
+#'@importFrom dplyr filter summarise group_by arrange mutate
 #'@export
 plot_pieplot <- function(data, label_x = "", label_y = "", colors = NULL, textcolor="white", bordercolor="black") {
-  x <- prop <- ypos <- label <- value <- 0
+  x <- prop <- ypos <- label <- value <- desc <- n <- 0
 
   prepare.pieplot <- function(series) {
     colnames(series) <- c("x", "value")
@@ -280,10 +281,10 @@ plot_pieplot <- function(data, label_x = "", label_y = "", colors = NULL, textco
     series$colors <- colors
 
     series <- series |>
-      arrange(desc(x)) |>
-      mutate(prop = value / sum(series$value) *100) |>
-      mutate(ypos = cumsum(prop)- 0.5*prop) |>
-      mutate(label = paste(round(value / sum(value) * 100, 0), "%"))
+      dplyr::arrange(desc(x)) |>
+      dplyr::mutate(prop = value / sum(series$value) *100) |>
+      dplyr::mutate(ypos = cumsum(prop)- 0.5*prop) |>
+      dplyr::mutate(label = paste(round(value / sum(value) * 100, 0), "%"))
     return(series)
   }
   series <- prepare.pieplot(data)
@@ -313,14 +314,15 @@ plot_pieplot <- function(data, label_x = "", label_y = "", colors = NULL, textco
 #'@return ggplot graphic
 #'@examples trans <- dal_transform()
 #'@import ggplot2
-#'@import reshape
+#'@importFrom reshape melt
 #'@importFrom graphics hist
+#'@importFrom dplyr filter summarise group_by arrange mutate
 #'@export
 plot_hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=0.25) {
   variable <- 0
   value <- 0
   cnames <- colnames(data)[1]
-  series <- melt(as.data.frame(data))
+  series <- reshape::melt(as.data.frame(data))
   series <- series |> dplyr::filter(variable %in% cnames)
   tmp <- graphics::hist(series$value, plot = FALSE)
   grf <- ggplot(series, aes(x=value))
@@ -343,13 +345,13 @@ plot_hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=
 #'@return ggplot graphic
 #'@examples trans <- dal_transform()
 #'@import ggplot2
-#'@import reshape
+#'@importFrom reshape melt
 #'@export
 plot_boxplot <- function(data, label_x = "", label_y = "", colors = NULL, barwith=0.25) {
   value <- 0
   variable <- 0
   cnames <- colnames(data)
-  series <- melt(as.data.frame(data))
+  series <- reshape::melt(as.data.frame(data))
   grf <- ggplot(aes(y = value, x = variable), data = series)
   if (!is.null(colors)) {
     grf <- grf + geom_boxplot(fill = colors, width=barwith)
@@ -378,13 +380,13 @@ plot_boxplot <- function(data, label_x = "", label_y = "", colors = NULL, barwit
 #'@param colors color vector
 #'@examples trans <- dal_transform()
 #'@import ggplot2
-#'@import reshape
+#'@importFrom reshape melt
 #'@export
 plot_boxplot_class <- function(data, class_label, label_x = "", label_y = "", colors = NULL) {
   value <- 0
   variable <- 0
   x <- 0
-  data <- melt(data, id=class_label)
+  data <- reshape::melt(data, id=class_label)
   colnames(data)[1] <- "x"
   if (!is.factor(data$x))
     data$x <- as.factor(data$x)
@@ -417,14 +419,14 @@ plot_boxplot_class <- function(data, class_label, label_x = "", label_y = "", co
 #'@param alpha level of transparency
 #'@examples trans <- dal_transform()
 #'@import ggplot2
-#'@import reshape
+#'@importFrom reshape melt
 #'@export
 plot_density <-  function(data, label_x = "", label_y = "", colors = NULL, bin = NULL, alpha=0.25) {
   value <- 0
   variable <- 0
   grouped <- ncol(data) > 1
   cnames <- colnames(data)
-  series <- melt(as.data.frame(data))
+  series <- reshape::melt(as.data.frame(data))
   if (grouped) {
     grf <- ggplot(series, aes(x=value,fill=variable))
     if (is.null(bin))
@@ -468,13 +470,13 @@ plot_density <-  function(data, label_x = "", label_y = "", colors = NULL, bin =
 #'@param alpha level of transparency
 #'@examples trans <- dal_transform()
 #'@import ggplot2
-#'@import reshape
+#'@importFrom reshape melt
 #'@export
 plot_density_class <-  function(data, class_label, label_x = "", label_y = "", colors = NULL, bin = NULL, alpha=0.5) {
   value <- 0
   variable <- 0
   x <- 0
-  data <- melt(data, id=class_label)
+  data <- reshape::melt(data, id=class_label)
   colnames(data)[1] <- "x"
   if (!is.factor(data$x))
     data$x <- as.factor(data$x)

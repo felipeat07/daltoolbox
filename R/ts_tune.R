@@ -110,7 +110,12 @@ fit.ts_tune <- function(obj, x, y, ranges, ...) {
   return(model)
 }
 
-#'@import dplyr
+#'@title selection of hyperparameters (time series)
+#'@description selection of hyperparameters (minimizing error)
+#'@param obj object
+#'@param hyperparameters hyperparameters dataset
+#'@return optimized key number of hyperparameters
+#'@importFrom dplyr filter summarise group_by
 #'@export
 select_hyper.ts_tune <- function(obj, hyperparameters) {
   msg <- error <- 0
