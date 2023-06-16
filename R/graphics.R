@@ -1,7 +1,6 @@
 #'@title scatter graph
 #'@description scatter graph
-#'@param series data.frame contain x, value, and variable
-#'@param label_series title label
+#'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
@@ -9,15 +8,14 @@
 #'@examples trans <- dal_transform()
 #'@import ggplot2
 #'@export
-plot_scatter <- function(series, label_series = "", label_x = "", label_y = "", colors = NULL) {
+plot_scatter <- function(data, label_x = "", label_y = "", colors = NULL) {
   x <- 0
   value <- 0
   variable <- 0
-  grf <- ggplot(data=series, aes(x = x, y = value, colour=variable, group=variable)) + geom_point(size=1)
+  grf <- ggplot(data=data, aes(x = x, y = value, colour=variable, group=variable)) + geom_point(size=1)
   if (!is.null(colors)) {
     grf <- grf + scale_color_manual(values=colors)
   }
-  grf <- grf + labs(color=label_series)
   grf <- grf + xlab(label_x)
   grf <- grf + ylab(label_y)
   grf <- grf + theme_bw(base_size = 10)
@@ -214,33 +212,32 @@ plot_radar <- function(data, label_x = "", label_y = "", colors = NULL)  {
 #'@title plot lollipop
 #'@description plot lollipop
 #'@param data data.frame contain x, value, and variable
+#'@param label_x x-axis label
+#'@param label_y y-axis label
 #'@param colors color vector
-#'@param xlabel x-axis label
-#'@param ylabel y-axis label
 #'@param size_text size of text
 #'@param size_ball size of ball
 #'@param alpha_ball transparency of ball
 #'@param min_value minimum value
 #'@param max_value_gap maximum value gap
-#'@param flip flip axis
 #'@return ggplot graphic
 #'@examples trans <- dal_transform()
 #'@import ggplot2
 #'@importFrom reshape melt
 #'@export
-plot_lollipop <- function(data, colors, xlabel = "", ylabel = "", size_text=3, size_ball=8, alpha_ball=0.2, min_value=0, max_value_gap=1, flip = TRUE) {
+plot_lollipop <- function(data, label_x = "", label_y = "", colors = NULL, size_text=3, size_ball=8, alpha_ball=0.2, min_value=0, max_value_gap=1) {
   value <- 0
   x <- 0
   cnames <- colnames(data)[-1]
-  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
-  colnames(series)[1] <- "x"
-  if (!is.factor(series$x))
-    series$x <- as.factor(series$x)
-  series$value <- round(series$value)
+  data <- reshape::melt(as.data.frame(data), id.vars = c(1))
+  colnames(data)[1] <- "x"
+  if (!is.factor(data$x))
+    data$x <- as.factor(data$x)
+  data$value <- round(data$value)
 
-  grf <- ggplot(data=series, aes(x=x, y=value, label=value)) +
+  grf <- ggplot(data=data, aes(x=x, y=value, label=value)) +
     geom_segment(aes(x=x, xend=x, y=min_value, yend=(value-max_value_gap)), color=colors, size=1) +
-    geom_text(color="black", size=size_text) +
+    #geom_text(color="black", size=size_text) +
     geom_point(color=colors, size=size_ball, alpha=alpha_ball) +
     theme_light() +
     theme(
@@ -248,10 +245,7 @@ plot_lollipop <- function(data, colors, xlabel = "", ylabel = "", size_text=3, s
       panel.border = element_blank(),
       axis.ticks.y = element_blank()
     ) +
-    ylab(xlabel) + xlab(xlabel)
-  if (flip)
-    grf <- grf + coord_flip()
-
+    ylab(label_y) + xlab(label_x)
   return(grf)
 }
 

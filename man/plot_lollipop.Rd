@@ -6,25 +6,24 @@
 \usage{
 plot_lollipop(
   data,
-  colors,
-  xlabel = "",
-  ylabel = "",
+  label_x = "",
+  label_y = "",
+  colors = NULL,
   size_text = 3,
   size_ball = 8,
   alpha_ball = 0.2,
   min_value = 0,
-  max_value_gap = 1,
-  flip = TRUE
+  max_value_gap = 1
 )
 }
 \arguments{
 \item{data}{data.frame contain x, value, and variable}
 
+\item{label_x}{x-axis label}
+
+\item{label_y}{y-axis label}
+
 \item{colors}{color vector}
-
-\item{xlabel}{x-axis label}
-
-\item{ylabel}{y-axis label}
 
 \item{size_text}{size of text}
 
@@ -35,8 +34,6 @@ plot_lollipop(
 \item{min_value}{minimum value}
 
 \item{max_value_gap}{maximum value gap}
-
-\item{flip}{flip axis}
 }
 \value{
 ggplot graphic

@@ -4,18 +4,10 @@
 \alias{plot_scatter}
 \title{scatter graph}
 \usage{
-plot_scatter(
-  series,
-  label_series = "",
-  label_x = "",
-  label_y = "",
-  colors = NULL
-)
+plot_scatter(data, label_x = "", label_y = "", colors = NULL)
 }
 \arguments{
-\item{series}{data.frame contain x, value, and variable}
-
-\item{label_series}{title label}
+\item{data}{data.frame contain x, value, and variable}
 
 \item{label_x}{x-axis label}
 
