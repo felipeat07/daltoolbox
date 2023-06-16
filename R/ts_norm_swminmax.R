@@ -27,7 +27,7 @@ fit.ts_swminmax <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title Normalizes each line of the input data to the range [0,1]
+#'@title Normalizes each line of the input data to the range \[0,1\]
 #'@description It takes as parameters the variables obj, data, x
 #'@param obj object
 #'@param data dataset

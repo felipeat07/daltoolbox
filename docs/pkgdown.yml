@@ -2,8 +2,8 @@ pandoc: 3.1.1
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles: {}
-last_built: 2023-06-16T01:31Z
+last_built: 2023-06-16T03:07Z
 urls:
-  reference: https://cefet-rj-dal.github.io/dal/reference
-  article: https://cefet-rj-dal.github.io/dal/articles
+  reference: https://cefet-rj-dal.github.io/daltoolbox/reference
+  article: https://cefet-rj-dal.github.io/daltoolbox/articles
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ts_norm_swminmax.R
 \name{transform.ts_swminmax}
 \alias{transform.ts_swminmax}
-\title{Normalizes each line of the input data to the range \link{0,1}}
+\title{Normalizes each line of the input data to the range [0,1]}
 \usage{
 \method{transform}{ts_swminmax}(obj, data, x = NULL, ...)
 }

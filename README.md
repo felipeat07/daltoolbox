@@ -1,12 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dal
+# daltoolbox
 
 <!-- badges: start -->
 
 ![GitHub Repo
-stars](https://img.shields.io/github/stars/cefet-rj-dal/dal?logo=Github)
+stars](https://img.shields.io/github/stars/cefet-rj-dal/daltoolbox?logo=Github)
 <!-- badges: end -->
 
 The goal of DAL Toolbox is to provide a series data analytics functions
@@ -20,7 +20,7 @@ You can install the development version of dal from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
+library(devtools)
 devtools::install_github("cefet-rj-dal/daltoolbox", force=TRUE, dependencies=FALSE, upgrade="never", build_vignettes = TRUE)
 ```
 

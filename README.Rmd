@@ -13,10 +13,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-# dal
+# daltoolbox
 
 <!-- badges: start -->
-![GitHub Repo stars](https://img.shields.io/github/stars/cefet-rj-dal/dal?logo=Github)
+![GitHub Repo stars](https://img.shields.io/github/stars/cefet-rj-dal/daltoolbox?logo=Github)
 <!-- badges: end -->
 
 The goal of DAL Toolbox is to provide a series data analytics functions organized as a framework. 
@@ -27,7 +27,7 @@ It supports data preprocessing, classification, regression, clustering, and time
 You can install the development version of dal from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
+library(devtools)
 devtools::install_github("cefet-rj-dal/daltoolbox", force=TRUE, dependencies=FALSE, upgrade="never", build_vignettes = TRUE)
 ```
 
