@@ -111,7 +111,7 @@ select_hyper.ts_tune <- function(obj, hyperparameters) {
   hyper_summary <- hyperparameters |> dplyr::filter(msg == "") |>
     dplyr::group_by(key) |> dplyr::summarise(error = mean(error, na.rm=TRUE))
 
-  mim_error <- hyper_summary |> dplyr::summarise(error = min(error))
+  mim_error <- hyper_summary |> dplyr::summarise(error = min(error, na.rm=TRUE))
 
   key <- which(hyper_summary$error == mim_error$error)
   i <- min(hyper_summary$key[key])

@@ -93,8 +93,12 @@ set_params.dal_base <- function(obj, params) {
 
     for (i in 1:length(nparams)) {
       j <- which(nparams[i] == nobj)
-      if (length(j)> 0)
-        obj[[nobj[j]]] <- params[[nparams[i]]]
+      if (length(j)> 0) {
+        val <- params[[nparams[i]]]
+        if (is.factor(val))
+          val <- as.character(val)
+        obj[[nobj[j]]] <- val
+      }
     }
   }
   return(obj)
