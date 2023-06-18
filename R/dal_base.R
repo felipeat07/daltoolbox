@@ -85,13 +85,14 @@ set_params.default <- function(obj, params) {
 #'@export
 set_params.dal_base <- function(obj, params) {
   if (!is.null(params)) {
+    params <- as.list(params)
     nobj <- names(obj)
     nobj <- nobj[nobj != ""]
     nparams <- names(params)
     nparams <- nparams[nparams != ""]
 
     for (i in 1:length(nparams)) {
-      j <- which(nparams[1] == nobj)
+      j <- which(nparams[i] == nobj)
       if (j > 0)
         obj[[nobj[j]]] <- params[[nparams[i]]]
     }

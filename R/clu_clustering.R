@@ -16,7 +16,7 @@ cluster.default <- function(obj, ...) {
 #'@export
 clustering <- function() {
   obj <- dal_learner()
-  attr(obj, "class") <- "clustering"
+  class(obj) <- append("clustering", class(obj))
   return(obj)
 }
 

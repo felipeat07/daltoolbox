@@ -7,7 +7,6 @@
 cluster_kmeans <- function(k) {
   obj <- clustering()
   obj$k <- k
-
   class(obj) <- append("cluster_kmeans", class(obj))
   return(obj)
 }
