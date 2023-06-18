@@ -66,8 +66,6 @@ fit.cla_tune <- function(obj, data, ranges, ...) {
     ref <- data.frame(i = 1:nrow(data), idx = 1:nrow(data))
     folds <- k_fold(sample_random(), ref, obj$folds)
     nfolds <- length(folds)
-    if (obj$base_model$debug)
-      print(sprintf("%d-%d", nfolds, n))
     for (j in 1:nfolds) {
       tt <- train_test_from_folds(folds, j)
       metric <- rep(0, n)
@@ -83,14 +81,7 @@ fit.cla_tune <- function(obj, data, ranges, ...) {
             err <- sprintf("tune: %s", as.character(cond))
           }
         )
-        if (err != "") {
-          msg[i] <- err
-          if (obj$base_model$debug)
-            print(err)
-        }
       }
-      if (obj$base_model$debug)
-        print(sprintf("%d/%d-%d", j, nfolds, n))
       hyperparameters <- rbind(hyperparameters, cbind(ranges, metric, msg))
     }
     hyperparameters$error[hyperparameters$msg != ""] <- NA

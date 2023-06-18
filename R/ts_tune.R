@@ -61,8 +61,6 @@ fit.ts_tune <- function(obj, x, y, ranges, ...) {
     data <- data.frame(i = 1:nrow(x), idx = 1:nrow(x))
     folds <- k_fold(sample_random(), data, obj$folds)
     nfolds <- length(folds)
-    if (obj$base_model$debug)
-      print(sprintf("%d-%d", nfolds, n))
     for (j in 1:nfolds) {
       tt <- train_test_from_folds(folds, j)
       error <- rep(0, n)
@@ -80,12 +78,8 @@ fit.ts_tune <- function(obj, x, y, ranges, ...) {
         )
         if (err != "") {
           msg[i] <- err
-          if (obj$base_model$debug)
-            print(err)
         }
       }
-      if (obj$base_model$debug)
-        print(sprintf("%d/%d-%d", j, nfolds, n))
       hyperparameters <- rbind(hyperparameters, cbind(ranges, error, msg))
     }
     hyperparameters$error[hyperparameters$msg != ""] <- NA

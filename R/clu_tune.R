@@ -50,6 +50,7 @@ fit.clu_tune <- function(obj, data, ranges, ...) {
   n <- nrow(ranges)
   i <- 1
   if (n > 1) {
+    msg <- rep("", n) #save later msg in hyper parameters
     for (i in 1:n) {
       err <- tryCatch(
         {
@@ -63,8 +64,6 @@ fit.clu_tune <- function(obj, data, ranges, ...) {
       )
       if (err != "") {
         msg[i] <- err
-        if (obj$base_model$debug)
-          print(err)
       }
     }
     myfit <- fit_curvature_max()
