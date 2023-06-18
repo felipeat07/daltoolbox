@@ -39,21 +39,18 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.2
 Imports: 
-  dplyr, 
-  stats, 
+  FNN, 
   MLmetrics, 
+  caret, 
+  class, 
+  cluster, 
+  dbscan, 
+  dplyr,
   e1071, 
   elmNNRcpp, 
   forecast, 
-  class, 
-  tree, 
+  ggplot2, 
   nnet, 
-  randomForest, 
-  cluster, 
-  dbscan, 
-  caret, 
-  FNN,
-  ggplot2,
-  reshape
-Suggests: knitr, rmarkdown
-VignetteBuilder: knitr
+  randomForest,
+  reshape, 
+  tree
