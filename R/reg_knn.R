@@ -13,34 +13,17 @@ reg_knn <- function(attribute, k) {
   return(obj)
 }
 
-#'@title Set parameters values for reg_knn
-#'@description It receives as input a ts_rf object (obj) and a set of parameters (params)
-#'@param obj object
-#'@param params parameters
-#'@return The reg_knn object updated with the new parameter values
-#'@export
-set_params.reg_knn <- function(obj, params) {
-  if (!is.null(params$k))
-    obj$k <- params$k
-
-  return(obj)
-}
-
 #'@importFrom FNN knn.reg
 #'@export
 fit.reg_knn <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
-  obj <- fit.regression(obj, data)
+  obj <- fit.prediction(obj, data)
 
   x <- as.matrix(data[,obj$x])
   y <- data[,obj$attribute]
 
   obj$model <- list(x=x, y=y, k=obj$k)
 
-  if (obj$log) {
-    msg <- sprintf("k=%d", obj$model$k)
-    obj <- register_log(obj, msg)
-  }
   return(obj)
 }
 

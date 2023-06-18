@@ -31,7 +31,6 @@ fit.reg_tune <- function(obj, data, ranges, ...) {
 
   build_model <- function(obj, ranges, data) {
     model <- obj$base_model
-    model$log <- FALSE
     model <- set_params(model, ranges)
     model <- fit(model, data)
     return(model)
@@ -52,7 +51,6 @@ fit.reg_tune <- function(obj, data, ranges, ...) {
     return(error)
   }
 
-  obj <- start_log(obj)
   if (obj$base_model$reproduce)
     set.seed(1)
 
@@ -105,9 +103,6 @@ fit.reg_tune <- function(obj, data, ranges, ...) {
   attr(model, "params") <- as.list(ranges[i,])
   attr(model, "hyperparameters") <- hyperparameters
 
-  msg <- sprintf("%s-%s", describe(obj), describe(model))
-  if (obj$base_model$log)
-    obj <- register_log(obj, msg)
   return(model)
 }
 

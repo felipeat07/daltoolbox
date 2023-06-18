@@ -11,28 +11,13 @@
 #'@examples trans <- dal_transform()
 #'@export
 ts_elm <- function(preprocess=NA, input_size=NA, nhid=NA, actfun='purelin') {
-  obj <- tsreg_sw(preprocess, input_size)
+  obj <- ts_regsw(preprocess, input_size)
   if (is.na(nhid))
     nhid <- input_size/3
   obj$nhid <- nhid
   obj$actfun <- as.character(actfun)
 
   class(obj) <- append("ts_elm", class(obj))
-  return(obj)
-}
-
-#'@title Set specific parameters of a ts_elm object
-#'@description This function takes two arguments: obj, which is an object of the ts_elm class, and params, which is a list of parameters to be updated
-#'@param obj object
-#'@param params parameters
-#'@return The object obj updated with the new parameters
-#'@examples trans <- dal_transform()
-#'@export
-set_params.ts_elm <- function(obj, params) {
-  if (!is.null(params$nhid))
-    obj$nhid <- params$nhid
-  if (!is.null(params$actfun))
-    obj$actfun <- as.character(params$actfun)
   return(obj)
 }
 

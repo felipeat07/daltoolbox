@@ -24,7 +24,7 @@
 #'@examples trans <- dal_transform()
 #'@export
 ts_mlp <- function(preprocess=NA, input_size=NA, size=NA, decay=0.01, maxit=1000) {
-  obj <- tsreg_sw(preprocess, input_size)
+  obj <- ts_regsw(preprocess, input_size)
   if (is.na(size))
     size <- ceiling(input_size/3)
 
@@ -36,23 +36,6 @@ ts_mlp <- function(preprocess=NA, input_size=NA, size=NA, decay=0.01, maxit=1000
   return(obj)
 }
 
-
-#'@title Update ts_mlp object parameters
-#'@description It takes two arguments: the ts_mlp object to be updated (obj) and a list object containing the new parameter values to be updated (params)
-#'@param obj object
-#'@param params parameters
-#'@return ts_mlp object updated with new parameter values
-#'@export
-set_params.ts_mlp <- function(obj, params) {
-  if (!is.null(params$size))
-    obj$size <- params$size
-  if (!is.null(params$decay))
-    obj$decay <- params$decay
-  if (!is.null(params$maxit))
-    obj$maxit <- params$maxit
-
-  return(obj)
-}
 
 #'@import nnet
 #'@title Train the ts_mlp model

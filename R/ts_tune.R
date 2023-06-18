@@ -26,7 +26,6 @@ fit.ts_tune <- function(obj, x, y, ranges, ...) {
 
   build_model <- function(obj, ranges, x, y) {
     model <- obj$base_model
-    model$log <- FALSE
     model$input_size <- ranges$input_size
     model <- set_params(model, ranges)
     model <- fit(model, x, y)
@@ -49,7 +48,6 @@ fit.ts_tune <- function(obj, x, y, ranges, ...) {
     return(error)
   }
 
-  obj <- start_log(obj)
   if (obj$base_model$reproduce)
     set.seed(1)
 
@@ -104,9 +102,6 @@ fit.ts_tune <- function(obj, x, y, ranges, ...) {
   attr(model, "params") <- as.list(ranges[i,])
   attr(model, "hyperparameters") <- hyperparameters
 
-  msg <- sprintf("%s-%s", describe(obj), describe(model))
-  if (obj$base_model$log)
-    obj <- register_log(obj, msg)
   return(model)
 }
 

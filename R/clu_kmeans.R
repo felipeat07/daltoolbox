@@ -12,19 +12,6 @@ cluster_kmeans <- function(k) {
   return(obj)
 }
 
-#'@title Updates the parameters of cluster_kmeans
-#'@description It takes as input the obj model object and a set of params parameters to update.
-#'@param obj cluster_kmeans object
-#'@param params parameters
-#'@return cluster_kmeans object
-#'@export
-set_params.cluster_kmeans <- function(obj, params) {
-  if (!is.null(params$k))
-    obj$k <- params$k
-  return(obj)
-}
-
-
 #'@importFrom stats kmeans
 #'@export
 cluster.cluster_kmeans <- function(obj, data, ...) {

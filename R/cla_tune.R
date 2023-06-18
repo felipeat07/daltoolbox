@@ -33,7 +33,6 @@ fit.cla_tune <- function(obj, data, ranges, ...) {
 
   build_model <- function(obj, ranges, data) {
     model <- obj$base_model
-    model$log <- FALSE
     model <- set_params(model, ranges)
     model <- fit(model, data)
     return(model)
@@ -48,13 +47,12 @@ fit.cla_tune <- function(obj, data, ranges, ...) {
 
   evaluate_metric <- function(model, data) {
     x <- as.matrix(data[,model$x])
-    y <- adjustClassLabels(data[,model$attribute])
+    y <- adjust_class_label(data[,model$attribute])
     prediction <- stats::predict(model, x)
     metric <- evaluate(model, y, prediction)$metrics[1,obj$metric]
     return(metric)
   }
 
-  obj <- start_log(obj)
   if (obj$base_model$reproduce)
     set.seed(1)
 
@@ -107,9 +105,6 @@ fit.cla_tune <- function(obj, data, ranges, ...) {
   attr(model, "params") <- as.list(ranges[i,])
   attr(model, "hyperparameters") <- hyperparameters
 
-  msg <- sprintf("%s-%s", describe(obj), describe(model))
-  if (obj$base_model$log)
-    obj <- register_log(obj, msg)
   return(model)
 }
 

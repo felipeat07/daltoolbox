@@ -17,21 +17,6 @@ cla_rf <- function(attribute, slevels, mtry = NULL, ntree = 10) {
   return(obj)
 }
 
-#'@title Set parameters values for cla_rf
-#'@description It receives as input a cla_rf object (obj) and a set of parameters (params)
-#'@param obj object
-#'@param params parameters
-#'@return The cla_rf object updated with the new parameter values
-#'@export
-set_params.cla_rf <- function(obj, params) {
-  if (!is.null(params$mtry))
-    obj$mtry <- params$mtry
-  if (!is.null(params$ntree))
-    obj$ntree <- params$ntree
-
-  return(obj)
-}
-
 #'@title fit rf model
 #'@description fit rf model
 #'@param obj object
@@ -42,8 +27,8 @@ set_params.cla_rf <- function(obj, params) {
 #'@export
 fit.cla_rf <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
-  data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
-  obj <- fit.classification(obj, data)
+  data[,obj$attribute] <- adjust_factor(data[,obj$attribute], obj$ilevels, obj$slevels)
+  obj <- fit.prediction(obj, data)
 
   if (is.null(obj$mtry))
     obj$mtry <- ceiling(sqrt(ncol(data)))
@@ -53,10 +38,6 @@ fit.cla_rf <- function(obj, data, ...) {
 
   obj$model <- randomForest::randomForest(x = x, y = y, mtry=obj$mtry, ntree=obj$ntree)
 
-  if (obj$log) {
-    msg <- sprintf("mtry=%d,ntree=%d", obj$mtry, obj$ntree)
-    obj <- register_log(obj, msg)
-  }
   return(obj)
 }
 

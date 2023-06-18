@@ -55,7 +55,6 @@ ts_data <- function(y, sw=1) {
   return(y)
 }
 
-#head
 #'@title Extract the first observations from a time series
 #'@description The function takes as arguments the variables x, n (default = 6L), ...
 #'@param x input variable
@@ -65,7 +64,7 @@ ts_data <- function(y, sw=1) {
 #'@examples trans <- dal_transform()
 #'@importFrom utils head
 #'@export
-tshead <- function(x, n = 6L, ...) {
+ts_head <- function(x, n = 6L, ...) {
   utils::head(unclass(x), n)
 }
 
@@ -88,13 +87,12 @@ ts_sample <- function(ts, test_size=1, offset=0) {
 }
 
 
-#adjust.ts_data
 #'@title Transform the date object
 #'@description The first check that is done is to see if data is a matrix using the is.matrix() function. If data is not a matrix, the function converts data to a matrix using the as.matrix() function
 #'@param data dataset
 #'@return The date object changed
 #'@export
-adjust.ts_data <- function(data) {
+adjust_ts_data <- function(data) {
   if (!is.matrix(data))
     data <- as.matrix(data)
   colnames(data) <- paste("t",c((ncol(data)-1):0), sep="")
@@ -103,7 +101,6 @@ adjust.ts_data <- function(data) {
   return(data)
 }
 
-#ts_projection
 #'@title Time Series Projection
 #'@description It takes a time series as input (an object of type matrix or data.frame)
 #'@param ts matrix or data.frame containing the time series.
@@ -134,37 +131,3 @@ ts_projection <- function(ts) {
   return(proj)
 }
 
-#'@title Time Series Transformation
-#'@description Manipulate and reshapa a time series to better understand and
-#' analyze the underlying patterns, trends, and relationships.
-#'@return a `ts_transform` object.
-#'@examples trans <- dal_transform()
-#'@export
-ts_transform <- function() {
-  obj <- dal_transform()
-  class(obj) <- append("ts_transform", class(obj))
-  return(obj)
-}
-
-#'@title Transform data to objects of class st_transform
-#'@description The function receives as arguments the variables obj and data
-#'@param obj object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return The data given as an argument
-#'@examples trans <- dal_transform()
-#'@export
-transform.ts_transform <- function(obj, data, ...) {
-  return(data)
-}
-
-
-#'@title Describe the ts_transform function
-#'@description The function receives as argument the variable obj
-#'@param obj object
-#'@return The string "none"
-#'@examples trans <- dal_transform()
-#'@export
-describe.ts_transform <- function(obj) {
-  return("none")
-}

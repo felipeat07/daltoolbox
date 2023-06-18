@@ -8,7 +8,7 @@
 #'@examples trans <- dal_transform()
 #'@export
 ts_rf <- function(preprocess=NA, input_size=NA, nodesize = 5, ntree = 20) {
-  obj <- tsreg_sw(preprocess, input_size)
+  obj <- ts_regsw(preprocess, input_size)
 
   obj$nodesize <- nodesize
   obj$ntree <- ntree
@@ -17,21 +17,6 @@ ts_rf <- function(preprocess=NA, input_size=NA, nodesize = 5, ntree = 20) {
   return(obj)
 }
 
-
-#'@title Allows parameters of a ts_rf object to be updated with new values
-#'@description It receives as input a ts_rf object (obj) and a set of parameters (params)
-#'@param obj object
-#'@param params parameters
-#'@return The ts_rf object updated with the new parameter values
-#'@export
-set_params.ts_rf <- function(obj, params) {
-  if (!is.null(params$nodesize))
-    obj$nodesize <- params$nodesize
-  if (!is.null(params$ntree))
-    obj$ntree <- params$ntree
-
-  return(obj)
-}
 
 #'@title Fits a random forest model to time series
 #'@description It receives as input a ts_rf object (obj), an input dataset (x) and an output dataset (y)

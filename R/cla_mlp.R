@@ -18,25 +18,6 @@ cla_mlp <- function(attribute, slevels, size=NULL, decay=0.1, maxit=1000) {
   return(obj)
 }
 
-#'@title Set parameters values for cla_mlp
-#'@description It receives as input a cla_mlp object (obj) and a set of parameters (params)
-#'@param obj object
-#'@param params parameters
-#'@return The cla_mlp object updated with the new parameter values
-#'@export
-set_params.cla_mlp <- function(obj, params) {
-  if (!is.null(params$size))
-    obj$size <- params$size
-  if (!is.null(params$decay))
-    obj$decay <- params$decay
-  if (!is.null(params$maxit))
-    obj$maxit <- params$maxit
-
-  return(obj)
-}
-
-
-
 #'@title fit mlp model
 #'@description fit mlp model
 #'@param obj object
@@ -47,8 +28,8 @@ set_params.cla_mlp <- function(obj, params) {
 #'@export
 fit.cla_mlp <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
-  data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
-  obj <- fit.classification(obj, data)
+  data[,obj$attribute] <- adjust_factor(data[,obj$attribute], obj$ilevels, obj$slevels)
+  obj <- fit.prediction(obj, data)
 
   if (is.null(obj$size))
     obj$size <- ceiling(sqrt(ncol(data)))
@@ -56,12 +37,8 @@ fit.cla_mlp <- function(obj, data, ...) {
   x <- data[,obj$x, drop = FALSE]
   y <- data[,obj$attribute]
 
-  obj$model <- nnet::nnet(x = x, y = adjustClassLabels(y), size=obj$size, decay=obj$decay, maxit=obj$maxit, trace=FALSE)
+  obj$model <- nnet::nnet(x = x, y = adjust_class_label(y), size=obj$size, decay=obj$decay, maxit=obj$maxit, trace=FALSE)
 
-  if (obj$log) {
-    msg <- sprintf("size=%d,decay=%.2f", obj$size, obj$decay)
-    obj <- register_log(obj, msg)
-  }
   return(obj)
 }
 

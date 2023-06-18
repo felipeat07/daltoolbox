@@ -54,7 +54,7 @@ transform.tsaug_jitter <- function(obj, data, ...) {
   if (obj$preserve_data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
-    result <- adjust.ts_data(result)
+    result <- adjust_ts_data(result)
     attr(result, "idx") <- idx
   }
   return(result)
@@ -88,7 +88,7 @@ transform.tsaug_stretch <- function(obj, data, ...) {
   if (obj$preserve_data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
-    result <- adjust.ts_data(result)
+    result <- adjust_ts_data(result)
     attr(result, "idx") <- idx
   }
   return(result)
@@ -122,7 +122,7 @@ transform.tsaug_shrink <- function(obj, data, ...) {
   if (obj$preserve_data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
-    result <- adjust.ts_data(result)
+    result <- adjust_ts_data(result)
     attr(result, "idx") <- idx
   }
   return(result)
@@ -152,7 +152,7 @@ transform.tsaug_flip <- function(obj, data, ...) {
   if (obj$preserve_data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
-    result <- adjust.ts_data(result)
+    result <- adjust_ts_data(result)
     attr(result, "idx") <- idx
   }
   return(result)
@@ -181,7 +181,7 @@ transform.tsaug_wormhole <- function(obj, data, ...) {
     data <- NULL
     idx <- NULL
     for (i in 1:obj$fold) {
-      temp <- adjust.ts_data(ts[,c(space[,ncol(space)-i], ncol(ts))])
+      temp <- adjust_ts_data(ts[,c(space[,ncol(space)-i], ncol(ts))])
       idx <- c(idx, 1:nrow(temp))
       data <- rbind(data, temp)
     }
@@ -192,7 +192,7 @@ transform.tsaug_wormhole <- function(obj, data, ...) {
   if (obj$preserve_data) {
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
-    result <- adjust.ts_data(result)
+    result <- adjust_ts_data(result)
     attr(result, "idx") <- idx
   }
   return(result)

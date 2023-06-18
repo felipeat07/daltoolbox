@@ -13,18 +13,6 @@ cluster_pam <- function(k) {
   return(obj)
 }
 
-#'@title Updates the parameters of cluster_pam
-#'@description It takes as input the obj model object and a set of params parameters to update.
-#'@param obj object
-#'@param params parameters
-#'@return The obj template object updated with the new parameters
-#'@export
-set_params.cluster_pam <- function(obj, params) {
-  if (!is.null(params$k))
-    obj$k <- params$k
-  return(obj)
-}
-
 #'@import cluster
 #'@export
 cluster.cluster_pam <- function(obj, data, ...) {

@@ -28,7 +28,6 @@ fit.clu_tune <- function(obj, data, ranges, ...) {
 
   build_cluster <- function(obj, ranges, data) {
     model <- obj$base_model
-    model$log <- FALSE
     model <- set_params(model, ranges)
     result <- cluster(model, data)
     return(result)
@@ -41,7 +40,6 @@ fit.clu_tune <- function(obj, data, ranges, ...) {
     return(obj)
   }
 
-  obj <- start_log(obj)
   if (obj$base_model$reproduce)
     set.seed(1)
 
@@ -74,9 +72,6 @@ fit.clu_tune <- function(obj, data, ranges, ...) {
     i <- res$x
   }
   model <- set_params(obj$base_model, ranges[i,])
-  msg <- sprintf("%s-%s", describe(obj), describe(model))
-  if (obj$base_model$log)
-    obj <- register_log(obj, msg)
   return(model)
 }
 

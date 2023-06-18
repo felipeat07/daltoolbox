@@ -4,7 +4,7 @@
 #'@examples trans <- dal_transform()
 #'@export
 tsreg_arima <- function() {
-  obj <- tsreg()
+  obj <- ts_reg()
 
   class(obj) <- append("tsreg_arima", class(obj))
   return(obj)
@@ -13,7 +13,6 @@ tsreg_arima <- function() {
 #'@import forecast
 #'@export
 fit.tsreg_arima <- function(obj, x, y = NULL, ...) {
-  obj <- start_log(obj)
   if (obj$reproduce)
     set.seed(1)
 
@@ -26,8 +25,6 @@ fit.tsreg_arima <- function(obj, x, y = NULL, ...) {
   params <- list(p = obj$p, d = obj$d, q = obj$q, drift = obj$drift)
   attr(obj, "params") <- params
 
-  if (obj$log)
-    obj <- register_log(obj)
   return(obj)
 }
 

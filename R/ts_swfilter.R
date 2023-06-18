@@ -58,7 +58,7 @@ transform.tsaug_awareness <- function(obj, data, ...) {
   attr(result, "idx") <-  i
   idx <- c(1:nrow(data), attr(result, "idx"))
   result <- rbind(data, result)
-  result <- adjust.ts_data(result)
+  result <- adjust_ts_data(result)
   attr(result, "idx") <- idx
   return(result)
 }
@@ -134,7 +134,7 @@ transform.tsaug_aware_smooth <- function(obj, data, ...) {
     attr(result, "idx") <-  i
     idx <- c(1:nrow(data), attr(result, "idx"))
     result <- rbind(data, result)
-    result <- adjust.ts_data(result)
+    result <- adjust_ts_data(result)
     attr(result, "idx") <- idx
     return(result)
   }

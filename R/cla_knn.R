@@ -13,20 +13,6 @@ cla_knn <- function(attribute, slevels, k=1) {
   return(obj)
 }
 
-#'@title Set parameters values for cla_knn
-#'@description It receives as input a ts_rf object (obj) and a set of parameters (params)
-#'@param obj object
-#'@param params parameters
-#'@return The cla_knn object updated with the new parameter values
-#'@export
-set_params.cla_knn <- function(obj, params) {
-  if (!is.null(params$k))
-    obj$k <- params$k
-
-  return(obj)
-}
-
-
 #'@title fit knn model
 #'@description fit knn model
 #'@param obj object
@@ -38,18 +24,14 @@ set_params.cla_knn <- function(obj, params) {
 fit.cla_knn <- function(obj, data, ...) {
 
   data <- adjust_data.frame(data)
-  data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
-  obj <- fit.classification(obj, data)
+  data[,obj$attribute] <- adjust_factor(data[,obj$attribute], obj$ilevels, obj$slevels)
+  obj <- fit.prediction(obj, data)
 
   x <- data[,obj$x, drop = FALSE]
   y <- data[,obj$attribute]
 
   obj$model <-list(x=x, y=y, k=obj$k)
 
-  if (obj$log) {
-    msg <- sprintf("k=%d", obj$k)
-    obj <- register_log(obj, msg)
-  }
   return(obj)
 }
 
@@ -66,7 +48,7 @@ predict.cla_knn  <- function(object, x, ...) {
   x <- x[,object$x, drop=FALSE]
 
   prediction <- class::knn(train=object$model$x, test=x, cl=object$model$y, prob=TRUE)
-  prediction <- adjustClassLabels(prediction)
+  prediction <- adjust_class_label(prediction)
 
   return(prediction)
 }

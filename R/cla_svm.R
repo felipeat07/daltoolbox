@@ -20,24 +20,6 @@ cla_svm <- function(attribute, slevels, epsilon=0.1, cost=10, kernel="radial") {
   return(obj)
 }
 
-#'@title Set parameters values for reg_svm
-#'@description It receives as input a reg_svm object (obj) and a set of parameters (params)
-#'@param obj object
-#'@param params parameters
-#'@return The reg_svm object updated with the new parameter values
-#'@export
-set_params.cla_svm <- function(obj, params) {
-  if (!is.null(params$kernel))
-    obj$kernel <- as.character(params$kernel)
-  if (!is.null(params$epsilon))
-    obj$epsilon <- params$epsilon
-  if (!is.null(params$cost))
-    obj$cost <- params$cost
-
-  return(obj)
-}
-
-
 #'@title fit svm model
 #'@description fit svm model
 #'@param obj object
@@ -48,18 +30,14 @@ set_params.cla_svm <- function(obj, params) {
 #'@export
 fit.cla_svm <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
-  data[,obj$attribute] <- adjust.factor(data[,obj$attribute], obj$ilevels, obj$slevels)
-  obj <- fit.classification(obj, data)
+  data[,obj$attribute] <- adjust_factor(data[,obj$attribute], obj$ilevels, obj$slevels)
+  obj <- fit.prediction(obj, data)
 
   x <- data[,obj$x, drop=FALSE]
   y <- data[,obj$attribute]
 
   obj$model <- e1071::svm(x, y, probability=TRUE, epsilon=obj$epsilon, cost=obj$cost, kernel=obj$kernel)
 
-  if (obj$log) {
-    msg <- sprintf("epsilon=%.1f,cost=%.3f", obj$epsilon, obj$cost)
-    obj <- register_log(obj, msg)
-  }
   return(obj)
 }
 

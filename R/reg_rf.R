@@ -16,26 +16,11 @@ reg_rf <- function(attribute, mtry = NULL, ntree = 10) {
   return(obj)
 }
 
-#'@title Set parameters values for reg_rf
-#'@description It receives as input a reg_rf object (obj) and a set of parameters (params)
-#'@param obj object
-#'@param params parameters
-#'@return The reg_rf object updated with the new parameter values
-#'@export
-set_params.reg_rf <- function(obj, params) {
-  if (!is.null(params$mtry))
-    obj$mtry <- params$mtry
-  if (!is.null(params$ntree))
-    obj$ntree <- params$ntree
-
-  return(obj)
-}
-
 #'@importFrom randomForest randomForest
 #'@export
 fit.reg_rf <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
-  obj <- fit.regression(obj, data)
+  obj <- fit.prediction(obj, data)
 
   if (is.null(obj$mtry))
     obj$mtry <- ceiling(ncol(data)/3)
@@ -45,10 +30,6 @@ fit.reg_rf <- function(obj, data, ...) {
 
   obj$model <- randomForest::randomForest(x = x, y = y, mtry=obj$mtry, ntree=obj$ntree)
 
-  if (obj$log) {
-    msg <- sprintf("mtry=%d,ntree=%d", obj$mtry, obj$ntree)
-    obj <- register_log(obj, msg)
-  }
   return(obj)
 }
 

@@ -12,29 +12,13 @@
 #'@examples trans <- dal_transform()
 #'@export
 ts_svm <- function(preprocess=NA, input_size=NA, kernel="radial", epsilon=0, cost=10) {
-  obj <- tsreg_sw(preprocess, input_size)
+  obj <- ts_regsw(preprocess, input_size)
 
   obj$kernel <- kernel #c("radial", "poly", "linear", "sigmoid")
   obj$epsilon <- epsilon #seq(0, 1, 0.1)
   obj$cost <- cost #=seq(10, 100, 10)
 
   class(obj) <- append("ts_svm", class(obj))
-  return(obj)
-}
-
-#'@title Updates the parameters of an SVM model object for time series (ts_svm)
-#'@description It takes as input the obj model object and a set of params parameters to update.
-#'@param obj object
-#'@param params parameters
-#'@return The obj template object updated with the new parameters
-#'@export
-set_params.ts_svm <- function(obj, params) {
-  if (!is.null(params$kernel))
-    obj$kernel <- params$kernel
-  if (!is.null(params$epsilon))
-    obj$epsilon <- params$epsilon
-  if (!is.null(params$cost))
-    obj$ntree <- params$cost
   return(obj)
 }
 

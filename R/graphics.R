@@ -490,3 +490,71 @@ plot_density_class <-  function(data, class_label, label_x = "", label_y = "", c
   return(grf)
 }
 
+#'@title Plot a time series chart
+#'@description The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
+#'@param x input variable
+#'@param y output variable
+#'@param label_x x-axis label
+#'@param label_y y-axis label
+#'@param color color for time series
+#'@export
+#'@import ggplot2
+plot_ts <- function(x = NULL, y, label_x = "", label_y = "", color="black")  {
+  y <- as.vector(y)
+  if (is.null(x))
+    x <- 1:length(y)
+  grf <- ggplot() + geom_point(aes(x = x, y = y)) + geom_line(aes(x = x, y = y))
+  grf <- grf + xlab(label_x)
+  grf <- grf + ylab(label_y)
+  grf <- grf + theme_bw(base_size = 10)
+  grf <- grf + theme(panel.grid.major = element_blank()) + theme(panel.grid.minor = element_blank())
+  grf <- grf + theme(legend.title = element_blank()) + theme(legend.position = "bottom") + theme(legend.key = element_blank())
+  return(grf)
+}
+
+#'@title Plot a time series chart
+#'@description The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
+#'@param x time index
+#'@param y time series
+#'@param yadj  adjustment of time series
+#'@param ypred prediction of the time series
+#'@param label_x x-axis title
+#'@param label_y y-axis title
+#'@param color color for the time series
+#'@param color_adjust color for the adjusted values
+#'@param color_prediction color for the predictions
+#'@export
+#'@import ggplot2
+plot_ts_pred <- function(x = NULL, y, yadj, ypred = NULL, label_x = "", label_y = "", color="black", color_adjust="blue", color_prediction="green") {
+  y <- as.vector(y)
+  if (is.null(x))
+    x <- 1:length(y)
+  y <- as.vector(y)
+  yadj <- as.vector(yadj)
+  ntrain <- length(yadj)
+  yhat <- yadj
+  ntest <- 0
+  if (!is.null(ypred)) {
+    ypred <- as.vector(ypred)
+    yhat <- c(yhat, ypred)
+    ntest <- length(ypred)
+  }
+
+  grf <- ggplot() + geom_point(aes(x = x, y = y)) + geom_line(aes(x = x, y = y))
+  grf <- grf + xlab(label_x)
+  grf <- grf + ylab(label_y)
+  grf <- grf + theme_bw(base_size = 10)
+  grf <- grf + theme(panel.grid.major = element_blank()) + theme(panel.grid.minor = element_blank())
+  grf <- grf + theme(legend.title = element_blank()) + theme(legend.position = "bottom") + theme(legend.key = element_blank())
+
+  smape_train <- sMAPE.ts(y[1:ntrain], yadj)*100
+  if (ntest > 0)
+    smape_test <- sMAPE.ts(y[(ntrain+1):(ntrain+ntest)], ypred)*100
+
+  grf <- grf + geom_line(aes(x = x[1:ntrain], y = yhat[1:ntrain]),
+                         color = color_adjust, linetype = "dashed")
+  if (!is.null(ypred))
+    grf <- grf +geom_line(aes(x = x[ntrain:(ntrain+ntest)], y = yhat[ntrain:(ntrain+ntest)]),
+                          color = color_prediction, linetype = "dashed")
+  return(grf)
+}

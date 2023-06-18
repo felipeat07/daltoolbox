@@ -18,38 +18,16 @@ reg_svm <- function(attribute, epsilon=0.1, cost=10, kernel="radial") {
   return(obj)
 }
 
-#'@title Set parameters values for reg_svm
-#'@description It receives as input a reg_svm object (obj) and a set of parameters (params)
-#'@param obj object
-#'@param params parameters
-#'@return The reg_svm object updated with the new parameter values
-#'@export
-set_params.reg_svm <- function(obj, params) {
-  if (!is.null(params$kernel))
-    obj$kernel <- params$kernel
-  if (!is.null(params$epsilon))
-    obj$epsilon <- params$epsilon
-  if (!is.null(params$cost))
-    obj$cost <- params$cost
-
-  return(obj)
-}
-
-
 #'@export
 fit.reg_svm <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
-  obj <- fit.regression(obj, data)
+  obj <- fit.prediction(obj, data)
 
   x <- data[,obj$x]
   y <- data[,obj$attribute]
 
   obj$model <- svm(x = x, y = y, epsilon=obj$epsilon, cost=obj$cost, kernel=obj$kernel)
 
-  if (obj$log) {
-    msg <- sprintf("epsilon=%.1f,cost=%.3f", obj$epsilon, obj$cost)
-    obj <- register_log(obj, msg)
-  }
   return(obj)
 }
 

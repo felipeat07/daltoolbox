@@ -16,27 +16,10 @@ reg_mlp <- function(attribute, size=NULL, decay=0.05, maxit=1000) {
   return(obj)
 }
 
-#'@title Set parameters values for reg_mlp
-#'@description It receives as input a reg_mlp object (obj) and a set of parameters (params)
-#'@param obj object
-#'@param params parameters
-#'@return The reg_mlp object updated with the new parameter values
-#'@export
-set_params.reg_mlp <- function(obj, params) {
-  if (!is.null(params$size))
-    obj$size <- params$size
-  if (!is.null(params$decay))
-    obj$decay <- params$decay
-  if (!is.null(params$maxit))
-    obj$maxit <- params$maxit
-
-  return(obj)
-}
-
 #'@export
 fit.reg_mlp <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
-  obj <- fit.regression(obj, data)
+  obj <- fit.prediction(obj, data)
 
   if (is.null(obj$size))
     obj$size <- ceiling(ncol(data)/3)
@@ -46,10 +29,6 @@ fit.reg_mlp <- function(obj, data, ...) {
 
   obj$model <- nnet(x = x, y = y, size = obj$size, decay = obj$decay, maxit=obj$maxit, linout=TRUE, trace = FALSE)
 
-  if (obj$log) {
-    msg <- sprintf("size=%d,decay=%.2f", obj$size, obj$decay)
-    obj <- register_log(obj, msg)
-  }
   return(obj)
 }
 
