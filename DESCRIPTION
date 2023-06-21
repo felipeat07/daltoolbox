@@ -28,16 +28,16 @@ Authors@R:
             email = "heraldo.borges@cefet-rj.br"
         ),
         person(
-            given = "Joel",
-            family = "Santos",
-            role = c("aut", "ths"),
-            email = "joel.santos@cefet-rj.br"
-        ),
-        person(
             given = "Diego",
             family = "Carvalho",
             role = c("aut", "ths"),
             email = "d.carvalho@ieee.org"
+        ),
+        person(
+            given = "Joel",
+            family = "Santos",
+            role = c("aut", "ths"),
+            email = "joel.santos@cefet-rj.br"
         ),
         person(
             given = "Eduardo",
