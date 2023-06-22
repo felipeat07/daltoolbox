@@ -17,7 +17,7 @@ reg_knn <- function(attribute, k) {
 #'@export
 fit.reg_knn <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
-  obj <- fit.prediction(obj, data)
+  obj <- fit.predictor(obj, data)
 
   x <- as.matrix(data[,obj$x])
   y <- data[,obj$attribute]

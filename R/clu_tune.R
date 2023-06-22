@@ -16,7 +16,7 @@ clu_tune <- function(base_model) {
 }
 
 #'@title tune hyperparameters of ml model
-#'@description tune hyperparameters of ml model for clustering
+#'@description tune hyperparameters of ml model for clusterer
 #'@param obj object
 #'@param data dataset
 #'@param ranges hyperparamters ranges

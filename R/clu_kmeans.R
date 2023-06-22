@@ -1,11 +1,11 @@
 #'@title Clustering using k-means
-#'@description This function applies the k-means clustering algorithm to a given data set and returns a clustering object.
+#'@description This function applies the k-means clustering algorithm to a given data set and returns a clusterer object.
 #'@param k The number of clusters to form.
-#'@return A clustering object.
+#'@return A clusterer object.
 #'@examples trans <- dal_transform()
 #'@export
 cluster_kmeans <- function(k) {
-  obj <- clustering()
+  obj <- clusterer()
   obj$k <- k
   class(obj) <- append("cluster_kmeans", class(obj))
   return(obj)

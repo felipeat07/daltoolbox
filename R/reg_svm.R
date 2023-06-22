@@ -21,7 +21,7 @@ reg_svm <- function(attribute, epsilon=0.1, cost=10, kernel="radial") {
 #'@export
 fit.reg_svm <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
-  obj <- fit.prediction(obj, data)
+  obj <- fit.predictor(obj, data)
 
   x <- data[,obj$x]
   y <- data[,obj$attribute]

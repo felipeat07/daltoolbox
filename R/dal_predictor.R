@@ -1,11 +1,11 @@
 #'@title DAL Predict
 #'@description Ancestor class for regression and classification
-#'@return a prediction object
-#'@examples trans <- prediction()
+#'@return a predictor object
+#'@examples trans <- predictor()
 #'@export
-prediction <- function() {
+predictor <- function() {
   obj <- dal_learner()
-  class(obj) <- append("prediction", class(obj))
+  class(obj) <- append("predictor", class(obj))
   return(obj)
 }
 
@@ -16,21 +16,21 @@ prediction <- function() {
 #'@param ... optional arguments
 #'@return obj
 #'@export
-fit.prediction <- function(obj, data, ...) {
+fit.predictor <- function(obj, data, ...) {
   if (obj$reproduce)
     set.seed(1)
   obj$x <- setdiff(colnames(data), obj$attribute)
   return(obj)
 }
 
-#'@title Action implementation for prediction
+#'@title Action implementation for predictor
 #'@description A default function that defines the action to proxy predict method
 #'@param obj object
 #'@param ... optional arguments
 #'@return It simply returns NULL, which indicates that no transforms are applied
 #'@examples trans <- dal_transform()
 #'@export
-action.prediction <- function(obj, ...) {
+action.predictor <- function(obj, ...) {
   thiscall <- match.call(expand.dots = TRUE)
   thiscall[[1]] <- as.name("predict")
   result <- eval.parent(thiscall)

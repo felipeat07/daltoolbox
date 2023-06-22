@@ -4,7 +4,7 @@
 #'@examples trans <- dal_transform()
 #'@export
 ts_reg <- function() {
-  obj <- dal_learner()
+  obj <- predictor()
   class(obj) <- append("ts_reg", class(obj))
   return(obj)
 }

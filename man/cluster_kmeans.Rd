@@ -10,10 +10,10 @@ cluster_kmeans(k)
 \item{k}{The number of clusters to form.}
 }
 \value{
-A clustering object.
+A clusterer object.
 }
 \description{
-This function applies the k-means clustering algorithm to a given data set and returns a clustering object.
+This function applies the k-means clustering algorithm to a given data set and returns a clusterer object.
 }
 \examples{
 trans <- dal_transform()

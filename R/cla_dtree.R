@@ -23,7 +23,7 @@ cla_dtree <- function(attribute, slevels) {
 fit.cla_dtree <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
   data[,obj$attribute] <- adjust_factor(data[,obj$attribute], obj$ilevels, obj$slevels)
-  obj <- fit.prediction(obj, data)
+  obj <- fit.predictor(obj, data)
 
   regression <- formula(paste(obj$attribute, "  ~ ."))
   obj$model <- tree::tree(regression, data)

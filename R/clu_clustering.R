@@ -9,25 +9,25 @@ cluster.default <- function(obj, ...) {
   return(data.frame())
 }
 
-#'@title Clustering Class
+#'@title clusterer Class
 #'@description Ancestor class for clustering problems
-#'@return clustering object
+#'@return clusterer object
 #'@examples trans <- dal_transform()
 #'@export
-clustering <- function() {
+clusterer <- function() {
   obj <- dal_learner()
-  class(obj) <- append("clustering", class(obj))
+  class(obj) <- append("clusterer", class(obj))
   return(obj)
 }
 
-#'@title Action implementation for clustering
+#'@title Action implementation for clusterer
 #'@description A default function that defines the action to proxy cluster method
 #'@param obj object
 #'@param ... optional arguments
 #'@return It simply returns NULL, which indicates that no transforms are applied
 #'@examples trans <- dal_transform()
 #'@export
-action.cluster <- function(obj, ...) {
+action.clusterer <- function(obj, ...) {
   thiscall <- match.call(expand.dots = TRUE)
   thiscall[[1]] <- as.name("cluster")
   result <- eval.parent(thiscall)
@@ -46,7 +46,7 @@ cluster <- function(obj, ...) {
 }
 
 #'@title Cluster Evaluation
-#'@description Evaluate the quality of a clustering model using entropy metric
+#'@description Evaluate the quality of a clusterer model using entropy metric
 #'@param obj object
 #'@param cluster A vector of integers indicating the clustering labels of the data
 #'@param attribute attribute target to model building
@@ -55,7 +55,7 @@ cluster <- function(obj, ...) {
 #'@examples trans <- dal_transform()
 #'@importFrom dplyr filter summarise group_by n
 #'@export
-evaluate.clustering <- function(obj, cluster, attribute, ...) {
+evaluate.clusterer <- function(obj, cluster, attribute, ...) {
   x <- y <- e <- qtd <- n <- 0
   result <- list(data=as.factor(cluster), attribute=as.factor(attribute))
 

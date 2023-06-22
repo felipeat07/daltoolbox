@@ -28,7 +28,7 @@ cla_rf <- function(attribute, slevels, mtry = NULL, ntree = 10) {
 fit.cla_rf <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
   data[,obj$attribute] <- adjust_factor(data[,obj$attribute], obj$ilevels, obj$slevels)
-  obj <- fit.prediction(obj, data)
+  obj <- fit.predictor(obj, data)
 
   if (is.null(obj$mtry))
     obj$mtry <- ceiling(sqrt(ncol(data)))

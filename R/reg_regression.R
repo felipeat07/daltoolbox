@@ -5,7 +5,7 @@
 #'@examples trans <- dal_transform()
 #'@export
 regression <- function(attribute) {
-  obj <- prediction()
+  obj <- predictor()
   obj$attribute <- attribute
   class(obj) <- append("regression", class(obj))
   return(obj)

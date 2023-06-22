@@ -15,7 +15,7 @@ reg_dtree <- function(attribute) {
 #'@export
 fit.reg_dtree <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
-  obj <- fit.prediction(obj, data)
+  obj <- fit.predictor(obj, data)
 
   regression <- formula(paste(obj$attribute, "  ~ ."))
   obj$model <- tree::tree(regression, data)

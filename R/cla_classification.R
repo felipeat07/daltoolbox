@@ -9,7 +9,7 @@
 #'print(template_model)
 #'@export
 classification <- function(attribute, slevels) {
-  obj <- prediction()
+  obj <- predictor()
   class(obj) <- append("classification", class(obj))
   obj$attribute <- attribute
   obj$slevels <- slevels

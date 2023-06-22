@@ -6,7 +6,7 @@
 #'@examples trans <- dal_transform()
 #'@export
 cluster_dbscan <- function(eps, minPts) {
-  obj <- clustering()
+  obj <- clusterer()
   obj$eps <- eps
   obj$minPts <- minPts
 

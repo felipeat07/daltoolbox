@@ -20,7 +20,7 @@ reg_rf <- function(attribute, mtry = NULL, ntree = 10) {
 #'@export
 fit.reg_rf <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
-  obj <- fit.prediction(obj, data)
+  obj <- fit.predictor(obj, data)
 
   if (is.null(obj$mtry))
     obj$mtry <- ceiling(ncol(data)/3)

@@ -29,7 +29,7 @@ cla_mlp <- function(attribute, slevels, size=NULL, decay=0.1, maxit=1000) {
 fit.cla_mlp <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
   data[,obj$attribute] <- adjust_factor(data[,obj$attribute], obj$ilevels, obj$slevels)
-  obj <- fit.prediction(obj, data)
+  obj <- fit.predictor(obj, data)
 
   if (is.null(obj$size))
     obj$size <- ceiling(sqrt(ncol(data)))

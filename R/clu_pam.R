@@ -2,11 +2,11 @@
 #'@description Implements the Partition Around Medoids (PAM) clustering algorithm.
 #' PAM is a partitioning clustering method that seeks to minimize the sum of dissimilarities between data points and the medoid of its assigned cluster. Unlike k-means, PAM can handle categorical data as well as distance measures other than Euclidean distance.
 #'@param k The number of clusters to generate.
-#'@return A clustering object.
+#'@return A clusterer object.
 #'@examples trans <- dal_transform()
 #'@export
 cluster_pam <- function(k) {
-  obj <- clustering()
+  obj <- clusterer()
   obj$k <- k
 
   class(obj) <- append("cluster_pam", class(obj))

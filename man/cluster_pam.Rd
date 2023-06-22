@@ -10,7 +10,7 @@ cluster_pam(k)
 \item{k}{The number of clusters to generate.}
 }
 \value{
-A clustering object.
+A clusterer object.
 }
 \description{
 Implements the Partition Around Medoids (PAM) clustering algorithm.

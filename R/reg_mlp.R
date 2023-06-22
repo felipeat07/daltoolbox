@@ -19,7 +19,7 @@ reg_mlp <- function(attribute, size=NULL, decay=0.05, maxit=1000) {
 #'@export
 fit.reg_mlp <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
-  obj <- fit.prediction(obj, data)
+  obj <- fit.predictor(obj, data)
 
   if (is.null(obj$size))
     obj$size <- ceiling(ncol(data)/3)

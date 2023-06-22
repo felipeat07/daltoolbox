@@ -19,5 +19,5 @@
 fitted obj
 }
 \description{
-tune hyperparameters of ml model for clustering
+tune hyperparameters of ml model for clusterer
 }
