@@ -7,16 +7,21 @@
 inverse_transform(obj, ...)
 }
 \arguments{
-\item{obj}{object: The transformed time series dataset.}
+\item{obj}{a dal_transform object.}
 
 \item{...}{optional arguments.}
 }
 \value{
-The time series dataset in its original scale.
+dataset inverse transformed.
 }
 \description{
-Reverses the transformation applied to a time series dataset using the transform() function.
+Reverses the transformation applied to data.
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+#An example of dal_transform is minmax()
+trans <- minmax()
+trans <- fit(trans, iris)
+tiris <- transform(trans, iris)
+itiris <- inverse_transform(trans, tiris)
 }

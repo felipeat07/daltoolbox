@@ -12,7 +12,7 @@
 \item{...}{optional arguments}
 }
 \value{
-It simply returns NULL, which indicates that no transformation
+The default behavior is return null
 }
 \description{
 Executes the action of an object.

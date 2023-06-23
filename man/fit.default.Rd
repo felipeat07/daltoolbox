@@ -12,8 +12,8 @@
 \item{...}{optional arguments}
 }
 \value{
-obj
+The default behavior is return the object as it is
 }
 \description{
-Fits a model.
+Fits a model from input data
 }

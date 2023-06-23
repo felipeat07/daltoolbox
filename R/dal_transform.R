@@ -1,7 +1,13 @@
 #'@title DAL Transform
-#'@description A transformation function can be applied to a time series dataset to alter its properties.
+#'@description A transformation method applied to a dataset.
+#' Fit can be called before transform, if needed.
 #'@return a dal_transform object
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(iris)
+#'#An example of dal_transform is minmax()
+#'trans <- minmax()
+#'trans <- fit(trans, iris)
+#'tiris <- transform(trans, iris)
 #'@export
 dal_transform <- function() {
   obj <- dal_base()
@@ -10,47 +16,75 @@ dal_transform <- function() {
 }
 
 #'@title Transform
-#'@description Defines the kind of transformation to be set over a time series.
-#'@param obj object: a dal_transform object to apply the transformation to.
+#'@description Defines a transformation method.
+#'@param obj a dal_transform object.
 #'@param ... optional arguments.
-#'@return the transformed time series data.
-#'@examples trans <- dal_transform()
+#'@return transformed data.
+#'@examples
+#'data(iris)
+#'#An example of dal_transform is minmax()
+#'trans <- minmax()
+#'trans <- fit(trans, iris)
+#'tiris <- transform(trans, iris)
 #'@export
 transform <- function(obj, ...) {
   UseMethod("transform")
 }
 
-#'@title dal_base object
-#'@description A default function that defines the default behavior of the transform function for objects of class dal_transform
-#'@param obj object
+#'@title Transform
+#'@description Executes the default transformation of an object.
+#'@param obj a dal_transform object.
 #'@param ... optional arguments
-#'@return It simply returns NULL, which indicates that no transforms are applied
-#'@examples trans <- dal_base()
+#'@return It simply returns NULL, which indicates that no transformation
 #'@export
 transform.default <- function(obj, ...) {
   return(NULL)
 }
 
-#inverse_transform
+
+#'@title Action implementation for transform
+#'@description A default function that defines the action to proxy transform method
+#'@param obj object
+#'@param ... optional arguments
+#'@return Transformed data
+#'@examples
+#'data(iris)
+#'# an example is minmax normalization
+#'trans <- minmax()
+#'trans <- fit(trans, iris)
+#'tiris <- action(trans, iris)
+#'@export
+action.dal_transform <- function(obj, ...) {
+  thiscall <- match.call(expand.dots = TRUE)
+  thiscall[[1]] <- as.name("transform")
+  result <- eval.parent(thiscall)
+  return(result)
+}
+
+
 #'@title Inverse Transform
-#'@description Reverses the transformation applied to a time series dataset using the transform() function.
-#'@param obj object: The transformed time series dataset.
+#'@description Reverses the transformation applied to data.
+#'@param obj a dal_transform object.
 #'@param ... optional arguments.
-#'@return The time series dataset in its original scale.
-#'@examples trans <- dal_transform()
+#'@return dataset inverse transformed.
+#'@examples
+#'data(iris)
+#'#An example of dal_transform is minmax()
+#'trans <- minmax()
+#'trans <- fit(trans, iris)
+#'tiris <- transform(trans, iris)
+#'itiris <- inverse_transform(trans, tiris)
 #'@export
 inverse_transform <- function(obj, ...) {
   UseMethod("inverse_transform")
 }
 
-#'@title dal_base object
-#'@description It receives as parameter the object obj, ...
-#'@param obj object
-#'@param ... optional arguments
-#'@return Simply returns NULL
-#'@examples trans <- dal_transform()
+#'@title Default inverse transform
+#'@description Reverses the transformation applied to data.
+#'@param obj a dal_transform object.
+#'@param ... optional arguments.
+#'@return It simply returns NULL, which indicates that no transformation
 #'@export
 inverse_transform.default <- function(obj, ...) {
   return(NULL)
 }
-

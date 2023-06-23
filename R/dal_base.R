@@ -10,14 +10,43 @@ dal_base <- function() {
   return(obj)
 }
 
-#'@title Action
-#'@description Executes the action of an object.
-#'@param obj object: a dal_base object to apply the transformation on the input dataset.
+#'@title Fit
+#'@description Fits a model.
+#'@param obj object
 #'@param ... optional arguments.
-#'@return A transformed dataset.
+#'@return obj
 #'@examples
 #'data(iris)
-#'result <- action(dal_base(), iris)
+#'# an example is minmax normalization
+#'trans <- minmax()
+#'trans <- fit(trans, iris)
+#'tiris <- action(trans, iris)
+#'@export
+fit <- function(obj, ...) {
+  UseMethod("fit")
+}
+
+#'@title Fit
+#'@description Fits a model from input data
+#'@param obj object
+#'@param ... optional arguments
+#'@return The default behavior is return the object as it is
+#'@export
+fit.default <- function(obj, ...) {
+  return(obj)
+}
+
+#'@title Action
+#'@description Executes the action of model applied in provided data
+#'@param obj object: a dal_base object to apply the transformation on the input dataset.
+#'@param ... optional arguments.
+#'@return The result of an action of the model applied in provided data
+#'@examples
+#'data(iris)
+#'# an example is minmax normalization
+#'trans <- minmax()
+#'trans <- fit(trans, iris)
+#'tiris <- action(trans, iris)
 #'@export
 action <- function(obj, ...) {
   UseMethod("action")
@@ -27,33 +56,10 @@ action <- function(obj, ...) {
 #'@description Executes the action of an object.
 #'@param obj object
 #'@param ... optional arguments
-#'@return It simply returns NULL, which indicates that no transformation
+#'@return The default behavior is return null
 #'@export
 action.default <- function(obj, ...) {
   return(NULL)
-}
-
-#'@title Fit
-#'@description Fits a model.
-#'@param obj object
-#'@param ... optional arguments.
-#'@return obj
-#'@examples
-#'data(iris)
-#'obj <- fit(dal_base(), iris)
-#'@export
-fit <- function(obj, ...) {
-  UseMethod("fit")
-}
-
-#'@title Fit
-#'@description Fits a model.
-#'@param obj object
-#'@param ... optional arguments
-#'@return obj
-#'@export
-fit.default <- function(obj, ...) {
-  return(obj)
 }
 
 #'@title Assign parameters

@@ -2,21 +2,18 @@
 % Please edit documentation in R/dal_transform.R
 \name{transform.default}
 \alias{transform.default}
-\title{dal_base object}
+\title{Transform}
 \usage{
 \method{transform}{default}(obj, ...)
 }
 \arguments{
-\item{obj}{object}
+\item{obj}{a dal_transform object.}
 
 \item{...}{optional arguments}
 }
 \value{
-It simply returns NULL, which indicates that no transforms are applied
+It simply returns NULL, which indicates that no transformation
 }
 \description{
-A default function that defines the default behavior of the transform function for objects of class dal_transform
-}
-\examples{
-trans <- dal_base()
+Executes the default transformation of an object.
 }

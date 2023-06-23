@@ -12,12 +12,15 @@ action(obj, ...)
 \item{...}{optional arguments.}
 }
 \value{
-A transformed dataset.
+The result of an action of the model applied in provided data
 }
 \description{
-Executes the action of an object.
+Executes the action of model applied in provided data
 }
 \examples{
 data(iris)
-result <- action(dal_base(), iris)
+# an example is minmax normalization
+trans <- minmax()
+trans <- fit(trans, iris)
+tiris <- action(trans, iris)
 }

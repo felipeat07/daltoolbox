@@ -7,16 +7,20 @@
 transform(obj, ...)
 }
 \arguments{
-\item{obj}{object: a dal_transform object to apply the transformation to.}
+\item{obj}{a dal_transform object.}
 
 \item{...}{optional arguments.}
 }
 \value{
-the transformed time series data.
+transformed data.
 }
 \description{
-Defines the kind of transformation to be set over a time series.
+Defines a transformation method.
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+#An example of dal_transform is minmax()
+trans <- minmax()
+trans <- fit(trans, iris)
+tiris <- transform(trans, iris)
 }

@@ -7,14 +7,24 @@
 categ_mapping(attribute)
 }
 \arguments{
-\item{attribute}{attribute target to model building.}
+\item{attribute}{\itemize{
+\item attribute to be categorized.
+}}
 }
 \value{
-An instance of the CategoricalMapping class.
+A data frame with binary attributes, one for each possible category.
 }
 \description{
-The CategoricalMapping class in R provides a way to map the levels of a categorical variable to new values. It is often used to recode or reclassify categorical variables in data preprocessing and data analysis tasks.
+Categorical Mapping provides a way to map the levels of a categorical variable to new values.
+Each possible value is converted to a binary attribute.
 }
 \examples{
-trans <- dal_transform()
+cm <- categ_mapping("Species")
+iris_cm <- transform(cm, iris)
+print(head(iris_cm))
+
+# can be made in a single column
+species <- iris[,"Species", drop=FALSE]
+iris_cm <- transform(cm, species)
+print(head(iris_cm))
 }

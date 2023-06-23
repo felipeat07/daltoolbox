@@ -3,6 +3,7 @@
 S3method("[",ts_data)
 S3method(action,clusterer)
 S3method(action,dal_learner)
+S3method(action,dal_transform)
 S3method(action,default)
 S3method(action,predictor)
 S3method(action,ts_reg)

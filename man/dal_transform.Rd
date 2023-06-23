@@ -10,8 +10,13 @@ dal_transform()
 a dal_transform object
 }
 \description{
-A transformation function can be applied to a time series dataset to alter its properties.
+A transformation method applied to a dataset.
+Fit can be called before transform, if needed.
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+#An example of dal_transform is minmax()
+trans <- minmax()
+trans <- fit(trans, iris)
+tiris <- transform(trans, iris)
 }

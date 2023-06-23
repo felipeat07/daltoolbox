@@ -19,5 +19,8 @@ Fits a model.
 }
 \examples{
 data(iris)
-obj <- fit(dal_base(), iris)
+# an example is minmax normalization
+trans <- minmax()
+trans <- fit(trans, iris)
+tiris <- action(trans, iris)
 }

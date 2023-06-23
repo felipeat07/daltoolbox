@@ -2,21 +2,18 @@
 % Please edit documentation in R/dal_transform.R
 \name{inverse_transform.default}
 \alias{inverse_transform.default}
-\title{dal_base object}
+\title{Default inverse transform}
 \usage{
 \method{inverse_transform}{default}(obj, ...)
 }
 \arguments{
-\item{obj}{object}
+\item{obj}{a dal_transform object.}
 
-\item{...}{optional arguments}
+\item{...}{optional arguments.}
 }
 \value{
-Simply returns NULL
+It simply returns NULL, which indicates that no transformation
 }
 \description{
-It receives as parameter the object obj, ...
-}
-\examples{
-trans <- dal_transform()
+Reverses the transformation applied to data.
 }

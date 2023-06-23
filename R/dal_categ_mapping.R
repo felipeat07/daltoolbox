@@ -1,8 +1,17 @@
 #'@title Categorical Mapping
-#'@description The CategoricalMapping class in R provides a way to map the levels of a categorical variable to new values. It is often used to recode or reclassify categorical variables in data preprocessing and data analysis tasks.
-#'@param attribute attribute target to model building.
-#'@return An instance of the CategoricalMapping class.
-#'@examples trans <- dal_transform()
+#'@description Categorical Mapping provides a way to map the levels of a categorical variable to new values.
+#' Each possible value is converted to a binary attribute.
+#'@param attribute - attribute to be categorized.
+#'@return A data frame with binary attributes, one for each possible category.
+#'@examples
+#'cm <- categ_mapping("Species")
+#'iris_cm <- transform(cm, iris)
+#'print(head(iris_cm))
+#'
+#'# can be made in a single column
+#'species <- iris[,"Species", drop=FALSE]
+#'iris_cm <- transform(cm, species)
+#'print(head(iris_cm))
 #'@export
 categ_mapping <- function(attribute) {
   obj <- dal_transform()
@@ -11,9 +20,9 @@ categ_mapping <- function(attribute) {
   return(obj)
 }
 
-#'@export
 #'@importFrom stats formula
 #'@importFrom stats model.matrix
+#'@export
 transform.categ_mapping <- function(obj, data, ...) {
   mdlattribute <- stats::formula(paste("~", paste(obj$attribute, "-1")))
   data <- as.data.frame(stats::model.matrix(mdlattribute, data=data))
