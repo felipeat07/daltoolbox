@@ -15,10 +15,9 @@ fit(obj, ...)
 obj
 }
 \description{
-Models a time series dataset by estimating the underlying trend
-and seasonality components. Used to make predictions and forecast future
-values of the time series based on the historical data.
+Fits a model.
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+obj <- fit(dal_base(), iris)
 }

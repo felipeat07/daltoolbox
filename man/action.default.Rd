@@ -2,7 +2,7 @@
 % Please edit documentation in R/dal_base.R
 \name{action.default}
 \alias{action.default}
-\title{Default Action implementation}
+\title{Action}
 \usage{
 \method{action}{default}(obj, ...)
 }
@@ -12,11 +12,8 @@
 \item{...}{optional arguments}
 }
 \value{
-It simply returns NULL, which indicates that no transforms are applied
+It simply returns NULL, which indicates that no transformation
 }
 \description{
-A default function that defines the default behavior of the transform function for objects of class dal_transform
-}
-\examples{
-trans <- dal_transform()
+Executes the action of an object.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/dal_base.R
 \name{fit.default}
 \alias{fit.default}
-\title{fit default implementation}
+\title{Fit}
 \usage{
 \method{fit}{default}(obj, ...)
 }
@@ -15,8 +15,5 @@
 obj
 }
 \description{
-fit efault implementation
-}
-\examples{
-trans <- dal_transform()
+Fits a model.
 }

@@ -2,18 +2,19 @@
 % Please edit documentation in R/dal_base.R
 \name{set_params.dal_base}
 \alias{set_params.dal_base}
-\title{Set parameters values for dal_base}
+\title{Assign parameters}
 \usage{
 \method{set_params}{dal_base}(obj, params)
 }
 \arguments{
-\item{obj}{object}
+\item{obj}{object of class dal_base}
 
-\item{params}{parameters}
+\item{params}{parameters to set obj}
 }
 \value{
-The dal_base object updated with the new parameter values
+obj with parameters set
 }
 \description{
-It receives as input a dal_base object (obj) and a set of parameters (params)
+set_params function assigns all parameters to the attributes presented in the object.
+It returns the object with the parameters set.
 }

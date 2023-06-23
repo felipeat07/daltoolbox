@@ -2,7 +2,7 @@
 % Please edit documentation in R/dal_base.R
 \name{adjust_data.frame}
 \alias{adjust_data.frame}
-\title{dal_base object}
+\title{Adjust input data to data frame}
 \usage{
 adjust_data.frame(data)
 }
@@ -13,8 +13,12 @@ adjust_data.frame(data)
 The date argument
 }
 \description{
-It takes as parameter an obj object
+adjust_data.frame function receives
+a data object and converts it to a data frame.
+
+It returns the same input if it is already a data frame.
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+df <- adjust_data.frame(iris)
 }

@@ -2,15 +2,15 @@
 % Please edit documentation in R/dal_base.R
 \name{dal_base}
 \alias{dal_base}
-\title{dal_base object}
+\title{Class dal_base}
 \usage{
 dal_base()
 }
 \value{
-An empty object
+A dal_base object
 }
 \description{
-Creates a base object that will be used by other library functions
+The dal_base class is an abstract class for all dal descendants classes. It provides both fit() and action() functions
 }
 \examples{
 trans <- dal_base()

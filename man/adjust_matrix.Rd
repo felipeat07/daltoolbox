@@ -2,19 +2,20 @@
 % Please edit documentation in R/dal_base.R
 \name{adjust_matrix}
 \alias{adjust_matrix}
-\title{dal_base object}
+\title{Adjust input data to matrix}
 \usage{
 adjust_matrix(data)
 }
 \arguments{
 \item{data}{dataset}
 }
-\value{
-An array corresponding to the object passed as a parameter, if it is not an array. If the object is already an array, the function simply returns it
-}
 \description{
-It takes a data object as an argument
+adjust_matrix function receives
+a data object and converts it to a matrix.
+
+It returns the same input if it is already a matrix.
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+mat <- adjust_matrix(iris)
 }

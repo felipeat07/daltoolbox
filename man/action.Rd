@@ -7,16 +7,17 @@
 action(obj, ...)
 }
 \arguments{
-\item{obj}{object: a dal_transform object to apply the transformation to.}
+\item{obj}{object: a dal_base object to apply the transformation on the input dataset.}
 
 \item{...}{optional arguments.}
 }
 \value{
-the transformed time series data.
+A transformed dataset.
 }
 \description{
-Defines the kind of transformation to be set over a time series.
+Executes the action of an object.
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+result <- action(dal_base(), iris)
 }

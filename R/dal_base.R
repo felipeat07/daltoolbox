@@ -1,6 +1,6 @@
-#'@title dal_base object
-#'@description Creates a base object that will be used by other library functions
-#'@return An empty object
+#'@title Class dal_base
+#'@description The dal_base class is an abstract class for all dal descendants classes. It provides both fit() and action() functions
+#'@return A dal_base object
 #'@examples trans <- dal_base()
 #'@export
 dal_base <- function() {
@@ -11,77 +11,81 @@ dal_base <- function() {
 }
 
 #'@title Action
-#'@description Defines the kind of transformation to be set over a time series.
-#'@param obj object: a dal_transform object to apply the transformation to.
+#'@description Executes the action of an object.
+#'@param obj object: a dal_base object to apply the transformation on the input dataset.
 #'@param ... optional arguments.
-#'@return the transformed time series data.
-#'@examples trans <- dal_transform()
+#'@return A transformed dataset.
+#'@examples
+#'data(iris)
+#'result <- action(dal_base(), iris)
 #'@export
 action <- function(obj, ...) {
   UseMethod("action")
 }
 
-#'@title Default Action implementation
-#'@description A default function that defines the default behavior of the transform function for objects of class dal_transform
+#'@title Action
+#'@description Executes the action of an object.
 #'@param obj object
 #'@param ... optional arguments
-#'@return It simply returns NULL, which indicates that no transforms are applied
-#'@examples trans <- dal_transform()
+#'@return It simply returns NULL, which indicates that no transformation
 #'@export
 action.default <- function(obj, ...) {
   return(NULL)
 }
 
 #'@title Fit
-#'@description Models a time series dataset by estimating the underlying trend
-#' and seasonality components. Used to make predictions and forecast future
-#' values of the time series based on the historical data.
+#'@description Fits a model.
 #'@param obj object
 #'@param ... optional arguments.
 #'@return obj
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(iris)
+#'obj <- fit(dal_base(), iris)
 #'@export
 fit <- function(obj, ...) {
   UseMethod("fit")
 }
 
-#'@title fit default implementation
-#'@description fit efault implementation
+#'@title Fit
+#'@description Fits a model.
 #'@param obj object
 #'@param ... optional arguments
 #'@return obj
-#'@examples trans <- dal_transform()
 #'@export
 fit.default <- function(obj, ...) {
   return(obj)
 }
 
-#'@title Update an object's parameters
-#'@description The function receives the obj and params variables as parameters
-#'@param obj object
-#'@param params parameters
-#'@examples trans <- dal_transform()
+#'@title Assign parameters
+#'@description set_params function assigns all parameters to the attributes presented in the object.
+#'It returns the object with the parameters set.
+#'@param obj object of class dal_base
+#'@param params parameters to set obj
+#'@return obj with parameters set
+#'@examples
+#'obj <- set_params(dal_base(), list(reproduce = TRUE))
 #'@export
 set_params <- function(obj, params) {
   UseMethod("set_params")
 }
 
-#'@title Defines a default method for the set_params function
+#'@title Assign parameters
 #'@description This function receives the obj and params variables as parameters.
+#' It returns the obj as it is.
 #'@param obj object
 #'@param params parameters
-#'
-#'@return The obj object
+#'@return obj
 #'@export
 set_params.default <- function(obj, params) {
   return(obj)
 }
 
-#'@title Set parameters values for dal_base
-#'@description It receives as input a dal_base object (obj) and a set of parameters (params)
-#'@param obj object
-#'@param params parameters
-#'@return The dal_base object updated with the new parameter values
+#'@title Assign parameters
+#'@description set_params function assigns all parameters to the attributes presented in the object.
+#'It returns the object with the parameters set.
+#'@param obj object of class dal_base
+#'@param params parameters to set obj
+#'@return obj with parameters set
 #'@export
 set_params.dal_base <- function(obj, params) {
   if (!is.null(params)) {
@@ -104,14 +108,15 @@ set_params.dal_base <- function(obj, params) {
   return(obj)
 }
 
-
-
-# general functions
-#'@title dal_base object
-#'@description  It takes a data object as an argument
+#'@title  Adjust input data to matrix
+#'@description adjust_matrix function receives
+#' a data object and converts it to a matrix.
+#'
+#' It returns the same input if it is already a matrix.
 #'@param data dataset
-#'@return An array corresponding to the object passed as a parameter, if it is not an array. If the object is already an array, the function simply returns it
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(iris)
+#'mat <- adjust_matrix(iris)
 #'@export
 adjust_matrix <- function(data) {
   if(!is.matrix(data)) {
@@ -121,11 +126,16 @@ adjust_matrix <- function(data) {
     return(data)
 }
 
-#'@title dal_base object
-#'@description It takes as parameter an obj object
+#'@title  Adjust input data to data frame
+#'@description adjust_data.frame function receives
+#' a data object and converts it to a data frame.
+#'
+#' It returns the same input if it is already a data frame.
 #'@param data dataset
 #'@return The date argument
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(iris)
+#'df <- adjust_data.frame(iris)
 #'@export
 adjust_data.frame <- function(data) {
   if(!is.data.frame(data)) {
@@ -134,5 +144,6 @@ adjust_data.frame <- function(data) {
   else
     return(data)
 }
+
 
 
