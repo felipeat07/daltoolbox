@@ -35,12 +35,14 @@ transform <- function(obj, ...) {
 #'@description Executes the default transformation of an object.
 #'@param obj a dal_transform object.
 #'@param ... optional arguments
-#'@return It simply returns NULL, which indicates that no transformation
+#'@return It simply returns the input data which indicates that no transformation
 #'@export
 transform.default <- function(obj, ...) {
-  return(NULL)
+  thiscall <- match.call(expand.dots = TRUE)
+  thiscall[[1]] <- as.name("action.default")
+  result <- eval.parent(thiscall)
+  return (result)
 }
-
 
 #'@title Action implementation for transform
 #'@description A default function that defines the action to proxy transform method
@@ -83,8 +85,11 @@ inverse_transform <- function(obj, ...) {
 #'@description Reverses the transformation applied to data.
 #'@param obj a dal_transform object.
 #'@param ... optional arguments.
-#'@return It simply returns NULL, which indicates that no transformation
+#'@return It simply returns the input data which indicates that no transformation
 #'@export
 inverse_transform.default <- function(obj, ...) {
-  return(NULL)
+  thiscall <- match.call(expand.dots = TRUE)
+  thiscall[[1]] <- as.name("action.default")
+  result <- eval.parent(thiscall)
+  return (result)
 }

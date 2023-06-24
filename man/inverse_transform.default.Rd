@@ -12,7 +12,7 @@
 \item{...}{optional arguments.}
 }
 \value{
-It simply returns NULL, which indicates that no transformation
+It simply returns the input data which indicates that no transformation
 }
 \description{
 Reverses the transformation applied to data.

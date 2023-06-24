@@ -56,10 +56,14 @@ action <- function(obj, ...) {
 #'@description Executes the action of an object.
 #'@param obj object
 #'@param ... optional arguments
-#'@return The default behavior is return null
+#'@return The default behavior is return the input data
 #'@export
 action.default <- function(obj, ...) {
-  return(NULL)
+  par <- c(as.list(environment()), list(...))
+  data <- NULL
+  if (length(par) > 1)
+    data <- par[[2]]
+  return (data)
 }
 
 #'@title Assign parameters

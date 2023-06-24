@@ -1,6 +1,6 @@
 #'@title min-max normalization
-#'@description The minmax performs scales data between \[0,1\]
-#'@return min-max transformation object
+#'@description The minmax performs scales data between \[0,1\].
+#'@return obj
 #'@examples
 #'data(iris)
 #'trans <- minmax()
@@ -8,7 +8,7 @@
 #'tiris <- transform(trans, iris)
 #'@export
 minmax <- function() {
-  obj <- normalize()
+  obj <- dal_transform()
   class(obj) <- append("minmax", class(obj))
   return(obj)
 }

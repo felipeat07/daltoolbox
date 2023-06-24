@@ -159,7 +159,6 @@ fit.smoothing_cluster <- function(obj, data, ...) {
 smoothing_evaluation <- function(data, attribute) {
   x <- y <- q <- qtd <- e <- n <- 0
   obj <- list(data=as.factor(data), attribute=as.factor(attribute))
-  attr(obj, "class") <- "cluster_evaluation"
 
   compute_entropy <- function(obj) {
     value <- getOption("dplyr.summarise.inform")

@@ -7,10 +7,10 @@
 minmax()
 }
 \value{
-min-max transformation object
+obj
 }
 \description{
-The minmax performs scales data between [0,1]
+The minmax performs scales data between [0,1].
 }
 \examples{
 data(iris)

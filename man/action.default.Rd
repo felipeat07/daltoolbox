@@ -12,7 +12,7 @@
 \item{...}{optional arguments}
 }
 \value{
-The default behavior is return null
+The default behavior is return the input data
 }
 \description{
 Executes the action of an object.

@@ -50,7 +50,7 @@ ts_data <- function(y, sw=1) {
 #'@export
 `[.ts_data` <- function(x, i, j, ...) {
   y <- unclass(x)[i, j, drop = FALSE, ...]
-  class(y) <- c("ts_data",class(y))
+  class(y) <- append("ts_data", class(y))
   attr(y, "sw") <- ncol(y)
   return(y)
 }

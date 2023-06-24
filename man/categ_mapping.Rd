@@ -2,29 +2,25 @@
 % Please edit documentation in R/dal_categ_mapping.R
 \name{categ_mapping}
 \alias{categ_mapping}
-\title{Categorical Mapping}
+\title{Categorical mapping}
 \usage{
 categ_mapping(attribute)
 }
 \arguments{
-\item{attribute}{\itemize{
-\item attribute to be categorized.
-}}
+\item{attribute}{attribute to be categorized.}
 }
 \value{
 A data frame with binary attributes, one for each possible category.
 }
 \description{
-Categorical Mapping provides a way to map the levels of a categorical variable to new values.
+Categorical mapping provides a way to map the levels of a categorical variable to new values.
 Each possible value is converted to a binary attribute.
 }
 \examples{
 cm <- categ_mapping("Species")
 iris_cm <- transform(cm, iris)
-print(head(iris_cm))
 
 # can be made in a single column
 species <- iris[,"Species", drop=FALSE]
 iris_cm <- transform(cm, species)
-print(head(iris_cm))
 }

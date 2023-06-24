@@ -1,17 +1,15 @@
-#'@title Categorical Mapping
-#'@description Categorical Mapping provides a way to map the levels of a categorical variable to new values.
+#'@title Categorical mapping
+#'@description Categorical mapping provides a way to map the levels of a categorical variable to new values.
 #' Each possible value is converted to a binary attribute.
-#'@param attribute - attribute to be categorized.
+#'@param attribute attribute to be categorized.
 #'@return A data frame with binary attributes, one for each possible category.
 #'@examples
 #'cm <- categ_mapping("Species")
 #'iris_cm <- transform(cm, iris)
-#'print(head(iris_cm))
 #'
 #'# can be made in a single column
 #'species <- iris[,"Species", drop=FALSE]
 #'iris_cm <- transform(cm, species)
-#'print(head(iris_cm))
 #'@export
 categ_mapping <- function(attribute) {
   obj <- dal_transform()

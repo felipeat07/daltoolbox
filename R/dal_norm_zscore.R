@@ -10,7 +10,7 @@
 #'tiris <- transform(trans, iris)
 #'@export
 zscore <- function(nmean=0, nsd=1) {
-  obj <- normalize()
+  obj <- dal_transform()
   obj$nmean <- nmean
   obj$nsd <- nsd
   class(obj) <- append("zscore", class(obj))
