@@ -33,5 +33,7 @@ plot_density_class(
 plot density per class
 }
 \examples{
-trans <- dal_transform()
+grf <- plot_density_class(iris |> dplyr::select(Sepal.Width, Species),
+ class = "Species", colors=c("red", "green", "blue"))
+plot(grf)
 }

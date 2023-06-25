@@ -2,20 +2,20 @@
 % Please edit documentation in R/dal_tune.R
 \name{select_hyper}
 \alias{select_hyper}
-\title{select hyper parameters}
+\title{Selection hyper parameters}
 \usage{
 select_hyper(obj, hyperparameters)
 }
 \arguments{
 \item{obj}{object}
 
-\item{hyperparameters}{data set with hyper parameters.}
+\item{hyperparameters}{data set with hyper parameters and quality measure from execution}
 }
 \value{
-index of hyperparameter
+index of selected hyper parameter
 }
 \description{
-select hyper parameters
+Selection hyper parameters from a k-fold cross-validation execution
 }
 \examples{
 trans <- dal_transform()

@@ -18,9 +18,5 @@ transformed data.
 Defines a transformation method.
 }
 \examples{
-data(iris)
-#An example of dal_transform is minmax()
-trans <- minmax()
-trans <- fit(trans, iris)
-tiris <- transform(trans, iris)
+#See ?minmax for an example of transformation
 }

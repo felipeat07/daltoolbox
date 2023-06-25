@@ -18,10 +18,5 @@ dataset inverse transformed.
 Reverses the transformation applied to data.
 }
 \examples{
-data(iris)
-#An example of dal_transform is minmax()
-trans <- minmax()
-trans <- fit(trans, iris)
-tiris <- transform(trans, iris)
-itiris <- inverse_transform(trans, tiris)
+#See ?minmax for an example of transformation
 }

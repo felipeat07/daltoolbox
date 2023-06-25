@@ -10,10 +10,8 @@
 #'@examples trans <- dal_transform()
 #'@export
 ts_tune <- function(input_size, base_model, folds=10) {
-  obj <- dal_base()
+  obj <- dal_tune(base_model, folds)
   obj$input_size <- input_size
-  obj$base_model <- base_model
-  obj$folds <- folds
   obj$name <- ""
   class(obj) <- append("ts_tune", class(obj))
   return(obj)

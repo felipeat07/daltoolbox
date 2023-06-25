@@ -7,12 +7,28 @@
 #'@param folds number of folds for cross-validation
 #'@param metric metric used to optimize
 #'@return a `cla_tune` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'# preparing dataset for random sampling
+#'set.seed(1)
+#'sr <- sample_random()
+#'sr <- train_test(sr, iris)
+#'iris_train <- sr$train
+#'iris_test <- sr$test
+#'
+#'# hyper parameter optimization
+#'tune <- cla_tune(cla_svm("Species", levels(iris$Species)))
+#'ranges <- list(epsilon=seq(0,1,0.25), cost=seq(25,100,25), kernel = c("radial"))
+#'model <- fit(tune, iris_train, ranges)
+#'train_prediction <- predict(model, iris_train)
+#'
+#'# testing optimization
+#'test_prediction <- predict(model, iris_test)
+#'test_predictand <- adjust_class_label(iris_test[,"Species"])
+#'test_eval <- evaluate(model, test_predictand, test_prediction)
+#'test_eval$metrics
 #'@export
 cla_tune <- function(base_model, folds=10, metric="accuracy") {
-  obj <- dal_base()
-  obj$base_model <- base_model
-  obj$folds <- folds
+  obj <- dal_tune(base_model, folds)
   obj$name <- ""
   obj$metric <- metric
   class(obj) <- append("cla_tune", class(obj))

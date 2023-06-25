@@ -14,9 +14,5 @@ A transformation method applied to a dataset.
 Fit can be called before transform, if needed.
 }
 \examples{
-data(iris)
-#An example of dal_transform is minmax()
-trans <- minmax()
-trans <- fit(trans, iris)
-tiris <- transform(trans, iris)
+#See ?minmax for an example of transformation
 }

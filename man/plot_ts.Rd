@@ -20,3 +20,11 @@ plot_ts(x = NULL, y, label_x = "", label_y = "", color = "black")
 \description{
 The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
 }
+\examples{
+x <- seq(0, 10, 0.25)
+data <- data.frame(x, sin=sin(x))
+head(data)
+
+grf <- plot_ts(x = data$x, y = data$sin, color=c("red"))
+plot(grf)
+}

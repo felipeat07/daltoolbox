@@ -30,5 +30,6 @@ plot_density(
 plot density
 }
 \examples{
-trans <- dal_transform()
+grf <- plot_density(iris |> dplyr::select(Sepal.Width), colors="blue")
+plot(grf)
 }

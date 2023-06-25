@@ -19,5 +19,10 @@ plot_points(data, label_x = "", label_y = "", colors = NULL)
 plot points
 }
 \examples{
-trans <- dal_transform()
+x <- seq(0, 10, 0.25)
+data <- data.frame(x, sin=sin(x), cosine=cos(x)+5)
+head(data)
+
+grf <- plot_points(data, colors=c("red", "green"))
+plot(grf)
 }

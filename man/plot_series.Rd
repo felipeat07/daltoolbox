@@ -22,5 +22,10 @@ plot
 plot series
 }
 \examples{
-trans <- dal_transform()
+x <- seq(0, 10, 0.25)
+data <- data.frame(x, sin=sin(x))
+head(data)
+
+grf <- plot_series(data, colors=c("red"))
+plot(grf)
 }

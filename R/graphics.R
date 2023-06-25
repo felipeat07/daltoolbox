@@ -1,90 +1,3 @@
-#'@title scatter graph
-#'@description scatter graph
-#'@param data data.frame contain x, value, and variable
-#'@param label_x x-axis label
-#'@param label_y y-axis label
-#'@param colors color vector
-#'@return ggplot graphic
-#'@examples trans <- dal_transform()
-#'@import ggplot2
-#'@export
-plot_scatter <- function(data, label_x = "", label_y = "", colors = NULL) {
-  x <- 0
-  value <- 0
-  variable <- 0
-  grf <- ggplot(data=data, aes(x = x, y = value, colour=variable, group=variable)) + geom_point(size=1)
-  if (!is.null(colors)) {
-    grf <- grf + scale_color_manual(values=colors)
-  }
-  grf <- grf + xlab(label_x)
-  grf <- grf + ylab(label_y)
-  grf <- grf + theme_bw(base_size = 10)
-  grf <- grf + theme(panel.grid.major = element_blank()) + theme(panel.grid.minor = element_blank())
-  grf <- grf + theme(legend.position = "bottom") + theme(legend.key = element_blank())
-  return(grf)
-}
-
-#'@title plot points
-#'@description plot points
-#'@param data data.frame contain x, value, and variable
-#'@param label_x x-axis label
-#'@param label_y y-axis label
-#'@param colors color vector
-#'@examples trans <- dal_transform()
-#'@import ggplot2
-#'@importFrom reshape melt
-#'@export
-plot_points <- function(data, label_x = "", label_y = "", colors = NULL) {
-  x <- 0
-  value <- 0
-  variable <- 0
-  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
-  cnames <- colnames(data)[-1]
-  colnames(series)[1] <- "x"
-  grf <- ggplot(data=series, aes(x = x, y = value, colour=variable, group=variable)) + geom_point(size=1)
-  if (!is.null(colors)) {
-    grf <- grf + scale_color_manual(values=colors)
-  }
-  grf <- grf + labs(color=cnames)
-  grf <- grf + xlab(label_x)
-  grf <- grf + ylab(label_y)
-  grf <- grf + theme_bw(base_size = 10)
-  grf <- grf + theme(panel.grid.major = element_blank()) + theme(panel.grid.minor = element_blank())
-  grf <- grf + theme(legend.title = element_blank()) + theme(legend.position = "bottom") + theme(legend.key = element_blank())
-  return(grf)
-}
-
-#'@title plot series
-#'@description plot series
-#'@param data data.frame contain x, value, and variable
-#'@param label_x x-axis label
-#'@param label_y y-axis label
-#'@param colors color vector
-#'@return plot
-#'@examples trans <- dal_transform()
-#'@import ggplot2
-#'@importFrom reshape melt
-#'@export
-plot_series <- function(data, label_x = "", label_y = "", colors = NULL) {
-  x <- 0
-  value <- 0
-  variable <- 0
-  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
-  cnames <- colnames(data)[-1]
-  colnames(series)[1] <- "x"
-  grf <- ggplot(data=series, aes(x = x, y = value, colour=variable, group=variable)) + geom_point(size=1.5) + geom_line(linewidth=1)
-  if (!is.null(colors)) {
-    grf <- grf + scale_color_manual(values=colors)
-  }
-  grf <- grf + labs(color=cnames)
-  grf <- grf + xlab(label_x)
-  grf <- grf + ylab(label_y)
-  grf <- grf + theme_bw(base_size = 10)
-  grf <- grf + theme(panel.grid.major = element_blank()) + theme(panel.grid.minor = element_blank())
-  grf <- grf + theme(legend.title = element_blank()) + theme(legend.position = "bottom") + theme(legend.key = element_blank())
-  return(grf)
-}
-
 #'@title plot bar graph
 #'@description plot bar graph
 #'@param data data.frame contain x, value, and variable
@@ -93,7 +6,15 @@ plot_series <- function(data, label_x = "", label_y = "", colors = NULL) {
 #'@param colors color vector
 #'@param alpha level of transparency
 #'@return ggplot graphic
-#'@examples trans <- dal_transform()
+#'@examples
+#'#summarizing iris dataset
+#'data <- iris |> dplyr::group_by(Species) |>
+#'  dplyr::summarize(Sepal.Length=mean(Sepal.Length))
+#'head(data)
+#'
+#'#ploting data
+#'grf <- plot_bar(data, colors="blue")
+#'plot(grf)
 #'@import ggplot2
 #'@export
 plot_bar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
@@ -115,221 +36,6 @@ plot_bar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
   return(grf)
 }
 
-#'@title plot grouped bar
-#'@description plot grouped bar
-#'@param data data.frame contain x, value, and variable
-#'@param label_x x-axis label
-#'@param label_y y-axis label
-#'@param colors color vector
-#'@param alpha level of transparency
-#'@return ggplot graphic
-#'@examples trans <- dal_transform()
-#'@import ggplot2
-#'@importFrom reshape melt
-#'@export
-plot_groupedbar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
-  variable <- 0
-  value <- 0
-  x <- 0
-  cnames <- colnames(data)[-1]
-  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
-  colnames(series)[1] <- "x"
-  if (!is.factor(series$x))
-    series$x <- as.factor(series$x)
-
-  grf <- ggplot(series, aes(x, value, fill=variable))
-  grf <- grf + geom_bar(stat = "identity",position = "dodge", alpha=alpha)
-  if (!is.null(colors)) {
-    grf <- grf + scale_fill_manual(cnames, values = colors)
-  }
-  grf <- grf + theme_bw(base_size = 10)
-  grf <- grf + theme(panel.grid.minor = element_blank())
-  grf <- grf + theme(legend.title = element_blank()) + theme(legend.position = "bottom")
-  grf <- grf + xlab(label_x)
-  grf <- grf + ylab(label_y)
-  return(grf)
-}
-
-#'@title plot stacked bar
-#'@description plot stacked bar
-#'@param data data.frame contain x, value, and variable
-#'@param label_x x-axis label
-#'@param label_y y-axis label
-#'@param colors color vector
-#'@param alpha level of transparency
-#'@return ggplot graphic
-#'@examples trans <- dal_transform()
-#'@import ggplot2
-#'@importFrom reshape melt
-#'@export
-plot_stackedbar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
-  x <- 0
-  value <- 0
-  variable <- 0
-  cnames <- colnames(data)[-1]
-  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
-  colnames(series)[1] <- "x"
-  if (!is.factor(series$x))
-    series$x <- as.factor(series$x)
-
-  grf <- ggplot(series, aes(x=x, y=value, fill=variable)) + geom_bar(stat="identity", colour="white")
-  if (!is.null(colors)) {
-    grf <- grf + scale_fill_manual(cnames, values = colors)
-  }
-  grf <- grf + theme_bw(base_size = 10)
-  grf <- grf + theme(panel.grid.minor = element_blank())
-  grf <- grf + theme(legend.title = element_blank()) + theme(legend.position = "bottom")
-  grf <- grf + scale_x_discrete(limits = unique(series$x))
-  grf <- grf + xlab(label_x)
-  grf <- grf + ylab(label_y)
-  return(grf)
-}
-
-#'@title plot radar
-#'@description plot radar
-#'@param data data.frame contain x, value, and variable
-#'@param label_x x-axis label
-#'@param label_y y-axis label
-#'@param colors color vector
-#'@return ggplot graphic
-#'@examples trans <- dal_transform()
-#'@import ggplot2
-#'@importFrom reshape melt
-#'@export
-plot_radar <- function(data, label_x = "", label_y = "", colors = NULL)  {
-  series <- as.data.frame(data)
-  if (!is.factor(series[,1]))
-    series[,1] <- as.factor(series[,1])
-  series$group <- 1
-  grf <- ggplot(series, aes_string(x=colnames(series)[1], y=colnames(series)[2], group="group"))
-  grf <- grf + geom_point(size=2, color=colors)
-  grf <- grf + geom_polygon(size = 1, alpha= 0.1, color=colors)
-  grf <- grf + theme_light()
-  grf <- grf + coord_polar()
-  return(grf)
-}
-
-#'@title plot lollipop
-#'@description plot lollipop
-#'@param data data.frame contain x, value, and variable
-#'@param label_x x-axis label
-#'@param label_y y-axis label
-#'@param colors color vector
-#'@param color_text color of text inside ball
-#'@param size_text size of text inside ball
-#'@param size_ball size of ball
-#'@param alpha_ball transparency of ball
-#'@param min_value minimum value
-#'@param max_value_gap maximum value gap
-#'@return ggplot graphic
-#'@examples trans <- dal_transform()
-#'@import ggplot2
-#'@importFrom reshape melt
-#'@export
-plot_lollipop <- function(data, label_x = "", label_y = "", colors = NULL, color_text = "black", size_text=3, size_ball=8, alpha_ball=0.2, min_value=0, max_value_gap=1) {
-  value <- 0
-  x <- 0
-  cnames <- colnames(data)[-1]
-  data <- reshape::melt(as.data.frame(data), id.vars = c(1))
-  colnames(data)[1] <- "x"
-  if (!is.factor(data$x))
-    data$x <- as.factor(data$x)
-  data$value <- round(data$value)
-
-  grf <- ggplot(data=data, aes(x=x, y=value, label=value)) +
-    geom_segment(aes(x=x, xend=x, y=min_value, yend=(value-max_value_gap)), color=colors, size=1) +
-    geom_text(color=color_text, size=size_text) +
-    geom_point(color=colors, size=size_ball, alpha=alpha_ball) +
-    theme_light() +
-    theme(
-      panel.grid.major.y = element_blank(),
-      panel.border = element_blank(),
-      axis.ticks.y = element_blank()
-    ) +
-    ylab(label_y) + xlab(label_x)
-  return(grf)
-}
-
-#'@title plot pie
-#'@description plot pie
-#'@param data data.frame contain x, value, and variable
-#'@param label_x x-axis label
-#'@param label_y y-axis label
-#'@param colors color vector
-#'@param textcolor text color
-#'@param bordercolor border color
-#'@return ggplot graphic
-#'@examples trans <- dal_transform()
-#'@import ggplot2
-#'@importFrom reshape melt
-#'@importFrom dplyr filter summarise group_by arrange mutate
-#'@export
-plot_pieplot <- function(data, label_x = "", label_y = "", colors = NULL, textcolor="white", bordercolor="black") {
-  x <- prop <- ypos <- label <- value <- desc <- n <- 0
-
-  prepare.pieplot <- function(series) {
-    colnames(series) <- c("x", "value")
-    if (!is.factor(series$x)) {
-      series$x <- as.factor(series$x)
-    }
-
-    series$colors <- colors
-
-    series <- series |>
-      dplyr::arrange(desc(x)) |>
-      dplyr::mutate(prop = value / sum(series$value) *100) |>
-      dplyr::mutate(ypos = cumsum(prop)- 0.5*prop) |>
-      dplyr::mutate(label = paste(round(value / sum(value) * 100, 0), "%"))
-    return(series)
-  }
-  series <- prepare.pieplot(data)
-
-  # Basic piechart
-  grf <- ggplot(series, aes(x="", y=prop, fill=x)) + geom_bar(width = 1, stat = "identity", color=bordercolor)
-  grf <- grf + theme_minimal(base_size = 10)
-  grf <- grf + coord_polar("y", start=0)
-  grf <- grf + geom_text(aes(y = ypos, label = label), size=6, color=textcolor)
-  if (!is.null(colors))
-    grf <- grf + scale_fill_manual(series$x, values = colors)
-  grf <- grf + theme(panel.grid.minor = element_blank()) + theme(legend.position = "bottom")
-  grf <- grf + xlab(label_x)
-  grf <- grf + ylab(label_y)
-  grf <- grf + theme(axis.text.x=element_blank(), legend.title = element_blank(), axis.ticks = element_blank(), panel.grid = element_blank())
-  return(grf)
-}
-
-
-#'@title plot histogram
-#'@description plot histogram
-#'@param data data.frame contain x, value, and variable
-#'@param label_x x-axis label
-#'@param label_y y-axis label
-#'@param color color vector
-#'@param alpha transparency level
-#'@return ggplot graphic
-#'@examples trans <- dal_transform()
-#'@import ggplot2
-#'@importFrom reshape melt
-#'@importFrom graphics hist
-#'@importFrom dplyr filter summarise group_by arrange mutate
-#'@export
-plot_hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=0.25) {
-  variable <- 0
-  value <- 0
-  cnames <- colnames(data)[1]
-  series <- reshape::melt(as.data.frame(data))
-  series <- series |> dplyr::filter(variable %in% cnames)
-  tmp <- graphics::hist(series$value, plot = FALSE)
-  grf <- ggplot(series, aes(x=value))
-  grf <- grf + geom_histogram(breaks=tmp$breaks,fill=color, alpha = alpha, colour="black")
-  grf <- grf + xlab(label_x)
-  grf <- grf + ylab(label_y)
-  grf <- grf + theme_bw(base_size = 10)
-  grf <- grf + scale_fill_manual(name = cnames, values = color)
-  grf <- grf + theme(panel.grid.major = element_blank()) + theme(panel.grid.minor = element_blank()) + theme(legend.position = "bottom")
-  return(grf)
-}
-
 #'@title plot boxplot
 #'@description plot boxplot
 #'@param data data.frame contain x, value, and variable
@@ -338,7 +44,9 @@ plot_hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=
 #'@param colors color vector
 #'@param barwith width of bar
 #'@return ggplot graphic
-#'@examples trans <- dal_transform()
+#'@examples
+#'grf <- plot_boxplot(iris, colors="white")
+#'plot(grf)
 #'@import ggplot2
 #'@importFrom reshape melt
 #'@export
@@ -365,7 +73,6 @@ plot_boxplot <- function(data, label_x = "", label_y = "", colors = NULL, barwit
   return(grf)
 }
 
-
 #'@title plot boxplot per class
 #'@description plot boxplot per class
 #'@param data data.frame contain x, value, and variable
@@ -373,7 +80,10 @@ plot_boxplot <- function(data, label_x = "", label_y = "", colors = NULL, barwit
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
-#'@examples trans <- dal_transform()
+#'@examples
+#'grf <- plot_boxplot_class(iris |> dplyr::select(Sepal.Width, Species),
+#'  class = "Species", colors=c("red", "green", "blue"))
+#'plot(grf)
 #'@import ggplot2
 #'@importFrom reshape melt
 #'@export
@@ -412,7 +122,9 @@ plot_boxplot_class <- function(data, class_label, label_x = "", label_y = "", co
 #'@param colors color vector
 #'@param bin bin width
 #'@param alpha level of transparency
-#'@examples trans <- dal_transform()
+#'@examples
+#'grf <- plot_density(iris |> dplyr::select(Sepal.Width), colors="blue")
+#'plot(grf)
 #'@import ggplot2
 #'@importFrom reshape melt
 #'@export
@@ -463,7 +175,10 @@ plot_density <-  function(data, label_x = "", label_y = "", colors = NULL, bin =
 #'@param colors color vector
 #'@param bin bin width
 #'@param alpha level of transparency
-#'@examples trans <- dal_transform()
+#'@examples
+#'grf <- plot_density_class(iris |> dplyr::select(Sepal.Width, Species),
+#'  class = "Species", colors=c("red", "green", "blue"))
+#'plot(grf)
 #'@import ggplot2
 #'@importFrom reshape melt
 #'@export
@@ -490,6 +205,357 @@ plot_density_class <-  function(data, class_label, label_x = "", label_y = "", c
   return(grf)
 }
 
+#'@title plot grouped bar
+#'@description plot grouped bar
+#'@param data data.frame contain x, value, and variable
+#'@param label_x x-axis label
+#'@param label_y y-axis label
+#'@param colors color vector
+#'@param alpha level of transparency
+#'@return ggplot graphic
+#'@examples
+#'data <- iris |> dplyr::group_by(Species) |>
+#'  dplyr::summarize(Sepal.Length=mean(Sepal.Length), Sepal.Width=mean(Sepal.Width))
+#'grf <- plot_groupedbar(data, colors=c("blue", "red"))
+#'plot(grf)
+#'@import ggplot2
+#'@importFrom reshape melt
+#'@export
+plot_groupedbar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
+  variable <- 0
+  value <- 0
+  x <- 0
+  cnames <- colnames(data)[-1]
+  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
+  colnames(series)[1] <- "x"
+  if (!is.factor(series$x))
+    series$x <- as.factor(series$x)
+
+  grf <- ggplot(series, aes(x, value, fill=variable))
+  grf <- grf + geom_bar(stat = "identity",position = "dodge", alpha=alpha)
+  if (!is.null(colors)) {
+    grf <- grf + scale_fill_manual(cnames, values = colors)
+  }
+  grf <- grf + theme_bw(base_size = 10)
+  grf <- grf + theme(panel.grid.minor = element_blank())
+  grf <- grf + theme(legend.title = element_blank()) + theme(legend.position = "bottom")
+  grf <- grf + xlab(label_x)
+  grf <- grf + ylab(label_y)
+  return(grf)
+}
+
+#'@title plot histogram
+#'@description plot histogram
+#'@param data data.frame contain x, value, and variable
+#'@param label_x x-axis label
+#'@param label_y y-axis label
+#'@param color color vector
+#'@param alpha transparency level
+#'@return ggplot graphic
+#'@examples
+#'grf <- plot_hist(iris |> dplyr::select(Sepal.Width), color=c("blue"))
+#'plot(grf)
+#'@import ggplot2
+#'@importFrom reshape melt
+#'@importFrom graphics hist
+#'@importFrom dplyr filter summarise group_by arrange mutate
+#'@export
+plot_hist <-  function(data, label_x = "", label_y = "", color = 'white', alpha=0.25) {
+  variable <- 0
+  value <- 0
+  cnames <- colnames(data)[1]
+  series <- reshape::melt(as.data.frame(data))
+  series <- series |> dplyr::filter(variable %in% cnames)
+  tmp <- graphics::hist(series$value, plot = FALSE)
+  grf <- ggplot(series, aes(x=value))
+  grf <- grf + geom_histogram(breaks=tmp$breaks,fill=color, alpha = alpha, colour="black")
+  grf <- grf + xlab(label_x)
+  grf <- grf + ylab(label_y)
+  grf <- grf + theme_bw(base_size = 10)
+  grf <- grf + scale_fill_manual(name = cnames, values = color)
+  grf <- grf + theme(panel.grid.major = element_blank()) + theme(panel.grid.minor = element_blank()) + theme(legend.position = "bottom")
+  return(grf)
+}
+
+#'@title plot lollipop
+#'@description plot lollipop
+#'@param data data.frame contain x, value, and variable
+#'@param label_x x-axis label
+#'@param label_y y-axis label
+#'@param colors color vector
+#'@param color_text color of text inside ball
+#'@param size_text size of text inside ball
+#'@param size_ball size of ball
+#'@param alpha_ball transparency of ball
+#'@param min_value minimum value
+#'@param max_value_gap maximum value gap
+#'@return ggplot graphic
+#'@examples
+#'#summarizing iris dataset
+#'data <- iris |> dplyr::group_by(Species) |>
+#'  dplyr::summarize(Sepal.Length=mean(Sepal.Length))
+#'head(data)
+#'
+#'#ploting data
+#'grf <- plot_lollipop(data, colors="blue", max_value_gap=0.2)
+#'plot(grf)
+#'@import ggplot2
+#'@importFrom reshape melt
+#'@export
+plot_lollipop <- function(data, label_x = "", label_y = "", colors = NULL, color_text = "black", size_text=3, size_ball=8, alpha_ball=0.2, min_value=0, max_value_gap=1) {
+  value <- 0
+  x <- 0
+  cnames <- colnames(data)[-1]
+  data <- reshape::melt(as.data.frame(data), id.vars = c(1))
+  colnames(data)[1] <- "x"
+  if (!is.factor(data$x))
+    data$x <- as.factor(data$x)
+  data$value <- round(data$value)
+
+  grf <- ggplot(data=data, aes(x=x, y=value, label=value)) +
+    geom_segment(aes(x=x, xend=x, y=min_value, yend=(value-max_value_gap)), color=colors, size=1) +
+    geom_text(color=color_text, size=size_text) +
+    geom_point(color=colors, size=size_ball, alpha=alpha_ball) +
+    theme_light() +
+    theme(
+      panel.grid.major.y = element_blank(),
+      panel.border = element_blank(),
+      axis.ticks.y = element_blank()
+    ) +
+    ylab(label_y) + xlab(label_x)
+  return(grf)
+}
+
+#'@title plot pie
+#'@description plot pie
+#'@param data data.frame contain x, value, and variable
+#'@param label_x x-axis label
+#'@param label_y y-axis label
+#'@param colors color vector
+#'@param textcolor text color
+#'@param bordercolor border color
+#'@return ggplot graphic
+#'@examples
+#'#summarizing iris dataset
+#'data <- iris |> dplyr::group_by(Species) |>
+#'  dplyr::summarize(Sepal.Length=mean(Sepal.Length))
+#'head(data)
+#'
+#'#ploting data
+#'grf <- plot_pieplot(data, colors=c("red", "green", "blue"))
+#'plot(grf)
+#'@import ggplot2
+#'@importFrom reshape melt
+#'@importFrom dplyr filter summarise group_by arrange mutate
+#'@export
+plot_pieplot <- function(data, label_x = "", label_y = "", colors = NULL, textcolor="white", bordercolor="black") {
+  x <- prop <- ypos <- label <- value <- desc <- n <- 0
+
+  prepare.pieplot <- function(series) {
+    colnames(series) <- c("x", "value")
+    if (!is.factor(series$x)) {
+      series$x <- as.factor(series$x)
+    }
+
+    series$colors <- colors
+
+    series <- series |>
+      dplyr::arrange(desc(x)) |>
+      dplyr::mutate(prop = value / sum(series$value) *100) |>
+      dplyr::mutate(ypos = cumsum(prop)- 0.5*prop) |>
+      dplyr::mutate(label = paste(round(value / sum(value) * 100, 0), "%"))
+    return(series)
+  }
+  series <- prepare.pieplot(data)
+
+  # Basic piechart
+  grf <- ggplot(series, aes(x="", y=prop, fill=x)) + geom_bar(width = 1, stat = "identity", color=bordercolor)
+  grf <- grf + theme_minimal(base_size = 10)
+  grf <- grf + coord_polar("y", start=0)
+  grf <- grf + geom_text(aes(y = ypos, label = label), size=6, color=textcolor)
+  if (!is.null(colors))
+    grf <- grf + scale_fill_manual(series$x, values = colors)
+  grf <- grf + theme(panel.grid.minor = element_blank()) + theme(legend.position = "bottom")
+  grf <- grf + xlab(label_x)
+  grf <- grf + ylab(label_y)
+  grf <- grf + theme(axis.text.x=element_blank(), legend.title = element_blank(), axis.ticks = element_blank(), panel.grid = element_blank())
+  return(grf)
+}
+
+#'@title plot points
+#'@description plot points
+#'@param data data.frame contain x, value, and variable
+#'@param label_x x-axis label
+#'@param label_y y-axis label
+#'@param colors color vector
+#'@examples
+#'x <- seq(0, 10, 0.25)
+#'data <- data.frame(x, sin=sin(x), cosine=cos(x)+5)
+#'head(data)
+#'
+#'grf <- plot_points(data, colors=c("red", "green"))
+#'plot(grf)
+#'@import ggplot2
+#'@importFrom reshape melt
+#'@export
+plot_points <- function(data, label_x = "", label_y = "", colors = NULL) {
+  x <- 0
+  value <- 0
+  variable <- 0
+  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
+  cnames <- colnames(data)[-1]
+  colnames(series)[1] <- "x"
+  grf <- ggplot(data=series, aes(x = x, y = value, colour=variable, group=variable)) + geom_point(size=1)
+  if (!is.null(colors)) {
+    grf <- grf + scale_color_manual(values=colors)
+  }
+  grf <- grf + labs(color=cnames)
+  grf <- grf + xlab(label_x)
+  grf <- grf + ylab(label_y)
+  grf <- grf + theme_bw(base_size = 10)
+  grf <- grf + theme(panel.grid.major = element_blank()) + theme(panel.grid.minor = element_blank())
+  grf <- grf + theme(legend.title = element_blank()) + theme(legend.position = "bottom") + theme(legend.key = element_blank())
+  return(grf)
+}
+
+#'@title plot radar
+#'@description plot radar
+#'@param data data.frame contain x, value, and variable
+#'@param label_x x-axis label
+#'@param label_y y-axis label
+#'@param colors color vector
+#'@return ggplot graphic
+#'@examples
+#'data <- data.frame(name = "Petal.Length", value = mean(iris$Petal.Length))
+#'data <- rbind(data, data.frame(name = "Petal.Width", value = mean(iris$Petal.Width)))
+#'data <- rbind(data, data.frame(name = "Sepal.Length", value = mean(iris$Sepal.Length)))
+#'data <- rbind(data, data.frame(name = "Sepal.Width", value = mean(iris$Sepal.Width)))
+#'
+#'grf <- plot_radar(data, colors="red") + ggplot2::ylim(0, NA)
+#'plot(grf)
+#'@import ggplot2
+#'@importFrom reshape melt
+#'@export
+plot_radar <- function(data, label_x = "", label_y = "", colors = NULL)  {
+  series <- as.data.frame(data)
+  if (!is.factor(series[,1]))
+    series[,1] <- as.factor(series[,1])
+  series$group <- 1
+  grf <- ggplot(series, aes_string(x=colnames(series)[1], y=colnames(series)[2], group="group"))
+  grf <- grf + geom_point(size=2, color=colors)
+  grf <- grf + geom_polygon(size = 1, alpha= 0.1, color=colors)
+  grf <- grf + theme_light()
+  grf <- grf + coord_polar()
+  return(grf)
+}
+
+#'@title scatter graph
+#'@description scatter graph
+#'@param data data.frame contain x, value, and variable
+#'@param label_x x-axis label
+#'@param label_y y-axis label
+#'@param colors color vector
+#'@return ggplot graphic
+#'@examples
+#'grf <- plot_scatter(iris |> dplyr::select(x = Sepal.Length,
+#'  value = Sepal.Width, variable = Species),
+#'  label_x = "Sepal.Length", label_y = "Sepal.Width",
+#'  colors=c("red", "green", "blue"))
+#'  plot(grf)
+#'@import ggplot2
+#'@export
+plot_scatter <- function(data, label_x = "", label_y = "", colors = NULL) {
+  x <- 0
+  value <- 0
+  variable <- 0
+  grf <- ggplot(data=data, aes(x = x, y = value, colour=variable, group=variable)) + geom_point(size=1)
+  if (!is.null(colors)) {
+    grf <- grf + scale_color_manual(values=colors)
+  }
+  grf <- grf + xlab(label_x)
+  grf <- grf + ylab(label_y)
+  grf <- grf + theme_bw(base_size = 10)
+  grf <- grf + theme(panel.grid.major = element_blank()) + theme(panel.grid.minor = element_blank())
+  grf <- grf + theme(legend.position = "bottom") + theme(legend.key = element_blank())
+  return(grf)
+}
+
+#'@title plot series
+#'@description plot series
+#'@param data data.frame contain x, value, and variable
+#'@param label_x x-axis label
+#'@param label_y y-axis label
+#'@param colors color vector
+#'@return plot
+#'@examples
+#'x <- seq(0, 10, 0.25)
+#'data <- data.frame(x, sin=sin(x))
+#'head(data)
+#'
+#'grf <- plot_series(data, colors=c("red"))
+#'plot(grf)
+#'@import ggplot2
+#'@importFrom reshape melt
+#'@export
+plot_series <- function(data, label_x = "", label_y = "", colors = NULL) {
+  x <- 0
+  value <- 0
+  variable <- 0
+  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
+  cnames <- colnames(data)[-1]
+  colnames(series)[1] <- "x"
+  grf <- ggplot(data=series, aes(x = x, y = value, colour=variable, group=variable)) + geom_point(size=1.5) + geom_line(linewidth=1)
+  if (!is.null(colors)) {
+    grf <- grf + scale_color_manual(values=colors)
+  }
+  grf <- grf + labs(color=cnames)
+  grf <- grf + xlab(label_x)
+  grf <- grf + ylab(label_y)
+  grf <- grf + theme_bw(base_size = 10)
+  grf <- grf + theme(panel.grid.major = element_blank()) + theme(panel.grid.minor = element_blank())
+  grf <- grf + theme(legend.title = element_blank()) + theme(legend.position = "bottom") + theme(legend.key = element_blank())
+  return(grf)
+}
+
+#'@title plot stacked bar
+#'@description plot stacked bar
+#'@param data data.frame contain x, value, and variable
+#'@param label_x x-axis label
+#'@param label_y y-axis label
+#'@param colors color vector
+#'@param alpha level of transparency
+#'@return ggplot graphic
+#'@examples
+#'data <- iris |> dplyr::group_by(Species) |>
+#'  dplyr::summarize(Sepal.Length=mean(Sepal.Length), Sepal.Width=mean(Sepal.Width))
+#'grf <- plot_stackedbar(data, colors=c("blue", "red"))
+#'plot(grf)
+#'@import ggplot2
+#'@importFrom reshape melt
+#'@export
+plot_stackedbar <- function(data, label_x = "", label_y = "", colors = NULL, alpha=1) {
+  x <- 0
+  value <- 0
+  variable <- 0
+  cnames <- colnames(data)[-1]
+  series <- reshape::melt(as.data.frame(data), id.vars = c(1))
+  colnames(series)[1] <- "x"
+  if (!is.factor(series$x))
+    series$x <- as.factor(series$x)
+
+  grf <- ggplot(series, aes(x=x, y=value, fill=variable)) + geom_bar(stat="identity", colour="white")
+  if (!is.null(colors)) {
+    grf <- grf + scale_fill_manual(cnames, values = colors)
+  }
+  grf <- grf + theme_bw(base_size = 10)
+  grf <- grf + theme(panel.grid.minor = element_blank())
+  grf <- grf + theme(legend.title = element_blank()) + theme(legend.position = "bottom")
+  grf <- grf + scale_x_discrete(limits = unique(series$x))
+  grf <- grf + xlab(label_x)
+  grf <- grf + ylab(label_y)
+  return(grf)
+}
+
 #'@title Plot a time series chart
 #'@description The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
 #'@param x input variable
@@ -497,13 +563,20 @@ plot_density_class <-  function(data, class_label, label_x = "", label_y = "", c
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param color color for time series
+#'@examples
+#'x <- seq(0, 10, 0.25)
+#'data <- data.frame(x, sin=sin(x))
+#'head(data)
+#'
+#'grf <- plot_ts(x = data$x, y = data$sin, color=c("red"))
+#'plot(grf)
 #'@export
 #'@import ggplot2
 plot_ts <- function(x = NULL, y, label_x = "", label_y = "", color="black")  {
   y <- as.vector(y)
   if (is.null(x))
     x <- 1:length(y)
-  grf <- ggplot() + geom_point(aes(x = x, y = y)) + geom_line(aes(x = x, y = y))
+  grf <- ggplot() + geom_point(aes(x = x, y = y), color = color) + geom_line(aes(x = x, y = y), color = color)
   grf <- grf + xlab(label_x)
   grf <- grf + ylab(label_y)
   grf <- grf + theme_bw(base_size = 10)
@@ -540,7 +613,7 @@ plot_ts_pred <- function(x = NULL, y, yadj, ypred = NULL, label_x = "", label_y 
     ntest <- length(ypred)
   }
 
-  grf <- ggplot() + geom_point(aes(x = x, y = y)) + geom_line(aes(x = x, y = y))
+  grf <- ggplot() + geom_point(aes(x = x, y = y), color = color) + geom_line(aes(x = x, y = y), color = color)
   grf <- grf + xlab(label_x)
   grf <- grf + ylab(label_y)
   grf <- grf + theme_bw(base_size = 10)

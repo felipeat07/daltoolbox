@@ -22,8 +22,13 @@ and \eqn{\sigma} is the standard deviation.
 }
 \examples{
 data(iris)
+head(iris)
+
 trans <- zscore()
 trans <- fit(trans, iris)
 tiris <- transform(trans, iris)
+head(tiris)
+
 itiris <- inverse_transform(trans, tiris)
+head(itiris)
 }

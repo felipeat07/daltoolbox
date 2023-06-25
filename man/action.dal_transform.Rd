@@ -18,9 +18,5 @@ Transformed data
 A default function that defines the action to proxy transform method
 }
 \examples{
-data(iris)
-# an example is minmax normalization
-trans <- minmax()
-trans <- fit(trans, iris)
-tiris <- action(trans, iris)
+#See ?minmax for an example of transformation
 }

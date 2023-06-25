@@ -3,11 +3,7 @@
 #' Fit can be called before transform, if needed.
 #'@return a dal_transform object
 #'@examples
-#'data(iris)
-#'#An example of dal_transform is minmax()
-#'trans <- minmax()
-#'trans <- fit(trans, iris)
-#'tiris <- transform(trans, iris)
+#'#See ?minmax for an example of transformation
 #'@export
 dal_transform <- function() {
   obj <- dal_base()
@@ -21,11 +17,7 @@ dal_transform <- function() {
 #'@param ... optional arguments.
 #'@return transformed data.
 #'@examples
-#'data(iris)
-#'#An example of dal_transform is minmax()
-#'trans <- minmax()
-#'trans <- fit(trans, iris)
-#'tiris <- transform(trans, iris)
+#'#See ?minmax for an example of transformation
 #'@export
 transform <- function(obj, ...) {
   UseMethod("transform")
@@ -45,11 +37,7 @@ transform.default <- function(obj, ...) {
 #'@param ... optional arguments
 #'@return Transformed data
 #'@examples
-#'data(iris)
-#'# an example is minmax normalization
-#'trans <- minmax()
-#'trans <- fit(trans, iris)
-#'tiris <- action(trans, iris)
+#'#See ?minmax for an example of transformation
 #'@export
 action.dal_transform <- function(obj, ...) {
   thiscall <- match.call(expand.dots = TRUE)
@@ -58,19 +46,13 @@ action.dal_transform <- function(obj, ...) {
   return(result)
 }
 
-
 #'@title Inverse Transform
 #'@description Reverses the transformation applied to data.
 #'@param obj a dal_transform object.
 #'@param ... optional arguments.
 #'@return dataset inverse transformed.
 #'@examples
-#'data(iris)
-#'#An example of dal_transform is minmax()
-#'trans <- minmax()
-#'trans <- fit(trans, iris)
-#'tiris <- transform(trans, iris)
-#'itiris <- inverse_transform(trans, tiris)
+#'#See ?minmax for an example of transformation
 #'@export
 inverse_transform <- function(obj, ...) {
   UseMethod("inverse_transform")

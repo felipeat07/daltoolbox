@@ -24,5 +24,6 @@ ggplot graphic
 plot histogram
 }
 \examples{
-trans <- dal_transform()
+grf <- plot_hist(iris |> dplyr::select(Sepal.Width), color=c("blue"))
+plot(grf)
 }

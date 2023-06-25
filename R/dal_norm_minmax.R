@@ -4,10 +4,15 @@
 #'@return obj
 #'@examples
 #'data(iris)
+#'head(iris)
+#'
 #'trans <- minmax()
 #'trans <- fit(trans, iris)
 #'tiris <- transform(trans, iris)
+#'head(tiris)
+#'
 #'itiris <- inverse_transform(trans, tiris)
+#'head(itiris)
 #'@export
 minmax <- function() {
   obj <- dal_transform()

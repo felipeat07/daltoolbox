@@ -33,5 +33,12 @@ ggplot graphic
 plot pie
 }
 \examples{
-trans <- dal_transform()
+#summarizing iris dataset
+data <- iris |> dplyr::group_by(Species) |>
+ dplyr::summarize(Sepal.Length=mean(Sepal.Length))
+head(data)
+
+#ploting data
+grf <- plot_pieplot(data, colors=c("red", "green", "blue"))
+plot(grf)
 }

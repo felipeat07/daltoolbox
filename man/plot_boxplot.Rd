@@ -24,5 +24,6 @@ ggplot graphic
 plot boxplot
 }
 \examples{
-trans <- dal_transform()
+grf <- plot_boxplot(iris, colors="white")
+plot(grf)
 }

@@ -8,10 +8,15 @@
 #'@return z-score transformation object
 #'@examples
 #'data(iris)
+#'head(iris)
+#'
 #'trans <- zscore()
 #'trans <- fit(trans, iris)
 #'tiris <- transform(trans, iris)
+#'head(tiris)
+#'
 #'itiris <- inverse_transform(trans, tiris)
+#'head(itiris)
 #'@export
 zscore <- function(nmean=0, nsd=1) {
   obj <- dal_transform()

@@ -22,5 +22,9 @@ ggplot graphic
 scatter graph
 }
 \examples{
-trans <- dal_transform()
+grf <- plot_scatter(iris |> dplyr::select(x = Sepal.Length,
+ value = Sepal.Width, variable = Species),
+ label_x = "Sepal.Length", label_y = "Sepal.Width",
+ colors=c("red", "green", "blue"))
+ plot(grf)
 }

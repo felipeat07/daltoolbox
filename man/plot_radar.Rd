@@ -22,5 +22,11 @@ ggplot graphic
 plot radar
 }
 \examples{
-trans <- dal_transform()
+data <- data.frame(name = "Petal.Length", value = mean(iris$Petal.Length))
+data <- rbind(data, data.frame(name = "Petal.Width", value = mean(iris$Petal.Width)))
+data <- rbind(data, data.frame(name = "Sepal.Length", value = mean(iris$Sepal.Length)))
+data <- rbind(data, data.frame(name = "Sepal.Width", value = mean(iris$Sepal.Width)))
+
+grf <- plot_radar(data, colors="red") + ggplot2::ylim(0, NA)
+plot(grf)
 }

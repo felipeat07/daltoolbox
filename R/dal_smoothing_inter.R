@@ -2,7 +2,16 @@
 #'@description The "smoothing by interval" function is used to apply a smoothing technique to a vector or time series data using a moving window approach.
 #'@param n number of bins
 #'@return obj
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(iris)
+#'obj <- smoothing_inter(n = 2)
+#'obj <- fit(obj, iris$Sepal.Length)
+#'sl.bi <- transform(obj, iris$Sepal.Length)
+#'table(sl.bi)
+#'obj$interval
+#'
+#'entro <- evaluate(obj, as.factor(names(sl.bi)), iris$Species)
+#'entro$entropy
 #'@export
 smoothing_inter <- function(n) {
   obj <- smoothing(n)

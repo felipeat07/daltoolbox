@@ -9,9 +9,7 @@
 #'@examples trans <- dal_transform()
 #'@export
 reg_tune <- function(base_model, folds=10) {
-  obj <- dal_base()
-  obj$base_model <- base_model
-  obj$folds <- folds
+  obj <- dal_tune(base_model, folds)
   obj$name <- ""
   class(obj) <- append("reg_tune", class(obj))
   return(obj)

@@ -24,5 +24,8 @@ ggplot graphic
 plot grouped bar
 }
 \examples{
-trans <- dal_transform()
+data <- iris |> dplyr::group_by(Species) |>
+ dplyr::summarize(Sepal.Length=mean(Sepal.Length), Sepal.Width=mean(Sepal.Width))
+grf <- plot_groupedbar(data, colors=c("blue", "red"))
+plot(grf)
 }

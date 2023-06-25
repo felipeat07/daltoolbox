@@ -27,5 +27,7 @@ plot_boxplot_class(
 plot boxplot per class
 }
 \examples{
-trans <- dal_transform()
+grf <- plot_boxplot_class(iris |> dplyr::select(Sepal.Width, Species),
+ class = "Species", colors=c("red", "green", "blue"))
+plot(grf)
 }
