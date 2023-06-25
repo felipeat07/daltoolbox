@@ -6,7 +6,16 @@
 #' equal interval, equal frequency, and clustering.
 #'@param n number of bins
 #'@return obj
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(iris)
+#'obj <- smoothing_inter(n = 2)
+#'obj <- fit(obj, iris$Sepal.Length)
+#'sl.bi <- transform(obj, iris$Sepal.Length)
+#'table(sl.bi)
+#'obj$interval
+#'
+#'entro <- evaluate(obj, as.factor(names(sl.bi)), iris$Species)
+#'entro$entropy
 #'@export
 smoothing <- function(n) {
   obj <- dal_transform()
