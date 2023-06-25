@@ -13,13 +13,13 @@
 #'#using random sampling
 #'sample <- sample_random()
 #'tt <- train_test(sample, iris)
-
+#'
 #'# distribution of train
 #'table(tt$train$Species)
-
+#'
 #'# preparing dataset into four folds
 #'folds <- k_fold(sample, iris, 4)
-
+#'
 #'# distribution of folds
 #'tbl <- NULL
 #'for (f in folds) {
@@ -39,7 +39,13 @@ data_sample <- function() {
 #'@param data dataset
 #'@param ... optional arguments.
 #'@return train and test sets
-#'@examples trans <- dal_transform()
+#'@examples
+#'#using random sampling
+#'sample <- sample_random()
+#'tt <- train_test(sample, iris)
+#'
+#'# distribution of train
+#'table(tt$train$Species)
 #'@export
 train_test <- function(obj, data, ...) {
   UseMethod("train_test")
@@ -56,7 +62,19 @@ train_test.default <- function(obj, data, ...) {
 #'@param data dataset
 #'@param k number of folds
 #'@return k folds
-#'@examples trans <- dal_transform()
+#'@examples
+#'#using random sampling
+#'sample <- sample_random()
+#'
+#'# preparing dataset into four folds
+#'folds <- k_fold(sample, iris, 4)
+#'
+#'# distribution of folds
+#'tbl <- NULL
+#'for (f in folds) {
+#'  tbl <- rbind(tbl, table(f$Species))
+#'}
+#'head(tbl)
 #'@export
 k_fold <- function(obj, data, k) {
   UseMethod("k_fold")

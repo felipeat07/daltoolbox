@@ -20,5 +20,10 @@ train and test sets
 training and test partition of a dataset using a sampling method
 }
 \examples{
-trans <- dal_transform()
+#using random sampling
+sample <- sample_random()
+tt <- train_test(sample, iris)
+
+# distribution of train
+table(tt$train$Species)
 }

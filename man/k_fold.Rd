@@ -20,5 +20,16 @@ k folds
 k-fold partition of a dataset using a sampling method
 }
 \examples{
-trans <- dal_transform()
+#using random sampling
+sample <- sample_random()
+
+# preparing dataset into four folds
+folds <- k_fold(sample, iris, 4)
+
+# distribution of folds
+tbl <- NULL
+for (f in folds) {
+ tbl <- rbind(tbl, table(f$Species))
+}
+head(tbl)
 }

@@ -19,10 +19,13 @@ The sample_stratified function in R is used to generate a stratified random samp
 #using stratified sampling
 sample <- sample_stratified("Species")
 tt <- train_test(sample, iris)
+
 # distribution of train
 table(tt$train$Species)
+
 # preparing dataset into four folds
 folds <- k_fold(sample, iris, 4)
+
 # distribution of folds
 tbl <- NULL
 for (f in folds) {

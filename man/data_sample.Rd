@@ -24,10 +24,13 @@ k-fold partitioning (k_fold) of data.
 #using random sampling
 sample <- sample_random()
 tt <- train_test(sample, iris)
+
 # distribution of train
 table(tt$train$Species)
+
 # preparing dataset into four folds
 folds <- k_fold(sample, iris, 4)
+
 # distribution of folds
 tbl <- NULL
 for (f in folds) {
