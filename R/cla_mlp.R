@@ -1,12 +1,29 @@
 #'@title Classification using Artificial Neural Network (ANN)
 #'@description Performs classification using Artificial Neural Network (ANN) algorithm
 #'@param attribute attribute target to model building
-#'@param slevels - possible values for the target classification
-#'@param size - number of nodes that will be used in the hidden layer
-#'@param decay - how quickly it decreases in gradient descent
-#'@param maxit - maximun interations
+#'@param slevels possible values for the target classification
+#'@param size number of nodes that will be used in the hidden layer
+#'@param decay how quickly it decreases in gradient descent
+#'@param maxit maximum iterations
 #'@return a classification object
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(iris)
+#'slevels <- levels(iris$Species)
+#'model <- cla_mlp("Species", slevels, size=3, decay=0.03)
+#'
+#'# preparing dataset for random sampling
+#'set.seed(1)
+#'sr <- sample_random()
+#'sr <- train_test(sr, iris)
+#'iris_train <- sr$train
+#'iris_test <- sr$test
+#'
+#'model <- fit(model, iris_train)
+#'
+#'prediction <- predict(model, iris_test)
+#'predictand <- adjust_class_label(iris_test[,"Species"])
+#'train_eval <- evaluate(model, predictand, prediction)
+#'train_eval$metrics
 #'@export
 cla_mlp <- function(attribute, slevels, size=NULL, decay=0.1, maxit=1000) {
   obj <- classification(attribute, slevels)
@@ -18,12 +35,6 @@ cla_mlp <- function(attribute, slevels, size=NULL, decay=0.1, maxit=1000) {
   return(obj)
 }
 
-#'@title fit mlp model
-#'@description fit mlp model
-#'@param obj object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return fitted obj
 #'@import nnet
 #'@export
 fit.cla_mlp <- function(obj, data, ...) {
@@ -42,12 +53,6 @@ fit.cla_mlp <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title predict data from input
-#'@description predict data from input
-#'@param object object
-#'@param x input variable
-#'@param ... optional arguments
-#'@return predicted values
 #'@export
 predict.cla_mlp  <- function(object, x, ...) {
   x <- adjust_data.frame(x)

@@ -9,21 +9,13 @@ cla_mlp(attribute, slevels, size = NULL, decay = 0.1, maxit = 1000)
 \arguments{
 \item{attribute}{attribute target to model building}
 
-\item{slevels}{\itemize{
-\item possible values for the target classification
-}}
+\item{slevels}{possible values for the target classification}
 
-\item{size}{\itemize{
-\item number of nodes that will be used in the hidden layer
-}}
+\item{size}{number of nodes that will be used in the hidden layer}
 
-\item{decay}{\itemize{
-\item how quickly it decreases in gradient descent
-}}
+\item{decay}{how quickly it decreases in gradient descent}
 
-\item{maxit}{\itemize{
-\item maximun interations
-}}
+\item{maxit}{maximum iterations}
 }
 \value{
 a classification object
@@ -32,5 +24,21 @@ a classification object
 Performs classification using Artificial Neural Network (ANN) algorithm
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+slevels <- levels(iris$Species)
+model <- cla_mlp("Species", slevels, size=3, decay=0.03)
+
+# preparing dataset for random sampling
+set.seed(1)
+sr <- sample_random()
+sr <- train_test(sr, iris)
+iris_train <- sr$train
+iris_test <- sr$test
+
+model <- fit(model, iris_train)
+
+prediction <- predict(model, iris_test)
+predictand <- adjust_class_label(iris_test[,"Species"])
+train_eval <- evaluate(model, predictand, prediction)
+train_eval$metrics
 }

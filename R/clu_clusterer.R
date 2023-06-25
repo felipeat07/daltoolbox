@@ -39,14 +39,6 @@ cluster <- function(obj, ...) {
   UseMethod("cluster")
 }
 
-#'@title Cluster Evaluation
-#'@description Evaluate the quality of a clusterer model using entropy metric
-#'@param obj object
-#'@param cluster A vector of integers indicating the clustering labels of the data
-#'@param attribute attribute target to model building
-#'@param ... optional arguments.
-#'@return Computed metrics
-#'@examples trans <- dal_transform()
 #'@importFrom dplyr filter summarise group_by n
 #'@export
 evaluate.clusterer <- function(obj, cluster, attribute, ...) {

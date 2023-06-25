@@ -87,13 +87,6 @@ sMAPE.ts <- function (actual, prediction) {
   res
 }
 
-#'@title Calculate the Mean Squared Error (MSE) error metric and the Symmetric Mean Absolute Percentage Error (sMAPE) error metric
-#'@description The function receives two variables as a parameter, which are values and prediction
-#'@param obj object
-#'@param values real observations
-#'@param prediction predicted observations
-#'@param ... optional arguments.
-#'@return An object that contains these metrics and their values, stored in a data frame
 #'@export
 evaluate.ts_reg <- function(obj, values, prediction, ...) {
   result <- list(values=values, prediction=prediction)

@@ -2,21 +2,40 @@
 % Please edit documentation in R/cla_dtree.R
 \name{cla_dtree}
 \alias{cla_dtree}
-\title{Decision Tree Classification}
+\title{Majority Classification}
 \usage{
 cla_dtree(attribute, slevels)
 }
 \arguments{
 \item{attribute}{attribute target to model building.}
 
-\item{slevels}{The possible values for the target classification.}
+\item{slevels}{Possible values for the target classification.}
 }
 \value{
-A classification object that uses the Decision Tree algorithm for classification.
+Returns a classification object.
 }
 \description{
-Creates a classification object that uses the Decision Tree algorithm for classification.
+This function creates a classification object that
+uses the majority vote strategy to predict the target attribute.
+Given a target attribute, the function counts the number of
+occurrences of each value in the dataset and selects the one that appears most often.
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+slevels <- levels(iris$Species)
+model <- cla_dtree("Species", slevels)
+
+# preparing dataset for random sampling
+set.seed(1)
+sr <- sample_random()
+sr <- train_test(sr, iris)
+iris_train <- sr$train
+iris_test <- sr$test
+
+model <- fit(model, iris_train)
+
+prediction <- predict(model, iris_test)
+predictand <- adjust_class_label(iris_test[,"Species"])
+train_eval <- evaluate(model, predictand, prediction)
+train_eval$metrics
 }

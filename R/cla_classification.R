@@ -1,12 +1,10 @@
-#'@title classification class
+#'@title classification
 #'@description Ancestor class for classification problems
 #'@param attribute attribute target to model building
 #'@param slevels - possible values for the target classification
 #'@return classification object
-#'@examples trans <- dal_transform()
-#'data(iris)
-#'template_model <- classification("Species", levels(iris$Species))
-#'print(template_model)
+#'@examples
+#'#See ?cla_dtree for a classification example using a decision tree
 #'@export
 classification <- function(attribute, slevels) {
   obj <- predictor()
@@ -17,49 +15,7 @@ classification <- function(attribute, slevels) {
   return(obj)
 }
 
-#'@title adjust categorical values
-#'@description adjust categorical values
-#'@param value vector to be categorized
-#'@param ilevels - order for categorical values
-#'@param slevels - labels for categorical values
-#'@return factor
-#'@examples trans <- dal_transform()
-#'@export
-adjust_factor <- function(value, ilevels, slevels) {
-  if (!is.factor(value)) {
-    if (is.numeric(value))
-      value <- factor(value, levels=ilevels)
-    levels(value) <- slevels
-  }
-  return(value)
-}
 
-#'@title compute categorical mapping
-#'@description compute categorical mapping
-#'@param x vector to be categorized
-#'@param valTrue - value to represent true
-#'@param valFalse - value to represent false
-#'@return factor
-#'@examples trans <- dal_transform()
-#'@export
-adjust_class_label <- function (x, valTrue = 1, valFalse = 0)
-{
-  n <- length(x)
-  x <- as.factor(x)
-  res <- matrix(valFalse, n, length(levels(x)))
-  res[(1:n) + n * (unclass(x) - 1)] <- valTrue
-  dimnames(res) <- list(names(x), levels(x))
-  res
-}
-
-#'@title Classification evaluation
-#'@description Evaluate major classification metrics for trained model
-#'@param obj object
-#'@param data real observations
-#'@param prediction predicted observations
-#'@param ... optional arguments.
-#'@return Computed metrics
-#'@examples trans <- dal_transform()
 #'@import MLmetrics nnet
 #'@export
 evaluate.classification <- function(obj, data, prediction, ...) {

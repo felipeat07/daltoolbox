@@ -18,5 +18,21 @@ A classification object.
 Classification using the Naive Bayes algorithm
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+slevels <- levels(iris$Species)
+model <- cla_nb("Species", slevels)
+
+# preparing dataset for random sampling
+set.seed(1)
+sr <- sample_random()
+sr <- train_test(sr, iris)
+iris_train <- sr$train
+iris_test <- sr$test
+
+model <- fit(model, iris_train)
+
+prediction <- predict(model, iris_test)
+predictand <- adjust_class_label(iris_test[,"Species"])
+train_eval <- evaluate(model, predictand, prediction)
+train_eval$metrics
 }

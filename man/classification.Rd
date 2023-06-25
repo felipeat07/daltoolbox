@@ -2,7 +2,7 @@
 % Please edit documentation in R/cla_classification.R
 \name{classification}
 \alias{classification}
-\title{classification class}
+\title{classification}
 \usage{
 classification(attribute, slevels)
 }
@@ -20,8 +20,5 @@ classification object
 Ancestor class for classification problems
 }
 \examples{
-trans <- dal_transform()
-data(iris)
-template_model <- classification("Species", levels(iris$Species))
-print(template_model)
+#See ?cla_dtree for a classification example using a decision tree
 }

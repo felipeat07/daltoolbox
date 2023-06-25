@@ -3,8 +3,25 @@
 #'@param attribute attribute target to model building.
 #'@param slevels Possible values for the target classification.
 #'@param k A vector of integers indicating the number of neighbors to be considered.
-#'@return A classification object.
-#'@examples trans <- dal_transform()
+#'@return A knn object.
+#'@examples
+#'data(iris)
+#'slevels <- levels(iris$Species)
+#'model <- cla_knn("Species", slevels, k=3)
+#'
+#'# preparing dataset for random sampling
+#'set.seed(1)
+#'sr <- sample_random()
+#'sr <- train_test(sr, iris)
+#'iris_train <- sr$train
+#'iris_test <- sr$test
+#'
+#'model <- fit(model, iris_train)
+#'
+#'prediction <- predict(model, iris_test)
+#'predictand <- adjust_class_label(iris_test[,"Species"])
+#'train_eval <- evaluate(model, predictand, prediction)
+#'train_eval$metrics
 #'@export
 cla_knn <- function(attribute, slevels, k=1) {
   obj <- classification(attribute, slevels)
@@ -13,12 +30,6 @@ cla_knn <- function(attribute, slevels, k=1) {
   return(obj)
 }
 
-#'@title fit knn model
-#'@description fit knn model
-#'@param obj object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return fitted obj
 #'@import class
 #'@export
 fit.cla_knn <- function(obj, data, ...) {
@@ -35,12 +46,6 @@ fit.cla_knn <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title predict data from input
-#'@description predict data from input
-#'@param object object
-#'@param x input variable
-#'@param ... optional arguments
-#'@return predicted values
 #'@import class
 #'@export
 predict.cla_knn  <- function(object, x, ...) {

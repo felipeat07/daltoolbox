@@ -11,14 +11,6 @@ regression <- function(attribute) {
   return(obj)
 }
 
-#'@title Regression evaluation
-#'@description Evaluate major regression metrics for trained model
-#'@param obj object
-#'@param values real observations
-#'@param prediction predicted observations
-#'@param ... optional arguments.
-#'@return Computed metrics
-#'@examples trans <- dal_transform()
 #'@export
 evaluate.regression <- function(obj, values, prediction, ...) {
   MSE <- function (actual, prediction) {

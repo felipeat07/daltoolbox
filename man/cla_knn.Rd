@@ -14,11 +14,27 @@ cla_knn(attribute, slevels, k = 1)
 \item{k}{A vector of integers indicating the number of neighbors to be considered.}
 }
 \value{
-A classification object.
+A knn object.
 }
 \description{
 Classifies using the K-Nearest Neighbor algorithm.
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+slevels <- levels(iris$Species)
+model <- cla_knn("Species", slevels, k=3)
+
+# preparing dataset for random sampling
+set.seed(1)
+sr <- sample_random()
+sr <- train_test(sr, iris)
+iris_train <- sr$train
+iris_test <- sr$test
+
+model <- fit(model, iris_train)
+
+prediction <- predict(model, iris_test)
+predictand <- adjust_class_label(iris_test[,"Species"])
+train_eval <- evaluate(model, predictand, prediction)
+train_eval$metrics
 }

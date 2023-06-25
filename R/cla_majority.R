@@ -3,7 +3,24 @@
 #'@param attribute attribute target to model building.
 #'@param slevels Possible values for the target classification.
 #'@return Returns a classification object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(iris)
+#'slevels <- levels(iris$Species)
+#'model <- cla_majority("Species", slevels)
+#'
+#'# preparing dataset for random sampling
+#'set.seed(1)
+#'sr <- sample_random()
+#'sr <- train_test(sr, iris)
+#'iris_train <- sr$train
+#'iris_test <- sr$test
+#'
+#'model <- fit(model, iris_train)
+#'
+#'prediction <- predict(model, iris_test)
+#'predictand <- adjust_class_label(iris_test[,"Species"])
+#'train_eval <- evaluate(model, predictand, prediction)
+#'train_eval$metrics
 #'@export
 cla_majority <- function(attribute, slevels) {
   obj <- classification(attribute, slevels)
@@ -12,12 +29,6 @@ cla_majority <- function(attribute, slevels) {
   return(obj)
 }
 
-#'@title fit majority model
-#'@description fit majority model
-#'@param obj object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return fitted obj
 #'@export
 fit.cla_majority <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
@@ -29,16 +40,9 @@ fit.cla_majority <- function(obj, data, ...) {
   col <- match(max(cols),cols)
   obj$model <- list(cols=cols, col=col)
 
-
   return(obj)
 }
 
-#'@title predict data from input
-#'@description predict data from input
-#'@param object object
-#'@param x input variable
-#'@param ... optional arguments
-#'@return predicted values
 #'@export
 predict.cla_majority <- function(object, x, ...) {
   rows <- nrow(x)

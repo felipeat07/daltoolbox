@@ -3,7 +3,24 @@
 #'@param attribute attribute target to model building.
 #'@param slevels Possible values for the target classification.
 #'@return A classification object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(iris)
+#'slevels <- levels(iris$Species)
+#'model <- cla_nb("Species", slevels)
+#'
+#'# preparing dataset for random sampling
+#'set.seed(1)
+#'sr <- sample_random()
+#'sr <- train_test(sr, iris)
+#'iris_train <- sr$train
+#'iris_test <- sr$test
+#'
+#'model <- fit(model, iris_train)
+#'
+#'prediction <- predict(model, iris_test)
+#'predictand <- adjust_class_label(iris_test[,"Species"])
+#'train_eval <- evaluate(model, predictand, prediction)
+#'train_eval$metrics
 #'@export
 cla_nb <- function(attribute, slevels) {
   obj <- classification(attribute, slevels)
@@ -12,12 +29,6 @@ cla_nb <- function(attribute, slevels) {
   return(obj)
 }
 
-#'@title fit nb model
-#'@description fit nb model
-#'@param obj object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return fitted obj
 #'@import e1071
 #'@export
 fit.cla_nb <- function(obj, data, ...) {
@@ -32,12 +43,6 @@ fit.cla_nb <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title predict data from input
-#'@description predict data from input
-#'@param object object
-#'@param x input variable
-#'@param ... optional arguments
-#'@return predicted values
 #'@export
 predict.cla_nb  <- function(object, x, ...) {
   x <- adjust_data.frame(x)

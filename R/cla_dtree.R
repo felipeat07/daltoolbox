@@ -1,9 +1,29 @@
-#'@title Decision Tree Classification
-#'@description Creates a classification object that uses the Decision Tree algorithm for classification.
+#'@title Majority Classification
+#'@description This function creates a classification object that
+#'uses the majority vote strategy to predict the target attribute.
+#'Given a target attribute, the function counts the number of
+#'occurrences of each value in the dataset and selects the one that appears most often.
 #'@param attribute attribute target to model building.
-#'@param slevels The possible values for the target classification.
-#'@return A classification object that uses the Decision Tree algorithm for classification.
-#'@examples trans <- dal_transform()
+#'@param slevels Possible values for the target classification.
+#'@return Returns a classification object.
+#'@examples
+#'data(iris)
+#'slevels <- levels(iris$Species)
+#'model <- cla_dtree("Species", slevels)
+#'
+#'# preparing dataset for random sampling
+#'set.seed(1)
+#'sr <- sample_random()
+#'sr <- train_test(sr, iris)
+#'iris_train <- sr$train
+#'iris_test <- sr$test
+#'
+#'model <- fit(model, iris_train)
+#'
+#'prediction <- predict(model, iris_test)
+#'predictand <- adjust_class_label(iris_test[,"Species"])
+#'train_eval <- evaluate(model, predictand, prediction)
+#'train_eval$metrics
 #'@export
 cla_dtree <- function(attribute, slevels) {
   obj <- classification(attribute, slevels)
@@ -12,12 +32,6 @@ cla_dtree <- function(attribute, slevels) {
   return(obj)
 }
 
-#'@title fit dtree model
-#'@description fit dtree model
-#'@param obj object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return fitted obj
 #'@import tree
 #'@export
 fit.cla_dtree <- function(obj, data, ...) {
@@ -32,12 +46,6 @@ fit.cla_dtree <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title predict data from input
-#'@description predict data from input
-#'@param object object
-#'@param x input variable
-#'@param ... optional arguments
-#'@return predicted values
 #'@export
 predict.cla_dtree <- function(object, x, ...) {
   x <- adjust_data.frame(x)

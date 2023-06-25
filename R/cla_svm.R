@@ -6,7 +6,24 @@
 #'@param cost - parameter that controls the trade-off between having a wide margin and correctly classifying training data points
 #'@param kernel - the type of kernel function to be used in the SVM algorithm (linear, radial, polynomial, sigmoid)
 #'@return classification object
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(iris)
+#'slevels <- levels(iris$Species)
+#'model <- cla_svm("Species", slevels, epsilon=0.0,cost=20.000)
+#'
+#'# preparing dataset for random sampling
+#'set.seed(1)
+#'sr <- sample_random()
+#'sr <- train_test(sr, iris)
+#'iris_train <- sr$train
+#'iris_test <- sr$test
+#'
+#'model <- fit(model, iris_train)
+#'
+#'prediction <- predict(model, iris_test)
+#'predictand <- adjust_class_label(iris_test[,"Species"])
+#'train_eval <- evaluate(model, predictand, prediction)
+#'train_eval$metrics
 #'@export
 cla_svm <- function(attribute, slevels, epsilon=0.1, cost=10, kernel="radial") {
   #kernel: linear, radial, polynomial, sigmoid
@@ -20,12 +37,6 @@ cla_svm <- function(attribute, slevels, epsilon=0.1, cost=10, kernel="radial") {
   return(obj)
 }
 
-#'@title fit svm model
-#'@description fit svm model
-#'@param obj object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return fitted obj
 #'@import e1071
 #'@export
 fit.cla_svm <- function(obj, data, ...) {
@@ -41,12 +52,6 @@ fit.cla_svm <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title predict data from input
-#'@description predict data from input
-#'@param object object
-#'@param x input variable
-#'@param ... optional arguments
-#'@return predicted values
 #'@export
 predict.cla_svm  <- function(object, x, ...) {
   x <- adjust_data.frame(x)

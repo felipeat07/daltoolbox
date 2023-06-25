@@ -2,21 +2,10 @@
 #'@description A ancestor class for clustering, classification, regression, and time series regression.
 #' It also provides the basis for specialized evaluation of learning performance.
 #'
-#' An example of learner is a decision tree (cla_dtree)
+#' An example of a learner is a decision tree (cla_dtree)
 #'@return a learner
 #'@examples
-#'data(iris)
-#'slevels <- levels(iris$Species)
-
-#classification learner using decision tree
-#'model <- cla_dtree("Species", slevels)
-#'model <- fit(model, iris)
-#'prediction <- predict(model, iris)
-
-# categorical mapping for predictand
-#'predictand <- adjust_class_label(iris[,"Species"])
-#'train_eval <- evaluate(model, predictand, prediction)
-#'train_eval$metrics
+#'#See ?cla_dtree for a classification example using a decision tree
 #'@export
 dal_learner <- function() {
   obj <- dal_base()
