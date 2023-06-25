@@ -38,3 +38,24 @@ plot_ts_pred(
 \description{
 The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
 }
+\examples{
+i <- seq(0, 25, 0.25)
+x <- cos(i)
+
+ts <- ts_data(x, sw=0)
+ts_head(ts, 3)
+
+samp <- ts_sample(ts, test_size= 5)
+io_train <- ts_projection(samp$train)
+
+model <- tsreg_arima()
+model <- fit(model, x=io_train$input, y=io_train$output)
+adjust <- predict(model, io_train$input)
+
+io_test <- ts_projection(samp$test)
+prediction <- predict(model, x=io_test$input, steps_ahead=5)
+prediction <- as.vector(prediction)
+
+yvalues <- c(io_train$output, io_test$output)
+plot_ts_pred(y=yvalues, yadj=adjust, ypre=prediction)
+}
