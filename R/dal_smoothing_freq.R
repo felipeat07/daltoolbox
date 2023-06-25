@@ -2,7 +2,16 @@
 #'@description The 'smoothing_freq' function is used to smooth a given time series data by aggregating observations within a fixed frequency.
 #'@param n number of bins
 #'@return obj
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(iris)
+#'obj <- smoothing_freq(n = 2)
+#'obj <- fit(obj, iris$Sepal.Length)
+#'sl.bi <- transform(obj, iris$Sepal.Length)
+#'table(sl.bi)
+#'obj$interval
+#'
+#'entro <- evaluate(obj, as.factor(names(sl.bi)), iris$Species)
+#'entro$entropy
 #'@export
 smoothing_freq <- function(n) {
   obj <- smoothing(n)

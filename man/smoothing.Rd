@@ -20,5 +20,13 @@ There are alternative methods to establish the smoothing:
 equal interval, equal frequency, and clustering.
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+obj <- smoothing_inter(n = 2)
+obj <- fit(obj, iris$Sepal.Length)
+sl.bi <- transform(obj, iris$Sepal.Length)
+table(sl.bi)
+obj$interval
+
+entro <- evaluate(obj, as.factor(names(sl.bi)), iris$Species)
+entro$entropy
 }

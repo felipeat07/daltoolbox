@@ -19,5 +19,13 @@ The mean of each cluster is then calculated and used as the
 smoothed value for all observations within that cluster.
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+obj <- smoothing_cluster(n = 2)
+obj <- fit(obj, iris$Sepal.Length)
+sl.bi <- transform(obj, iris$Sepal.Length)
+table(sl.bi)
+obj$interval
+
+entro <- evaluate(obj, as.factor(names(sl.bi)), iris$Species)
+entro$entropy
 }
