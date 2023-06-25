@@ -18,9 +18,6 @@ The object contains a list with the following elements:
 \description{
 Fitting a curvature model in a sequence of observations. It extracts the the minimum curvature computed.
 }
-\details{
-This function creates an object for fitting a curvature function in a sequence of observations. It extracts the the minimum curvature computed.
-}
 \examples{
 x <- seq(from=1,to=10,by=0.5)
 dat <- data.frame(x = x, value = log(x), variable = "log")

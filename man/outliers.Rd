@@ -7,14 +7,28 @@
 outliers(alpha = 1.5)
 }
 \arguments{
-\item{alpha}{boxplot outlier threshold}
+\item{alpha}{boxplot outlier threshold (default 1.5, but can be 3.0 to remove extreme values)}
 }
 \value{
 An outlier object
 }
 \description{
-Basic class for outlier removal
+The outliers class uses box-plot definition for outliers.
+An outlier is a value that is below than $Q_1 - 1.5 \cdot IQR$ or higher than $Q_3 + 1.5 \cdot IQR$.
+The class remove outliers for numeric attributes.
+Users can set alpha to 3 to remove extreme values.
 }
 \examples{
-trans <- dal_transform()
+# code for outlier removal
+out_obj <- outliers() # class for outlier analysis
+out_obj <- fit(out_obj, iris) # computing boundaries
+iris.clean <- transform(out_obj, iris) # returning cleaned dataset
+
+#inspection of cleaned dataset
+nrow(iris.clean)
+
+idx <- attr(iris.clean, "idx")
+table(idx)
+iris.outliers <- iris[idx,]
+iris.outliers
 }

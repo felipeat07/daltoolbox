@@ -1,7 +1,5 @@
 #'@title minimum curvature analysis
 #'@description Fitting a curvature model in a sequence of observations. It extracts the the minimum curvature computed.
-#'@details This function creates an object for fitting a curvature function in a sequence of observations. It extracts the the minimum curvature computed.
-#'
 #'@return Returns an object of class fit_curvature_max, which inherits from the fit_curvature and dal_transform classes.
 #' The object contains a list with the following elements:
 #' \itemize{

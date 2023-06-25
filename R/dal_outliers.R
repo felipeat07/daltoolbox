@@ -1,8 +1,23 @@
 #'@title Outliers
-#'@description Basic class for outlier removal
-#'@param alpha boxplot outlier threshold
+#'@description The outliers class uses box-plot definition for outliers.
+#'An outlier is a value that is below than $Q_1 - 1.5 \cdot IQR$ or higher than $Q_3 + 1.5 \cdot IQR$.
+#'The class remove outliers for numeric attributes.
+#'Users can set alpha to 3 to remove extreme values.
+#'@param alpha boxplot outlier threshold (default 1.5, but can be 3.0 to remove extreme values)
 #'@return An outlier object
-#'@examples trans <- dal_transform()
+#'@examples
+#'# code for outlier removal
+#' out_obj <- outliers() # class for outlier analysis
+#' out_obj <- fit(out_obj, iris) # computing boundaries
+#' iris.clean <- transform(out_obj, iris) # returning cleaned dataset
+#'
+#' #inspection of cleaned dataset
+#' nrow(iris.clean)
+#'
+#' idx <- attr(iris.clean, "idx")
+#' table(idx)
+#' iris.outliers <- iris[idx,]
+#' iris.outliers
 #'@export
 outliers <- function(alpha = 1.5) {
   obj <- dal_transform()
@@ -11,13 +26,6 @@ outliers <- function(alpha = 1.5) {
   return(obj)
 }
 
-#'@title Fit outliers object
-#'@description Calculates upper and lower bounds based on alpha value
-#'@param obj object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return An updated 'outliers' object, containing the lower and upper bounds for each numerical variable
-#'@examples trans <- dal_transform()
 #'@importFrom stats quantile
 #'@export
 fit.outliers <- function(obj, data, ...) {
@@ -50,13 +58,6 @@ fit.outliers <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title Remove outliers from data
-#'@description Remove outliers from data
-#'@param obj object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return returns the output dataset after applying the transformation and adds an "idx" attribute that contains a boolean vector indicating which rows were removed from the original dataset
-#'@examples trans <- dal_transform()
 #'@export
 transform.outliers <- function(obj, data, ...) {
   idx <- FALSE
