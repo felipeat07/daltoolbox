@@ -14,7 +14,7 @@ smoothing_inter <- function(n) {
 #'@export
 fit.smoothing_inter <- function(obj, data, ...) {
   if (length(obj$n) > 1)
-    obj <- tune_smoothing(obj, data)
+    obj <- obj$tune(obj, data)
   else {
     v <- data
     n <- obj$n

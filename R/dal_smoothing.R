@@ -60,7 +60,7 @@ transform.smoothing <- function(obj, data, ...) {
 }
 
 #'@export
-smoothing.evaluate <- function(obj, data, attribute) {
+evaluate.smoothing <- function(obj, data, attribute, ...) {
   x <- y <- q <- qtd <- e <- n <- 0
   result <- list(data=as.factor(data), attribute=as.factor(attribute))
 

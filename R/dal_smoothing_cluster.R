@@ -1,5 +1,8 @@
 #'@title Smoothing by cluster
-#'@description The function smoothing_cluster() is used to perform smoothing of data by cluster. This function takes as input a numeric vector, which is divided into clusters using the k-means algorithm. The mean of each cluster is then calculated and used as the smoothed value for all observations within that cluster.
+#'@description Uses clustering method to perform data smoothing.
+#' The input vector is divided into clusters using the k-means algorithm.
+#' The mean of each cluster is then calculated and used as the
+#' smoothed value for all observations within that cluster.
 #'@param n number of bins
 #'@return obj
 #'@examples trans <- dal_transform()
@@ -14,7 +17,7 @@ smoothing_cluster <- function(n) {
 #'@export
 fit.smoothing_cluster <- function(obj, data, ...) {
   if (length(obj$n) > 1)
-    obj <- tune_smoothing(obj, data)
+    obj <- obj$tune(obj, data)
   else {
     v <- data
     n <- obj$n

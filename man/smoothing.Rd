@@ -13,7 +13,11 @@ smoothing(n)
 obj
 }
 \description{
-Smoothing is a statistical technique that is used to reduce the noise in a signal or a dataset by removing the high-frequency components. It involves applying a smoothing function or algorithm to the dataset that results in a smoother curve that is easier to analyze. The smoothing technique can be applied to any type of data, including time-series data, images, and sound signals.
+Smoothing is a statistical technique used to reduce
+the noise in a signal or a dataset by removing the high-frequency components.
+The smoothing level is associated with the number of bins used.
+There are alternative methods to establish the smoothing:
+equal interval, equal frequency, and clustering.
 }
 \examples{
 trans <- dal_transform()
