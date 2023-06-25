@@ -596,6 +596,26 @@ plot_ts <- function(x = NULL, y, label_x = "", label_y = "", color="black")  {
 #'@param color color for the time series
 #'@param color_adjust color for the adjusted values
 #'@param color_prediction color for the predictions
+#'@examples
+#'i <- seq(0, 25, 0.25)
+#'x <- cos(i)
+#'
+#'ts <- ts_data(x, sw=0)
+#'ts_head(ts, 3)
+#'
+#'samp <- ts_sample(ts, test_size= 5)
+#'io_train <- ts_projection(samp$train)
+#'
+#'model <- tsreg_arima()
+#'model <- fit(model, x=io_train$input, y=io_train$output)
+#'adjust <- predict(model, io_train$input)
+#'
+#'io_test <- ts_projection(samp$test)
+#'prediction <- predict(model, x=io_test$input, steps_ahead=5)
+#'prediction <- as.vector(prediction)
+#'
+#'yvalues <- c(io_train$output, io_test$output)
+#'plot_ts_pred(y=yvalues, yadj=adjust, ypre=prediction)
 #'@export
 #'@import ggplot2
 plot_ts_pred <- function(x = NULL, y, yadj, ypred = NULL, label_x = "", label_y = "", color="black", color_adjust="blue", color_prediction="green") {
