@@ -615,7 +615,8 @@ plot_ts <- function(x = NULL, y, label_x = "", label_y = "", color="black")  {
 #'prediction <- as.vector(prediction)
 #'
 #'yvalues <- c(io_train$output, io_test$output)
-#'plot_ts_pred(y=yvalues, yadj=adjust, ypre=prediction)
+#'grf <- plot_ts_pred(y=yvalues, yadj=adjust, ypre=prediction)
+#'plot(grf)
 #'@export
 #'@import ggplot2
 plot_ts_pred <- function(x = NULL, y, yadj, ypred = NULL, label_x = "", label_y = "", color="black", color_adjust="blue", color_prediction="green") {

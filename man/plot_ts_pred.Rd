@@ -57,5 +57,6 @@ prediction <- predict(model, x=io_test$input, steps_ahead=5)
 prediction <- as.vector(prediction)
 
 yvalues <- c(io_train$output, io_test$output)
-plot_ts_pred(y=yvalues, yadj=adjust, ypre=prediction)
+grf <- plot_ts_pred(y=yvalues, yadj=adjust, ypre=prediction)
+plot(grf)
 }
