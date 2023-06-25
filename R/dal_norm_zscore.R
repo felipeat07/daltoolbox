@@ -1,13 +1,17 @@
 #'@title z-score normalization
-#'@description Scale data using z-score normalization
-#'@param nmean mean
-#'@param nsd standard deviation
+#'@description Scale data using z-score normalization.
+#' \eqn{zscore = \dfrac{x - \mu}{\sigma}},
+#' where \eqn{\mu} is the mean of \eqn{x}
+#' and \eqn{\sigma} is the standard deviation.
+#'@param nmean new mean for normalized data
+#'@param nsd new standard deviation for normalized data
 #'@return z-score transformation object
 #'@examples
 #'data(iris)
 #'trans <- zscore()
 #'trans <- fit(trans, iris)
 #'tiris <- transform(trans, iris)
+#'itiris <- inverse_transform(trans, tiris)
 #'@export
 zscore <- function(nmean=0, nsd=1) {
   obj <- dal_transform()
@@ -18,14 +22,6 @@ zscore <- function(nmean=0, nsd=1) {
 }
 
 
-#'@title fit z-score normalization
-#'@description Compute z-score normalization parameters
-#'@param obj z-score transformation object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return fitted z-score transformation object
-#'@examples
-#'# see ?zscore
 #'@importFrom stats sd
 #'@export
 fit.zscore <- function(obj, data, ...) {
@@ -49,14 +45,6 @@ fit.zscore <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title transform z-score normalization
-#'@description Scale data using z-score normalization
-#'@param obj z-score transformation object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return transformed dataset
-#'@examples
-#'# see ?zscore
 #'@export
 transform.zscore <- function(obj, data, ...) {
   zscore <- obj$norm.set
@@ -71,13 +59,6 @@ transform.zscore <- function(obj, data, ...) {
   return (data)
 }
 
-#'@title Inverse Transform z-score
-#'@description The inverse transform of normalized data to original space
-#'@param obj z-score object
-#'@param data transformed dataset
-#'@param ... optional arguments
-#'@return reverse transformed dataset
-#'@examples trans <- dal_transform()
 #'@export
 inverse_transform.zscore <- function(obj, data, ...) {
   zscore <- obj$norm.set

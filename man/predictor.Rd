@@ -11,7 +11,18 @@ a predictor object
 }
 \description{
 Ancestor class for regression and classification
+It provides basis for fit and predict methods.
+Besides, action method proxies to predict.
+
+An example of learner is a decision tree (cla_dtree)
 }
 \examples{
-trans <- predictor()
+data(iris)
+slevels <- levels(iris$Species)
+model <- cla_dtree("Species", slevels)
+model <- fit(model, iris)
+prediction <- predict(model, iris)
+predictand <- adjust_class_label(iris[,"Species"])
+train_eval <- evaluate(model, predictand, prediction)
+train_eval$metrics
 }

@@ -7,7 +7,7 @@
 dt_pca(attribute = NULL, components = NULL)
 }
 \arguments{
-\item{attribute}{attribute target to model building}
+\item{attribute}{target attribute to model building}
 
 \item{components}{number of components for PCA}
 }
@@ -15,8 +15,23 @@ dt_pca(attribute = NULL, components = NULL)
 obj
 }
 \description{
-PCA (Principal Component Analysis) is a commonly used unsupervised dimensionality reduction technique in data analysis and machine learning. It is used to transform a dataset of possibly correlated variables into a new set of uncorrelated variables called principal components.
+PCA (Principal Component Analysis) is an unsupervised
+dimensionality reduction technique used in data analysis and
+machine learning. It transforms a dataset of possibly
+correlated variables into a new set of uncorrelated
+variables called principal components.
 }
 \examples{
-trans <- dal_transform()
+mypca <- dt_pca("Species")
+# Automatically fitting number of components
+mypca <- fit(mypca, iris)
+iris.pca <- transform(mypca, iris)
+head(iris.pca)
+head(mypca$pca.transf)
+# Manual establishment of number of components
+mypca <- dt_pca("Species", 3)
+mypca <- fit(mypca, datasets::iris)
+iris.pca <- transform(mypca, iris)
+head(iris.pca)
+head(mypca$pca.transf)
 }

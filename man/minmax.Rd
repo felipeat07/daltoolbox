@@ -11,10 +11,12 @@ obj
 }
 \description{
 The minmax performs scales data between [0,1].
+\eqn{minmax = \dfrac{x-min(x)}{max(x)-min(x)}}.
 }
 \examples{
 data(iris)
 trans <- minmax()
 trans <- fit(trans, iris)
 tiris <- transform(trans, iris)
+itiris <- inverse_transform(trans, tiris)
 }

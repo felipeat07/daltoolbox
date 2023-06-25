@@ -2,7 +2,7 @@
 % Please edit documentation in R/dal_sample.R
 \name{train_test}
 \alias{train_test}
-\title{training and test partition object}
+\title{training and test}
 \usage{
 train_test(obj, data, ...)
 }
@@ -17,7 +17,7 @@ train_test(obj, data, ...)
 train and test sets
 }
 \description{
-training and test partition object
+training and test partition of a dataset using a sampling method
 }
 \examples{
 trans <- dal_transform()

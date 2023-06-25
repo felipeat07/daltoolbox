@@ -16,5 +16,17 @@ obj
 The sample_stratified function in R is used to generate a stratified random sample from a given dataset. Stratified sampling is a statistical method that is used when the population is divided into non-overlapping subgroups or strata, and a sample is selected from each stratum to represent the entire population. In stratified sampling, the sample is selected in such a way that it is representative of the entire population and the variability within each stratum is minimized.
 }
 \examples{
-trans <- dal_transform()
+#using stratified sampling
+sample <- sample_stratified("Species")
+tt <- train_test(sample, iris)
+# distribution of train
+table(tt$train$Species)
+# preparing dataset into four folds
+folds <- k_fold(sample, iris, 4)
+# distribution of folds
+tbl <- NULL
+for (f in folds) {
+ tbl <- rbind(tbl, table(f$Species))
+}
+head(tbl)
 }

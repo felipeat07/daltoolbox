@@ -1,7 +1,22 @@
-#'@title DAL Transform
-#'@description A transformation function can be applied to a time series dataset to alter its properties.
-#'@return a dal_transform object
-#'@examples trans <- dal_transform()
+#'@title DAL Learner
+#'@description A ancestor class for clustering, classification, regression, and time series regression.
+#' It also provides the basis for specialized evaluation of learning performance.
+#'
+#' An example of learner is a decision tree (cla_dtree)
+#'@return a learner
+#'@examples
+#'data(iris)
+#'slevels <- levels(iris$Species)
+
+#classification learner using decision tree
+#'model <- cla_dtree("Species", slevels)
+#'model <- fit(model, iris)
+#'prediction <- predict(model, iris)
+
+# categorical mapping for predictand
+#'predictand <- adjust_class_label(iris[,"Species"])
+#'train_eval <- evaluate(model, predictand, prediction)
+#'train_eval$metrics
 #'@export
 dal_learner <- function() {
   obj <- dal_base()
@@ -9,12 +24,6 @@ dal_learner <- function() {
   return(obj)
 }
 
-#'@title Default Action implementation
-#'@description A default function that defines the default behavior of the transform function for objects of class dal_transform
-#'@param obj object
-#'@param ... optional arguments
-#'@return It simply returns NULL, which indicates that no transforms are applied
-#'@examples trans <- dal_transform()
 #'@export
 action.dal_learner <- function(obj, ...) {
   thiscall <- match.call(expand.dots = TRUE)
@@ -24,22 +33,30 @@ action.dal_learner <- function(obj, ...) {
 }
 
 #'@title evaluate
-#'@description evaluate
+#'@description evaluate learner performance.
+#' The actual evaluate varies according to the type of learner (clustering, classification, regression, time series regression)
 #'@param obj object
 #'@param ... optional arguments
 #'@return evaluation
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(iris)
+#'slevels <- levels(iris$Species)
+
+#classification learner using decision tree
+#'model <- cla_dtree("Species", slevels)
+#'model <- fit(model, iris)
+#'prediction <- predict(model, iris)
+
+# categorical mapping for predictand
+#'predictand <- adjust_class_label(iris[,"Species"])
+#'train_eval <- evaluate(model, predictand, prediction)
+#'train_eval$metrics
+
 #'@export
 evaluate <- function(obj, ...) {
   UseMethod("evaluate")
 }
 
-#'@title evaluate
-#'@description evaluate
-#'@param obj object
-#'@param ... optional arguments
-#'@return evaluation
-#'@examples trans <- dal_transform()
 #'@export
 evaluate.default <- function(obj, ...) {
   return(NULL)

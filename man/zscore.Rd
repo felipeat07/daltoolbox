@@ -7,19 +7,23 @@
 zscore(nmean = 0, nsd = 1)
 }
 \arguments{
-\item{nmean}{mean}
+\item{nmean}{new mean for normalized data}
 
-\item{nsd}{standard deviation}
+\item{nsd}{new standard deviation for normalized data}
 }
 \value{
 z-score transformation object
 }
 \description{
-Scale data using z-score normalization
+Scale data using z-score normalization.
+\eqn{zscore = \dfrac{x - \mu}{\sigma}},
+where \eqn{\mu} is the mean of \eqn{x}
+and \eqn{\sigma} is the standard deviation.
 }
 \examples{
 data(iris)
 trans <- zscore()
 trans <- fit(trans, iris)
 tiris <- transform(trans, iris)
+itiris <- inverse_transform(trans, tiris)
 }

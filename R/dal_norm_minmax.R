@@ -1,11 +1,13 @@
 #'@title min-max normalization
 #'@description The minmax performs scales data between \[0,1\].
+#' \eqn{minmax = \dfrac{x-min(x)}{max(x)-min(x)}}.
 #'@return obj
 #'@examples
 #'data(iris)
 #'trans <- minmax()
 #'trans <- fit(trans, iris)
 #'tiris <- transform(trans, iris)
+#'itiris <- inverse_transform(trans, tiris)
 #'@export
 minmax <- function() {
   obj <- dal_transform()
@@ -13,14 +15,6 @@ minmax <- function() {
   return(obj)
 }
 
-#'@title fit min-max normalization
-#'@description Compute min-max normalization parameters
-#'@param obj min-max transformation object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return fitted min-max transformation object
-#'@examples
-#'# see ?minmax
 #'@export
 fit.minmax <- function(obj, data, ...) {
   minmax = data.frame(t(ifelse(sapply(data, is.numeric), 1, 0)))
@@ -37,14 +31,6 @@ fit.minmax <- function(obj, data, ...) {
 }
 
 
-#'@title transform min-max normalization
-#'@description Scale data using minmax normalization
-#'@param obj min-max transformation object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return transformed dataset
-#'@examples
-#'# see ?minmax
 #'@export
 transform.minmax <- function(obj, data, ...) {
   minmax <- obj$norm.set
@@ -59,14 +45,6 @@ transform.minmax <- function(obj, data, ...) {
   return (data)
 }
 
-#'@title inverse transform min-max normalization
-#'@description The inverse transform of normalized data to original space
-#'@param obj min-max transformation object
-#'@param data transformed dataset
-#'@param ... optional arguments
-#'@return inverse transformed dataset
-#'@examples
-#'# see ?minmax
 #'@export
 inverse_transform.minmax <- function(obj, data, ...) {
   minmax <- obj$norm.set

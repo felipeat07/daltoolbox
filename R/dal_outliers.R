@@ -1,6 +1,6 @@
 #'@title Outliers
 #'@description The outliers class uses box-plot definition for outliers.
-#'An outlier is a value that is below than $Q_1 - 1.5 \cdot IQR$ or higher than $Q_3 + 1.5 \cdot IQR$.
+#'An outlier is a value that is below than \eqn{Q_1 - 1.5 \cdot IQR} or higher than \eqn{Q_3 + 1.5 \cdot IQR}.
 #'The class remove outliers for numeric attributes.
 #'Users can set alpha to 3 to remove extreme values.
 #'@param alpha boxplot outlier threshold (default 1.5, but can be 3.0 to remove extreme values)

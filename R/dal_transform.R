@@ -31,11 +31,6 @@ transform <- function(obj, ...) {
   UseMethod("transform")
 }
 
-#'@title Transform
-#'@description Executes the default transformation of an object.
-#'@param obj a dal_transform object.
-#'@param ... optional arguments
-#'@return It simply returns the input data which indicates that no transformation
 #'@export
 transform.default <- function(obj, ...) {
   thiscall <- match.call(expand.dots = TRUE)
@@ -81,11 +76,6 @@ inverse_transform <- function(obj, ...) {
   UseMethod("inverse_transform")
 }
 
-#'@title Default inverse transform
-#'@description Reverses the transformation applied to data.
-#'@param obj a dal_transform object.
-#'@param ... optional arguments.
-#'@return It simply returns the input data which indicates that no transformation
 #'@export
 inverse_transform.default <- function(obj, ...) {
   thiscall <- match.call(expand.dots = TRUE)

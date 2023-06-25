@@ -2,16 +2,26 @@
 % Please edit documentation in R/dal_learner.R
 \name{dal_learner}
 \alias{dal_learner}
-\title{DAL Transform}
+\title{DAL Learner}
 \usage{
 dal_learner()
 }
 \value{
-a dal_transform object
+a learner
 }
 \description{
-A transformation function can be applied to a time series dataset to alter its properties.
+A ancestor class for clustering, classification, regression, and time series regression.
+It also provides the basis for specialized evaluation of learning performance.
+
+An example of learner is a decision tree (cla_dtree)
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+slevels <- levels(iris$Species)
+model <- cla_dtree("Species", slevels)
+model <- fit(model, iris)
+prediction <- predict(model, iris)
+predictand <- adjust_class_label(iris[,"Species"])
+train_eval <- evaluate(model, predictand, prediction)
+train_eval$metrics
 }

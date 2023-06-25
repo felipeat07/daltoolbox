@@ -1,9 +1,3 @@
-#'@title cluster dataset basic method
-#'@description cluster dataset basic method
-#'@param obj object
-#'@param ... optional arguments.
-#'@return empty data frame
-#'@examples trans <- dal_transform()
 #'@export
 cluster.default <- function(obj, ...) {
   return(data.frame())

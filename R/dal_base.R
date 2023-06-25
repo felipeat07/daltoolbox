@@ -26,11 +26,6 @@ fit <- function(obj, ...) {
   UseMethod("fit")
 }
 
-#'@title Fit
-#'@description Fits a model from input data
-#'@param obj object
-#'@param ... optional arguments
-#'@return The default behavior is return the object as it is
 #'@export
 fit.default <- function(obj, ...) {
   return(obj)
@@ -52,11 +47,6 @@ action <- function(obj, ...) {
   UseMethod("action")
 }
 
-#'@title Action
-#'@description Executes the action of an object.
-#'@param obj object
-#'@param ... optional arguments
-#'@return The default behavior is return the input data
 #'@export
 action.default <- function(obj, ...) {
   par <- c(as.list(environment()), list(...))
@@ -90,12 +80,6 @@ set_params.default <- function(obj, params) {
   return(obj)
 }
 
-#'@title Assign parameters
-#'@description set_params function assigns all parameters to the attributes presented in the object.
-#'It returns the object with the parameters set.
-#'@param obj object of class dal_base
-#'@param params parameters to set obj
-#'@return obj with parameters set
 #'@export
 set_params.dal_base <- function(obj, params) {
   if (!is.null(params)) {

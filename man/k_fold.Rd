@@ -17,7 +17,7 @@ k_fold(obj, data, k)
 k folds
 }
 \description{
-k-fold sampling
+k-fold partition of a dataset using a sampling method
 }
 \examples{
 trans <- dal_transform()

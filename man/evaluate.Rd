@@ -15,8 +15,16 @@ evaluate(obj, ...)
 evaluation
 }
 \description{
-evaluate
+evaluate learner performance.
+The actual evaluate varies according to the type of learner (clustering, classification, regression, time series regression)
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+slevels <- levels(iris$Species)
+model <- cla_dtree("Species", slevels)
+model <- fit(model, iris)
+prediction <- predict(model, iris)
+predictand <- adjust_class_label(iris[,"Species"])
+train_eval <- evaluate(model, predictand, prediction)
+train_eval$metrics
 }
