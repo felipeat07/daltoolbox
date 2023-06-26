@@ -1,8 +1,19 @@
-#'@title Time Series Awareness
-#'@description Time Series Awareness filter
-#'@param factor factor of awareness
+#'@title Augmentation by awareness
+#'@description Time series data augmentation is a technique used to increase the size and diversity of a time series dataset by creating new instances of the original data through transformations or modifications. The goal is to improve the performance of machine learning models trained on time series data by reducing overfitting and improving generalization.
+#'Awareness reinforce recent data preferably.
+#'@param factor increase factor for data augmentation
 #'@return a `ts_aug_awareness` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(sin_data)
+#'
+#'#convert to sliding windows
+#'xw <- ts_data(sin_data$y, 10)
+#'
+#'#data augmentation using awareness
+#'augment <- ts_aug_awareness()
+#'augment <- fit(augment, xw)
+#'xa <- transform(augment, xw)
+#'ts_head(xa)
 #'@export
 ts_aug_awareness <- function(factor = 1) {
   obj <- dal_transform()

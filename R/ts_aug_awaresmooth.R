@@ -1,10 +1,21 @@
-#'@title Time Series Awareness Smooth
-#'@description Time Series Awareness Smooth filter
-#'@param factor factor of awareness
-#'@return a `ts_aug_awaresmooth`
+#'@title Augmentation by awareness smooth
+#'@description Time series data augmentation is a technique used to increase the size and diversity of a time series dataset by creating new instances of the original data through transformations or modifications. The goal is to improve the performance of machine learning models trained on time series data by reducing overfitting and improving generalization.
+#'Awareness Smooth reinforce recent data preferably. It also smooths noise data.
+#'@param factor increase factor for data augmentation
+#'@return a `ts_aug_awaresmooth` object.
 #'@examples trans <- dal_transform()
-#'@export
-ts_aug_awaresmooth <- function(factor = 0) {
+#'@examples
+#'data(sin_data)
+#'
+#'#convert to sliding windows
+#'xw <- ts_data(sin_data$y, 10)
+#'
+#'#data augmentation using awareness
+#'augment <- ts_aug_awareness()
+#'augment <- fit(augment, xw)
+#'xa <- transform(augment, xw)
+#'ts_head(xa)
+ts_aug_awaresmooth <- function(factor = 1) {
   obj <- dal_transform()
   obj$factor <- factor
   class(obj) <- append("ts_aug_awaresmooth", class(obj))

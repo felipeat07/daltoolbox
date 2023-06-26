@@ -2,23 +2,29 @@
 % Please edit documentation in R/ts_aug_stretch.R
 \name{ts_aug_stretch}
 \alias{ts_aug_stretch}
-\title{Time Series Augmentation ts_aug_stretch}
+\title{Augmentation by stretch}
 \usage{
-ts_aug_stretch(factor = 1.2)
+ts_aug_stretch(scale_factor = 1.2)
 }
 \arguments{
-\item{factor}{a real value (default = 1.2) define the degree of distortion applied.}
+\item{scale_factor}{for stretch}
 }
 \value{
 a \code{ts_aug_stretch} object.
 }
 \description{
-Augmentation is a technique used to increase the size and
-diversity of a time series dataset by creating new instances of the original
-data through transformations or modifications. The goal is to improve the
-performance of machine learning models trained on time series data by
-reducing overfitting and improving generalization.Apply temporal distortion to the time axis of the data.
+Time series data augmentation is a technique used to increase the size and diversity of a time series dataset by creating new instances of the original data through transformations or modifications. The goal is to improve the performance of machine learning models trained on time series data by reducing overfitting and improving generalization.
+stretch does data augmentation by increasing the volatility of the time series.
 }
 \examples{
-trans <- dal_transform()
+data(sin_data)
+
+#convert to sliding windows
+xw <- ts_data(sin_data$y, 10)
+
+#data augmentation using flip
+augment <- ts_aug_stretch()
+augment <- fit(augment, xw)
+xa <- transform(augment, xw)
+ts_head(xa)
 }

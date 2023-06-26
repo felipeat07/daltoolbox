@@ -1,11 +1,18 @@
-#'@title Time Series Augmentation ts_aug_flip
-#'@description Augmentation is a technique used to increase the size and
-#' diversity of a time series dataset by creating new instances of the original
-#' data through transformations or modifications. The goal is to improve the
-#' performance of machine learning models trained on time series data by
-#' reducing overfitting and improving generalization.reverse the order of the data along the time axis.
+#'@title Augmentation by flip
+#'@description Time series data augmentation is a technique used to increase the size and diversity of a time series dataset by creating new instances of the original data through transformations or modifications. The goal is to improve the performance of machine learning models trained on time series data by reducing overfitting and improving generalization.
+#'Flip mirror the sliding observations relative to the mean of the sliding windows.
 #'@return a `ts_aug_flip` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(sin_data)
+#'
+#'#convert to sliding windows
+#'xw <- ts_data(sin_data$y, 10)
+#'
+#'#data augmentation using flip
+#'augment <- ts_aug_flip()
+#'augment <- fit(augment, xw)
+#'xa <- transform(augment, xw)
+#'ts_head(xa)
 #'@export
 ts_aug_flip <- function() {
   obj <- dal_transform()

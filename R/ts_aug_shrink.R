@@ -1,17 +1,24 @@
-#'@title Time Series Augmentation ts_aug_shrink
-#'@description Augmentation is a technique used to increase the size and
-#' diversity of a time series dataset by creating new instances of the original
-#' data through transformations or modifications. The goal is to improve the
-#' performance of machine learning models trained on time series data by
-#' reducing overfitting and improving generalization.Time Series Augmentation ts_aug_shrink
-#'@param factor a real value (default = 0.8) define the degree of distortion applied.
+#'@title Augmentation by shrink
+#'@description Time series data augmentation is a technique used to increase the size and diversity of a time series dataset by creating new instances of the original data through transformations or modifications. The goal is to improve the performance of machine learning models trained on time series data by reducing overfitting and improving generalization.
+#'stretch does data augmentation by decreasing the volatility of the time series.
+#'@param scale_factor for shrink
 #'@return a `ts_aug_shrink` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(sin_data)
+#'
+#'#convert to sliding windows
+#'xw <- ts_data(sin_data$y, 10)
+#'
+#'#data augmentation using flip
+#'augment <- ts_aug_shrink()
+#'augment <- fit(augment, xw)
+#'xa <- transform(augment, xw)
+#'ts_head(xa)
 #'@export
-ts_aug_shrink <- function(factor = 0.8) {
+ts_aug_shrink <- function(scale_factor = 0.8) {
   obj <- dal_transform()
   obj$preserve_data <- TRUE
-  obj$factor <- factor
+  obj$scale_factor <- scale_factor
   class(obj) <- append("ts_aug_shrink", class(obj))
   return(obj)
 }
@@ -21,7 +28,7 @@ transform.ts_aug_shrink <- function(obj, data, ...) {
   add.ts_aug_shrink <- function(obj, data) {
     an <- apply(data, 1, mean)
     x <- data - an
-    x <- x * obj$factor
+    x <- x * obj$scale_factor
     x[,ncol(data)] <- 0
     data <- data + x
     attr(data, "idx") <- 1:nrow(data)
