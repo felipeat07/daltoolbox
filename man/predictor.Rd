@@ -17,12 +17,5 @@ Besides, action method proxies to predict.
 An example of learner is a decision tree (cla_dtree)
 }
 \examples{
-data(iris)
-slevels <- levels(iris$Species)
-model <- cla_dtree("Species", slevels)
-model <- fit(model, iris)
-prediction <- predict(model, iris)
-predictand <- adjust_class_label(iris[,"Species"])
-test_eval <- evaluate(model, predictand, prediction)
-test_eval$metrics
+#See ?cla_dtree for a classification example using a decision tree
 }

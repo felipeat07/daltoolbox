@@ -2,16 +2,16 @@
 % Please edit documentation in R/clu_clusterer.R
 \name{clusterer}
 \alias{clusterer}
-\title{clusterer Class}
+\title{Clusterer}
 \usage{
 clusterer()
 }
 \value{
-clusterer object
+a \code{clusterer} object
 }
 \description{
 Ancestor class for clustering problems
 }
 \examples{
-trans <- dal_transform()
+#See ?cluster_kmeans for an example of transformation
 }

@@ -1,7 +1,7 @@
 #'@title DAL Transform
 #'@description A transformation method applied to a dataset.
-#' Fit can be called before transform, if needed.
-#'@return a dal_transform object
+#' If needed, the fit can be called to adjust the transform.
+#'@return a `dal_transform` object.
 #'@examples
 #'#See ?minmax for an example of transformation
 #'@export
@@ -13,7 +13,7 @@ dal_transform <- function() {
 
 #'@title Transform
 #'@description Defines a transformation method.
-#'@param obj a dal_transform object.
+#'@param obj a `dal_transform` object.
 #'@param ... optional arguments.
 #'@return transformed data.
 #'@examples

@@ -7,7 +7,7 @@
 transform(obj, ...)
 }
 \arguments{
-\item{obj}{a dal_transform object.}
+\item{obj}{a \code{dal_transform} object.}
 
 \item{...}{optional arguments.}
 }

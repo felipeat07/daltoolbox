@@ -2,21 +2,36 @@
 % Please edit documentation in R/clu_dbscan.R
 \name{cluster_dbscan}
 \alias{cluster_dbscan}
-\title{Clustering using DBSCAN}
+\title{DBSCAN}
 \usage{
-cluster_dbscan(eps, minPts)
+cluster_dbscan(minPts, eps = NULL)
 }
 \arguments{
-\item{eps}{distance value}
-
 \item{minPts}{minimum number of points}
+
+\item{eps}{distance value}
 }
 \value{
-obj
+A dbscan object.
 }
 \description{
-Clustering using DBSCAN
+Creates a clusterer object that
+uses the DBSCAN method
+It wraps the dbscan library.
 }
 \examples{
-trans <- dal_transform()
+# setup clustering
+model <- cluster_dbscan(minPts = 3)
+
+#load dataset
+data(iris)
+
+# build model
+model <- fit(model, iris[,1:4])
+clu <- cluster(model, iris[,1:4])
+table(clu)
+
+# evaluate model using external metric
+eval <- evaluate(model, clu, iris$Species)
+eval
 }

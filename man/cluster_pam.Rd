@@ -2,7 +2,7 @@
 % Please edit documentation in R/clu_pam.R
 \name{cluster_pam}
 \alias{cluster_pam}
-\title{Partition Around Medoids (PAM) Clustering}
+\title{PAM}
 \usage{
 cluster_pam(k)
 }
@@ -10,12 +10,26 @@ cluster_pam(k)
 \item{k}{The number of clusters to generate.}
 }
 \value{
-A clusterer object.
+A PAM object.
 }
 \description{
-Implements the Partition Around Medoids (PAM) clustering algorithm.
-PAM is a partitioning clustering method that seeks to minimize the sum of dissimilarities between data points and the medoid of its assigned cluster. Unlike k-means, PAM can handle categorical data as well as distance measures other than Euclidean distance.
+Creates a clusterer object that
+uses the Partition Around Medoids (PAM) method
+It wraps the cluster library.
 }
 \examples{
-trans <- dal_transform()
+# setup clustering
+model <- cluster_pam(k = 3)
+
+#load dataset
+data(iris)
+
+# build model
+model <- fit(model, iris[,1:4])
+clu <- cluster(model, iris[,1:4])
+table(clu)
+
+# evaluate model using external metric
+eval <- evaluate(model, clu, iris$Species)
+eval
 }

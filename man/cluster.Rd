@@ -2,21 +2,21 @@
 % Please edit documentation in R/clu_clusterer.R
 \name{cluster}
 \alias{cluster}
-\title{cluster dataset abstract method}
+\title{Cluster}
 \usage{
 cluster(obj, ...)
 }
 \arguments{
-\item{obj}{object}
+\item{obj}{a \code{clusterer} object.}
 
 \item{...}{optional arguments.}
 }
 \value{
-obj
+clustered data.
 }
 \description{
-cluster dataset abstract method
+Defines a cluster method.
 }
 \examples{
-trans <- dal_transform()
+#See ?cluster_kmeans for an example of transformation
 }

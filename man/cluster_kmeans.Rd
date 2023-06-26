@@ -2,7 +2,7 @@
 % Please edit documentation in R/clu_kmeans.R
 \name{cluster_kmeans}
 \alias{cluster_kmeans}
-\title{Clustering using k-means}
+\title{k-means}
 \usage{
 cluster_kmeans(k)
 }
@@ -10,11 +10,26 @@ cluster_kmeans(k)
 \item{k}{The number of clusters to form.}
 }
 \value{
-A clusterer object.
+A k-means object.
 }
 \description{
-This function applies the k-means clustering algorithm to a given data set and returns a clusterer object.
+Creates a clusterer object that
+uses the k-means method
+It wraps the stats library.
 }
 \examples{
-trans <- dal_transform()
+# setup clustering
+model <- cluster_kmeans(k=3)
+
+#load dataset
+data(iris)
+
+# build model
+model <- fit(model, iris[,1:4])
+clu <- cluster(model, iris[,1:4])
+table(clu)
+
+# evaluate model using external metric
+eval <- evaluate(model, clu, iris$Species)
+eval
 }

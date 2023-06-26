@@ -7,11 +7,11 @@
 dal_transform()
 }
 \value{
-a dal_transform object
+a \code{dal_transform} object.
 }
 \description{
 A transformation method applied to a dataset.
-Fit can be called before transform, if needed.
+If needed, the fit can be called to adjust the transform.
 }
 \examples{
 #See ?minmax for an example of transformation

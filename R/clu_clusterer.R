@@ -1,12 +1,8 @@
-#'@export
-cluster.default <- function(obj, ...) {
-  return(data.frame())
-}
-
-#'@title clusterer Class
+#'@title Clusterer
 #'@description Ancestor class for clustering problems
-#'@return clusterer object
-#'@examples trans <- dal_transform()
+#'@return a `clusterer` object
+#'@examples
+#'#See ?cluster_kmeans for an example of transformation
 #'@export
 clusterer <- function() {
   obj <- dal_learner()
@@ -14,12 +10,6 @@ clusterer <- function() {
   return(obj)
 }
 
-#'@title Action implementation for clusterer
-#'@description A default function that defines the action to proxy cluster method
-#'@param obj object
-#'@param ... optional arguments
-#'@return It simply returns NULL, which indicates that no transforms are applied
-#'@examples trans <- dal_transform()
 #'@export
 action.clusterer <- function(obj, ...) {
   thiscall <- match.call(expand.dots = TRUE)
@@ -28,24 +18,28 @@ action.clusterer <- function(obj, ...) {
   return(result)
 }
 
-#'@title cluster dataset abstract method
-#'@description cluster dataset abstract method
-#'@param obj object
+#'@title Cluster
+#'@description Defines a cluster method.
+#'@param obj a `clusterer` object.
 #'@param ... optional arguments.
-#'@return obj
-#'@examples trans <- dal_transform()
+#'@return clustered data.
+#'@examples
+#'#See ?cluster_kmeans for an example of transformation
 #'@export
 cluster <- function(obj, ...) {
   UseMethod("cluster")
 }
 
+#'@export
+cluster.default <- function(obj, ...) {
+  return(data.frame())
+}
+
 #'@importFrom dplyr filter summarise group_by n
 #'@export
 evaluate.clusterer <- function(obj, cluster, attribute, ...) {
-  x <- y <- e <- qtd <- n <- 0
-  result <- list(data=as.factor(cluster), attribute=as.factor(attribute))
-
   compute_entropy <- function(obj) {
+    x <- y <- e <- qtd <- n <- 0
     value <- getOption("dplyr.summarise.inform")
     options(dplyr.summarise.inform = FALSE)
 
@@ -56,13 +50,21 @@ evaluate.clusterer <- function(obj, cluster, attribute, ...) {
     tbl$e <- -(tbl$qtd/tbl$t)*log(tbl$qtd/tbl$t,2)
     tbl <- tbl |> dplyr::group_by(x) |> dplyr::summarise(ce=sum(e), qtd=sum(qtd))
     tbl$ceg <- tbl$ce*tbl$qtd/length(obj$data)
-    obj$entropy_clusters <- tbl
-    obj$entropy <- sum(obj$entropy$ceg)
 
     options(dplyr.summarise.inform = value)
-    return(obj)
+
+    result <- list()
+    result$entropy_clusters <- tbl
+    result$entropy <- sum(result$entropy$ceg)
+
+    return(result)
   }
 
-  result <- compute_entropy(result)
+  basic <- compute_entropy(list(data=as.factor(rep(1, length(attribute))), attribute=as.factor(attribute)))
+
+  result <- compute_entropy(list(data=as.factor(cluster), attribute=as.factor(attribute)))
+
+  result$data_entropy <- basic$entropy
+
   return(result)
 }

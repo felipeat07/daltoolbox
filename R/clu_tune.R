@@ -15,13 +15,6 @@ clu_tune <- function(base_model) {
   return(obj)
 }
 
-#'@title tune hyperparameters of ml model
-#'@description tune hyperparameters of ml model for clusterer
-#'@param obj object
-#'@param data dataset
-#'@param ranges hyperparamters ranges
-#'@param ... optional arguments
-#'@return fitted obj
 #'@importFrom stats predict
 #'@export
 fit.clu_tune <- function(obj, data, ranges, ...) {

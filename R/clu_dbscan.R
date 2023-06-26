@@ -1,14 +1,30 @@
-#'@title Clustering using DBSCAN
-#'@description Clustering using DBSCAN
+#'@title DBSCAN
+#'@description Creates a clusterer object that
+#' uses the DBSCAN method
+#' It wraps the dbscan library.
 #'@param eps distance value
 #'@param minPts minimum number of points
-#'@return obj
-#'@examples trans <- dal_transform()
+#'@return A dbscan object.
+#'@examples
+#'# setup clustering
+#'model <- cluster_dbscan(minPts = 3)
+#'
+#'#load dataset
+#'data(iris)
+#'
+#'# build model
+#'model <- fit(model, iris[,1:4])
+#'clu <- cluster(model, iris[,1:4])
+#'table(clu)
+#'
+#'# evaluate model using external metric
+#'eval <- evaluate(model, clu, iris$Species)
+#'eval
 #'@export
-cluster_dbscan <- function(eps, minPts) {
+cluster_dbscan <- function(minPts, eps = NULL) {
   obj <- clusterer()
-  obj$eps <- eps
   obj$minPts <- minPts
+  obj$eps <- eps
 
   class(obj) <- append("cluster_dbscan", class(obj))
   return(obj)
@@ -23,11 +39,13 @@ cluster_dbscan <- function(eps, minPts) {
 #'@import dbscan
 #'@export
 fit.cluster_dbscan <- function(obj, data, ...) {
-  t <- sort(dbscan::kNNdist(data, k = obj$minPts))
-  y <- t
-  myfit <- fit_curvature_max()
-  res <- transform(myfit, y)
-  obj$eps <- res$y
+  if (is.null(obj$eps)) {
+    t <- sort(dbscan::kNNdist(data, k = obj$minPts))
+    y <- t
+    myfit <- fit_curvature_max()
+    res <- transform(myfit, y)
+    obj$eps <- res$y
+  }
   return(obj)
 }
 
@@ -37,7 +55,8 @@ fit.cluster_dbscan <- function(obj, data, ...) {
 cluster.cluster_dbscan <- function(obj, data, ...) {
   cluster <- dbscan::dbscan(data, eps = obj$eps, minPts = obj$minPts)
   cluster <- cluster$cluster
-  attr(cluster, "metric") <- 0
+  null_cluster <- length(cluster[cluster==0])
+  attr(cluster, "metric") <- null_cluster
   return(cluster)
 }
 
