@@ -1,26 +1,10 @@
-#'@title Time Series Filter
-#'@description Used to extract or remove specific components from a time series.
-#'@return a `tsfil_filter` object.
-#'@examples trans <- dal_transform()
-#'@export
-tsfil_filter <- function() {
-  obj <- dal_transform()
-  class(obj) <- append("tsfil_filter", class(obj))
-  return(obj)
-}
-
-#'@export
-fit.tsfil_filter <- function(obj, data, ...) {
-  return(obj)
-}
-
 #'@title Time Series Smooth
 #'@description Used to remove or reduce randomness (noise).
 #'@return a `tsfil_smooth` object.
 #'@examples trans <- dal_transform()
 #'@export
 tsfil_smooth <- function() {
-  obj <- tsfil_filter()
+  obj <- dal_transform()
   class(obj) <- append("tsfil_smooth", class(obj))
   return(obj)
 }
@@ -63,7 +47,7 @@ transform.tsfil_smooth <- function(obj, data, ...) {
 #'@examples trans <- dal_transform()
 #'@export
 tsfil_ma <- function(ma = 3) {
-  obj <- tsfil_filter()
+  obj <- dal_transform()
   obj$ma <- ma
   class(obj) <- append("tsfil_ma", class(obj))
   return(obj)
@@ -86,7 +70,7 @@ transform.tsfil_ma <- function(obj, data, ...) {
 #'@examples trans <- dal_transform()
 #'@export
 tsfil_ema <- function(ema = 3) {
-  obj <- tsfil_filter()
+  obj <- dal_transform()
   obj$ema <- ema
   class(obj) <- append("tsfil_ema", class(obj))
   return(obj)

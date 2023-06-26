@@ -1,0 +1,46 @@
+#'@title Time Series Augmentation ts_augjitter
+#'@description Augmentation is a technique used to increase the size and
+#' diversity of a time series dataset by creating new instances of the original
+#' data through transformations or modifications. The goal is to improve the
+#' performance of machine learning models trained on time series data by
+#' reducing overfitting and improving generalization. ts_augjitter adds random "noise" to each data point in the time series.
+#'@return a `ts_augjitter` object
+#'@examples trans <- dal_transform()
+#'@export
+ts_augjitter <- function() {
+  obj <- dal_transform()
+  obj$preserve_data <- TRUE
+  class(obj) <- append("ts_augjitter", class(obj))
+  return(obj)
+}
+
+#'@importFrom stats sd
+#'@export
+fit.ts_augjitter <- function(obj, data, ...) {
+  an <- apply(data, 1, mean)
+  x <- data - an
+  obj$sd <- stats::sd(x)
+  return(obj)
+}
+
+#'@importFrom stats rnorm
+#'@export
+transform.ts_augjitter <- function(obj, data, ...) {
+  add.ts_augjitter <- function(obj, data) {
+    x <- stats::rnorm(length(data), mean = 0, sd = obj$sd)
+    x <- matrix(x, nrow=nrow(data), ncol=ncol(data))
+    x[,ncol(data)] <- 0
+    data <- data + x
+    attr(data, "idx") <- 1:nrow(data)
+    return(data)
+  }
+  result <- add.ts_augjitter(obj, data)
+  if (obj$preserve_data) {
+    idx <- c(1:nrow(data), attr(result, "idx"))
+    result <- rbind(data, result)
+    result <- adjust_ts_data(result)
+    attr(result, "idx") <- idx
+  }
+  return(result)
+}
+

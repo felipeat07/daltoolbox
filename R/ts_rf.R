@@ -20,12 +20,6 @@ ts_rf <- function(preprocess=NA, input_size=NA, nodesize = 1, ntree = 10, mtry =
 }
 
 
-#'@title Fits a random forest model to time series
-#'@description It receives as input a ts_rf object (obj), an input dataset (x) and an output dataset (y)
-#'@param obj object
-#'@param x input variable
-#'@param y output variable
-#'@return The updated ts_rf object
 #'@importFrom randomForest randomForest
 #'@export
 do_fit.ts_rf <- function(obj, x, y) {
@@ -35,12 +29,6 @@ do_fit.ts_rf <- function(obj, x, y) {
   return(obj)
 }
 
-#'@title Make predictions on a new dataset (x) using the fitted random forest model
-#'@description It takes as input a ts_rf object (obj) and an input dataset (x)
-#'@param obj object
-#'@param x input variable
-#'
-#'@return The prediction vector
 #'@importFrom stats predict
 #'@export
 do_predict.ts_rf <- function(obj, x) {
