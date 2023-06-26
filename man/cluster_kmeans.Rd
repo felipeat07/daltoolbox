@@ -4,7 +4,7 @@
 \alias{cluster_kmeans}
 \title{k-means}
 \usage{
-cluster_kmeans(k)
+cluster_kmeans(k = 1)
 }
 \arguments{
 \item{k}{The number of clusters to form.}

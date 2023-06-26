@@ -8,7 +8,7 @@
 Regression Dataset.
 }
 \source{
-This dataset was taken from the MASS library.
+This dataset was obtained from the MASS library.
 }
 \usage{
 data(Boston)
@@ -34,7 +34,7 @@ housing values in suburbs of Boston.
 }
 \examples{
 data(Boston)
-nrow(Boston)
+head(Boston)
 }
 \references{
 Creator: Harrison, D. and Rubinfeld, D.L.

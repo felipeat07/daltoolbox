@@ -2,7 +2,7 @@
 % Please edit documentation in R/ts_data.R
 \name{ts_data}
 \alias{ts_data}
-\title{Time Series Data}
+\title{ts_data}
 \usage{
 ts_data(y, sw = 1)
 }
@@ -15,7 +15,11 @@ ts_data(y, sw = 1)
 a \code{ts_data} object.
 }
 \description{
-receives a vector or matrix y containing the data of a time series and an integer sw indicating the size of the sliding window
+Time series data structure used in DAL Toolbox.
+It receives a vector (representing a time series) or
+a matrix \code{y} (representing a sliding windows).
+Internal ts_data is matrix of sliding windows with size \code{sw}.
+If sw equals to zero, it store a time series as a single matrix column.
 }
 \examples{
 trans <- dal_transform()

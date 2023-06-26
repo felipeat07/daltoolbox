@@ -4,7 +4,7 @@
 \alias{cluster_pam}
 \title{PAM}
 \usage{
-cluster_pam(k)
+cluster_pam(k = 1)
 }
 \arguments{
 \item{k}{The number of clusters to generate.}

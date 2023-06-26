@@ -4,7 +4,7 @@
 \alias{cluster_dbscan}
 \title{DBSCAN}
 \usage{
-cluster_dbscan(minPts, eps = NULL)
+cluster_dbscan(minPts = 3, eps = NULL)
 }
 \arguments{
 \item{minPts}{minimum number of points}
