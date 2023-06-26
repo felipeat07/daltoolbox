@@ -20,7 +20,7 @@
 #'eval <- evaluate(model, clu, iris$Species)
 #'eval
 #'@export
-cluster_pam <- function(k) {
+cluster_pam <- function(k = 1) {
   obj <- clusterer()
   obj$k <- k
 

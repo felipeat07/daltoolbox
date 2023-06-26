@@ -21,7 +21,7 @@
 #'eval
 
 #'@export
-cluster_kmeans <- function(k) {
+cluster_kmeans <- function(k = 1) {
   obj <- clusterer()
   obj$k <- k
   class(obj) <- append("cluster_kmeans", class(obj))

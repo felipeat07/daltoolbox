@@ -21,7 +21,7 @@
 #'eval <- evaluate(model, clu, iris$Species)
 #'eval
 #'@export
-cluster_dbscan <- function(minPts, eps = NULL) {
+cluster_dbscan <- function(minPts = 3, eps = NULL) {
   obj <- clusterer()
   obj$minPts <- minPts
   obj$eps <- eps
