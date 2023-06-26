@@ -1,18 +1,18 @@
 #'@title Time Series Sliding Window Min-Max
-#'@description It takes as parameter the variable remove_outliers. The ts_swminmax function creates an object for normalizing a time series based on the "sliding window min-max scaling" method
+#'@description It takes as parameter the variable remove_outliers. The ts_norm_swminmax function creates an object for normalizing a time series based on the "sliding window min-max scaling" method
 #'@param remove_outliers logical: if TRUE (default) outliers will be removed.
-#'@return a `ts_swminmax` object.
+#'@return a `ts_norm_swminmax` object.
 #'@examples trans <- dal_transform()
 #'@export
-ts_swminmax <- function(remove_outliers = TRUE) {
+ts_norm_swminmax <- function(remove_outliers = TRUE) {
   obj <- dal_transform()
   obj$remove_outliers <- remove_outliers
-  class(obj) <- append("ts_swminmax", class(obj))
+  class(obj) <- append("ts_norm_swminmax", class(obj))
   return(obj)
 }
 
 #'@export
-fit.ts_swminmax <- function(obj, data, ...) {
+fit.ts_norm_swminmax <- function(obj, data, ...) {
   if (obj$remove_outliers) {
     out <- outliers()
     out <- fit(out, data)
@@ -22,7 +22,7 @@ fit.ts_swminmax <- function(obj, data, ...) {
 }
 
 #'@export
-transform.ts_swminmax <- function(obj, data, x=NULL, ...) {
+transform.ts_norm_swminmax <- function(obj, data, x=NULL, ...) {
   if (!is.null(x)) {
     i_min <- attr(data, "i_min")
     i_max <- attr(data, "i_max")
@@ -40,7 +40,7 @@ transform.ts_swminmax <- function(obj, data, x=NULL, ...) {
 }
 
 #'@export
-inverse_transform.ts_swminmax <- function(obj, data, x=NULL, ...) {
+inverse_transform.ts_norm_swminmax <- function(obj, data, x=NULL, ...) {
   i_min <- attr(data, "i_min")
   i_max <- attr(data, "i_max")
   if (!is.null(x)) {

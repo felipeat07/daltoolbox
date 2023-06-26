@@ -1,26 +1,26 @@
-#ts_diff
+#ts_norm_diff
 #'@title Time Series Diff
 #'@description It receives as parameter the variable remove_outliters. This function calculates the difference between the values of a time series
 #'@param remove_outliers logical: if TRUE (default) outliers will be removed.
-#'@return a `ts_diff` object.
+#'@return a `ts_norm_diff` object.
 #'@examples trans <- dal_transform()
 #'@export
-ts_diff <- function(remove_outliers = TRUE) {
+ts_norm_diff <- function(remove_outliers = TRUE) {
   obj <- dal_transform()
   obj$remove_outliers <- remove_outliers
-  class(obj) <- append("ts_diff", class(obj))
+  class(obj) <- append("ts_norm_diff", class(obj))
   return(obj)
 }
 
 #'@export
-fit.ts_diff <- function(obj, data, ...) {
+fit.ts_norm_diff <- function(obj, data, ...) {
   data <- data[,2:ncol(data)]-data[,1:(ncol(data)-1)]
-  obj <- fit.ts_gminmax(obj, data)
+  obj <- fit.ts_norm_gminmax(obj, data)
   return(obj)
 }
 
 #'@export
-transform.ts_diff <- function(obj, data, x=NULL, ...) {
+transform.ts_norm_diff <- function(obj, data, x=NULL, ...) {
   if (!is.null(x)) {
     ref <- attr(data, "ref")
     sw <- attr(data, "sw")
@@ -43,7 +43,7 @@ transform.ts_diff <- function(obj, data, x=NULL, ...) {
 }
 
 #'@export
-inverse_transform.ts_diff <- function(obj, data, x=NULL, ...) {
+inverse_transform.ts_norm_diff <- function(obj, data, x=NULL, ...) {
   cnames <- attr(data, "cnames")
   ref <- attr(data, "ref")
   sw <- attr(data, "sw")

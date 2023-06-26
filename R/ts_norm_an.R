@@ -3,10 +3,10 @@
 #' changes in the statistical properties of the data over time.
 #'@param remove_outliers logical: if TRUE (default) outliers will be removed.
 #'@param nw integer: window size.
-#'@return a `ts_an` object.
+#'@return a `ts_norm_an` object.
 #'@examples trans <- dal_transform()
 #'@export
-ts_an <- function(remove_outliers = TRUE, nw = 0) {
+ts_norm_an <- function(remove_outliers = TRUE, nw = 0) {
   obj <- dal_transform()
   obj$ma <- function(obj, data, func) {
     if (obj$nw != 0) {
@@ -20,12 +20,12 @@ ts_an <- function(remove_outliers = TRUE, nw = 0) {
 
   obj$an_mean <- mean
   obj$nw <- nw
-  class(obj) <- append("ts_an", class(obj))
+  class(obj) <- append("ts_norm_an", class(obj))
   return(obj)
 }
 
 #'@export
-fit.ts_an <- function(obj, data, ...) {
+fit.ts_norm_an <- function(obj, data, ...) {
   input <- data[,1:(ncol(data)-1)]
   an <- obj$ma(obj, input, obj$an_mean)
   data <- data - an #
@@ -43,7 +43,7 @@ fit.ts_an <- function(obj, data, ...) {
 }
 
 #'@export
-transform.ts_an <- function(obj, data, x=NULL, ...) {
+transform.ts_norm_an <- function(obj, data, x=NULL, ...) {
   if (!is.null(x)) {
     an <- attr(data, "an")
     x <- x - an #
@@ -60,7 +60,7 @@ transform.ts_an <- function(obj, data, x=NULL, ...) {
 }
 
 #'@export
-inverse_transform.ts_an <- function(obj, data, x=NULL, ...) {
+inverse_transform.ts_norm_an <- function(obj, data, x=NULL, ...) {
   an <- attr(data, "an")
   if (!is.null(x)) {
     x <- x * (obj$gmax-obj$gmin) + obj$gmin

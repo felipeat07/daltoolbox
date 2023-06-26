@@ -3,18 +3,18 @@
 #' recent observations. Particularly useful when the data has a trend or
 #' seasonality component.
 #'@param ema exponential moving average size
-#'@return a `tsfil_ema` object.
+#'@return a `ts_fil_ema` object.
 #'@examples trans <- dal_transform()
 #'@export
-tsfil_ema <- function(ema = 3) {
+ts_fil_ema <- function(ema = 3) {
   obj <- dal_transform()
   obj$ema <- ema
-  class(obj) <- append("tsfil_ema", class(obj))
+  class(obj) <- append("ts_fil_ema", class(obj))
   return(obj)
 }
 
 #'@export
-transform.tsfil_ema <- function(obj, data, ...) {
+transform.ts_fil_ema <- function(obj, data, ...) {
   exp_mean <- function(x) {
     n <- length(x)
     y <- rep(0,n)

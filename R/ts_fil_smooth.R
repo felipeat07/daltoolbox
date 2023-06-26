@@ -1,18 +1,18 @@
 #'@title Time Series Smooth
 #'@description Used to remove or reduce randomness (noise).
-#'@return a `tsfil_smooth` object.
+#'@return a `ts_fil_smooth` object.
 #'@examples trans <- dal_transform()
 #'@export
-tsfil_smooth <- function() {
+ts_fil_smooth <- function() {
   obj <- dal_transform()
-  class(obj) <- append("tsfil_smooth", class(obj))
+  class(obj) <- append("ts_fil_smooth", class(obj))
   return(obj)
 }
 
 #'@export
 #'@importFrom stats na.omit
 #'@importFrom graphics boxplot
-transform.tsfil_smooth <- function(obj, data, ...) {
+transform.ts_fil_smooth <- function(obj, data, ...) {
   progressive_smoothing <- function(serie) {
     serie <- stats::na.omit(serie)
     repeat {

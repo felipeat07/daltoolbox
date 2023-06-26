@@ -1,13 +1,13 @@
 #'@title Time Series Awareness
 #'@description Time Series Awareness filter
 #'@param factor factor of awareness
-#'@return a `ts_augawareness` object.
+#'@return a `ts_aug_awareness` object.
 #'@examples trans <- dal_transform()
 #'@export
-ts_augawareness <- function(factor = 1) {
+ts_aug_awareness <- function(factor = 1) {
   obj <- dal_transform()
   obj$factor <- factor
-  class(obj) <- append("ts_augawareness", class(obj))
+  class(obj) <- append("ts_aug_awareness", class(obj))
   return(obj)
 }
 
@@ -15,7 +15,7 @@ ts_augawareness <- function(factor = 1) {
 #'@importFrom stats rnorm
 #'@importFrom stats sd
 #'@export
-transform.ts_augawareness <- function(obj, data, ...) {
+transform.ts_aug_awareness <- function(obj, data, ...) {
   noise.parameters <- function(obj, data) {
     an <- apply(data, 1, mean)
     x <- data - an

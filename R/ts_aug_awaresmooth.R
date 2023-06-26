@@ -1,13 +1,13 @@
 #'@title Time Series Awareness Smooth
 #'@description Time Series Awareness Smooth filter
 #'@param factor factor of awareness
-#'@return a `ts_augawaresmooth`
+#'@return a `ts_aug_awaresmooth`
 #'@examples trans <- dal_transform()
 #'@export
-ts_augawaresmooth <- function(factor = 0) {
+ts_aug_awaresmooth <- function(factor = 0) {
   obj <- dal_transform()
   obj$factor <- factor
-  class(obj) <- append("ts_augawaresmooth", class(obj))
+  class(obj) <- append("ts_aug_awaresmooth", class(obj))
   return(obj)
 }
 
@@ -16,7 +16,7 @@ ts_augawaresmooth <- function(factor = 0) {
 #'@importFrom stats sd
 #'@importFrom graphics boxplot
 #'@export
-transform.ts_augawaresmooth <- function(obj, data, ...) {
+transform.ts_aug_awaresmooth <- function(obj, data, ...) {
   progressive_smoothing <- function(serie) {
     serie <- stats::na.omit(serie)
     repeat {
@@ -40,7 +40,7 @@ transform.ts_augawaresmooth <- function(obj, data, ...) {
     return(serie)
   }
 
-  transform_ts_augawareness <- function(data, factor) {
+  transform_ts_aug_awareness <- function(data, factor) {
     filter_data <- function(data, factor) {
       n <- nrow(data)
       rate <- 10/n
@@ -79,7 +79,7 @@ transform.ts_augawaresmooth <- function(obj, data, ...) {
   xd <- progressive_smoothing(x)
   result <- ts_data(xd, n)
 
-  result <- transform_ts_augawareness(result, obj$factor)
+  result <- transform_ts_aug_awareness(result, obj$factor)
 
   idx <- attr(result, "idx")
   return(result)
