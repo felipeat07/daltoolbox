@@ -1,10 +1,29 @@
 #'@title Time Series Sample
-#'@description Has three arguments: ts: the time series to split; test_size: the size of the test sample, in number of observations; offset: the number of observations to be ignored at the end of the time series.
+#'@description Separates the `ts_data` into training and test.
+#'It separates the test size from the last observations minus an offset.
+#'The offset is important to allow replication under different recent origins.
+#'The data for test uses the number of rows of a `ts_data` minus the test size and offset.
 #'@param ts time series data.
 #'@param test_size integer: size of test data (default = 1).
 #'@param offset integer: starting point (default = 0).
 #'@return A list with the two samples
-#'@examples trans <- dal_transform()
+#'@examples
+#'#setting up a ts_data
+#'data(sin_data)
+#'ts <- ts_data(sin_data$y, 10)
+#'
+#'#separating into train and test
+#'test_size <- 3
+#'samp <- ts_sample(ts, test_size)
+#'
+#'#first five rows from training data
+#'ts_head(samp$train, 5)
+#'
+#'#last five rows from training data
+#'ts_head(samp$train[-c(1:(nrow(samp$train)-5)),])
+#'
+#'#testing data
+#'ts_head(samp$test)
 #'@export
 ts_sample <- function(ts, test_size=1, offset=0) {
   offset <- nrow(ts) - test_size - offset
@@ -17,25 +36,22 @@ ts_sample <- function(ts, test_size=1, offset=0) {
 }
 
 
-#'@title Transform the date object
-#'@description The first check that is done is to see if data is a matrix using the is.matrix() function. If data is not a matrix, the function converts data to a matrix using the as.matrix() function
-#'@param data dataset
-#'@return The date object changed
-#'@export
-adjust_ts_data <- function(data) {
-  if (!is.matrix(data))
-    data <- as.matrix(data)
-  colnames(data) <- paste("t",c((ncol(data)-1):0), sep="")
-  class(data) <- append("ts_data", class(data))
-  attr(data, "sw") <- ncol(data)
-  return(data)
-}
-
 #'@title Time Series Projection
-#'@description It takes a time series as input (an object of type matrix or data.frame)
+#'@description Separates the `ts_data` into input and output.
 #'@param ts matrix or data.frame containing the time series.
 #'@return a `ts_projection` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'#setting up a ts_data
+#'data(sin_data)
+#'ts <- ts_data(sin_data$y, 10)
+#'
+#'io <- ts_projection(ts)
+#'
+#'#input data
+#'ts_head(io$input)
+#'
+#'#output data
+#'ts_head(io$output)
 #'@export
 ts_projection <- function(ts) {
   input <- ts

@@ -2,23 +2,25 @@
 % Please edit documentation in R/ts_data.R
 \name{ts_head}
 \alias{ts_head}
-\title{Extract the first observations from a time series}
+\title{ts_head}
 \usage{
 ts_head(x, n = 6L, ...)
 }
 \arguments{
-\item{x}{input variable}
+\item{x}{\code{ts_data}}
 
-\item{n}{integer: size of test data.}
+\item{n}{number of rows to return}
 
 \item{...}{optional arguments}
 }
 \value{
-The first n observations of a time series x
+The first n observations of a \code{ts_data}
 }
 \description{
-The function takes as arguments the variables x, n (default = 6L), ...
+Returns the first n observations from a \code{ts_data}
 }
 \examples{
-trans <- dal_transform()
+data(sin_data)
+data10 <- ts_data(sin_data$y, 10)
+ts_head(data10)
 }

@@ -7,7 +7,15 @@
 #'@param y output variable
 #'@param sw integer: sliding window size.
 #'@return a `ts_data` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(sin_data)
+#'head(sin_data)
+#'
+#'data <- ts_data(sin_data$y)
+#'ts_head(data)
+#'
+#'data10 <- ts_data(sin_data$y, 10)
+#'ts_head(data10)
 #'@export
 ts_data <- function(y, sw=1) {
   #https://stackoverflow.com/questions/7532845/matrix-losing-class-attribute-in-r
@@ -50,7 +58,33 @@ ts_data <- function(y, sw=1) {
 #'@param j column j
 #'@param ... optional arguments
 #'@return A new ts_data object
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(sin_data)
+#'data10 <- ts_data(sin_data$y, 10)
+#'ts_head(data10)
+#'#single line
+#'data10[12,]
+#'
+#'#range of lines
+#'data10[12:13,]
+#'
+#'#single column
+#'data10[,1]
+#'
+#'#range of columns
+#'data10[,1:2]
+#'
+#'#range of rows and columns
+#'data10[12:13,1:2]
+#'
+#'#single line and a range of columns
+#'#'data10[12,1:2]
+#'
+#'#range of lines and a single column
+#'data10[12:13,1]
+#'
+#'#single observation
+#'data10[12,1]
 #'@export
 `[.ts_data` <- function(x, i, j, ...) {
   y <- unclass(x)[i, j, drop = FALSE, ...]
@@ -59,13 +93,16 @@ ts_data <- function(y, sw=1) {
   return(y)
 }
 
-#'@title Extract the first observations from a time series
-#'@description The function takes as arguments the variables x, n (default = 6L), ...
-#'@param x input variable
-#'@param n integer: size of test data.
+#'@title ts_head
+#'@description Returns the first n observations from a `ts_data`
+#'@param x `ts_data`
+#'@param n number of rows to return
 #'@param ... optional arguments
-#'@return The first n observations of a time series x
-#'@examples trans <- dal_transform()
+#'@return The first n observations of a `ts_data`
+#'@examples
+#'data(sin_data)
+#'data10 <- ts_data(sin_data$y, 10)
+#'ts_head(data10)
 #'@importFrom utils head
 #'@export
 ts_head <- function(x, n = 6L, ...) {

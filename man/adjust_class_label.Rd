@@ -2,27 +2,20 @@
 % Please edit documentation in R/dal_adjusts.R
 \name{adjust_class_label}
 \alias{adjust_class_label}
-\title{compute categorical mapping}
+\title{adjust categorical mapping}
 \usage{
 adjust_class_label(x, valTrue = 1, valFalse = 0)
 }
 \arguments{
 \item{x}{vector to be categorized}
 
-\item{valTrue}{\itemize{
-\item value to represent true
-}}
+\item{valTrue}{value to represent true}
 
-\item{valFalse}{\itemize{
-\item value to represent false
-}}
+\item{valFalse}{value to represent false}
 }
 \value{
-factor
+an adjusted categorical mapping
 }
 \description{
-compute categorical mapping
-}
-\examples{
-trans <- dal_transform()
+vector \code{value} is adjusted to a categorical mapping
 }

@@ -22,5 +22,12 @@ Internal ts_data is matrix of sliding windows with size \code{sw}.
 If sw equals to zero, it store a time series as a single matrix column.
 }
 \examples{
-trans <- dal_transform()
+data(sin_data)
+head(sin_data)
+
+data <- ts_data(sin_data$y)
+ts_head(data)
+
+data10 <- ts_data(sin_data$y, 10)
+ts_head(data10)
 }

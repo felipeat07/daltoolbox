@@ -1,10 +1,7 @@
-
-#'@title  Adjust input data to matrix
-#'@description adjust_matrix function receives
-#' a data object and converts it to a matrix.
-#'
-#' It returns the same input if it is already a matrix.
+#'@title adjust to matrix
+#'@description dataset data is adjusted to a matrix
 #'@param data dataset
+#'@return an adjusted matrix
 #'@examples
 #'data(iris)
 #'mat <- adjust_matrix(iris)
@@ -17,11 +14,8 @@ adjust_matrix <- function(data) {
     return(data)
 }
 
-#'@title  Adjust input data to data frame
-#'@description adjust_data.frame function receives
-#' a data object and converts it to a data frame.
-#'
-#' It returns the same input if it is already a data frame.
+#'@title  Adjust to data frame
+#'@description dataset data is adjusted to a `data.frame`
 #'@param data dataset
 #'@return The date argument
 #'@examples
@@ -36,13 +30,26 @@ adjust_data.frame <- function(data) {
     return(data)
 }
 
-#'@title adjust categorical values
-#'@description adjust categorical values
-#'@param value vector to be categorized
-#'@param ilevels - order for categorical values
-#'@param slevels - labels for categorical values
-#'@return factor
-#'@examples trans <- dal_transform()
+#'@title adjust `ts_data`
+#'@description dataset data is adjusted to a `ts_data`
+#'@param data dataset
+#'@return an adjusted `ts_data`
+#'@export
+adjust_ts_data <- function(data) {
+  if (!is.matrix(data))
+    data <- as.matrix(data)
+  colnames(data) <- paste("t",c((ncol(data)-1):0), sep="")
+  class(data) <- append("ts_data", class(data))
+  attr(data, "sw") <- ncol(data)
+  return(data)
+}
+
+#'@title adjust factors
+#'@description vector `value` is adjusted to a factor
+#'@param value vector to be converted into factor
+#'@param ilevels order for categorical values
+#'@param slevels labels for categorical values
+#'@return an adjusted factor
 #'@export
 adjust_factor <- function(value, ilevels, slevels) {
   if (!is.factor(value)) {
@@ -53,13 +60,12 @@ adjust_factor <- function(value, ilevels, slevels) {
   return(value)
 }
 
-#'@title compute categorical mapping
-#'@description compute categorical mapping
+#'@title adjust categorical mapping
+#'@description vector `value` is adjusted to a categorical mapping
 #'@param x vector to be categorized
-#'@param valTrue - value to represent true
-#'@param valFalse - value to represent false
-#'@return factor
-#'@examples trans <- dal_transform()
+#'@param valTrue value to represent true
+#'@param valFalse value to represent false
+#'@return an adjusted categorical mapping
 #'@export
 adjust_class_label <- function (x, valTrue = 1, valFalse = 0)
 {
@@ -70,3 +76,4 @@ adjust_class_label <- function (x, valTrue = 1, valFalse = 0)
   dimnames(res) <- list(names(x), levels(x))
   res
 }
+

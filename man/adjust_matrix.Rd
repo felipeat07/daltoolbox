@@ -2,18 +2,18 @@
 % Please edit documentation in R/dal_adjusts.R
 \name{adjust_matrix}
 \alias{adjust_matrix}
-\title{Adjust input data to matrix}
+\title{adjust to matrix}
 \usage{
 adjust_matrix(data)
 }
 \arguments{
 \item{data}{dataset}
 }
+\value{
+an adjusted matrix
+}
 \description{
-adjust_matrix function receives
-a data object and converts it to a matrix.
-
-It returns the same input if it is already a matrix.
+dataset data is adjusted to a matrix
 }
 \examples{
 data(iris)

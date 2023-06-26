@@ -2,7 +2,7 @@
 % Please edit documentation in R/dal_adjusts.R
 \name{adjust_data.frame}
 \alias{adjust_data.frame}
-\title{Adjust input data to data frame}
+\title{Adjust to data frame}
 \usage{
 adjust_data.frame(data)
 }
@@ -13,10 +13,7 @@ adjust_data.frame(data)
 The date argument
 }
 \description{
-adjust_data.frame function receives
-a data object and converts it to a data frame.
-
-It returns the same input if it is already a data frame.
+dataset data is adjusted to a \code{data.frame}
 }
 \examples{
 data(iris)

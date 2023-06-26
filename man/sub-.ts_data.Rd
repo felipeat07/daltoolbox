@@ -22,5 +22,30 @@ A new ts_data object
 Receives as parameters the variables x, i, j ...
 }
 \examples{
-trans <- dal_transform()
+data(sin_data)
+data10 <- ts_data(sin_data$y, 10)
+ts_head(data10)
+#single line
+data10[12,]
+
+#range of lines
+data10[12:13,]
+
+#single column
+data10[,1]
+
+#range of columns
+data10[,1:2]
+
+#range of rows and columns
+data10[12:13,1:2]
+
+#single line and a range of columns
+#'data10[12,1:2]
+
+#range of lines and a single column
+data10[12:13,1]
+
+#single observation
+data10[12,1]
 }

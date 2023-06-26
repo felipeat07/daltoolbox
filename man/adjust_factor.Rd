@@ -2,27 +2,20 @@
 % Please edit documentation in R/dal_adjusts.R
 \name{adjust_factor}
 \alias{adjust_factor}
-\title{adjust categorical values}
+\title{adjust factors}
 \usage{
 adjust_factor(value, ilevels, slevels)
 }
 \arguments{
-\item{value}{vector to be categorized}
+\item{value}{vector to be converted into factor}
 
-\item{ilevels}{\itemize{
-\item order for categorical values
-}}
+\item{ilevels}{order for categorical values}
 
-\item{slevels}{\itemize{
-\item labels for categorical values
-}}
+\item{slevels}{labels for categorical values}
 }
 \value{
-factor
+an adjusted factor
 }
 \description{
-adjust categorical values
-}
-\examples{
-trans <- dal_transform()
+vector \code{value} is adjusted to a factor
 }
