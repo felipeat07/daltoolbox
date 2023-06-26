@@ -2,7 +2,7 @@
 % Please edit documentation in R/reg_regression.R
 \name{regression}
 \alias{regression}
-\title{Regression base class}
+\title{Regression}
 \usage{
 regression(attribute)
 }
@@ -10,11 +10,11 @@ regression(attribute)
 \item{attribute}{attribute target to model building}
 }
 \value{
-obj
+regression object
 }
 \description{
-Regression base class
+Ancestor class for regression problems
 }
 \examples{
-trans <- dal_transform()
+#See ?reg_dtree for a regression example using a decision tree
 }

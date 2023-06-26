@@ -12,18 +12,18 @@
 #'set.seed(1)
 #'sr <- sample_random()
 #'sr <- train_test(sr, iris)
-#'iris_train <- sr$train
-#'iris_test <- sr$test
+#'train <- sr$train
+#'test <- sr$test
 #'
 #'# hyper parameter optimization
 #'tune <- cla_tune(cla_svm("Species", levels(iris$Species)))
 #'ranges <- list(epsilon=seq(0,1,0.25), cost=seq(25,100,25), kernel = c("radial"))
-#'model <- fit(tune, iris_train, ranges)
-#'train_prediction <- predict(model, iris_train)
+#'model <- fit(tune, train, ranges)
+#'train_prediction <- predict(model, train)
 #'
 #'# testing optimization
-#'test_prediction <- predict(model, iris_test)
-#'test_predictand <- adjust_class_label(iris_test[,"Species"])
+#'test_prediction <- predict(model, test)
+#'test_predictand <- adjust_class_label(test[,"Species"])
 #'test_eval <- evaluate(model, test_predictand, test_prediction)
 #'test_eval$metrics
 #'@export

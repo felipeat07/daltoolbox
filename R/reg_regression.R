@@ -1,8 +1,9 @@
-#'@title Regression base class
-#'@description Regression base class
+#'@title Regression
+#'@description Ancestor class for regression problems
 #'@param attribute attribute target to model building
-#'@return obj
-#'@examples trans <- dal_transform()
+#'@return regression object
+#'@examples
+#'#See ?reg_dtree for a regression example using a decision tree
 #'@export
 regression <- function(attribute) {
   obj <- predictor()

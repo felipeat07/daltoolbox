@@ -33,12 +33,6 @@ fit.reg_rf <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title predict data from input
-#'@description predict data from input
-#'@param object object
-#'@param x input variable
-#'@param ... optional arguments
-#'@return predicted values
 #'@export
 predict.reg_rf  <- function(object, x, ...) {
   x <- adjust_data.frame(x)

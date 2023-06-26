@@ -38,8 +38,8 @@ action.dal_learner <- function(obj, ...) {
 
 # categorical mapping for predictand
 #'predictand <- adjust_class_label(iris[,"Species"])
-#'train_eval <- evaluate(model, predictand, prediction)
-#'train_eval$metrics
+#'test_eval <- evaluate(model, predictand, prediction)
+#'test_eval$metrics
 
 #'@export
 evaluate <- function(obj, ...) {

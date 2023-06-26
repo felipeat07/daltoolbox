@@ -16,13 +16,6 @@ reg_tune <- function(base_model, folds=10) {
 }
 
 
-#'@title tune hyperparameters of ml model (regression)
-#'@description tune hyperparameters of ml model for regression
-#'@param obj object
-#'@param data dataset
-#'@param ranges hyperparamters ranges
-#'@param ... optional arguments
-#'@return fitted obj
 #'@importFrom stats predict
 #'@export
 fit.reg_tune <- function(obj, data, ranges, ...) {
@@ -99,11 +92,6 @@ fit.reg_tune <- function(obj, data, ranges, ...) {
 }
 
 
-#'@title selection of hyperparameters
-#'@description selection of hyperparameters (minimizing regression error)
-#'@param obj object
-#'@param hyperparameters hyperparameters dataset
-#'@return optimized key number of hyperparameters
 #'@importFrom dplyr filter summarise group_by
 #'@export
 select_hyper.reg_tune <- function(obj, hyperparameters) {

@@ -16,8 +16,8 @@
 
 # categorical mapping for predictand
 #'predictand <- adjust_class_label(iris[,"Species"])
-#'train_eval <- evaluate(model, predictand, prediction)
-#'train_eval$metrics
+#'test_eval <- evaluate(model, predictand, prediction)
+#'test_eval$metrics
 #'@export
 predictor <- function() {
   obj <- dal_learner()

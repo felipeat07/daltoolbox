@@ -2,7 +2,7 @@
 % Please edit documentation in R/reg_knn.R
 \name{reg_knn}
 \alias{reg_knn}
-\title{K-Nearest Neighbors (KNN) Regression}
+\title{knn regression}
 \usage{
 reg_knn(attribute, k)
 }
@@ -12,11 +12,27 @@ reg_knn(attribute, k)
 \item{k}{number of k neighbors}
 }
 \value{
-obj
+A knn regression object
 }
 \description{
-K-Nearest Neighbors (KNN) Regression
+Creates a regression object that
+uses the K-Nearest Neighbors (knn) method for regression
 }
 \examples{
-trans <- dal_transform()
+data(Boston)
+model <- reg_knn("medv", k=3)
+
+# preparing dataset for random sampling
+set.seed(1)
+sr <- sample_random()
+sr <- train_test(sr, Boston)
+train <- sr$train
+test <- sr$test
+
+model <- fit(model, train)
+
+test_prediction <- predict(model, test)
+test_predictand <- test[,"medv"]
+test_eval <- evaluate(model, test_predictand, test_prediction)
+test_eval$metrics
 }

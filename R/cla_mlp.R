@@ -15,15 +15,15 @@
 #'set.seed(1)
 #'sr <- sample_random()
 #'sr <- train_test(sr, iris)
-#'iris_train <- sr$train
-#'iris_test <- sr$test
+#'train <- sr$train
+#'test <- sr$test
 #'
-#'model <- fit(model, iris_train)
+#'model <- fit(model, train)
 #'
-#'prediction <- predict(model, iris_test)
-#'predictand <- adjust_class_label(iris_test[,"Species"])
-#'train_eval <- evaluate(model, predictand, prediction)
-#'train_eval$metrics
+#'prediction <- predict(model, test)
+#'predictand <- adjust_class_label(test[,"Species"])
+#'test_eval <- evaluate(model, predictand, prediction)
+#'test_eval$metrics
 #'@export
 cla_mlp <- function(attribute, slevels, size=NULL, decay=0.1, maxit=1000) {
   obj <- classification(attribute, slevels)

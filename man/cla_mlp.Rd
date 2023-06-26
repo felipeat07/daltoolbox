@@ -32,13 +32,13 @@ model <- cla_mlp("Species", slevels, size=3, decay=0.03)
 set.seed(1)
 sr <- sample_random()
 sr <- train_test(sr, iris)
-iris_train <- sr$train
-iris_test <- sr$test
+train <- sr$train
+test <- sr$test
 
-model <- fit(model, iris_train)
+model <- fit(model, train)
 
-prediction <- predict(model, iris_test)
-predictand <- adjust_class_label(iris_test[,"Species"])
-train_eval <- evaluate(model, predictand, prediction)
-train_eval$metrics
+prediction <- predict(model, test)
+predictand <- adjust_class_label(test[,"Species"])
+test_eval <- evaluate(model, predictand, prediction)
+test_eval$metrics
 }

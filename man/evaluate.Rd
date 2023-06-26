@@ -25,6 +25,6 @@ model <- cla_dtree("Species", slevels)
 model <- fit(model, iris)
 prediction <- predict(model, iris)
 predictand <- adjust_class_label(iris[,"Species"])
-train_eval <- evaluate(model, predictand, prediction)
-train_eval$metrics
+test_eval <- evaluate(model, predictand, prediction)
+test_eval$metrics
 }

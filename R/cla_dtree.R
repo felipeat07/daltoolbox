@@ -1,11 +1,10 @@
-#'@title Majority Classification
-#'@description This function creates a classification object that
-#'uses the majority vote strategy to predict the target attribute.
-#'Given a target attribute, the function counts the number of
-#'occurrences of each value in the dataset and selects the one that appears most often.
+#'@title Decision Tree for classification
+#'@description Creates a classification object that
+#' uses the Decision Tree algorithm for classification.
 #'@param attribute attribute target to model building.
-#'@param slevels Possible values for the target classification.
-#'@return Returns a classification object.
+#'@param slevels The possible values for the target classification.
+#'@return A classification object that uses the
+#' Decision Tree algorithm for classification.
 #'@examples
 #'data(iris)
 #'slevels <- levels(iris$Species)
@@ -15,15 +14,15 @@
 #'set.seed(1)
 #'sr <- sample_random()
 #'sr <- train_test(sr, iris)
-#'iris_train <- sr$train
-#'iris_test <- sr$test
+#'train <- sr$train
+#'test <- sr$test
 #'
-#'model <- fit(model, iris_train)
+#'model <- fit(model, train)
 #'
-#'prediction <- predict(model, iris_test)
-#'predictand <- adjust_class_label(iris_test[,"Species"])
-#'train_eval <- evaluate(model, predictand, prediction)
-#'train_eval$metrics
+#'prediction <- predict(model, test)
+#'predictand <- adjust_class_label(test[,"Species"])
+#'test_eval <- evaluate(model, predictand, prediction)
+#'test_eval$metrics
 #'@export
 cla_dtree <- function(attribute, slevels) {
   obj <- classification(attribute, slevels)

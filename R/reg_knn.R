@@ -1,9 +1,26 @@
-#'@title K-Nearest Neighbors (KNN) Regression
-#'@description K-Nearest Neighbors (KNN) Regression
+#'@title knn regression
+#'@description Creates a regression object that
+#' uses the K-Nearest Neighbors (knn) method for regression
 #'@param attribute attribute target to model building
 #'@param k number of k neighbors
-#'@return obj
-#'@examples trans <- dal_transform()
+#'@return A knn regression object
+#'@examples
+#'data(Boston)
+#'model <- reg_knn("medv", k=3)
+#'
+#'# preparing dataset for random sampling
+#'set.seed(1)
+#'sr <- sample_random()
+#'sr <- train_test(sr, Boston)
+#'train <- sr$train
+#'test <- sr$test
+#'
+#'model <- fit(model, train)
+#'
+#'test_prediction <- predict(model, test)
+#'test_predictand <- test[,"medv"]
+#'test_eval <- evaluate(model, test_predictand, test_prediction)
+#'test_eval$metrics
 #'@export
 reg_knn <- function(attribute, k) {
   obj <- regression(attribute)
@@ -27,12 +44,6 @@ fit.reg_knn <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title predict data from input
-#'@description predict data from input
-#'@param object object
-#'@param x input variable
-#'@param ... optional arguments
-#'@return predicted values
 #'@importFrom FNN knn.reg
 #'@export
 predict.reg_knn  <- function(object, x, ...) {

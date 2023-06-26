@@ -31,12 +31,6 @@ fit.reg_svm <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title predict data from input
-#'@description predict data from input
-#'@param object object
-#'@param x input variable
-#'@param ... optional arguments
-#'@return predicted values
 #'@export
 predict.reg_svm  <- function(object, x, ...) {
   x <- adjust_data.frame(x)

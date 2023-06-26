@@ -1,8 +1,25 @@
-#'@title Decision Tree for Regression
-#'@description Decision Tree for Regression
-#'@param attribute attribute target to model building
-#'@return obj
-#'@examples trans <- dal_transform()
+#'@title Decision Tree for regression
+#'@description Creates a regression object that
+#' uses the Decision Tree method for regression
+#'@param attribute attribute target to model building.
+#'@return A decision tree regression object
+#'@examples
+#'data(Boston)
+#'model <- reg_dtree("medv")
+#'
+#'# preparing dataset for random sampling
+#'set.seed(1)
+#'sr <- sample_random()
+#'sr <- train_test(sr, Boston)
+#'train <- sr$train
+#'test <- sr$test
+#'
+#'model <- fit(model, train)
+#'
+#'test_prediction <- predict(model, test)
+#'test_predictand <- test[,"medv"]
+#'test_eval <- evaluate(model, test_predictand, test_prediction)
+#'test_eval$metrics
 #'@export
 reg_dtree <- function(attribute) {
   obj <- regression(attribute)
@@ -23,12 +40,6 @@ fit.reg_dtree <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title predict data from input
-#'@description predict data from input
-#'@param object object
-#'@param x input variable
-#'@param ... optional arguments
-#'@return predicted values
 #'@export
 predict.reg_dtree <- function(object, x, ...) {
   x <- adjust_data.frame(x)

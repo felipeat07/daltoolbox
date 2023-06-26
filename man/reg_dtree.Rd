@@ -2,19 +2,35 @@
 % Please edit documentation in R/reg_dtree.R
 \name{reg_dtree}
 \alias{reg_dtree}
-\title{Decision Tree for Regression}
+\title{Decision Tree for regression}
 \usage{
 reg_dtree(attribute)
 }
 \arguments{
-\item{attribute}{attribute target to model building}
+\item{attribute}{attribute target to model building.}
 }
 \value{
-obj
+A decision tree regression object
 }
 \description{
-Decision Tree for Regression
+Creates a regression object that
+uses the Decision Tree method for regression
 }
 \examples{
-trans <- dal_transform()
+data(Boston)
+model <- reg_dtree("medv")
+
+# preparing dataset for random sampling
+set.seed(1)
+sr <- sample_random()
+sr <- train_test(sr, Boston)
+train <- sr$train
+test <- sr$test
+
+model <- fit(model, train)
+
+test_prediction <- predict(model, test)
+test_predictand <- test[,"medv"]
+test_eval <- evaluate(model, test_predictand, test_prediction)
+test_eval$metrics
 }
