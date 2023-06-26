@@ -18,6 +18,7 @@ A knn object.
 }
 \description{
 Classifies using the K-Nearest Neighbor algorithm.
+It wraps the class library.
 }
 \examples{
 data(iris)

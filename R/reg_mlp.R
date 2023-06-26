@@ -1,5 +1,7 @@
-#'@title Multi-Layer Perceptron (MLP) Regression
-#'@description Multi-Layer Perceptron (MLP) Regression
+#'@title MLP for regression
+#'@description Creates a regression object that
+#' uses the Multi-Layer Perceptron (MLP) method.
+#' It wraps the nnet library.
 #'@param attribute attribute target to model building
 #'@param size number of neurons in hidden layers
 #'@param decay decay learning rate
@@ -16,6 +18,7 @@ reg_mlp <- function(attribute, size=NULL, decay=0.05, maxit=1000) {
   return(obj)
 }
 
+#'@importFrom nnet nnet
 #'@export
 fit.reg_mlp <- function(obj, data, ...) {
   data <- adjust_data.frame(data)
@@ -27,7 +30,7 @@ fit.reg_mlp <- function(obj, data, ...) {
   x <- data[,obj$x]
   y <- data[,obj$attribute]
 
-  obj$model <- nnet(x = x, y = y, size = obj$size, decay = obj$decay, maxit=obj$maxit, linout=TRUE, trace = FALSE)
+  obj$model <- nnet::nnet(x = x, y = y, size = obj$size, decay = obj$decay, maxit=obj$maxit, linout=TRUE, trace = FALSE)
 
   return(obj)
 }

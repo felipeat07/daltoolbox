@@ -2,31 +2,33 @@
 % Please edit documentation in R/cla_rf.R
 \name{cla_rf}
 \alias{cla_rf}
-\title{Random Forest Classifier}
+\title{Random Forest for classification}
 \usage{
-cla_rf(attribute, slevels, mtry = NULL, ntree = 10)
+cla_rf(attribute, slevels, nodesize = 5, ntree = 10, mtry = NULL)
 }
 \arguments{
 \item{attribute}{attribute target to model building}
 
-\item{slevels}{\itemize{
-\item possible values for the target classification
-}}
+\item{slevels}{possible values for the target classification}
 
-\item{mtry}{number of attributes to build tree}
+\item{nodesize}{node size}
 
 \item{ntree}{number of trees}
+
+\item{mtry}{number of attributes to build tree}
 }
 \value{
 obj
 }
 \description{
-Random Forest Classifier
+Creates a classification object that
+uses the Random Forest method
+It wraps the randomForest library.
 }
 \examples{
 data(iris)
 slevels <- levels(iris$Species)
-model <- cla_rf("Species", slevels, mtry=3, ntree=5)
+model <- cla_rf("Species", slevels, ntree=5)
 
 # preparing dataset for random sampling
 set.seed(1)

@@ -1,5 +1,6 @@
 #'@title Naive Bayes Classifier
 #'@description Classification using the Naive Bayes algorithm
+#' It wraps the e1071 library.
 #'@param attribute attribute target to model building.
 #'@param slevels Possible values for the target classification.
 #'@return A classification object.

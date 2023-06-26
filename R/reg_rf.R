@@ -1,16 +1,36 @@
-#'@title Random Forest Regression
-#'@description Random Forest Regression
+#'@title Random Forest for regression
+#'@description Creates a regression object that
+#' uses the Random Forest method.
+#' It wraps the randomForest library.
 #'@param attribute attribute target to model building
-#'@param mtry number of attributes to build trees
+#'@param nodesize node size
 #'@param ntree number of trees
+#'@param mtry number of attributes to build tree
 #'@return obj
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(Boston)
+#'model <- reg_rf("medv", ntree=10)
+#'
+#'# preparing dataset for random sampling
+#'set.seed(1)
+#'sr <- sample_random()
+#'sr <- train_test(sr, Boston)
+#'train <- sr$train
+#'test <- sr$test
+#'
+#'model <- fit(model, train)
+#'
+#'test_prediction <- predict(model, test)
+#'test_predictand <- test[,"medv"]
+#'test_eval <- evaluate(model, test_predictand, test_prediction)
+#'test_eval$metrics
 #'@export
-reg_rf <- function(attribute, mtry = NULL, ntree = 10) {
+reg_rf <- function(attribute, nodesize = 1, ntree = 10, mtry = NULL) {
   obj <- regression(attribute)
 
-  obj$mtry <- mtry
+  obj$nodesize <- nodesize
   obj$ntree <- ntree
+  obj$mtry <- mtry
 
   class(obj) <- append("reg_rf", class(obj))
   return(obj)
@@ -28,7 +48,7 @@ fit.reg_rf <- function(obj, data, ...) {
   x <- data[,obj$x]
   y <- data[,obj$attribute]
 
-  obj$model <- randomForest::randomForest(x = x, y = y, mtry=obj$mtry, ntree=obj$ntree)
+  obj$model <- randomForest::randomForest(x = x, y = y, nodesize = obj$nodesize, mtry=obj$mtry, ntree=obj$ntree)
 
   return(obj)
 }

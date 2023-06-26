@@ -1,5 +1,7 @@
-#'@title Classification using Artificial Neural Network (ANN)
-#'@description Performs classification using Artificial Neural Network (ANN) algorithm
+#'@title MLP for classification
+#'@description Creates a classification object that
+#' uses the Multi-Layer Perceptron (MLP) method.
+#' It wraps the nnet library.
 #'@param attribute attribute target to model building
 #'@param slevels possible values for the target classification
 #'@param size number of nodes that will be used in the hidden layer
@@ -35,7 +37,7 @@ cla_mlp <- function(attribute, slevels, size=NULL, decay=0.1, maxit=1000) {
   return(obj)
 }
 
-#'@import nnet
+#'@importFrom nnet nnet
 #'@export
 fit.cla_mlp <- function(obj, data, ...) {
   data <- adjust_data.frame(data)

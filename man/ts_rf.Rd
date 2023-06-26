@@ -4,7 +4,7 @@
 \alias{ts_rf}
 \title{Time Series Random Forest}
 \usage{
-ts_rf(preprocess = NA, input_size = NA, nodesize = 5, ntree = 20)
+ts_rf(preprocess = NA, input_size = NA, nodesize = 1, ntree = 10, mtry = NULL)
 }
 \arguments{
 \item{preprocess}{normalization}
@@ -14,6 +14,8 @@ ts_rf(preprocess = NA, input_size = NA, nodesize = 5, ntree = 20)
 \item{nodesize}{node size}
 
 \item{ntree}{number of trees}
+
+\item{mtry}{number of attributes to build tree}
 }
 \value{
 a \code{ts_rf} object.

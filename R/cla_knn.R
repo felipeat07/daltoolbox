@@ -1,5 +1,6 @@
 #'@title K Nearest Neighbor Classification
 #'@description Classifies using the K-Nearest Neighbor algorithm.
+#' It wraps the class library.
 #'@param attribute attribute target to model building.
 #'@param slevels Possible values for the target classification.
 #'@param k A vector of integers indicating the number of neighbors to be considered.

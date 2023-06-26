@@ -2,34 +2,28 @@
 % Please edit documentation in R/cla_svm.R
 \name{cla_svm}
 \alias{cla_svm}
-\title{Support Vector Machine Classification}
+\title{SVM for classification}
 \usage{
 cla_svm(attribute, slevels, epsilon = 0.1, cost = 10, kernel = "radial")
 }
 \arguments{
 \item{attribute}{attribute target to model building}
 
-\item{slevels}{\itemize{
-\item possible values for the target classification
-}}
+\item{slevels}{possible values for the target classification}
 
-\item{epsilon}{\itemize{
-\item parameter that controls the width of the margin around the separating hyperplane
-}}
+\item{epsilon}{parameter that controls the width of the margin around the separating hyperplane}
 
-\item{cost}{\itemize{
-\item parameter that controls the trade-off between having a wide margin and correctly classifying training data points
-}}
+\item{cost}{parameter that controls the trade-off between having a wide margin and correctly classifying training data points}
 
-\item{kernel}{\itemize{
-\item the type of kernel function to be used in the SVM algorithm (linear, radial, polynomial, sigmoid)
-}}
+\item{kernel}{the type of kernel function to be used in the SVM algorithm (linear, radial, polynomial, sigmoid)}
 }
 \value{
-classification object
+A SVM classification object
 }
 \description{
-Classification using Support Vector Machine (SVM) algorithm
+Creates a classification object that
+uses the Support Vector Machine (SVM) method for classification
+It wraps the e1071 library.
 }
 \examples{
 data(iris)

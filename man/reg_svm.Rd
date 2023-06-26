@@ -2,25 +2,42 @@
 % Please edit documentation in R/reg_svm.R
 \name{reg_svm}
 \alias{reg_svm}
-\title{Support Vector Machine (SVM) Regression}
+\title{SVM for regression}
 \usage{
 reg_svm(attribute, epsilon = 0.1, cost = 10, kernel = "radial")
 }
 \arguments{
 \item{attribute}{attribute target to model building}
 
-\item{epsilon}{error threshold}
+\item{epsilon}{parameter that controls the width of the margin around the separating hyperplane}
 
-\item{cost}{cost}
+\item{cost}{parameter that controls the trade-off between having a wide margin and correctly classifying training data points}
 
-\item{kernel}{SVM kernel (linear, radial, polynomial, sigmoid)}
+\item{kernel}{the type of kernel function to be used in the SVM algorithm (linear, radial, polynomial, sigmoid)}
 }
 \value{
-obj
+A SVM regression object
 }
 \description{
-Support Vector Machine (SVM) Regression
+Creates a regression object that
+uses the Support Vector Machine (SVM) method for regression
+It wraps the e1071 library.
 }
 \examples{
-trans <- dal_transform()
+data(Boston)
+model <- reg_svm("medv", epsilon=0.2,cost=40.000)
+
+# preparing dataset for random sampling
+set.seed(1)
+sr <- sample_random()
+sr <- train_test(sr, Boston)
+train <- sr$train
+test <- sr$test
+
+model <- fit(model, train)
+
+test_prediction <- predict(model, test)
+test_predictand <- test[,"medv"]
+test_eval <- evaluate(model, test_predictand, test_prediction)
+test_eval$metrics
 }

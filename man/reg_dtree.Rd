@@ -15,6 +15,7 @@ A decision tree regression object
 \description{
 Creates a regression object that
 uses the Decision Tree method for regression
+It wraps the tree library.
 }
 \examples{
 data(Boston)

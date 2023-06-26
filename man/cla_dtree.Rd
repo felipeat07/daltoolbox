@@ -18,6 +18,7 @@ Decision Tree algorithm for classification.
 \description{
 Creates a classification object that
 uses the Decision Tree algorithm for classification.
+It wraps the tree library.
 }
 \examples{
 data(iris)

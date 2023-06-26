@@ -2,7 +2,7 @@
 % Please edit documentation in R/cla_tune.R
 \name{cla_tune}
 \alias{cla_tune}
-\title{Regression Tune}
+\title{Classification Tune}
 \usage{
 cla_tune(base_model, folds = 10, metric = "accuracy")
 }
@@ -17,7 +17,7 @@ cla_tune(base_model, folds = 10, metric = "accuracy")
 a \code{cla_tune} object.
 }
 \description{
-Regression Tune
+Classification Tune
 }
 \examples{
 # preparing dataset for random sampling
@@ -27,11 +27,12 @@ sr <- train_test(sr, iris)
 train <- sr$train
 test <- sr$test
 
-# hyper parameter optimization
+# hyper parameter setup
 tune <- cla_tune(cla_svm("Species", levels(iris$Species)))
 ranges <- list(epsilon=seq(0,1,0.25), cost=seq(25,100,25), kernel = c("radial"))
+
+# hyper parameter optimization
 model <- fit(tune, train, ranges)
-train_prediction <- predict(model, train)
 
 # testing optimization
 test_prediction <- predict(model, test)

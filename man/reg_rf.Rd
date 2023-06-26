@@ -2,23 +2,42 @@
 % Please edit documentation in R/reg_rf.R
 \name{reg_rf}
 \alias{reg_rf}
-\title{Random Forest Regression}
+\title{Random Forest for regression}
 \usage{
-reg_rf(attribute, mtry = NULL, ntree = 10)
+reg_rf(attribute, nodesize = 1, ntree = 10, mtry = NULL)
 }
 \arguments{
 \item{attribute}{attribute target to model building}
 
-\item{mtry}{number of attributes to build trees}
+\item{nodesize}{node size}
 
 \item{ntree}{number of trees}
+
+\item{mtry}{number of attributes to build tree}
 }
 \value{
 obj
 }
 \description{
-Random Forest Regression
+Creates a regression object that
+uses the Random Forest method.
+It wraps the randomForest library.
 }
 \examples{
-trans <- dal_transform()
+data(Boston)
+model <- reg_rf("medv", ntree=10)
+
+# preparing dataset for random sampling
+set.seed(1)
+sr <- sample_random()
+sr <- train_test(sr, Boston)
+train <- sr$train
+test <- sr$test
+
+model <- fit(model, train)
+
+test_prediction <- predict(model, test)
+test_predictand <- test[,"medv"]
+test_eval <- evaluate(model, test_predictand, test_prediction)
+test_eval$metrics
 }

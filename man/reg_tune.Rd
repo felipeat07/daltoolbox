@@ -18,5 +18,23 @@ a \code{reg_tune} object.
 Regression Tune
 }
 \examples{
-trans <- dal_transform()
+# preparing dataset for random sampling
+data(Boston)
+set.seed(1)
+sr <- sample_random()
+sr <- train_test(sr, Boston)
+train <- sr$train
+test <- sr$test
+
+# hyper parameter setup
+tune <- reg_tune(reg_svm("medv"))
+ranges <- list(epsilon=seq(0,1,0.25), cost=seq(25,100,25), kernel = c("radial"))
+
+# hyper parameter optimization
+model <- fit(tune, train, ranges)
+
+test_prediction <- predict(model, test)
+test_predictand <- test[,"medv"]
+test_eval <- evaluate(model, test_predictand, test_prediction)
+test_eval$metrics
 }

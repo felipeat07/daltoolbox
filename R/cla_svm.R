@@ -1,11 +1,13 @@
-#'@title Support Vector Machine Classification
-#'@description Classification using Support Vector Machine (SVM) algorithm
+#'@title SVM for classification
+#'@description Creates a classification object that
+#' uses the Support Vector Machine (SVM) method for classification
+#' It wraps the e1071 library.
 #'@param attribute attribute target to model building
-#'@param slevels - possible values for the target classification
-#'@param epsilon - parameter that controls the width of the margin around the separating hyperplane
-#'@param cost - parameter that controls the trade-off between having a wide margin and correctly classifying training data points
-#'@param kernel - the type of kernel function to be used in the SVM algorithm (linear, radial, polynomial, sigmoid)
-#'@return classification object
+#'@param slevels possible values for the target classification
+#'@param epsilon parameter that controls the width of the margin around the separating hyperplane
+#'@param cost parameter that controls the trade-off between having a wide margin and correctly classifying training data points
+#'@param kernel the type of kernel function to be used in the SVM algorithm (linear, radial, polynomial, sigmoid)
+#'@return A SVM classification object
 #'@examples
 #'data(iris)
 #'slevels <- levels(iris$Species)
@@ -37,7 +39,7 @@ cla_svm <- function(attribute, slevels, epsilon=0.1, cost=10, kernel="radial") {
   return(obj)
 }
 
-#'@import e1071
+#'@importFrom e1071 svm
 #'@export
 fit.cla_svm <- function(obj, data, ...) {
   data <- adjust_data.frame(data)

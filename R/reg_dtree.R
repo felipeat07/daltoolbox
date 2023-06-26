@@ -1,6 +1,7 @@
 #'@title Decision Tree for regression
 #'@description Creates a regression object that
 #' uses the Decision Tree method for regression
+#' It wraps the tree library.
 #'@param attribute attribute target to model building.
 #'@return A decision tree regression object
 #'@examples

@@ -1,14 +1,17 @@
-#'@title Random Forest Classifier
-#'@description Random Forest Classifier
+#'@title Random Forest for classification
+#'@description Creates a classification object that
+#' uses the Random Forest method
+#' It wraps the randomForest library.
 #'@param attribute attribute target to model building
-#'@param slevels - possible values for the target classification
-#'@param mtry number of attributes to build tree
+#'@param slevels possible values for the target classification
+#'@param nodesize node size
 #'@param ntree number of trees
+#'@param mtry number of attributes to build tree
 #'@return obj
 #'@examples
 #'data(iris)
 #'slevels <- levels(iris$Species)
-#'model <- cla_rf("Species", slevels, mtry=3, ntree=5)
+#'model <- cla_rf("Species", slevels, ntree=5)
 #'
 #'# preparing dataset for random sampling
 #'set.seed(1)
@@ -24,9 +27,10 @@
 #'test_eval <- evaluate(model, predictand, prediction)
 #'test_eval$metrics
 #'@export
-cla_rf <- function(attribute, slevels, mtry = NULL, ntree = 10) {
+cla_rf <- function(attribute, slevels, nodesize = 5, ntree = 10, mtry = NULL) {
   obj <- classification(attribute, slevels)
 
+  obj$nodesize <- nodesize
   obj$ntree <- ntree
   obj$mtry <- mtry
 
@@ -47,7 +51,7 @@ fit.cla_rf <- function(obj, data, ...) {
   x <- data[,obj$x, drop=FALSE]
   y <- data[,obj$attribute]
 
-  obj$model <- randomForest::randomForest(x = x, y = y, mtry=obj$mtry, ntree=obj$ntree)
+  obj$model <- randomForest::randomForest(x = x, y = y, nodesize = obj$nodesize, mtry=obj$mtry, ntree=obj$ntree)
 
   return(obj)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/reg_mlp.R
 \name{reg_mlp}
 \alias{reg_mlp}
-\title{Multi-Layer Perceptron (MLP) Regression}
+\title{MLP for regression}
 \usage{
 reg_mlp(attribute, size = NULL, decay = 0.05, maxit = 1000)
 }
@@ -19,7 +19,9 @@ reg_mlp(attribute, size = NULL, decay = 0.05, maxit = 1000)
 obj
 }
 \description{
-Multi-Layer Perceptron (MLP) Regression
+Creates a regression object that
+uses the Multi-Layer Perceptron (MLP) method.
+It wraps the nnet library.
 }
 \examples{
 trans <- dal_transform()

@@ -16,6 +16,7 @@ A classification object.
 }
 \description{
 Classification using the Naive Bayes algorithm
+It wraps the e1071 library.
 }
 \examples{
 data(iris)

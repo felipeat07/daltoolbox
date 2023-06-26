@@ -1,8 +1,8 @@
 # DAL Library
 # version 2.1
 
-#'@title Regression Tune
-#'@description Regression Tune
+#'@title Classification Tune
+#'@description Classification Tune
 #'@param base_model base model for tuning
 #'@param folds number of folds for cross-validation
 #'@param metric metric used to optimize
@@ -15,11 +15,12 @@
 #'train <- sr$train
 #'test <- sr$test
 #'
-#'# hyper parameter optimization
+#'# hyper parameter setup
 #'tune <- cla_tune(cla_svm("Species", levels(iris$Species)))
 #'ranges <- list(epsilon=seq(0,1,0.25), cost=seq(25,100,25), kernel = c("radial"))
+#'
+#'# hyper parameter optimization
 #'model <- fit(tune, train, ranges)
-#'train_prediction <- predict(model, train)
 #'
 #'# testing optimization
 #'test_prediction <- predict(model, test)

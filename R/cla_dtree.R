@@ -1,6 +1,7 @@
 #'@title Decision Tree for classification
 #'@description Creates a classification object that
 #' uses the Decision Tree algorithm for classification.
+#' It wraps the tree library.
 #'@param attribute attribute target to model building.
 #'@param slevels The possible values for the target classification.
 #'@return A classification object that uses the

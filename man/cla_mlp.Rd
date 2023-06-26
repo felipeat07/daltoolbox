@@ -2,7 +2,7 @@
 % Please edit documentation in R/cla_mlp.R
 \name{cla_mlp}
 \alias{cla_mlp}
-\title{Classification using Artificial Neural Network (ANN)}
+\title{MLP for classification}
 \usage{
 cla_mlp(attribute, slevels, size = NULL, decay = 0.1, maxit = 1000)
 }
@@ -21,7 +21,9 @@ cla_mlp(attribute, slevels, size = NULL, decay = 0.1, maxit = 1000)
 a classification object
 }
 \description{
-Performs classification using Artificial Neural Network (ANN) algorithm
+Creates a classification object that
+uses the Multi-Layer Perceptron (MLP) method.
+It wraps the nnet library.
 }
 \examples{
 data(iris)
