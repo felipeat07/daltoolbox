@@ -1,18 +1,35 @@
 #'@title Time Series AutoRegressive Integrated Moving Average (ARIMA)
 #'@description ARIMA is a regression model for forecasting time series data
 #'@return obj
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(sin_data)
+#'ts <- ts_data(sin_data$y, 0)
+#'ts_head(ts, 3)
+#'
+#'samp <- ts_sample(ts, test_size = 5)
+#'io_train <- ts_projection(samp$train)
+#'io_test <- ts_projection(samp$test)
+#'
+#'model <- ts_arima()
+#'model <- fit(model, x=io_train$input, y=io_train$output)
+#'
+#'prediction <- predict(model, x=io_test$input[1,], steps_ahead=5)
+#'prediction <- as.vector(prediction)
+#'output <- as.vector(io_test$output)
+#'
+#'ev_test <- evaluate(model, output, prediction)
+#'ev_test
 #'@export
-tsreg_arima <- function() {
+ts_arima <- function() {
   obj <- ts_reg()
 
-  class(obj) <- append("tsreg_arima", class(obj))
+  class(obj) <- append("ts_arima", class(obj))
   return(obj)
 }
 
 #'@import forecast
 #'@export
-fit.tsreg_arima <- function(obj, x, y = NULL, ...) {
+fit.ts_arima <- function(obj, x, y = NULL, ...) {
   if (obj$reproduce)
     set.seed(1)
 
@@ -30,7 +47,7 @@ fit.tsreg_arima <- function(obj, x, y = NULL, ...) {
 
 #'@import forecast
 #'@export
-predict.tsreg_arima <- function(object, x, y = NULL, steps_ahead=NULL, ...) {
+predict.ts_arima <- function(object, x, y = NULL, steps_ahead=NULL, ...) {
   if (!is.null(x) && (length(object$model$x) == length(x)) && (sum(object$model$x-x) == 0)){
     #get adjusted data
     pred <- object$model$x - object$model$residuals

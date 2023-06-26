@@ -187,14 +187,14 @@
 <h4 id="model-training">Model training<a class="anchor" aria-label="anchor" href="#model-training"></a>
 </h4>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tsreg_arima.html">tsreg_arima</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_arima.html">ts_arima</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">io_train</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_projection.html">ts_projection</a></span><span class="op">(</span><span class="va">samp</span><span class="op">$</span><span class="va">train</span><span class="op">)</span></span>
 <span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit.html">fit</a></span><span class="op">(</span><span class="va">model</span>, x<span class="op">=</span><span class="va">io_train</span><span class="op">$</span><span class="va">input</span>, y<span class="op">=</span><span class="va">io_train</span><span class="op">$</span><span class="va">output</span><span class="op">)</span></span>
-<span><span class="co">#&gt; tsreg_arima,0.003</span></span>
+<span><span class="co">#&gt; ts_arima,0.003</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">describe</span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "tsreg_arima"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "ts_arima"</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="evaluation-of-adjustment">Evaluation of adjustment<a class="anchor" aria-label="anchor" href="#evaluation-of-adjustment"></a>
@@ -231,7 +231,7 @@
 <span><span class="co">#&gt;           mse      smape</span></span>
 <span><span class="co">#&gt; 1 0.007635648 0.09222281</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%s: smape: %.2f"</span>, <span class="fu">describe</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>, <span class="fl">100</span><span class="op">*</span><span class="va">ev_test</span><span class="op">$</span><span class="va">metrics</span><span class="op">$</span><span class="va">smape</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "tsreg_arima: smape: 9.22"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "ts_arima: smape: 9.22"</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="plot-results">Plot results<a class="anchor" aria-label="anchor" href="#plot-results"></a>

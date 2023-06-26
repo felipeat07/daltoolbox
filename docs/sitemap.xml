@@ -532,7 +532,7 @@
     <loc>https://cefet-rj-dal.github.io/daltoolbox/reference/predict.tsreg.html</loc>
   </url>
   <url>
-    <loc>https://cefet-rj-dal.github.io/daltoolbox/reference/predict.tsreg_arima.html</loc>
+    <loc>https://cefet-rj-dal.github.io/daltoolbox/reference/predict.ts_arima.html</loc>
   </url>
   <url>
     <loc>https://cefet-rj-dal.github.io/daltoolbox/reference/predict.tsreg_sw.html</loc>
@@ -829,7 +829,7 @@
     <loc>https://cefet-rj-dal.github.io/daltoolbox/reference/tsreg.html</loc>
   </url>
   <url>
-    <loc>https://cefet-rj-dal.github.io/daltoolbox/reference/tsreg_arima.html</loc>
+    <loc>https://cefet-rj-dal.github.io/daltoolbox/reference/ts_arima.html</loc>
   </url>
   <url>
     <loc>https://cefet-rj-dal.github.io/daltoolbox/reference/tsreg_sw.html</loc>
