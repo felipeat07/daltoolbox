@@ -64,7 +64,7 @@ evaluate.clusterer <- function(obj, cluster, attribute, ...) {
 
   result <- compute_entropy(list(data=as.factor(cluster), attribute=as.factor(attribute)))
 
-  result$data_entropy <- basic$entropy
+  result$data_entropy <- basic$clustering_entropy
 
   return(result)
 }
