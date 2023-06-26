@@ -11,13 +11,6 @@ ts_swminmax <- function(remove_outliers = TRUE) {
   return(obj)
 }
 
-#'@title adjust the obj object parameters for the "sw-min-max" normalization method
-#'@description It takes as parameters obj object and the data
-#'@param obj object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return The updated obj object
-#'@examples trans <- dal_transform()
 #'@export
 fit.ts_swminmax <- function(obj, data, ...) {
   if (obj$remove_outliers) {
@@ -28,14 +21,6 @@ fit.ts_swminmax <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title Normalizes each line of the input data to the range \[0,1\]
-#'@description It takes as parameters the variables obj, data, x
-#'@param obj object
-#'@param data dataset
-#'@param x input variable
-#'@param ... optional arguments
-#'@return transformed dataset
-#'@examples trans <- dal_transform()
 #'@export
 transform.ts_swminmax <- function(obj, data, x=NULL, ...) {
   if (!is.null(x)) {
@@ -54,14 +39,6 @@ transform.ts_swminmax <- function(obj, data, x=NULL, ...) {
   }
 }
 
-#'@title Do the inverse transformation of normalized data
-#'@description It takes as parameters the variables obj, data, x
-#'@param obj object
-#'@param data dataset
-#'@param x input variable
-#'@param ... optional arguments
-#'@return denormalized dataset
-#'@examples trans <- dal_transform()
 #'@export
 inverse_transform.ts_swminmax <- function(obj, data, x=NULL, ...) {
   i_min <- attr(data, "i_min")

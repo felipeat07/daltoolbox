@@ -28,14 +28,6 @@ fit.tsreg_arima <- function(obj, x, y = NULL, ...) {
   return(obj)
 }
 
-#'@title predict data from input
-#'@description predict data from input
-#'@param object object
-#'@param x input variable
-#'@param y y modeling data
-#'@param steps_ahead step ahead prediction
-#'@param ... optional arguments
-#'@return predicted values
 #'@import forecast
 #'@export
 predict.tsreg_arima <- function(object, x, y = NULL, steps_ahead=NULL, ...) {

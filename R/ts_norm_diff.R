@@ -12,13 +12,6 @@ ts_diff <- function(remove_outliers = TRUE) {
   return(obj)
 }
 
-#'@title Fit the object created by the ts_diff function to the training data
-#'@description It takes two arguments: obj and data
-#'@param obj object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return The updated obj object
-#'@examples trans <- dal_transform()
 #'@export
 fit.ts_diff <- function(obj, data, ...) {
   data <- data[,2:ncol(data)]-data[,1:(ncol(data)-1)]
@@ -26,14 +19,6 @@ fit.ts_diff <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title Transform the data
-#'@description It takes as parameters the variables obj, data and x
-#'@param obj object
-#'@param data dataset
-#'@param x input variable
-#'@param ... optional arguments
-#'@return Transformed full data matrix
-#'@examples trans <- dal_transform()
 #'@export
 transform.ts_diff <- function(obj, data, x=NULL, ...) {
   if (!is.null(x)) {
@@ -57,14 +42,6 @@ transform.ts_diff <- function(obj, data, x=NULL, ...) {
   }
 }
 
-#'@title Revert the transform applied in the transform.ts_diff function
-#'@description It takes as parameters the variables obj, data and x
-#'@param obj object
-#'@param data dataset
-#'@param x predicted values in normalized scale
-#'@param ... optional arguments
-#'@return If the argument "x" is provided, the function returns the value corresponding to "x" in the original scale. Otherwise, the function returns the complete "data" time series at the original scale
-#'@examples trans <- dal_transform()
 #'@export
 inverse_transform.ts_diff <- function(obj, data, x=NULL, ...) {
   cnames <- attr(data, "cnames")

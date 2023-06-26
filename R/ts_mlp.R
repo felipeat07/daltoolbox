@@ -1,14 +1,3 @@
-# DAL Library
-# version 2.1
-
-# depends dal_transform.R
-# depends ts_data.R
-# depends ts_regression.R
-# depends ts_preprocessing.R
-
-# class ts_mlp
-# loadlibrary("nnet")
-
 #'@title Time Series Multilayer Perceptron (MLP)
 #'@description Type of artificial neural network used to make predictions and
 #' forecasts based on time series data. Consists of multiple layers of
@@ -38,12 +27,6 @@ ts_mlp <- function(preprocess=NA, input_size=NA, size=NA, decay=0.01, maxit=1000
 
 
 #'@import nnet
-#'@title Train the ts_mlp model
-#'@description It takes three arguments: the ts_mlp object to be trained (obj), the input matrix (x) and the output vector (y)
-#'@param obj object
-#'@param x input variable
-#'@param y output variable
-#'@return The ts_mlp object updated with the trained model
 #'@export
 do_fit.ts_mlp <- function(obj, x, y) {
   obj$model <- nnet::nnet(x = x, y = y, size = obj$size, decay=obj$decay, maxit = obj$maxit, linout=TRUE, trace = FALSE)

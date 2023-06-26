@@ -8,6 +8,14 @@
 #'@export
 ts_an <- function(remove_outliers = TRUE, nw = 0) {
   obj <- dal_transform()
+  obj$ma <- function(obj, data, func) {
+    if (obj$nw != 0) {
+      cols <- ncol(data) - ((obj$nw-1):0)
+      data <- data[,cols]
+
+    }
+    an <- apply(data, 1, func, na.rm=TRUE)
+  }
   obj$remove_outliers <- remove_outliers
 
   obj$an_mean <- mean
@@ -16,34 +24,10 @@ ts_an <- function(remove_outliers = TRUE, nw = 0) {
   return(obj)
 }
 
-#'@title Removes the first few columns from a data array
-#'@description It takes as parameters the variables obj, data, func
-#'@param obj object
-#'@param data dataset
-#'@param func function to aggregate
-#'@return normalized sliding windows
-#'@examples trans <- dal_transform()
-#'@export
-ma.ts_an <- function(obj, data, func) {
-  if (obj$nw != 0) {
-    cols <- ncol(data) - ((obj$nw-1):0)
-    data <- data[,cols]
-
-  }
-  an <- apply(data, 1, func, na.rm=TRUE)
-}
-
-#'@title Fits the "ts_an" normalization model to a training dataset
-#'@description It takes two arguments: obj and data. It computes the moving average of the input data using the "ma.ts_an" function, subtracts the moving average from the input data, and scales the data so that the values are in the range between 0 and 1
-#'@param obj object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return The adjusted "ts_an" object
-#'@examples trans <- dal_transform()
 #'@export
 fit.ts_an <- function(obj, data, ...) {
   input <- data[,1:(ncol(data)-1)]
-  an <- ma.ts_an(obj, input, obj$an_mean)
+  an <- obj$ma(obj, input, obj$an_mean)
   data <- data - an #
 
   if (obj$remove_outliers) {
@@ -58,14 +42,6 @@ fit.ts_an <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title Normalize the input data
-#'@description It takes 3 arguments: obj, data and x
-#'@param obj object
-#'@param data dataset
-#'@param x input variable
-#'@param ... optional arguments
-#'@return Normalized data along with annual moving average value
-#'@examples trans <- dal_transform()
 #'@export
 transform.ts_an <- function(obj, data, x=NULL, ...) {
   if (!is.null(x)) {
@@ -75,7 +51,7 @@ transform.ts_an <- function(obj, data, x=NULL, ...) {
     return(x)
   }
   else {
-    an <- ma.ts_an(obj, data, obj$an_mean)
+    an <- obj$ma(obj, data, obj$an_mean)
     data <- data - an #
     data <- (data - obj$gmin) / (obj$gmax-obj$gmin)
     attr(data, "an") <- an
@@ -83,14 +59,6 @@ transform.ts_an <- function(obj, data, x=NULL, ...) {
   }
 }
 
-#'@title Perform the inversion of the transformation performed by the transform.t_an function
-#'@description It takes 3 arguments: obj, data and x
-#'@param obj object
-#'@param data dataset
-#'@param x input variable
-#'@param ... optional arguments
-#'@return The final result of the inverse transformation
-#'@examples trans <- dal_transform()
 #'@export
 inverse_transform.ts_an <- function(obj, data, x=NULL, ...) {
   an <- attr(data, "an")

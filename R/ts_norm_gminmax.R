@@ -11,13 +11,6 @@ ts_gminmax <- function(remove_outliers = TRUE) {
   return(obj)
 }
 
-#'@title Fit global min max parameters for normalization
-#'@description Fit global min max parameters for normalization
-#'@param obj object
-#'@param data dataset
-#'@param ... optional arguments
-#'@return The updated obj object
-#'@examples trans <- dal_transform()
 #'@export
 fit.ts_gminmax <- function(obj, data, ...) {
   if (obj$remove_outliers) {
@@ -32,14 +25,6 @@ fit.ts_gminmax <- function(obj, data, ...) {
   return(obj)
 }
 
-#'@title Normalize time series data
-#'@description It takes as parameters the variables obj, data and x
-#'@param obj object
-#'@param data dataset
-#'@param x input variable
-#'@param ... optional arguments
-#'@return normalized data
-#'@examples trans <- dal_transform()
 #'@export
 transform.ts_gminmax <- function(obj, data, x=NULL, ...) {
   if (!is.null(x)) {
@@ -52,14 +37,6 @@ transform.ts_gminmax <- function(obj, data, x=NULL, ...) {
   }
 }
 
-#'@title Inverse transformation using global min-max
-#'@description Inverse transformation using global min-max
-#'@param obj object
-#'@param data dataset
-#'@param x input variable
-#'@param ... optional arguments
-#'@return Inverse transformed data
-#'@examples trans <- dal_transform()
 #'@export
 inverse_transform.ts_gminmax <- function(obj, data, x=NULL, ...) {
   if (!is.null(x)) {
