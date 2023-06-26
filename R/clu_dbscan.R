@@ -53,10 +53,13 @@ fit.cluster_dbscan <- function(obj, data, ...) {
 #'@import dbscan
 #'@export
 cluster.cluster_dbscan <- function(obj, data, ...) {
-  cluster <- dbscan::dbscan(data, eps = obj$eps, minPts = obj$minPts)
-  cluster <- cluster$cluster
+  db_cluster <- dbscan::dbscan(data, eps = obj$eps, minPts = obj$minPts)
+  cluster <- db_cluster$cluster
+
+  #intrinsic quality metric
   null_cluster <- length(cluster[cluster==0])
   attr(cluster, "metric") <- null_cluster
+
   return(cluster)
 }
 

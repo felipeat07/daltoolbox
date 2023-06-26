@@ -31,15 +31,17 @@ cluster_pam <- function(k) {
 #'@import cluster
 #'@export
 cluster.cluster_pam <- function(obj, data, ...) {
-  cluster <- cluster::pam(data, obj$k)
+  pam_cluster <- cluster::pam(data, obj$k)
+  cluster <- pam_cluster$cluster
+
+  #intrinsic quality metric
   dist <- 0
   for (i in 1:obj$k) {
-    idx <- i==cluster$clustering
-    center <- cluster$medoids[i,]
+    idx <- i==pam_cluster$clustering
+    center <- pam_cluster$medoids[i,]
     dist <- dist + sum(rowSums((data[idx,] - center)^2))
   }
 
-  cluster <- cluster$cluster
   attr(cluster, "metric") <- dist
   return(cluster)
 }

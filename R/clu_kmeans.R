@@ -32,16 +32,18 @@ cluster_kmeans <- function(k) {
 #'@export
 cluster.cluster_kmeans <- function(obj, data, ...) {
   k <- obj$k
-  cluster <- stats::kmeans(x = data, centers = k)
+  k_cluster <- stats::kmeans(x = data, centers = k)
+  cluster <- k_cluster$cluster
+
+  #intrinsic quality metric
   dist <- 0
   for (i in 1:k) {
-    idx <- i == cluster$cluster
-    center <- cluster$centers[i,]
+    idx <- i == k_cluster$cluster
+    center <- k_cluster$centers[i,]
     dist <- dist + sum(rowSums((data[idx,] - center)^2))
   }
-
-  cluster <- cluster$cluster
   attr(cluster, "metric") <- dist
+
   return(cluster)
 }
 
