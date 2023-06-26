@@ -5,7 +5,8 @@
 #'@examples trans <- dal_transform()
 #'@export
 ts_swminmax <- function(remove_outliers = TRUE) {
-  obj <- ts_normalize(remove_outliers)
+  obj <- dal_transform()
+  obj$remove_outliers <- remove_outliers
   class(obj) <- append("ts_swminmax", class(obj))
   return(obj)
 }

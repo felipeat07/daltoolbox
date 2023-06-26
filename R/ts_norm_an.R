@@ -7,7 +7,9 @@
 #'@examples trans <- dal_transform()
 #'@export
 ts_an <- function(remove_outliers = TRUE, nw = 0) {
-  obj <- ts_normalize(remove_outliers)
+  obj <- dal_transform()
+  obj$remove_outliers <- remove_outliers
+
   obj$an_mean <- mean
   obj$nw <- nw
   class(obj) <- append("ts_an", class(obj))

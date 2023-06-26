@@ -22,12 +22,6 @@ ts_svm <- function(preprocess=NA, input_size=NA, kernel="radial", epsilon=0, cos
   return(obj)
 }
 
-#'@title Fits an SVM model to time series
-#'@description It takes as input the model object obj, the input data x and the expected outputs y
-#'@param obj object
-#'@param x input variable
-#'@param y output variable
-#'@return The obj model object with the adjusted model
 #'@import e1071
 #'@export
 do_fit.ts_svm <- function(obj, x, y) {
@@ -35,11 +29,6 @@ do_fit.ts_svm <- function(obj, x, y) {
   return(obj)
 }
 
-#'@title Uses an adjusted SVM model for time series to make predictions
-#'@description It takes as input the model object obj and the input data x
-#'@param obj object
-#'@param x input variable
-#'@return The prediction variable
 #'@importFrom stats predict
 #'@export
 do_predict.ts_svm <- function(obj, x) {

@@ -6,7 +6,8 @@
 #'@examples trans <- dal_transform()
 #'@export
 ts_diff <- function(remove_outliers = TRUE) {
-  obj <- ts_normalize(remove_outliers)
+  obj <- dal_transform()
+  obj$remove_outliers <- remove_outliers
   class(obj) <- append("ts_diff", class(obj))
   return(obj)
 }

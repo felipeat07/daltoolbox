@@ -4,7 +4,7 @@
 #'@examples trans <- dal_transform()
 #'@export
 tsfil_filter <- function() {
-  obj <- ts_transform()
+  obj <- dal_transform()
   class(obj) <- append("tsfil_filter", class(obj))
   return(obj)
 }
