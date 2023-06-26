@@ -55,7 +55,7 @@ evaluate.clusterer <- function(obj, cluster, attribute, ...) {
 
     result <- list()
     result$clusters_entropy <- tbl
-    result$clustering_entropy <- sum(result$entropy$ceg)
+    result$clustering_entropy <- sum(tbl$ceg)
 
     return(result)
   }
