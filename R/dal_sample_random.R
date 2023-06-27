@@ -55,7 +55,6 @@ k_fold.sample_random <- function(obj, data, k) {
 #'@param folds data partitioned into folds
 #'@param k k-fold for test set, all reminder for training set
 #'@return train and test folds
-#'@examples trans <- dal_transform()
 #'@export
 train_test_from_folds <- function(folds, k) {
   test <- folds[[k]]

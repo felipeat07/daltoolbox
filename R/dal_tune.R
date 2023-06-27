@@ -21,7 +21,6 @@ dal_tune <- function(base_model, folds=10) {
 #'@param obj object
 #'@param hyperparameters data set with hyper parameters and quality measure from execution
 #'@return index of selected hyper parameter
-#'@examples trans <- dal_transform()
 #'@export
 select_hyper <- function(obj, hyperparameters) {
   UseMethod("select_hyper")

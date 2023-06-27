@@ -3,7 +3,6 @@
 #'Awareness Smooth reinforce recent data preferably. It also smooths noise data.
 #'@param factor increase factor for data augmentation
 #'@return a `ts_aug_awaresmooth` object.
-#'@examples trans <- dal_transform()
 #'@examples
 #'data(sin_data)
 #'

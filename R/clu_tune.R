@@ -5,7 +5,14 @@
 #'@description Clustering Tune
 #'@param base_model base model for tuning
 #'@return a `clu_tune` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(iris)
+#'
+#'# fit model
+#'model <- clu_tune(cluster_kmeans(k = 0))
+#'ranges <- list(k = 1:10)
+#'model <- fit(model, iris[,1:4], ranges)
+#'model$k
 #'@export
 clu_tune <- function(base_model) {
   obj <- dal_base()

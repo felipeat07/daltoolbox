@@ -20,6 +20,3 @@ fitted object
 The actual time series model fitting.
 This method should be override by descendants.
 }
-\examples{
-trans <- dal_transform()
-}

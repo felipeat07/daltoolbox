@@ -17,6 +17,3 @@ train and test folds
 \description{
 k-fold training and test partition object
 }
-\examples{
-trans <- dal_transform()
-}

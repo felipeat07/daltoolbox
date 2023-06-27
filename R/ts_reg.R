@@ -31,7 +31,6 @@ predict.ts_reg <- function(object, x, ...) {
 #'@param x input variable
 #'@param y output variable
 #'@return fitted object
-#'@examples trans <- dal_transform()
 #'@export
 do_fit <- function(obj, x, y = NULL) {
   UseMethod("do_fit")
@@ -43,7 +42,6 @@ do_fit <- function(obj, x, y = NULL) {
 #'@param obj object
 #'@param x input variable
 #'@return predicted values
-#'@examples trans <- dal_transform()
 #'@export
 do_predict <- function(obj, x) {
   UseMethod("do_predict")

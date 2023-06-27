@@ -17,6 +17,3 @@ index of selected hyper parameter
 \description{
 Selection hyper parameters from a k-fold cross-validation execution
 }
-\examples{
-trans <- dal_transform()
-}

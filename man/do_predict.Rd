@@ -18,6 +18,3 @@ predicted values
 The actual time series model prediction.
 This method should be override by descendants.
 }
-\examples{
-trans <- dal_transform()
-}

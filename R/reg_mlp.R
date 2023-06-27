@@ -7,7 +7,23 @@
 #'@param decay decay learning rate
 #'@param maxit number of maximum iterations for training
 #'@return obj
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(Boston)
+#'model <- reg_mlp("medv", size=5, decay=0.54)
+#'
+#'# preparing dataset for random sampling
+#'set.seed(1)
+#'sr <- sample_random()
+#'sr <- train_test(sr, Boston)
+#'train <- sr$train
+#'test <- sr$test
+#'
+#'model <- fit(model, train)
+#'
+#'test_prediction <- predict(model, test)
+#'test_predictand <- test[,"medv"]
+#'test_eval <- evaluate(model, test_predictand, test_prediction)
+#'test_eval$metrics
 #'@export
 reg_mlp <- function(attribute, size=NULL, decay=0.05, maxit=1000) {
   obj <- regression(attribute)

@@ -17,7 +17,6 @@ Time series data augmentation is a technique used to increase the size and diver
 Awareness Smooth reinforce recent data preferably. It also smooths noise data.
 }
 \examples{
-trans <- dal_transform()
 data(sin_data)
 
 #convert to sliding windows

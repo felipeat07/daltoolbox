@@ -24,5 +24,20 @@ uses the Multi-Layer Perceptron (MLP) method.
 It wraps the nnet library.
 }
 \examples{
-trans <- dal_transform()
+data(Boston)
+model <- reg_mlp("medv", size=5, decay=0.54)
+
+# preparing dataset for random sampling
+set.seed(1)
+sr <- sample_random()
+sr <- train_test(sr, Boston)
+train <- sr$train
+test <- sr$test
+
+model <- fit(model, train)
+
+test_prediction <- predict(model, test)
+test_predictand <- test[,"medv"]
+test_eval <- evaluate(model, test_predictand, test_prediction)
+test_eval$metrics
 }

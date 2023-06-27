@@ -16,5 +16,11 @@ a \code{clu_tune} object.
 Clustering Tune
 }
 \examples{
-trans <- dal_transform()
+data(iris)
+
+# fit model
+model <- clu_tune(cluster_kmeans(k = 0))
+ranges <- list(k = 1:10)
+model <- fit(model, iris[,1:4], ranges)
+model$k
 }
