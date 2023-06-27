@@ -73,8 +73,12 @@ sMAPE.ts <- function (actual, prediction) {
   if (length(actual) != length(prediction))
     stop("actual and prediction have different lengths")
   n <- length(actual)
-  res <- (1/n) * sum(abs(actual - prediction)/((abs(actual) +
-                                                  abs(prediction))/2))
+  num <- abs(actual - prediction)
+  denom <- (abs(actual) + abs(prediction))/2
+  i <- denom != 0
+  num <- num[i]
+  denom <- denom[i]
+  res <- (1/n) * sum(num/denom)
   res
 }
 
