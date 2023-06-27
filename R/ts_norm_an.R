@@ -4,7 +4,21 @@
 #'@param remove_outliers logical: if TRUE (default) outliers will be removed.
 #'@param nw integer: window size.
 #'@return a `ts_norm_an` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'# time series to normalize
+#'data(sin_data)
+#'
+#'# convert to sliding windows
+#'ts <- ts_data(sin_data$y, 10)
+#'ts_head(ts, 3)
+#'summary(ts[,10])
+#'
+#'# normalization
+#'preproc <- ts_norm_an()
+#'preproc <- fit(preproc, ts)
+#'tst <- transform(preproc, ts)
+#'ts_head(tst, 3)
+#'summary(tst[,10])
 #'@export
 ts_norm_an <- function(remove_outliers = TRUE, nw = 0) {
   obj <- dal_transform()

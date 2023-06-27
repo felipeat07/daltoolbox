@@ -3,7 +3,21 @@
 #'@description It receives as parameter the variable remove_outliters. This function calculates the difference between the values of a time series
 #'@param remove_outliers logical: if TRUE (default) outliers will be removed.
 #'@return a `ts_norm_diff` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'# time series to normalize
+#'data(sin_data)
+#'
+#'# convert to sliding windows
+#'ts <- ts_data(sin_data$y, 10)
+#'ts_head(ts, 3)
+#'summary(ts[,10])
+#'
+#'# normalization
+#'preproc <- ts_norm_diff()
+#'preproc <- fit(preproc, ts)
+#'tst <- transform(preproc, ts)
+#'ts_head(tst, 3)
+#'summary(tst[,9])
 #'@export
 ts_norm_diff <- function(remove_outliers = TRUE) {
   obj <- dal_transform()

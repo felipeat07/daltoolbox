@@ -2,7 +2,21 @@
 #'@description Rescales data, so the minimum value is mapped to 0 and the maximum value is mapped to 1.
 #'@param remove_outliers logical: if TRUE (default) outliers will be removed.
 #'@return a `ts_norm_gminmax` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'# time series to normalize
+#'data(sin_data)
+#'
+#'# convert to sliding windows
+#'ts <- ts_data(sin_data$y, 10)
+#'ts_head(ts, 3)
+#'summary(ts[,10])
+#'
+#'# normalization
+#'preproc <- ts_norm_gminmax()
+#'preproc <- fit(preproc, ts)
+#'tst <- transform(preproc, ts)
+#'ts_head(tst, 3)
+#'summary(tst[,10])
 #'@export
 ts_norm_gminmax <- function(remove_outliers = TRUE) {
   obj <- dal_transform()

@@ -16,5 +16,18 @@ a \code{ts_norm_diff} object.
 It receives as parameter the variable remove_outliters. This function calculates the difference between the values of a time series
 }
 \examples{
-trans <- dal_transform()
+# time series to normalize
+data(sin_data)
+
+# convert to sliding windows
+ts <- ts_data(sin_data$y, 10)
+ts_head(ts, 3)
+summary(ts[,10])
+
+# normalization
+preproc <- ts_norm_diff()
+preproc <- fit(preproc, ts)
+tst <- transform(preproc, ts)
+ts_head(tst, 3)
+summary(tst[,9])
 }

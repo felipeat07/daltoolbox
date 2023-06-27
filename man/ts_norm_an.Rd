@@ -19,5 +19,18 @@ Transform data to a common scale while taking into account the
 changes in the statistical properties of the data over time.
 }
 \examples{
-trans <- dal_transform()
+# time series to normalize
+data(sin_data)
+
+# convert to sliding windows
+ts <- ts_data(sin_data$y, 10)
+ts_head(ts, 3)
+summary(ts[,10])
+
+# normalization
+preproc <- ts_norm_an()
+preproc <- fit(preproc, ts)
+tst <- transform(preproc, ts)
+ts_head(tst, 3)
+summary(tst[,10])
 }

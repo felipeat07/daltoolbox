@@ -18,5 +18,18 @@ a \code{ts_norm_ean} object.
 It takes 2 parameters: remove_outliers and nw
 }
 \examples{
-trans <- dal_transform()
+# time series to normalize
+data(sin_data)
+
+# convert to sliding windows
+ts <- ts_data(sin_data$y, 10)
+ts_head(ts, 3)
+summary(ts[,10])
+
+# normalization
+preproc <- ts_norm_ean()
+preproc <- fit(preproc, ts)
+tst <- transform(preproc, ts)
+ts_head(tst, 3)
+summary(tst[,10])
 }

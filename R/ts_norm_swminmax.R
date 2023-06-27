@@ -2,7 +2,21 @@
 #'@description It takes as parameter the variable remove_outliers. The ts_norm_swminmax function creates an object for normalizing a time series based on the "sliding window min-max scaling" method
 #'@param remove_outliers logical: if TRUE (default) outliers will be removed.
 #'@return a `ts_norm_swminmax` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'# time series to normalize
+#'data(sin_data)
+#'
+#'# convert to sliding windows
+#'ts <- ts_data(sin_data$y, 10)
+#'ts_head(ts, 3)
+#'summary(ts[,10])
+#'
+#'# normalization
+#'preproc <- ts_norm_swminmax()
+#'preproc <- fit(preproc, ts)
+#'tst <- transform(preproc, ts)
+#'ts_head(tst, 3)
+#'summary(tst[,10])
 #'@export
 ts_norm_swminmax <- function(remove_outliers = TRUE) {
   obj <- dal_transform()

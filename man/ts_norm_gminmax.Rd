@@ -16,5 +16,18 @@ a \code{ts_norm_gminmax} object.
 Rescales data, so the minimum value is mapped to 0 and the maximum value is mapped to 1.
 }
 \examples{
-trans <- dal_transform()
+# time series to normalize
+data(sin_data)
+
+# convert to sliding windows
+ts <- ts_data(sin_data$y, 10)
+ts_head(ts, 3)
+summary(ts[,10])
+
+# normalization
+preproc <- ts_norm_gminmax()
+preproc <- fit(preproc, ts)
+tst <- transform(preproc, ts)
+ts_head(tst, 3)
+summary(tst[,10])
 }

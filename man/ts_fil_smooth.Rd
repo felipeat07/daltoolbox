@@ -13,5 +13,19 @@ a \code{ts_fil_smooth} object.
 Used to remove or reduce randomness (noise).
 }
 \examples{
-trans <- dal_transform()
+# time series with noise
+data(sin_data)
+sin_data$y[9] <- 2*sin_data$y[9]
+# convert to sliding windows
+ts <- ts_data(sin_data$y, 10)
+ts_head(ts, 3)
+summary(ts[,10])
+
+# filter
+filter <- ts_fil_smooth()
+filter <- fit(filter, sin_data$y)
+y <- transform(filter, sin_data$y)
+
+# plot
+plot_ts_pred(y=sin_data$y, yadj=y)
 }

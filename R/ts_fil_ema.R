@@ -4,7 +4,22 @@
 #' seasonality component.
 #'@param ema exponential moving average size
 #'@return a `ts_fil_ema` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'# time series with noise
+#'data(sin_data)
+#'sin_data$y[9] <- 2*sin_data$y[9]
+#'# convert to sliding windows
+#'ts <- ts_data(sin_data$y, 10)
+#'ts_head(ts, 3)
+#'summary(ts[,10])
+#'
+#'# filter
+#'filter <- ts_fil_ema(ema = 3)
+#'filter <- fit(filter, sin_data$y)
+#'y <- transform(filter, sin_data$y)
+#'
+#'# plot
+#'plot_ts_pred(y=sin_data$y, yadj=y)
 #'@export
 ts_fil_ema <- function(ema = 3) {
   obj <- dal_transform()
