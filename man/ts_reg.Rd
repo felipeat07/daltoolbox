@@ -2,16 +2,17 @@
 % Please edit documentation in R/ts_reg.R
 \name{ts_reg}
 \alias{ts_reg}
-\title{Create an object of class "ts_reg" which is a subclass of object dal_learner}
+\title{TSReg}
 \usage{
 ts_reg()
 }
 \value{
-An object of the class "ts_reg"
+A \code{ts_reg} object
 }
 \description{
-The function sets some object attributes, such as log, debug and reproduce, to TRUE or FALSE. Then it adds the "ts_reg" class to the object and returns the created object
+Time Series Regression directly from time series
+Ancestral class for non-sliding windows implementation.
 }
 \examples{
-trans <- dal_transform()
+#See ?ts_arima for an example using Auto-regressive Integrated Moving Average
 }

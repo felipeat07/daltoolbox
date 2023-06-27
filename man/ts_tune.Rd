@@ -20,5 +20,24 @@ a \code{ts_tune} object.
 Time Series Tune
 }
 \examples{
-trans <- dal_transform()
+data(sin_data)
+ts <- ts_data(sin_data$y, 10)
+ts_head(ts, 3)
+
+samp <- ts_sample(ts, test_size = 5)
+io_train <- ts_projection(samp$train)
+io_test <- ts_projection(samp$test)
+
+tune <- ts_tune(input_size=c(3:5), base_model = ts_elm(ts_norm_gminmax()))
+ranges <- list(nhid = 1:5, actfun=c('sig', 'radbas', 'tribas', 'relu', 'purelin'))
+
+# Generic model tunning
+model <- fit(tune, x=io_train$input, y=io_train$output, ranges)
+
+prediction <- predict(model, x=io_test$input[1,], steps_ahead=5)
+prediction <- as.vector(prediction)
+output <- as.vector(io_test$output)
+
+ev_test <- evaluate(model, output, prediction)
+ev_test
 }

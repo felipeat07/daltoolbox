@@ -2,7 +2,7 @@
 % Please edit documentation in R/ts_reg.R
 \name{sMAPE.ts}
 \alias{sMAPE.ts}
-\title{Calculate the symmetric mean absolute percent error (sMAPE)}
+\title{sMAPE}
 \usage{
 sMAPE.ts(actual, prediction)
 }
@@ -15,5 +15,5 @@ sMAPE.ts(actual, prediction)
 The sMAPE between the actual and prediction vectors
 }
 \description{
-The function receives two variables as a parameter, which are actual and prediction
+Compute the symmetric mean absolute percent error (sMAPE)
 }

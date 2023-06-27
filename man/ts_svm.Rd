@@ -2,7 +2,7 @@
 % Please edit documentation in R/ts_svm.R
 \name{ts_svm}
 \alias{ts_svm}
-\title{Time Series Support Vector Machine}
+\title{SVM}
 \usage{
 ts_svm(
   preprocess = NA,
@@ -27,11 +27,26 @@ ts_svm(
 a \code{ts_svm} object.
 }
 \description{
-Transform data into vectors of features. The algorithm then
-identifies the support vectors that define the hyperplane that best separates
-the data into different classes based on temporal proximity. The hyperplane
-can then be used to make predictions about future values of the time series.
+Creates a time series prediction object that
+uses the Support Vector Machine (SVM).
+It wraps the e1071 library.
 }
 \examples{
-trans <- dal_transform()
+data(sin_data)
+ts <- ts_data(sin_data$y, 10)
+ts_head(ts, 3)
+
+samp <- ts_sample(ts, test_size = 5)
+io_train <- ts_projection(samp$train)
+io_test <- ts_projection(samp$test)
+
+model <- ts_svm(ts_norm_gminmax(), input_size=4)
+model <- fit(model, x=io_train$input, y=io_train$output)
+
+prediction <- predict(model, x=io_test$input[1,], steps_ahead=5)
+prediction <- as.vector(prediction)
+output <- as.vector(io_test$output)
+
+ev_test <- evaluate(model, output, prediction)
+ev_test
 }

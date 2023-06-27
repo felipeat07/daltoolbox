@@ -2,15 +2,17 @@
 % Please edit documentation in R/ts_arima.R
 \name{ts_arima}
 \alias{ts_arima}
-\title{Time Series AutoRegressive Integrated Moving Average (ARIMA)}
+\title{ARIMA}
 \usage{
 ts_arima()
 }
 \value{
-obj
+a \code{ts_arima} object.
 }
 \description{
-ARIMA is a regression model for forecasting time series data
+Creates a time series prediction object that
+uses the AutoRegressive Integrated Moving Average (ARIMA).
+It wraps the forecast library.
 }
 \examples{
 data(sin_data)

@@ -33,7 +33,7 @@ samp <- ts_sample(ts, test_size = 5)
 io_train <- ts_projection(samp$train)
 io_test <- ts_projection(samp$test)
 
-model <- model <- ts_elm(ts_norm_gminmax(), input_size=4, nhid=3, actfun="purelin")
+model <- ts_elm(ts_norm_gminmax(), input_size=4, nhid=3, actfun="purelin")
 model <- fit(model, x=io_train$input, y=io_train$output)
 
 prediction <- predict(model, x=io_test$input[1,], steps_ahead=5)

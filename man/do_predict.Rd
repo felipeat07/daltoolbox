@@ -2,7 +2,7 @@
 % Please edit documentation in R/ts_reg.R
 \name{do_predict}
 \alias{do_predict}
-\title{Define a generic method and delegate the implementation}
+\title{do predict for time series}
 \usage{
 do_predict(obj, x)
 }
@@ -15,7 +15,8 @@ do_predict(obj, x)
 predicted values
 }
 \description{
-This function defines the "do_predict" method for a generic object "obj" and a dataset "x"
+The actual time series model prediction.
+This method should be override by descendants.
 }
 \examples{
 trans <- dal_transform()

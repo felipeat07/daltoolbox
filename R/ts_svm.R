@@ -1,15 +1,31 @@
-#'@title Time Series Support Vector Machine
-#'@description Transform data into vectors of features. The algorithm then
-#' identifies the support vectors that define the hyperplane that best separates
-#' the data into different classes based on temporal proximity. The hyperplane
-#' can then be used to make predictions about future values of the time series.
+#'@title SVM
+#'@description Creates a time series prediction object that
+#' uses the Support Vector Machine (SVM).
+#' It wraps the e1071 library.
 #'@param preprocess normalization
 #'@param input_size input size for machine learning model
 #'@param kernel SVM kernel (linear, radial, polynomial, sigmoid)
 #'@param epsilon error threshold
 #'@param cost cost
 #'@return a `ts_svm` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(sin_data)
+#'ts <- ts_data(sin_data$y, 10)
+#'ts_head(ts, 3)
+#'
+#'samp <- ts_sample(ts, test_size = 5)
+#'io_train <- ts_projection(samp$train)
+#'io_test <- ts_projection(samp$test)
+#'
+#'model <- ts_svm(ts_norm_gminmax(), input_size=4)
+#'model <- fit(model, x=io_train$input, y=io_train$output)
+#'
+#'prediction <- predict(model, x=io_test$input[1,], steps_ahead=5)
+#'prediction <- as.vector(prediction)
+#'output <- as.vector(io_test$output)
+#'
+#'ev_test <- evaluate(model, output, prediction)
+#'ev_test
 #'@export
 ts_svm <- function(preprocess=NA, input_size=NA, kernel="radial", epsilon=0, cost=10) {
   obj <- ts_regsw(preprocess, input_size)

@@ -1,13 +1,30 @@
-# DAL Library
-# version 2.1
-
 #'@title Time Series Tune
 #'@description Time Series Tune
 #'@param input_size input size for machine learning model
 #'@param base_model base model for tuning
 #'@param folds number of folds for cross-validation
 #'@return a `ts_tune` object.
-#'@examples trans <- dal_transform()
+#'@examples
+#'data(sin_data)
+#'ts <- ts_data(sin_data$y, 10)
+#'ts_head(ts, 3)
+#'
+#'samp <- ts_sample(ts, test_size = 5)
+#'io_train <- ts_projection(samp$train)
+#'io_test <- ts_projection(samp$test)
+#'
+#'tune <- ts_tune(input_size=c(3:5), base_model = ts_elm(ts_norm_gminmax()))
+#'ranges <- list(nhid = 1:5, actfun=c('sig', 'radbas', 'tribas', 'relu', 'purelin'))
+#'
+#'# Generic model tunning
+#'model <- fit(tune, x=io_train$input, y=io_train$output, ranges)
+#'
+#'prediction <- predict(model, x=io_test$input[1,], steps_ahead=5)
+#'prediction <- as.vector(prediction)
+#'output <- as.vector(io_test$output)
+#'
+#'ev_test <- evaluate(model, output, prediction)
+#'ev_test
 #'@export
 ts_tune <- function(input_size, base_model, folds=10) {
   obj <- dal_tune(base_model, folds)
@@ -16,7 +33,6 @@ ts_tune <- function(input_size, base_model, folds=10) {
   class(obj) <- append("ts_tune", class(obj))
   return(obj)
 }
-
 
 #'@importFrom stats predict
 #'@export

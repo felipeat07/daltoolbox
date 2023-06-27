@@ -2,7 +2,7 @@
 % Please edit documentation in R/ts_regsw.R
 \name{ts_regsw}
 \alias{ts_regsw}
-\title{Create an object of class "ts_regsw", which is an extension of class "ts_reg"}
+\title{TSRegSW}
 \usage{
 ts_regsw(preprocess = NA, input_size = NA)
 }
@@ -12,11 +12,12 @@ ts_regsw(preprocess = NA, input_size = NA)
 \item{input_size}{input size for machine learning model}
 }
 \value{
-A ts_reg object
+A \code{ts_regsw} object
 }
 \description{
-Preprocessing parameters and input size are user specified
+Time Series Regression from Sliding Windows.
+Ancestral class for Machine Learning Implementation.
 }
 \examples{
-trans <- dal_transform()
+#See ?ts_elm for an example using Extreme Learning Machine
 }

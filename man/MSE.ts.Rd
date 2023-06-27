@@ -2,7 +2,7 @@
 % Please edit documentation in R/ts_reg.R
 \name{MSE.ts}
 \alias{MSE.ts}
-\title{Calculate the mean squared error (MSE) between actual values and forecasts of a time series}
+\title{MSE}
 \usage{
 MSE.ts(actual, prediction)
 }
@@ -15,5 +15,5 @@ MSE.ts(actual, prediction)
 A number, which is the calculated MSE
 }
 \description{
-The function receives two variables as a parameter, which are actual and prediction
+Compute the mean squared error (MSE) between actual values and forecasts of a time series
 }

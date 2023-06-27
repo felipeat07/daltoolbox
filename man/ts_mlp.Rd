@@ -2,7 +2,7 @@
 % Please edit documentation in R/ts_mlp.R
 \name{ts_mlp}
 \alias{ts_mlp}
-\title{Time Series Multilayer Perceptron (MLP)}
+\title{MLP}
 \usage{
 ts_mlp(preprocess = NA, input_size = NA, size = NA, decay = 0.01, maxit = 1000)
 }
@@ -21,12 +21,26 @@ ts_mlp(preprocess = NA, input_size = NA, size = NA, decay = 0.01, maxit = 1000)
 a \code{ts_mlp} object.
 }
 \description{
-Type of artificial neural network used to make predictions and
-forecasts based on time series data. Consists of multiple layers of
-interconnected nodes or neurons, using a supervised learning algorithm, which
-processes the input data and passes it on. The output of the final layer
-provides the predicted values for the future.
+Creates a time series prediction object that
+uses the Multilayer Perceptron (MLP).
+It wraps the nnet library.
 }
 \examples{
-trans <- dal_transform()
+data(sin_data)
+ts <- ts_data(sin_data$y, 10)
+ts_head(ts, 3)
+
+samp <- ts_sample(ts, test_size = 5)
+io_train <- ts_projection(samp$train)
+io_test <- ts_projection(samp$test)
+
+model <- ts_mlp(ts_norm_gminmax(), input_size=4, size=4, decay=0)
+model <- fit(model, x=io_train$input, y=io_train$output)
+
+prediction <- predict(model, x=io_test$input[1,], steps_ahead=5)
+prediction <- as.vector(prediction)
+output <- as.vector(io_test$output)
+
+ev_test <- evaluate(model, output, prediction)
+ev_test
 }

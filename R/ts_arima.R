@@ -1,6 +1,8 @@
-#'@title Time Series AutoRegressive Integrated Moving Average (ARIMA)
-#'@description ARIMA is a regression model for forecasting time series data
-#'@return obj
+#'@title ARIMA
+#'@description Creates a time series prediction object that
+#' uses the AutoRegressive Integrated Moving Average (ARIMA).
+#' It wraps the forecast library.
+#'@return a `ts_arima` object.
 #'@examples
 #'data(sin_data)
 #'ts <- ts_data(sin_data$y, 0)

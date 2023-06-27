@@ -1,9 +1,11 @@
-#'@title Create an object of class "ts_regsw", which is an extension of class "ts_reg"
-#'@description Preprocessing parameters and input size are user specified
+#'@title TSRegSW
+#'@description Time Series Regression from Sliding Windows.
+#'Ancestral class for Machine Learning Implementation.
 #'@param preprocess normalization
 #'@param input_size input size for machine learning model
-#'@return A ts_reg object
-#'@examples trans <- dal_transform()
+#'@return A `ts_regsw` object
+#'@examples
+#'#See ?ts_elm for an example using Extreme Learning Machine
 #'@export
 ts_regsw <- function(preprocess=NA, input_size=NA) {
   obj <- ts_reg()

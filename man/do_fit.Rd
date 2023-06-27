@@ -2,7 +2,7 @@
 % Please edit documentation in R/ts_reg.R
 \name{do_fit}
 \alias{do_fit}
-\title{Delegate the task of adjusting the model to the specific methods of each class that implements it.}
+\title{do fit for time series}
 \usage{
 do_fit(obj, x, y = NULL)
 }
@@ -17,7 +17,8 @@ do_fit(obj, x, y = NULL)
 fitted object
 }
 \description{
-This function receives the obj, x and y variables as parameters
+The actual time series model fitting.
+This method should be override by descendants.
 }
 \examples{
 trans <- dal_transform()
