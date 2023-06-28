@@ -9,7 +9,6 @@
 #'@return a `cla_tune` object.
 #'@examples
 #'# preparing dataset for random sampling
-#'set.seed(1)
 #'sr <- sample_random()
 #'sr <- train_test(sr, iris)
 #'train <- sr$train
@@ -69,10 +68,6 @@ fit.cla_tune <- function(obj, data, ranges, ...) {
     metric <- evaluate(model, y, prediction)$metrics[1,obj$metric]
     return(metric)
   }
-
-  if (obj$base_model$reproduce)
-    set.seed(1)
-
   obj <- prepare_ranges(obj, ranges)
   ranges <- obj$ranges
 

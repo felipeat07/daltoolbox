@@ -15,6 +15,9 @@ plot_points(data, label_x = "", label_y = "", colors = NULL)
 
 \item{colors}{color vector}
 }
+\value{
+ggplot graphic
+}
 \description{
 plot points
 }

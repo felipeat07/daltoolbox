@@ -16,8 +16,6 @@ predictor <- function() {
 
 #'@export
 fit.predictor <- function(obj, data, ...) {
-  if (obj$reproduce)
-    set.seed(1)
   obj$x <- setdiff(colnames(data), obj$attribute)
   return(obj)
 }

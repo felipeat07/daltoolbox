@@ -5,7 +5,6 @@
 #'@export
 dal_base <- function() {
   obj <- list()
-  obj$reproduce <- FALSE
   attr(obj, "class") <- "dal_base"
   return(obj)
 }
@@ -63,7 +62,7 @@ action.default <- function(obj, ...) {
 #'@param params parameters to set obj
 #'@return obj with parameters set
 #'@examples
-#'obj <- set_params(dal_base(), list(reproduce = TRUE))
+#'obj <- set_params(dal_base(), list(x = 0))
 #'@export
 set_params <- function(obj, params) {
   UseMethod("set_params")

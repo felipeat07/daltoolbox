@@ -28,7 +28,6 @@ data(Boston)
 model <- reg_svm("medv", epsilon=0.2,cost=40.000)
 
 # preparing dataset for random sampling
-set.seed(1)
 sr <- sample_random()
 sr <- train_test(sr, Boston)
 train <- sr$train

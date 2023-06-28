@@ -14,7 +14,6 @@
 #'model <- cla_rf("Species", slevels, ntree=5)
 #'
 #'# preparing dataset for random sampling
-#'set.seed(1)
 #'sr <- sample_random()
 #'sr <- train_test(sr, iris)
 #'train <- sr$train

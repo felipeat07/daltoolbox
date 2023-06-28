@@ -23,7 +23,6 @@ slevels <- levels(iris$Species)
 model <- cla_majority("Species", slevels)
 
 # preparing dataset for random sampling
-set.seed(1)
 sr <- sample_random()
 sr <- train_test(sr, iris)
 train <- sr$train

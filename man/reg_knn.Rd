@@ -23,7 +23,6 @@ data(Boston)
 model <- reg_knn("medv", k=3)
 
 # preparing dataset for random sampling
-set.seed(1)
 sr <- sample_random()
 sr <- train_test(sr, Boston)
 train <- sr$train

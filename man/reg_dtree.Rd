@@ -22,7 +22,6 @@ data(Boston)
 model <- reg_dtree("medv")
 
 # preparing dataset for random sampling
-set.seed(1)
 sr <- sample_random()
 sr <- train_test(sr, Boston)
 train <- sr$train

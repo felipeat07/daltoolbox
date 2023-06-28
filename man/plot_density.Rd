@@ -26,6 +26,9 @@ plot_density(
 
 \item{alpha}{level of transparency}
 }
+\value{
+ggplot graphic
+}
 \description{
 plot density
 }

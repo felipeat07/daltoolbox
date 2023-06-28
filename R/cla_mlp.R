@@ -14,7 +14,6 @@
 #'model <- cla_mlp("Species", slevels, size=3, decay=0.03)
 #'
 #'# preparing dataset for random sampling
-#'set.seed(1)
 #'sr <- sample_random()
 #'sr <- train_test(sr, iris)
 #'train <- sr$train

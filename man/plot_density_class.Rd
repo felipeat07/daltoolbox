@@ -29,6 +29,9 @@ plot_density_class(
 
 \item{alpha}{level of transparency}
 }
+\value{
+ggplot graphic
+}
 \description{
 plot density per class
 }

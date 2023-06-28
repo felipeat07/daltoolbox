@@ -80,6 +80,7 @@ plot_boxplot <- function(data, label_x = "", label_y = "", colors = NULL, barwit
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
+#'@return ggplot graphic
 #'@examples
 #'grf <- plot_boxplot_class(iris |> dplyr::select(Sepal.Width, Species),
 #'  class = "Species", colors=c("red", "green", "blue"))
@@ -122,6 +123,7 @@ plot_boxplot_class <- function(data, class_label, label_x = "", label_y = "", co
 #'@param colors color vector
 #'@param bin bin width
 #'@param alpha level of transparency
+#'@return ggplot graphic
 #'@examples
 #'grf <- plot_density(iris |> dplyr::select(Sepal.Width), colors="blue")
 #'plot(grf)
@@ -175,6 +177,7 @@ plot_density <-  function(data, label_x = "", label_y = "", colors = NULL, bin =
 #'@param colors color vector
 #'@param bin bin width
 #'@param alpha level of transparency
+#'@return ggplot graphic
 #'@examples
 #'grf <- plot_density_class(iris |> dplyr::select(Sepal.Width, Species),
 #'  class = "Species", colors=c("red", "green", "blue"))
@@ -388,6 +391,7 @@ plot_pieplot <- function(data, label_x = "", label_y = "", colors = NULL, textco
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param colors color vector
+#'@return ggplot graphic
 #'@examples
 #'x <- seq(0, 10, 0.25)
 #'data <- data.frame(x, sin=sin(x), cosine=cos(x)+5)
@@ -563,6 +567,7 @@ plot_stackedbar <- function(data, label_x = "", label_y = "", colors = NULL, alp
 #'@param label_x x-axis label
 #'@param label_y y-axis label
 #'@param color color for time series
+#'@return ggplot graphic
 #'@examples
 #'x <- seq(0, 10, 0.25)
 #'data <- data.frame(x, sin=sin(x))
@@ -596,6 +601,7 @@ plot_ts <- function(x = NULL, y, label_x = "", label_y = "", color="black")  {
 #'@param color color for the time series
 #'@param color_adjust color for the adjusted values
 #'@param color_prediction color for the predictions
+#'@return ggplot graphic
 #'@examples
 #'data(sin_data)
 #'ts <- ts_data(sin_data$y, 0)

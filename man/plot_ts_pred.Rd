@@ -35,6 +35,9 @@ plot_ts_pred(
 
 \item{color_prediction}{color for the predictions}
 }
+\value{
+ggplot graphic
+}
 \description{
 The function receives six variables as a parameter, which are obj and y, yadj, main and xlabels. The graph is plotted with 3 lines: the original series (in black), the adjusted series (in blue) and the predicted series (in green)
 }

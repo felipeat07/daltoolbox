@@ -32,9 +32,6 @@ ts_arima <- function() {
 #'@import forecast
 #'@export
 fit.ts_arima <- function(obj, x, y = NULL, ...) {
-  if (obj$reproduce)
-    set.seed(1)
-
   obj$model <- forecast::auto.arima(x, allowdrift = TRUE, allowmean = TRUE)
   order <- obj$model$arma[c(1, 6, 2, 3, 7, 4, 5)]
   obj$p <- order[1]

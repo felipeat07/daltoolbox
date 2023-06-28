@@ -9,7 +9,6 @@
 #'@examples
 #'# preparing dataset for random sampling
 #'data(Boston)
-#'set.seed(1)
 #'sr <- sample_random()
 #'sr <- train_test(sr, Boston)
 #'train <- sr$train
@@ -60,9 +59,6 @@ fit.reg_tune <- function(obj, data, ranges, ...) {
     error <- evaluate(model, y, prediction)$mse
     return(error)
   }
-
-  if (obj$base_model$reproduce)
-    set.seed(1)
 
   obj <- prepare_ranges(obj, ranges)
   ranges <- obj$ranges

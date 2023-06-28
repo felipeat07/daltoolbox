@@ -22,9 +22,6 @@ ts_regsw <- function(preprocess=NA, input_size=NA) {
 
 #'@export
 fit.ts_regsw <- function(obj, x, y, ...) {
-  if (obj$reproduce)
-    set.seed(1)
-
   obj$preprocess <- fit(obj$preprocess, x)
 
   x <- transform(obj$preprocess, x)

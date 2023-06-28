@@ -62,9 +62,6 @@ fit.ts_tune <- function(obj, x, y, ranges, ...) {
     return(error)
   }
 
-  if (obj$base_model$reproduce)
-    set.seed(1)
-
   obj <- prepare_ranges(obj, ranges)
   ranges <- obj$ranges
 

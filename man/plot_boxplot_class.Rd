@@ -23,6 +23,9 @@ plot_boxplot_class(
 
 \item{colors}{color vector}
 }
+\value{
+ggplot graphic
+}
 \description{
 plot boxplot per class
 }
