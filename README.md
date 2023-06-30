@@ -16,6 +16,12 @@ functions.
 
 ## Installation
 
+You can install the stable version of dal from CRAN with:
+
+``` r
+install.packages("daltoolbox")
+```
+
 You can install the development version of dal from
 [GitHub](https://github.com/) with:
 
