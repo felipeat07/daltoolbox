@@ -17,7 +17,7 @@ functions.
 ## Installation
 
 The latest version of DAL Toolbox at CRAN is available at:
-<https://cran.r-project.org/web/packages/daltoolbox/index.html/>
+<https://cran.r-project.org/web/packages/daltoolbox/index.html>
 
 You can install the stable version of DAL Toolbox from CRAN with:
 
