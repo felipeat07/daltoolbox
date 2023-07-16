@@ -6,7 +6,7 @@
 #'@param epochs maximum number of epochs
 #'@return a `ts_lstm` object.
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'data(sin_data)
 #'ts <- ts_data(sin_data$y, 10)
 #'ts_head(ts, 3)
