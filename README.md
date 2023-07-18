@@ -38,9 +38,6 @@ devtools::install_github("cefet-rj-dal/daltoolbox", force=TRUE, dependencies=FAL
 The DAL Toolbox examples are made available at:
 <https://nbviewer.org/github/cefet-rj-dal/daltoolbox-examples/tree/main>
 
-A demo video is provided at:
-<https://eic.cefet-rj.br/~dal/leveraging-experiment-lines-to-data-analytics>
-
 The examples are organized according to general (data preprocessing),
 clustering, classification, regression, and time series functions.
 
