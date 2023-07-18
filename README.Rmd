@@ -48,6 +48,7 @@ The DAL Toolbox examples are made available at:
 
 The examples are organized according to general (data preprocessing),
 clustering, classification, regression, and time series functions.
+This version has Python integration with Pytorch. 
 
 
 ```{r example}

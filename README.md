@@ -39,7 +39,8 @@ The DAL Toolbox examples are made available at:
 <https://nbviewer.org/github/cefet-rj-dal/daltoolbox-examples/tree/main>
 
 The examples are organized according to general (data preprocessing),
-clustering, classification, regression, and time series functions.
+clustering, classification, regression, and time series functions. This
+version has Python integration with Pytorch.
 
 ``` r
 library(daltoolbox)
