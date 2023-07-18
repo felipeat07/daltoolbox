@@ -16,7 +16,7 @@ z-score transformation object
 }
 \description{
 Scale data using z-score normalization.
-\eqn{zscore = \dfrac{x - \mu}{\sigma}},
+\eqn{zscore = (x - \mu)/\sigma},
 where \eqn{\mu} is the mean of \eqn{x}
 and \eqn{\sigma} is the standard deviation.
 }
