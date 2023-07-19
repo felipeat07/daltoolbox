@@ -1,8 +1,6 @@
 #'@title z-score normalization
 #'@description Scale data using z-score normalization.
-#' \eqn{zscore = (x - \mu)/\sigma},
-#' where \eqn{\mu} is the mean of \eqn{x}
-#' and \eqn{\sigma} is the standard deviation.
+#'zscore = (x - mean(x))/sd(x).
 #'@param nmean new mean for normalized data
 #'@param nsd new standard deviation for normalized data
 #'@return z-score transformation object
