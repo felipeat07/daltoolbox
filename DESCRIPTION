@@ -16,12 +16,6 @@ Authors@R:
             email = "antonio.castro@eic.cefet-rj.br"
         ),
         person(
-            given = "Cristiane",
-            family = "Gea",
-            role = c("aut", "ths"),
-            email = "cristiane.gea@eic.cefet-rj.br"
-        ),
-        person(
             given = "Heraldo",
             family = "Borges",
             role = c("aut", "ths"),
