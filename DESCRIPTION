@@ -1,6 +1,6 @@
 Package: daltoolbox
 Title: Leveraging Experiment Lines to Data Analytics 
-Version: 1.0.707
+Version: 1.0.717
 Authors@R: 
   c(    person(
             given = "Eduardo",
