@@ -14,7 +14,7 @@
 #'io_test <- ts_projection(samp$test)
 #'
 #'tune <- ts_tune(input_size=c(3:5), base_model = ts_elm(ts_norm_gminmax()))
-#'ranges <- list(nhid = 1:5, actfun=c('sig', 'radbas', 'tribas', 'relu', 'purelin'))
+#'ranges <- list(nhid = 1:5, actfun=c('purelin'))
 #'
 #'# Generic model tunning
 #'model <- fit(tune, x=io_train$input, y=io_train$output, ranges)
