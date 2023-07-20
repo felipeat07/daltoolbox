@@ -27,7 +27,7 @@ test <- sr$test
 
 # hyper parameter setup
 tune <- reg_tune(reg_mlp("medv"))
-ranges <- list(size=c(3:5), decay=c(0.1, 0.5, 1))
+ranges <- list(size=c(3:5), decay=c(0.1))
 
 # hyper parameter optimization
 model <- fit(tune, train, ranges)
