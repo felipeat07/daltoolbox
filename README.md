@@ -27,7 +27,7 @@ install.packages("daltoolbox")
 ```
 
 You can install the development version of DAL Toolbox from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/cefet-rj-dal/daltoolbox) with:
 
 ``` r
 library(devtools)
