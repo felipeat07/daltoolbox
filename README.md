@@ -7,6 +7,7 @@
 
 ![GitHub Repo
 stars](https://img.shields.io/github/stars/cefet-rj-dal/daltoolbox?logo=Github)
+![GitHub Repo stars](https://cranlogs.r-pkg.org/badges/daltoolbox)
 <!-- badges: end -->
 
 The goal of DAL Toolbox is to provide a series data analytics functions
