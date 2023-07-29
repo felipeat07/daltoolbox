@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# <img src='https://raw.githubusercontent.com/cefet-rj-dal/daltoolbox/master/inst/logo.png' align='centre' height='150' width='129'/> DAL Toolbox
+# <img src='https://raw.githubusercontent.com/cefet-rj-dal/daltoolbox/master/inst/logo.png' align='centre' height='150' width='182'/> DAL Toolbox
 
 <!-- badges: start -->
 
