@@ -34,7 +34,7 @@ You can install the stable version of DAL Toolbox from CRAN with:
 install.packages("daltoolbox")
 ```
 
-You can install the development version of DAL Toolbox from [GitHub](https://github.com/cefet-rj-dal/daltoolbox) with:
+You can install the development version of DAL Toolbox from GitHub [https://github.com/cefet-rj-dal/daltoolbox](https://github.com/cefet-rj-dal/daltoolbox) with:
 
 ``` r
 library(devtools)
@@ -56,4 +56,8 @@ This version has Python integration with Pytorch.
 library(daltoolbox)
 ## loading DAL Toolbox
 ```
+
+
+## Bugs and new features request
+<https://github.com/cefet-rj-dal/daltoolbox/issues>
 
