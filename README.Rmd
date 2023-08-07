@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# <img src='https://raw.githubusercontent.com/cefet-rj-dal/daltoolbox/master/inst/logo.png' align='centre' height='150' width='182'/> DAL Toolbox
+# <img src='https://raw.githubusercontent.com/cefet-rj-dal/daltoolbox/master/inst/logo.png' align='centre' height='150' width='139'/> DAL Toolbox
 
 <!-- badges: start -->
 ![GitHub Repo stars](https://img.shields.io/github/stars/cefet-rj-dal/daltoolbox?logo=Github)
