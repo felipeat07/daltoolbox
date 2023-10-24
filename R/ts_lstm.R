@@ -19,7 +19,6 @@ ts_lstm <- function(preprocess = NA, input_size = NA, epochs = 10000L) {
 }
 
 
-
 #'@export
 do_fit.ts_lstm <- function(obj, x, y) {
   if (!exists("ts_lstm_create"))

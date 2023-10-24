@@ -1,6 +1,6 @@
 Package: daltoolbox
 Title: Leveraging Experiment Lines to Data Analytics 
-Version: 1.0.717
+Version: 1.0.727
 Authors@R: 
   c(    person(
             given = "Eduardo",
@@ -55,7 +55,7 @@ License: MIT + file LICENSE
 URL: https://github.com/cefet-rj-dal/daltoolbox
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Imports: 
   FNN, 
   MLmetrics, 
@@ -81,6 +81,9 @@ Config/reticulate:
       list(package = "pandas"),
       list(package = "numpy"),
       list(package = "matplotlib"),
-      list(package = "scikit-learn")
+      list(package = "scikit-learn"),
+      list(package = "functools"),
+      list(package = "operator"),
+      list(package = "sys")
     )
   )  
