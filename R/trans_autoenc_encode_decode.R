@@ -29,7 +29,7 @@ fit.autoenc_encode_decode <- function(obj, data, ...) {
     reticulate::source_python(system.file("python", "autoencoder.py", package = "daltoolbox"))
 
   if (is.null(obj$model))
-    obj$model <- autoencoder_create(obj$input_size, obj$input_size)
+    obj$model <- autoencoder_create(obj$input_size, obj$encoding_size)
 
   obj$model <- autoencoder_fit(obj$model, data, num_epochs = obj$num_epochs, learning_rate = obj$learning_rate)
 
@@ -38,6 +38,9 @@ fit.autoenc_encode_decode <- function(obj, data, ...) {
 
 #'@export
 transform.autoenc_encode_decode <- function(obj, data, ...) {
+  if (!exists("autoencoder_create"))
+    reticulate::source_python(system.file("python", "autoencoder.py", package = "daltoolbox"))
+
   result <- NULL
   if (!is.null(obj$model))
     result <- autoencoder_encode_decode(obj$model, data)
