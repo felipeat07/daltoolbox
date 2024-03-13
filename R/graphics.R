@@ -475,6 +475,8 @@ plot_scatter <- function(data, label_x = "", label_y = "", colors = NULL) {
   grf <- ggplot(data=data, aes(x = x, y = value, colour=variable, group=variable)) + geom_point(size=1)
   if (!is.null(colors)) {
     grf <- grf + scale_color_manual(values=colors)
+    if (!is.null(data$variable) && !is.factor(data$variable))
+      grf <- grf + scale_color_gradient(low=colors[1], high=colors[length(colors)])
   }
   grf <- grf + xlab(label_x)
   grf <- grf + ylab(label_y)
