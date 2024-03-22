@@ -6,3 +6,4 @@
 ^docs$
 ^pkgdown$
 ^\.github$
+package.R
