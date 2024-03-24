@@ -6,4 +6,12 @@
 ^docs$
 ^pkgdown$
 ^\.github$
+^classification$
+^clustering$
+^graphics$
+^regression$
+^timeseries$
+^transformation$
 package.R
+jupyter.R
+wine.RData
