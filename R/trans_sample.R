@@ -37,6 +37,7 @@ data_sample <- function() {
 #'@description training and test partition of a dataset using a sampling method
 #'@param obj object
 #'@param data dataset
+#'@param perc percentage for training
 #'@param ... optional arguments.
 #'@return train and test sets
 #'@examples
@@ -47,12 +48,12 @@ data_sample <- function() {
 #'# distribution of train
 #'table(tt$train$Species)
 #'@export
-train_test <- function(obj, data, ...) {
+train_test <- function(obj, data, perc=0.8, ...) {
   UseMethod("train_test")
 }
 
 #'@export
-train_test.default <- function(obj, data, ...) {
+train_test.default <- function(obj, data, perc=0.8, ...) {
   return(list())
 }
 

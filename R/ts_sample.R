@@ -2,8 +2,8 @@
 #'@description Separates the `ts_data` into training and test.
 #'It separates the test size from the last observations minus an offset.
 #'The offset is important to allow replication under different recent origins.
-#'The data for test uses the number of rows of a `ts_data` minus the test size and offset.
-#'@param ts time series data.
+#'The data for train uses the number of rows of a `ts_data` minus the test size and offset.
+#'@param ts time series.
 #'@param test_size integer: size of test data (default = 1).
 #'@param offset integer: starting point (default = 0).
 #'@return A list with the two samples

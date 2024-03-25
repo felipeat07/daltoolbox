@@ -4,12 +4,14 @@
 \alias{train_test}
 \title{training and test}
 \usage{
-train_test(obj, data, ...)
+train_test(obj, data, perc = 0.8, ...)
 }
 \arguments{
 \item{obj}{object}
 
 \item{data}{dataset}
+
+\item{perc}{percentage for training}
 
 \item{...}{optional arguments.}
 }

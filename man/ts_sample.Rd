@@ -7,7 +7,7 @@
 ts_sample(ts, test_size = 1, offset = 0)
 }
 \arguments{
-\item{ts}{time series data.}
+\item{ts}{time series.}
 
 \item{test_size}{integer: size of test data (default = 1).}
 
@@ -20,7 +20,7 @@ A list with the two samples
 Separates the \code{ts_data} into training and test.
 It separates the test size from the last observations minus an offset.
 The offset is important to allow replication under different recent origins.
-The data for test uses the number of rows of a \code{ts_data} minus the test size and offset.
+The data for train uses the number of rows of a \code{ts_data} minus the test size and offset.
 }
 \examples{
 #setting up a ts_data
