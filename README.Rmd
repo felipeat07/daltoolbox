@@ -44,10 +44,15 @@ devtools::install_github("cefet-rj-dal/daltoolbox", force=TRUE, dependencies=FAL
 ## Examples
 
 Classification: <https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/classification/>
+
 Clustering: <https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/clustering/>
+
 Graphics: <https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/graphics/>
+
 Regression: <https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/regression/>
+
 Time series: <https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/timeseries/>
+
 Transformation: <https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/transformation/>
 
 

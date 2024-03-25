@@ -38,14 +38,19 @@ devtools::install_github("cefet-rj-dal/daltoolbox", force=TRUE, dependencies=FAL
 
 Classification:
 <https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/classification/>
+
 Clustering:
 <https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/clustering/>
+
 Graphics:
 <https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/graphics/>
+
 Regression:
 <https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/regression/>
+
 Time series:
 <https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/timeseries/>
+
 Transformation:
 <https://nbviewer.org/github/cefet-rj-dal/daltoolbox/tree/main/transformation/>
 
@@ -55,6 +60,14 @@ version has Python integration with Pytorch.
 
 ``` r
 library(daltoolbox)
+#> Registered S3 method overwritten by 'quantmod':
+#>   method            from
+#>   as.zoo.data.frame zoo
+#> 
+#> Attaching package: 'daltoolbox'
+#> The following object is masked from 'package:base':
+#> 
+#>     transform
 ## loading DAL Toolbox
 ```
 
