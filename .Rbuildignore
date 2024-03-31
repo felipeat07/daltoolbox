@@ -12,6 +12,7 @@
 ^regression$
 ^timeseries$
 ^transformation$
+^develop$
 package.R
 jupyter.R
 wine.RData

@@ -80,14 +80,29 @@ sMAPE.ts <- function (actual, prediction) {
   res
 }
 
+#'@title R2
+#'@description Compute the R-squared (R2) between actual values and forecasts of a time series
+#'@param actual real observations
+#'@param prediction predicted observations
+#'@return A number, which is the calculated R2
+#'@export
+R2.ts <- function (actual, prediction) {
+  if (length(actual) != length(prediction))
+    stop("actual and prediction have different lengths")
+  res <-  1 - sum((prediction - actual)^2)/sum((mean(actual) - actual)^2)
+  res
+}
+
+
 #'@export
 evaluate.ts_reg <- function(obj, values, prediction, ...) {
   result <- list(values=values, prediction=prediction)
 
   result$smape <- sMAPE.ts(values, prediction)
   result$mse <- MSE.ts(values, prediction)
+  result$R2 <- R2.ts(values, prediction)
 
-  result$metrics <- data.frame(mse=result$mse, smape=result$smape)
+  result$metrics <- data.frame(mse=result$mse, smape=result$smape, R2 = result$R2)
 
   return(result)
 }

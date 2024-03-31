@@ -31,12 +31,21 @@ evaluate.regression <- function(obj, values, prediction, ...) {
     res
   }
 
+  R2 <- function (actual, prediction) {
+    if (length(actual) != length(prediction))
+      stop("actual and prediction have different lengths")
+    res <-  1 - sum((prediction - actual)^2)/sum((mean(actual) - actual)^2)
+    res
+  }
+
+
   result <- list(values=values, prediction=prediction)
 
   result$smape <- sMAPE(values, prediction)
   result$mse <- MSE(values, prediction)
+  result$R2 <- R2(values, prediction)
 
-  result$metrics <- data.frame(mse=result$mse, smape=result$smape)
+  result$metrics <- data.frame(mse=result$mse, smape=result$smape, R2 = result$R2)
 
   return(result)
 }
