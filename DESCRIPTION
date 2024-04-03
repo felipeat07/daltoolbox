@@ -46,6 +46,8 @@ Config/reticulate:
       list(package = "scikit-learn"),
       list(package = "functools"),
       list(package = "operator"),
+#      list(package = "pybind11"),
+#      list(package = "wisardpkg==2.0.0a7"),
       list(package = "sys")
     )
   )  
