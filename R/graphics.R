@@ -116,7 +116,7 @@ plot_boxplot_class <- function(data, class_label, label_x = "", label_y = "", co
 
 
 #'@title plot density
-#'@description plot density
+#'@description plot density variables according to xyz
 #'@param data data.frame contain x, value, and variable
 #'@param label_x x-axis label
 #'@param label_y y-axis label
